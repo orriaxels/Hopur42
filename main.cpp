@@ -4,12 +4,8 @@ using namespace std;
 
 int main()
 {
-<<<<<<< HEAD
     cout << "Drasl" << endl; // Orri Ax
-=======
-    cout<<"Hello world"<<endl;
 
->>>>>>> origin/master
     return 0;
 }
 
