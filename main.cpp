@@ -4,9 +4,23 @@ using namespace std;
 
 int main()
 {
-    cout<<"Hello world";
+    cout<<"Hello world"<<endl;
 
-       return 0;
+    return 0;
 }
 
-// testi test endilega baetid vid comment og "push" til ad athuga hvort thad virkar
+/*
+Skil 1
+
+Í þessum hluta skal skrifa console forrit með eftirfarandi kröfur til virkni:
+
+(10%)   Notandi skal geta skráð þekktar persónur úr sögu tölvunarfræðinnar.
+        Að lágmarki skal vera hægt að skrá eftirfarandi gögn um sérhverja persónu:
+        nafn, kyn, fæðingarár og dánarár (ef við á).
+(10%)   Forritið skal geta birt lista af þeim persónum sem skráðar hafa verið.
+(10%)   Forritið skal geyma listann, þannig að hann týnist ekki þó forritinu sé lokað.
+(10%)   Hægt skal vera að leita í listanum.
+(10%)   Þegar listinn er birtur, skal bjóða notandanum að velja hvernig hann skuli raðaður.
+        Þá eru gerðar eftirfarandi kröfur að auki:
+        */
+
