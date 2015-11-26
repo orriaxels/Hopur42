@@ -22,5 +22,6 @@ Skil 1
 (10%)   Hægt skal vera að leita í listanum.
 (10%)   Þegar listinn er birtur, skal bjóða notandanum að velja hvernig hann skuli raðaður.
         Þá eru gerðar eftirfarandi kröfur að auki:
+            halli test
         */
 
