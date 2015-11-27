@@ -8,8 +8,10 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    persons.cpp
+    persons.cpp \
+    searchfile.cpp
 
 HEADERS += \
-    persons.h
+    persons.h \
+    searchfile.h
 
