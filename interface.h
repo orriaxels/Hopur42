@@ -13,9 +13,11 @@ class InterFace //Ser um samdkipti vid notanda in/out
 {
 	public:
 		InterFace();
-		void displayMainMenu();
 		void runInterFace();
+		void displayMainMenu();
+		void printAddMenu();
 		void printDisplayMenu();
+		void printSearchMenu();
 		int actionSelect();
 
 	private:  // Verda liklega ekki breitur til ad vinna med
