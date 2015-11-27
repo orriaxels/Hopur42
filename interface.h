@@ -14,6 +14,7 @@ class InterFace //Ser um samdkipti vid notanda in/out
 	public:
 		InterFace();
 		void displayMainMenu();
+		void runInterFace();
 		void printDisplayMenu();
 		int actionSelect();
 

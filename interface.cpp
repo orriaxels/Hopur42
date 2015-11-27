@@ -3,11 +3,13 @@
 
 using namespace std;
 
-InterFace::InterFace(){ //default constructor
+InterFace::InterFace(){} //default constructor
 
+
+void InterFace::runInterFace(){
+    InterFace::displayMainMenu();
+    InterFace::actionSelect();
 }
-
-
 void InterFace::displayMainMenu(){
     cout << "Welcome to this awesome database" << endl;
     cout << endl;
@@ -27,7 +29,7 @@ int InterFace::actionSelect(){
         cin >> a;
         switch(a){
             case '1':
-//                InterFace::addName();
+                cout << "add";
                 break;
             case '2':
                 InterFace::printDisplayMenu();

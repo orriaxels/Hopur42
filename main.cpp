@@ -8,7 +8,7 @@ using namespace std;
 int main(){
 
     InterFace ifDisp;
-    ifDisp.displayMainMenu();
+    ifDisp.runInterFace();
     
     return 0;
 }
