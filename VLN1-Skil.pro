@@ -9,9 +9,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     persons.cpp \
-    searchfile.cpp
+    interface.cpp
 
 HEADERS += \
     persons.h \
-    searchfile.h
+    interface.h
 

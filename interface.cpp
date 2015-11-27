@@ -1,24 +1,11 @@
-#include <iostream>
-#include "persons.h"
 #include "interface.h"
 
-using namespace std;
-
-void printMenu();
-bool choice();
-void addPerson();
-
-int main()
+Interface::Interface()
 {
-    do{
-    printMenu();
-//    function print menu
-//   getuserselection
-    }while(1); //eftir að útfæra break hér til að komast út úr falli. kemur seinna.
 
-    return 0;
 }
-
+/* hægt að útfæra þessi föll þá hér og láta þau interface við Persons.h
+ * Látum koma í ljós hvort við viljum nota fleiri klasa eftir það.
 void printMenu()
 {
     cout << " Welcome to this awesome database" << endl;
@@ -83,17 +70,4 @@ void addPerson(){
         }while(agree == 'y' | agree == 'Y');
 
 }
-
-/*
-
-    function getUserSelection with error check
-    switch
-        function Search
-        Fucntion display
-        Funciton add
-        **function delete
-        */
-
-
-//Test
-
+*/
