@@ -4,6 +4,7 @@
 using namespace std;
 
 void printMenu();
+bool choice();
 
 int main()
 {
@@ -12,6 +13,8 @@ int main()
 //    function print menu
 //    getuserselection
 //    while();
+
+    choice();
 
 
     return 0;
@@ -31,6 +34,39 @@ void printMenu()
     cout << endl;
     cout << "Please select an option from the list: ";
 
+}
+
+bool choice()
+{
+    char num='0';
+
+
+    do{
+        cin >> num;
+
+        switch(num){
+            case '1':
+                //addPerson();
+                cout << "add" << endl;
+                break;
+            case '2':
+                //display();
+                cout << "display" << endl;
+                break;
+            case '3':
+                //search();
+                cout << "search" << endl;
+                break;
+            case '4':
+                cout << "false" << endl;
+                return false;
+            default:
+                cout << "Input not available" << endl;
+                break;
+        }
+          } while(num !='1' && num !='2' && num !='3' && num !='4');
+
+    return 0;
 }
 
 /*
