@@ -18,9 +18,9 @@ int main()
 						break;
 			case '4': 	persons.deleteEntry();
 						break;
-			default:	return 0;		
+			default:	break;	
 		}
-    }while(1); //eftir að útfæra break hér til að komast út úr falli. kemur seinna.
+    } while(num !='1' && num !='2' && num !='3' && num !='4');
 
     return 0;
 }
