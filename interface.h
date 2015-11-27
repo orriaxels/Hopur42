@@ -1,11 +1,23 @@
-#ifndef INTERFACE_H
-#define INTERFACE_H
+#ifndef interface_h
+#define interface_h
+
+#include <iostream>
+#include <string>
+#include "persons.h"
 
 
-class Interface
+using namespace std;
+
+
+class InterFace //Ser um samdkipti vid notanda in/out
 {
-public:
-    Interface();
+	public:
+		InterFace();
+		void displayMainMenu();
+		void printDisplayMenu();
+		int actionSelect();
+
+	private:  // Verda liklega ekki breitur til ad vinna med
 };
 
-#endif // INTERFACE_H
+#endif

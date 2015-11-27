@@ -1,16 +1,17 @@
+#include <iostream>
 #include "interface.h"
 
-Interface::Interface()
-{
+using namespace std;
+
+InterFace::InterFace(){ //default constructor
 
 }
-/* hægt að útfæra þessi föll þá hér og láta þau interface við Persons.h
- * Látum koma í ljós hvort við viljum nota fleiri klasa eftir það.
-void printMenu()
-{
-    cout << " Welcome to this awesome database" << endl;
+
+
+void InterFace::displayMainMenu(){
+    cout << "Welcome to this awesome database" << endl;
     cout << endl;
-    cout << " What would you like to do?" << endl;
+    cout << "What would you like to do?" << endl;
     cout << "  1. Add a new entry" << endl;
     cout << "  2. Display the database" << endl;
     cout << "  3. Search the database" << endl;
@@ -19,18 +20,17 @@ void printMenu()
     cout << "Please select an option from the list: ";
 }
 
-void choice(){
-    char num='0';
+int InterFace::actionSelect(){
+    
+    char a = '0';
     do{
-        cin >> num;
-
-        switch(num){
+        cin >> a;
+        switch(a){
             case '1':
-                addPerson();
+//                InterFace::addName();
                 break;
             case '2':
-                //display();
-                cout << "display" << endl;
+                InterFace::printDisplayMenu();
                 break;
             case '3':
                 //search();
@@ -43,31 +43,13 @@ void choice(){
                 cout << "Input not available" << endl;
                 break;
         }
-          } while(num !='1' && num !='2' && num !='3' && num !='4');
+    }while(a !='1' && a !='2' && a !='3' && a !='4');
 
     return 0;
 }
 
-void addPerson(){
-    string name,sex;
-        int birthYear, deathYear;
-        char agree;
-
-        do{
-            cout << "Full name: ";
-            cin.ignore();
-            getline (cin, name);
-            cout << "Gender (m/f): ";
-            getline (cin, sex);
-            cout << "Year of birth: ";
-            cin >> birthYear;
-            cout << "Year of death: ";
-            cin >> deathYear;
-
-            cout << "Input another person (y/n): ";
-            cin >> agree;
-
-        }while(agree == 'y' | agree == 'Y');
+void InterFace::printDisplayMenu(){
+    cout << "Display Menu" << endl;
+    cout << "1. name:" << endl;
 
 }
-*/
