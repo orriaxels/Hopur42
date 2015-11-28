@@ -24,7 +24,7 @@ class Persons
         int getYearBorn();
         int getYearDied();
 	private:
-		string firstname; //Getur verid got til ad flokka eftir first/last
+		string firstname; //Getur verid got til ad flokka eftir first/last name
 		string lastname;
 		string quote;
 		int yearBorn;  //Hugsanlega setja upp breyta sidar med dagsetningu ef timi gefst

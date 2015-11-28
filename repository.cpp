@@ -16,7 +16,7 @@ void Repository::readFile(){
 }
 
 
-void Repository::writeToFile(){
+void Repository::writeToFile(Persons newwPerson){
 
 
 }

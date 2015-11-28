@@ -18,9 +18,12 @@ class InterFace //Ser um samdkipti vid notanda in/out
 		void printAddMenu();
 		void printDisplayMenu();
 		void printSearchMenu();
-		int actionSelect();
+        int actionSelect(); //Af hverju skilar tetta fall int? Virdist ekki notad
 
-	private:  // Verda liklega ekki breitur til ad vinna med
+        //þarf fall hér til að senda inn vector<person> til ad prenta 
+
+    private:    // Verda liklega ekki breitur til ad vinna med
+                // Hugsanlega haegt ad setja hjalparfoll
 };
 
 #endif
