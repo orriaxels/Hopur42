@@ -12,10 +12,17 @@ using namespace std;
 class Persons   
 { 
 	public:
+		//Constructors
 		Persons(); //A ekki ad turfa fleiri foll en constuctors. 
 		Persons(string fName, string lName, int born, int died);
         Persons(string fName, string lName, int born, int died, string Quote);
 
+        //Returns value of private variables.
+        string getF(); 
+		string getL();
+        string getQuote();
+        int getYearBorn();
+        int getYearDied();
 	private:
 		string firstname; //Getur verid got til ad flokka eftir first/last
 		string lastname;

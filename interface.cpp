@@ -46,6 +46,11 @@ void InterFace::displayMainMenu(){
     cout << "  4. Quit" << endl;
     cout << endl;
     cout << "Please select an option from the list: ";
+
+    //Hugsanlega haegt ad setja inn clearscreen her sidar
+    //#include <stdlib.h>
+    //system("cls"); //virkar bara fyrir windows samt
+
 }
 
 void InterFace::printAddMenu(){

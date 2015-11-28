@@ -13,6 +13,7 @@ public:
 	Repository();
 	void readFile();
 	void writeToFile(); 
+	vector<Persons> getList();
 private:
 	vector<Persons> list;
 

@@ -20,3 +20,7 @@ void Repository::writeToFile(){
 
 
 }
+
+vector<Persons> Repository::getList(){
+	return list;
+}
