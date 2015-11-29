@@ -82,12 +82,12 @@ void InterFace::printSearchMenu(){
     cout << "Search Menu" << endl;
 }
 
-<<<<<<< HEAD
+
 void InterFace::printPerson(vector<Persons> list){
 
     for(unsigned int i=0; i<list.size(); i++){
-        cout << "Name: " << list.at(i).getF() << " " list.at(i).getL() << endl;
-        cout << "Gender: "
+        cout << "Name: " << list.at(i).getF() << " " << list.at(i).getL() << endl;
+        cout << "Gender: ";
              if(at(i).getGender() == false){
                 cout << "Male";}
              else{
@@ -97,6 +97,3 @@ void InterFace::printPerson(vector<Persons> list){
         //cout << "Quote: " << list.at(i).getQuote() << endl;
     }
 }
-
-=======
->>>>>>> origin/master
