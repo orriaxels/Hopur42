@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "interface.h"
 #include "service.h"
 
@@ -94,10 +95,10 @@ void InterFace::printPerson(vector<Persons> list){
     for(unsigned int i=0; i<list.size(); i++){
         cout << "Name: " << list.at(i).getF() << " " << list.at(i).getL() << endl;
         cout << "Gender: ";
-             if(at(i).getGender() == false){
+     /*       if(list.at(i).getGender() == false){
                 cout << "Male";}
              else{
-                cout << "Female";}
+                cout << "Female";}*/
         cout << "Year born: " << list.at(i).getYearBorn() << endl;
         cout << "Died: " << list.at(i).getYearDied() << endl;
         //cout << "Quote: " << list.at(i).getQuote() << endl;
