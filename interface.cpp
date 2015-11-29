@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <string>
+#include <sstream>
 #include "interface.h"
 #include "service.h"
 
@@ -121,7 +123,14 @@ void InterFace::printDisplayMenu(){
 }
 
 void InterFace::printSearchMenu(){
-    cout << "Search Menu" << endl;}
+    string searchString;
+    cout << "Search Menu" << endl;
+    cout << "What would you like to search for?" << endl;
+    cin.ignore();
+    getline(cin, searchString);
+   // Service::search(const string searchString)
+
+}
 
 void InterFace::printPerson(vector<Persons> list){
 
