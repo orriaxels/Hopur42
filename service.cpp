@@ -14,8 +14,6 @@ using namespace std;
 Service::Service(){//default constructor
 }
 
-
-
 void Service::search(const string searchString){
     Repository repoVar;
     string buffer;
@@ -58,7 +56,8 @@ void Service::remove()  ef timi gefst
 {
 
 }
-void Service::editEntery()  ef timi gefst
+
+void Service::editEntery()  //ef timi gefst
 {
 
 }

@@ -20,8 +20,9 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
         //sortBy=2 if sort by last name
         //sortBy=3 if sort by year born
         //sorbBy=4 if sort by last name
-        void search(const string searchString); //Not tested
-        
+        void search(const string searchString); 
+        //Leitar i staki ad 
+
 //		void remove();  //ef timi gefst
 //      void editEntery(); ef timi gefst
 

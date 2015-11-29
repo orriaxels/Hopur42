@@ -9,7 +9,7 @@ Persons::Persons(){
 	firstname="";
 	lastname="";
 	yearBorn=0;//Jesus 
-	yearDied=33; // Jesus died at 33	
+	yearDied=1; // Jesus died at 33	
 }
 
 Persons::Persons(string fName, string lName, int born, int died){
@@ -42,4 +42,20 @@ int Persons::getYearBorn(){
 } 
 int Persons::getYearDied(){
 	return yearDied;
+}
+
+void Persons::setFirst(const string firstName){
+
+}
+void Persons::setLast(const string lastName){
+
+}
+void Persons::setQuote(const string persQuote){
+
+}
+void Persons::setBorn(const int yBorn){
+
+}
+void Persons::setDied(const int yDied){
+
 }

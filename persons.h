@@ -13,20 +13,30 @@ class Persons
 { 
 	public:
 		//Constructors
-		Persons(); //A ekki ad turfa fleiri foll en constuctors. 
+		Persons(); 
 		Persons(string fName, string lName, int born, int died);
         Persons(string fName, string lName, int born, int died, string Quote);
 
-        //Returns value of private variables.
+        //Returns value of variables.
         string getF(); 
 		string getL();
         string getQuote();
+        bool getGender();
         int getYearBorn();
         int getYearDied();
+
+        //Sets single variable of Person object
+		void setFirst(const string firstName);
+		void setLast(const string lastName);
+		void setQuote(const string persQuote);
+		void setGender(const bool persGender);
+		void setBorn(const int yBorn);
+		void setDied(const int yDied);        
 	private:
-		string firstname; //Getur verid got til ad flokka eftir first/last name
+		string firstname; //If two names needs to be decided
 		string lastname;
 		string quote;
+		bool gender; //False for male, true 
 		int yearBorn;  //Hugsanlega setja upp breyta sidar med dagsetningu ef timi gefst
 		int yearDied;
 };
