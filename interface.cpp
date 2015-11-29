@@ -68,9 +68,15 @@ void InterFace::printAddMenu(){
             cout << "Invalid input, please reenter" << endl;
         }
     }while(!(var.isNameLegal(name)));
-    cout << "Gender (m for male/ f for female) : ";
-    cin >> gender;
-
+    
+    do{    
+        cout << "Gender (m for male/ f for female) : ";
+        cin >> gender;
+        gender = tolower(gender);
+        if(!(var.isGenderLegal(gender))){
+            cout << "Invalid input, please insert m for male of f for female" << endl;
+        }
+    }while(!(var.isGenderLegal(gender)));    
 }
 
 void InterFace::printDisplayMenu(){
