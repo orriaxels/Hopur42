@@ -34,6 +34,9 @@ string Persons::getF(){
 string Persons::getL(){
 	return lastname;
 }
+bool Persons::getGender(){
+    return gender;
+}
 string Persons::getQuote(){
 	return quote;
 }
@@ -48,17 +51,17 @@ void Persons::setFirst(const string firstName){
 	firstname=firstName;
 }
 void Persons::setLast(const string lastName){
-
+	lastname=lastName;
 }
 void Persons::setQuote(const string persQuote){
-
+	quote=persQuote;
 }
 void Persons::setGender(const bool persGender){
 	gender=persGender;
 }
 void Persons::setBorn(const int yBorn){
-
+	yearBorn=yBorn;
 }
 void Persons::setDied(const int yDied){
-
+	yearDied=yDied;
 }
