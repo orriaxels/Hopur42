@@ -51,7 +51,6 @@ string Service::makeSearchable(vector<Persons> list, int index){
     return searchable;
 }
 
-<<<<<<< HEAD
 bool Service::isNameLegal(string name){
     if(name.length() < 2 || name.length() > 6){
         return false;
@@ -59,12 +58,12 @@ bool Service::isNameLegal(string name){
     else{
         return true;
     }
-
 }
 
+bool isGenderLegal(char gender){
+  return true;
+}
 
-=======
->>>>>>> origin/master
 /*
 void Service::remove()  ef timi gefst
 {

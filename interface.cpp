@@ -57,20 +57,20 @@ void InterFace::displayMainMenu(){
 void InterFace::printAddMenu(){
     string name;
     Service var;
+    char gender;
     cout << "Enter information" << endl;
-    cout << "Name: " ;
+    
     do{
+        cout << "Name: " ;
         cin.ignore();
         getline(cin, name);
         if(!(var.isNameLegal(name))){
-            cout << "Invalid input, reenter first name" << endl;
-        }else{     
-            }
-           
-
-
+            cout << "Invalid input, please reenter" << endl;
+        }
     }while(!(var.isNameLegal(name)));
-    cout << "Gender: ";
+    cout << "Gender (m for male/ f for female) : ";
+    cin >> gender;
+
 }
 
 void InterFace::printDisplayMenu(){

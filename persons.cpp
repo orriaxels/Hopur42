@@ -28,7 +28,7 @@ Persons::Persons(string fName, string lName, int born, int died, string Quote){
 }
 
 string Persons::getF(){
-	retrun firstname;
+	return firstname;
 }
 
 string Persons::getL(){
