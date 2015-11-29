@@ -36,7 +36,7 @@ class Persons
 		string firstname; //If two names needs to be decided
 		string lastname;
 		string quote;
-		bool gender; //False for male, true 
+		bool gender; //False for male, true for female
 		int yearBorn;  //Hugsanlega setja upp breyta sidar med dagsetningu ef timi gefst
 		int yearDied;
 };

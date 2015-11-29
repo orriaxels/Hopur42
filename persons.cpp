@@ -45,13 +45,16 @@ int Persons::getYearDied(){
 }
 
 void Persons::setFirst(const string firstName){
-
+	firstname=firstName;
 }
 void Persons::setLast(const string lastName){
 
 }
 void Persons::setQuote(const string persQuote){
 
+}
+void Persons::setGender(const bool persGender){
+	gender=persGender;
 }
 void Persons::setBorn(const int yBorn){
 
