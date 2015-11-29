@@ -16,6 +16,7 @@ public:
 	vector<Persons> getList();
 private:
 	vector<Persons> list;
+    int convertToInt(string strConvert);
 
 };
 
