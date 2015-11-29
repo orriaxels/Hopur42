@@ -19,12 +19,15 @@ int InterFace::actionSelect(){
         cin >> a;
         switch(a){
             case '1':
+                cout << endl;
                 InterFace::printAddMenu();
                 break;
             case '2':
+                cout << endl;
                 InterFace::printDisplayMenu();
                 break;
             case '3':
+                cout << endl;
                 InterFace::printSearchMenu();
                 break;
             case '4':
@@ -81,14 +84,44 @@ void InterFace::printAddMenu(){
 }
 
 void InterFace::printDisplayMenu(){
-    cout << "Display Menu" << endl;
-    cout << "1. name:" << endl;
+    int choice, asORde;
+    bool truFal;
+
+    do{
+        cout << "What would you like to sort by?" << endl;
+        cout << "1. First name" << endl;
+        cout << "2. Last name" << endl;
+        cout << "3. Gender" << endl;
+        cout << "4. Year of birth" << endl;
+        cout << "5. Year of death" << endl;
+
+        cin >> choice;
+        cout << endl;
+
+        if (choice > 5 || choice < 1){
+            cout << "Input Invalid. Please try again." << endl;
+            cout << endl;
+        }
+    }while(choice > 5 || choice < 1);
+
+        do{
+            cout << "1. Descending" << endl; //Sér fyrir gender?
+            cout << "2. Ascending" << endl;
+            cin >> asORde;
+
+            if (asORde == 1){
+                truFal = true;
+             //   Service::sortDisplay(choice, truFal);
+                }
+            else if (asORde == 2){
+                 truFal = false;
+            //     Service::sortDisplay(choice, truFal);
+                }
+            }while (asORde != 1 && asORde !=2);
 }
 
 void InterFace::printSearchMenu(){
-    cout << "Search Menu" << endl;
-}
-
+    cout << "Search Menu" << endl;}
 
 void InterFace::printPerson(vector<Persons> list){
 
