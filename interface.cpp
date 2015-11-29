@@ -7,8 +7,8 @@ InterFace::InterFace(){} //default constructor
 
 
 void InterFace::runInterFace(){
-    InterFace::displayMainMenu();
-    InterFace::actionSelect();
+     InterFace::displayMainMenu();
+     InterFace::actionSelect();
 }
 
 int InterFace::actionSelect(){  
@@ -65,3 +65,19 @@ void InterFace::printDisplayMenu(){
 void InterFace::printSearchMenu(){
     cout << "Search Menu" << endl;
 }
+
+void InterFace::printPerson(vector<Persons> list){
+
+    for(unsigned int i=0; i<list.size(); i++){
+        cout << "Name: " << list.at(i).getF() << " " list.at(i).getL() << endl;
+        cout << "Gender: "
+             if(at(i).getGender() == false){
+                cout << "Male";}
+             else{
+                cout << "Female";}
+        cout << "Year born: " << list.at(i).getYearBorn() << endl;
+        cout << "Died: " << list.at(i).getYearDied() << endl;
+        //cout << "Quote: " << list.at(i).getQuote() << endl;
+    }
+}
+
