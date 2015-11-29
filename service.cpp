@@ -95,6 +95,15 @@ string Service::makeSearchable(vector<Persons> list, int index){
     return searchable;
 }
 
+bool Service::isNameLegal(string name){
+    if(name.length() < 2 || name.length() > 6){
+        return false;
+    }    
+    else{
+        return true;
+    }
+
+}
 
 
 /*

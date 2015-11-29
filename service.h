@@ -16,6 +16,7 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
 		Service();
         void sortDisplay(int sortBy);   //Working
         void search(const string searchString); //Not tested
+        bool isNameLegal(string name);
 //		void remove();  //ef timi gefst
 //      void editEntery(); ef timi gefst
 

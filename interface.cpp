@@ -1,5 +1,6 @@
 #include <iostream>
 #include "interface.h"
+#include "service.h"
 
 using namespace std;
 
@@ -54,7 +55,22 @@ void InterFace::displayMainMenu(){
 }
 
 void InterFace::printAddMenu(){
+    string name;
+    Service var;
     cout << "Enter information" << endl;
+    cout << "Name: " ;
+    do{
+        cin.ignore();
+        getline(cin, name);
+        if(!(var.isNameLegal(name))){
+            cout << "Invalid input, reenter first name" << endl;
+        }else{     
+            }
+           
+
+
+    }while(!(var.isNameLegal(name)));
+    cout << "Gender: ";
 }
 
 void InterFace::printDisplayMenu(){
