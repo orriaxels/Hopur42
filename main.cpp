@@ -27,6 +27,6 @@ Person klassinn
 utfaera flest follinn
 
 Service
-Finnaa ut hvort megi  nota hjalparfoll sem ekki eru hluti af klasa... smb bool comparsions
+Finna ut hvort megi  nota hjalparfoll sem ekki eru hluti af klasa... smb bool comparsions
 
 */
