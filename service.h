@@ -19,6 +19,9 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
         void search(const string searchString); //Not tested
         bool isNameLegal(string name);
         bool isGenderLegal(char gender);
+        bool isBirthYearLegal(int birth);
+        bool isDeathYearLegal(int death);
+        bool isQuoteLegal(string quote);
         void sortDisplay(int sortBy); // Working
         //Retrives a list of vector type and sorts. 
         //sortBy=1 if sort by First name
@@ -35,6 +38,7 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
     private:
     	//Takes vector of Persons and creates a single string to search for matcH  
         string makeSearchable(vector<Persons> list, int index);
+        int birthYear;
     	
 
 };

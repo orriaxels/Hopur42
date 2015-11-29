@@ -52,7 +52,7 @@ string Service::makeSearchable(vector<Persons> list, int index){
 }
 
 bool Service::isNameLegal(string name){
-    if(name.length() < 2 || name.length() > 6){
+    if(name.length() < 2 || name.length() > 31){
         return false;
     }    
     else{
@@ -66,8 +66,43 @@ bool Service::isGenderLegal(char gender){
     }else{
         return false;
     }
-  
 }
+
+bool Service::isBirthYearLegal(int birth){
+     birthYear= birth;
+        if(birth > 1800 && birth < 2005){
+            return true;
+        }else{        
+            return false;
+        }
+}
+
+bool Service::isDeathYearLegal(int death){
+            if( (death > birthYear && death < 2016) || (death == 0) ){
+                return true;
+            }else if(death == birthYear){
+                cout << "Invalid input, can't be the same as year of birth" << endl;
+                return false;
+            }    
+            else{
+                cout << "Invalid input, valid input from 1800 - 2005" << endl;
+                return false;
+            }            
+}
+
+bool Service::isQuoteLegal(string quote){
+    if(quote.length() == 0){
+        return true;
+    }
+    else if(quote.length() < 5){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+
 
 /*
 void Service::remove()  ef timi gefst
