@@ -60,8 +60,13 @@ bool Service::isNameLegal(string name){
     }
 }
 
-bool isGenderLegal(char gender){
-  return true;
+bool Service::isGenderLegal(char gender){
+    if(gender == 'm' || gender == 'f'){
+        return true;    
+    }else{
+        return false;
+    }
+  
 }
 
 /*
