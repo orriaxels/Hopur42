@@ -14,50 +14,6 @@ using namespace std;
 Service::Service(){//default constructor
 }
 
-//Used to compare values of Person for sorting algorithm
-//
-bool compFirstname(Persons p1, Persons p2);
-bool compLastname(Persons p1, Persons p2);
-bool compYearBorn(Persons p1, Persons p2);
-bool compYearDied(Persons p1, Persons p2);
-
-void Service::sortDisplay(int sortBy){
-
-    Repository repoVar;
-    vector<Persons> list=repoVar.getList();
-
-    switch(sortBy){
-        case 1:
-            sort(list.begin(), list.end(), compFirstname);
-            break;
-        case 2:
-            sort(list.begin(), list.end(), compLastname);
-            break;
-        case 3:
-            sort(list.begin(), list.end(), compYearBorn);
-            break;
-        case 4:
-            sort(list.begin(), list.end(), compYearDied);
-            break;
-        default:
-            break; //Shouldnt happen. Error check on input needed
-    }
-    //Send vector to interface for print NOT IMPLEMENTED
-}
-
-bool compFirstname(Persons p1, Persons p2){
-    return p1.getF() < p2.getF();
-}
-bool compLastname(Persons p1, Persons p2){
-    return p1.getL() < p2.getL();
-}
-bool compYearBorn(Persons p1, Persons p2){
-    return p1.getYearBorn() < p2.getYearBorn();
-}
-bool compYearDied(Persons p1, Persons p2){
-    return p1.getYearDied() < p2.getYearDied();
-}
-
 void Service::search(const string searchString){
     Repository repoVar;
     string buffer;
@@ -95,6 +51,7 @@ string Service::makeSearchable(vector<Persons> list, int index){
     return searchable;
 }
 
+<<<<<<< HEAD
 bool Service::isNameLegal(string name){
     if(name.length() < 2 || name.length() > 6){
         return false;
@@ -106,13 +63,51 @@ bool Service::isNameLegal(string name){
 }
 
 
+=======
+>>>>>>> origin/master
 /*
 void Service::remove()  ef timi gefst
 {
 
 }
-void Service::editEntery()  ef timi gefst
+
+void Service::editEntery()  //ef timi gefst
 {
 
 }
 */
+
+//Used to compare values of Person for sorting algorithm
+bool compFirstname(Persons p1, Persons p2){
+    return p1.getF() < p2.getF(); }
+bool compLastname(Persons p1, Persons p2){
+    return p1.getL() < p2.getL(); }
+bool compYearBorn(Persons p1, Persons p2){
+    return p1.getYearBorn() < p2.getYearBorn(); }
+bool compYearDied(Persons p1, Persons p2){
+    return p1.getYearDied() < p2.getYearDied(); }
+
+
+//Sorts list
+void Service::sortDisplay(int sortBy){
+    Repository repoVar;
+    vector<Persons> list=repoVar.getList();
+
+    switch(sortBy){
+        case 1: //Sort by First name
+            sort(list.begin(), list.end(), compFirstname);
+            break;
+        case 2: // Sort by last name
+            sort(list.begin(), list.end(), compLastname);
+            break;
+        case 3: //Sort by year born
+            sort(list.begin(), list.end(), compYearBorn);
+            break;
+        case 4: //Sort by year died
+            sort(list.begin(), list.end(), compYearDied);
+            break;
+        default:
+            break; //Shouldnt happen. Error check on input needed
+    }
+    //Send vector to interface for print NOT IMPLEMENTED
+}

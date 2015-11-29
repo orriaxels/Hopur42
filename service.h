@@ -14,9 +14,21 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
 {
 	public:
 		Service();
+<<<<<<< HEAD
         void sortDisplay(int sortBy);   //Working
         void search(const string searchString); //Not tested
         bool isNameLegal(string name);
+=======
+        void sortDisplay(int sortBy); 
+        //Retrives a list of vector type and sorts. 
+        //sortBy=1 if sort by First name
+        //sortBy=2 if sort by last name
+        //sortBy=3 if sort by year born
+        //sorbBy=4 if sort by last name
+        void search(const string searchString); 
+        //Leitar i staki ad 
+
+>>>>>>> origin/master
 //		void remove();  //ef timi gefst
 //      void editEntery(); ef timi gefst
 
