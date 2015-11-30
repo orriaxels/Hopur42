@@ -21,13 +21,13 @@ Persons::Persons(string fName, string lName, bool pGender, int born, int died){
 	yearDied=died;	
 }
 
-Persons::Persons(string fName, string lName, bool pGender, int born, int died, string Quote){
+Persons::Persons(string fName, string lName, bool pGender, int born, int died, string KnownFor){
 	firstname=fName;
 	lastname=lName;
 	gender=pGender;
 	yearBorn=born; 
 	yearDied=died;
-	quote=Quote;	
+	knownfor=KnownFor;	
 }
 
 
@@ -41,8 +41,8 @@ string Persons::getL(){
 bool Persons::getGender(){
     return gender;
 }
-string Persons::getQuote(){
-	return quote;
+string Persons::getKnownFor(){
+	return knownfor;
 }
 int Persons::getYearBorn(){
 	return yearBorn;
@@ -58,8 +58,8 @@ void Persons::setFirst(const string firstName){
 void Persons::setLast(const string lastName){
 	lastname=lastName;
 }
-void Persons::setQuote(const string persQuote){
-	quote=persQuote;
+void Persons::setKnownFor(const string persknownFor){
+	knownfor=persknownFor;
 }
 void Persons::setGender(const bool persGender){
 	gender=persGender;

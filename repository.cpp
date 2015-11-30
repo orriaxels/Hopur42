@@ -68,13 +68,14 @@ void Repository::readFile(){
 
         Per.setDied( convertToInt(subStrings.at(dateStart)) );
         dateStart++;
-//qoute code
-//        for(dateStart; dateStart<subStrings.size(); dateStart++){
-//            buffer+=subStrings.at(dateStart);
-//            buffer+=" ";
-//        }
+        
+
+       for(dateStart; dateStart<subStrings.size(); dateStart++){
+           buffer+=subStrings.at(dateStart);
+           buffer+=" ";
+       }
            
-        Per.setQuote(buffer);
+        Per.setKnownFor(buffer);
         list.push_back(Per);
         } 
     }
@@ -98,7 +99,7 @@ void Repository::writeToFile(Persons newPerson){
             << newPerson.getGender() << " "
             << newPerson.getYearBorn() << " "
             << newPerson.getYearDied() << " "
-            << newPerson.getQuote() << " "<<endl;
+            << newPerson.getKnownFor() << " "<<endl;
 
     toFile.close();
 }
@@ -114,7 +115,7 @@ void Repository::backupList(vector<Persons> listBackup){
             << listBackup.at(i).getGender() << " "
             << listBackup.at(i).getYearBorn() << " "
             << listBackup.at(i).getYearDied() << " "
-            << listBackup.at(i).getQuote() << " "<<endl;
+            << listBackup.at(i).getKnownFor() << " "<<endl;
 
     backup.close();
 
@@ -130,7 +131,7 @@ void Repository::rewriteList(vector<Persons> listnew){
             << listnew.at(i).getGender() << " "
             << listnew.at(i).getYearBorn() << " "
             << listnew.at(i).getYearDied() << " "
-            << listnew.at(i).getQuote() << " "<<endl;
+            << listnew.at(i).getKnownFor() << " "<<endl;
 
     backup.close();
 }

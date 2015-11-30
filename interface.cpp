@@ -79,7 +79,7 @@ void InterFace::displayMainMenu(){
 void InterFace::printAddMenu(){
 
     string name;
-    string quote;
+    string knownFor;
     Service serVar;
     char gender;
     int bYear = 0;
@@ -111,7 +111,7 @@ void InterFace::printAddMenu(){
 
 
    do{    
-        cout << "Year of death (input 0 if still alive): ";
+        cout << "Year of death (\"0\" to skip): ";
         cin >> dYear;
         
         if(cin.fail()){
@@ -129,15 +129,15 @@ void InterFace::printAddMenu(){
     }while(deathLoop);    
     
     do{
-        cout << "Enter famous quote (input 0 for no quote): ";
+        cout << "Is known for (\"0\" to skip): ";
         cin.ignore();
-        getline(cin, quote);
-    }while(!(serVar.isQuoteLegal(quote)));
+        getline(cin, knownFor);
+    }while(!(serVar.isKnownForLegal(knownFor)));
 
-    if(quote=="0")
+    if(knownFor=="0")
         serVar.createPerson(name, gender, bYear, dYear);
     else
-        serVar.createPerson(name, gender, bYear, dYear, quote);
+        serVar.createPerson(name, gender, bYear, dYear, knownFor);
 
     cout<<endl<<"Entry sucsessfully added to database"<<endl;
     
@@ -152,11 +152,12 @@ void InterFace::printDisplayMenu(){
     int sortWith, order;
 
     cout << "What would you like to sort by?" << endl
-         << "1. First name" << endl
-         << "2. Last name" << endl
-         << "3. Gender" << endl
-         << "4. Year of birth" << endl
-         << "5. Year of death" << endl;
+         << "1. First name" << "  ||  "
+         << "2. Last name" << "  ||  "
+         << "3. Gender" << "  ||  "
+         << "4. Year of birth" << "  ||  "
+         << "5. Year of death" << endl
+         << "Enter choice (1-5): ";
 
     do{
         cin >> sortWith;
@@ -179,8 +180,8 @@ void InterFace::printDisplayMenu(){
             cin >> order;
         }
         else{
-            cout << "1. Ascending" << endl; //Sér fyrir gender?
-            cout << "2. Descending" << endl;
+            cout << "1. Ascending(a-z)" << "  ||  "
+                 << "2. Descending(z-a)" << endl << "Enter choice: ";
             cin >> order;
         }
 
@@ -209,21 +210,28 @@ void InterFace::printSearchMenu(){
 
     cout << "What would you like to search for? " ;
     getline(cin, searchS);
-    cout<<endl<<"Found \"" << searchS << "\" in following enteries:"<<endl<<endl;
+    cout<<endl<<"Found \"" << searchS << "\" in following enteries:"<<endl;
 
     servVar.search(searchS);
+
+    cout<<endl;
+    system("pause");
+    system("cls");
+    
+    runInterFace();
 }
+
 
 void InterFace::printPerson(vector<Persons> &list){
     string buffer;
 
-    cout<<"#  Name:   \t\t\t\tGender:\tBorn:\tDied:"<<endl; //\tQuote
+    cout<<endl<<"#  Name:   \t\t\t\tGender:\tBorn:\tDied:\tKnown for:"<<endl; //
 
     for(unsigned int i=0; i<list.size(); i++){
         cout << i+1;
-        if(i<10)
+        if(i<9)
             cout<<"  ";
-        else if(9<i && i<100)
+        else if(8<i && i<99)
             cout<<" ";
 
         cout << list.at(i).getF() << " " << list.at(i).getL();
@@ -240,12 +248,17 @@ void InterFace::printPerson(vector<Persons> &list){
 
         cout << list.at(i).getYearBorn() << '\t';
 
-        if( 0 == (list.at(i).getYearDied()) )
-            cout <<"Alive!" <<endl;
-        else
-            cout << list.at(i).getYearDied() <<endl;
 
-        //cout << "Quote: " << list.at(i).getQuote() << endl;
+        if( 0 == (list.at(i).getYearDied()) )
+            cout <<"Alive!" <<'\t';
+        else
+            cout << list.at(i).getYearDied() << '\t' ;
+
+
+        if( "0 " == (list.at(i).getKnownFor()) )
+            cout << " " <<endl;
+        else
+            cout << list.at(i).getKnownFor() << endl;
     }
 }
 
@@ -253,7 +266,7 @@ void InterFace::printRemoveMenu(){
     Service serVar;
     int enteryRemove;
     serVar.getListDatabase();
-    cout<< "Which one of these enteries do you want to remove(select #)? ";
+    cout<< endl << "Which one of these enteries do you want to remove(select #)? ";
 
 
     do{    

@@ -1,9 +1,10 @@
-Alan Turing 0 1912 1954  
-Grace Hopper 0 1906 1992  
-Ada Lovelace 1 1815 1852  
+Alan Turing 0 1912 1954 Cryptanalysis of the Enigma  
+Grace Hopper 1 1906 1992 one of Harvard Mark I computer's first programmers  
+Ada Lovelace 1 1815 1852 0  
 Tom Barnesrs-Lee 0 1955 0  
-Gretar Matt 0 1987 0  
-Gretar Matt 0 1987 0  
-Gretar Matt 0 1987 0  
-Gretar Matt 0 1987 0  
-Gretar Matt 0 1987 0  
+Gretar Matt 0 1987 0 0  
+Gretar Matt 0 1987 0 0  
+Gretar Matt 0 1987 0 0  
+Bill Gates 0 1955 0 co-founder of microsoft  
+Gudjon Hraunberg 0 1990 0 Hihihihihi  
+Gretar Matthiasson 0 1987 0 Kemur ur sveitinni  

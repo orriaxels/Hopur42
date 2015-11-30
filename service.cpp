@@ -98,7 +98,6 @@ void Service::sortDisplay(int sortBy, bool orderofsort){
 }
 
 void Service::createPerson(string name, char gender, int yborn, int ydied){
-
     string buffer="";
     vector<string> nameContainer;
     stringstream nameStream;
@@ -138,7 +137,7 @@ void Service::createPerson(string name, char gender, int yborn, int ydied){
 
 }
 
-void Service::createPerson(string name, char gender, int yborn, int ydied, string quote){
+void Service::createPerson(string name, char gender, int yborn, int ydied, string knownFor){
 
     string buffer="";
     vector<string> nameContainer;
@@ -175,10 +174,9 @@ void Service::createPerson(string name, char gender, int yborn, int ydied, strin
     newP.setBorn(yborn);
     newP.setDied(ydied); 
 
-    newP.setQuote(quote);
+    newP.setKnownFor(knownFor);
 
-    repoVar.writeToFile(newP);  
-   
+    repoVar.writeToFile(newP);   
 }
 
 int Service::getListDatabase(){  //ef timi gefst
@@ -263,11 +261,11 @@ bool Service::isDeathYearLegal(int death, int birthYear){
             }            
 }
 
-bool Service::isQuoteLegal(string quote){
-    if(quote == "0"){
+bool Service::isKnownForLegal(string knownFor){
+    if(knownFor == "0"){
         return true;
     }
-    else if(quote.length() < 5){
+    else if(knownFor.length() < 5){
         return false;
     }
     else{

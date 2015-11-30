@@ -15,12 +15,12 @@ class Persons
 		//Constructors
 		Persons(); 
 		Persons(string fName, string lName, bool pGender, int born, int died);
-        Persons(string fName, string lName, bool pGender, int born, int died, string Quote);
+        Persons(string fName, string lName, bool pGender, int born, int died, string KnownFor);
 
         //Returns value of variables.
         string getF(); 
 		string getL();
-        string getQuote();
+        string getKnownFor();
         bool getGender();
         int getYearBorn();
         int getYearDied();
@@ -28,14 +28,14 @@ class Persons
         //Sets single variable of Person object
 		void setFirst(const string firstName);
 		void setLast(const string lastName);
-		void setQuote(const string persQuote);
+		void setKnownFor(const string persknownFor);
 		void setGender(const bool persGender);
 		void setBorn(const int yBorn);
 		void setDied(const int yDied);        
 	private:
 		string firstname; 	//First name, if person has middle name it stores it here;
 		string lastname;	//Last name 
-		string quote;		//If qoute is recorded for person
+		string knownfor;		//If qoute is recorded for person
 		bool gender; 		//False for male, true for female
 		int yearBorn; 		//Year born
 		int yearDied;		//Year of death, 0 if still alive

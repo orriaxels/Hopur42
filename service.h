@@ -19,17 +19,18 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
         //search for entery that contains a string
         
         void sortDisplay(int sortBy, bool orderofsort);
-        //Retrives a list of vector type and sorts. 
         //sortBy=1 sort by first name, 2 sort by last name, 3 sort by gender
-        //4 sort by year born, 5 if sort by last name
+        //       4 sort by year born,  5 if sort by last name
         //Order of sort = 0 for Acending. 1 for decending
 
-        void createPerson(string name, char gender, int yborn, int ydied);
-        void createPerson(string name, char gender, int yborn, int ydied, string quote);
 
-		int getListDatabase();  //ef timi gefst
+        //used for createing new entry
+        void createPerson(string name, char gender, int yborn, int ydied);
+        void createPerson(string name, char gender, int yborn, int ydied, string knownFor);
+
+        //used when deleting a entry from DB
+		int getListDatabase();  
         void removeEntery(int enteryRemove);
-//      void editEntery(); ef timi gefst
 
         //errorcheck functions
         bool isActionLegal(char choice);
@@ -37,7 +38,7 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
         bool isGenderLegal(char gender);
         bool isBirthYearLegal(int birth);
         bool isDeathYearLegal(int death, int birthYear);
-        bool isQuoteLegal(string quote);
+        bool isKnownForLegal(string knownFor);
 
     private:
         string makeSearchable(vector<Persons> list, int index);
