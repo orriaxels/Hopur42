@@ -147,15 +147,16 @@ void InterFace::printDisplayMenu(){
         cin >> sortWith;
         cout << endl;
 
-        servVar.sortDisplay(sortWith);
-
+        servVar.sortDisplay(sortWith, 1);
+        /Tarf ad laga villutekk her fyrir nedan 
+/*
         if (sortWith > 5 || sortWith < 1){
             cout << "Input Invalid. Please try again." << endl;
             cout << endl;
         }
 
    // }while(sortWith > 5 || sortWith < 1);
-/*
+
     do{
         cout << "1. Descending" << endl; //Sér fyrir gender?
         cout << "2. Ascending" << endl;
@@ -191,7 +192,7 @@ void InterFace::printPerson(vector<Persons> &list){
              else{
                 cout << "Female";}*/
         cout << "Year born: " << list.at(i).getYearBorn() << endl;
-        cout << "Died: " << list.at(i).getYearDied() << endl;
+        cout << "Died: " << list.at(i).getYearDied() << endl<<endl;
         //cout << "Quote: " << list.at(i).getQuote() << endl;
     }
 }

@@ -9,7 +9,6 @@
 
 Repository::Repository()
 {
-    cout<<"Inn i repo";
     readFile();
 }
 
@@ -20,17 +19,16 @@ void Repository::readFile(){
     
     ifstream inFile;
     inFile.open("itpersons.txt");
-     if (!(inFile.fail()))
-    {
-    cout << endl<<endl<< "File successfully open";
 
+    if ((inFile.fail())){        
+        cout << endl<<endl<< "File failed to open";
     } 
 
     string lineString;
 
     while( (getline(inFile, lineString) )){
 
-        if(1){
+        if(1){ 
         vector<string> subStrings;
         stringstream inStream;
         inStream.str(lineString);
@@ -69,7 +67,7 @@ void Repository::readFile(){
 
         Per.setDied( convertToInt(subStrings.at(dateStart)) );
         dateStart++;
-
+//qoute code
 //        for(dateStart; dateStart<subStrings.size(); dateStart++){
 //            buffer+=subStrings.at(dateStart);
 //            buffer+=" ";
@@ -77,28 +75,22 @@ void Repository::readFile(){
            
         Per.setQuote(buffer);
         list.push_back(Per);
-        cout<< Per.getF();
-        cout<<"Buinn med while loop1"<<endl<<endl;
         } 
     }
     inFile.close();
-    cout<<"klarar read file"<<endl<<endl;
-
 }
 
 int Repository::convertToInt(string strConvert){
-    cout<<"****111111111111111111111111111!"<<endl<<endl;
     int num;
     if ( !(istringstream(strConvert) >> num) )
         num = 0;
-cout<<"****2222222222222222222222222!"<<endl<<endl;
     return num;
 }
 
 
 void Repository::writeToFile(Persons newPerson){
     ofstream toFile;
-    toFile.open("noteworthyPersons.txt", ios::app); //app  append, or end of file
+    toFile.open("itpersons.txt", ios::app); //app  append, or end of file
 
     toFile  << newPerson.getF() << " "
             << newPerson.getL() << " "

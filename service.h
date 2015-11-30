@@ -23,10 +23,11 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
         bool isDeathYearLegal(int death);
         bool isQuoteLegal(string quote);
 
-        void sortDisplay(int sortBy);
+        void sortDisplay(int sortBy, bool orderofsort);
         //Retrives a list of vector type and sorts. 
         //sortBy=1 sort by first name, 2 sort by last name
         //3 sort by year born, 4 if sort by last name
+        //0 for Acending. 1 for decending
 
 //		void remove();  //ef timi gefst
 //      void editEntery(); ef timi gefst

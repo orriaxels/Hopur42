@@ -1,3 +1,4 @@
-TINN Turing 0 1900 1950 asdf asdf asdfasasdf asdf ffdsa sddfa
-GRETAR Turing 0 1900 1950 asdf asdf asdfasasdf asdf ffdsa sddfa
-ALAN Turing 0 1900 1950 asdf asdf asdfasasdf asdf ffdsa sddfa
+Alan Turing 0 1912 1954
+Grace Hopper 0 1906 1992
+Ada Lovelace 1 1815 1852
+Tom Barnesrs-Lee 0 1955 0

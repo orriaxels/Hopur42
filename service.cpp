@@ -128,8 +128,7 @@ bool compYearDied(Persons p1, Persons p2){
 
 
 //Sorts list
-void Service::sortDisplay(int sortBy){
-    cout<<"For inn i sort!";
+void Service::sortDisplay(int sortBy, bool orderofsort){
     Repository repoVar;
     InterFace interVar;
     vector<Persons> list=repoVar.getList();
@@ -150,6 +149,8 @@ void Service::sortDisplay(int sortBy){
         default:
             break; //Shouldnt happen. Error check on input needed
     }
-    cout<<"For i gegnum sort!";
+    if(orderofsort){
+        reverse(list.begin(),list.end());
+    }
     interVar.printPerson(list);
 }
