@@ -15,8 +15,6 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
 	public:
 		Service();
 
-      
-
         void search(const string searchString); 
         //search for entery that contains a string
         
@@ -42,8 +40,7 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
 
     private:
         string makeSearchable(vector<Persons> list, int index);
-        int birthYear;
-        string n;
+        
     	
 
 };
