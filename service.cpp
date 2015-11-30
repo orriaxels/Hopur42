@@ -178,34 +178,30 @@ void createPerson(string name, char gender, int yborn, int ydied, string quote){
     newP.setQuote(quote);
 
     repoVar.writeToFile(newP);  
+   
+}
+
+int Service::getListDatabase(){  //ef timi gefst
+    Repository repoVar;
+    InterFace intVar;
+    vector<Persons> List=repoVar.getList();
+
+    intVar.printPerson(List);
+
+    return List.size();
+}
+
+void Service::removeEntery(int enteryRemove){
+    Repository repoVar;
+    InterFace intVar;
+    vector<Persons> List=repoVar.getList();
+
+    List.erase(List.begin() + (enteryRemove-1) );
+    
 
     
 }
 
-
-
-/*
-void Service::remove()  ef timi gefst
-{
-
-}
-
-void Service::editEntery()  //ef timi gefst
-{
-
-}
-*/
-
-// bool isActionLegal(char choice){
-//     if(choice.length() > 1 && choice.length() < 1){
-//         cout << "Invalid input"
-//         return false;
-//     }
-//     else if(!isalnum(choice)){
-//         cout << "Invalid input" << endl;
-//         return false;
-//     }
-// }
 
 bool Service::isNameLegal(string& name){
     if(name.empty()){

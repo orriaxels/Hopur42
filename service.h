@@ -27,7 +27,8 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
         void createPerson(string name, char gender, int yborn, int ydied);
         void createPerson(string name, char gender, int yborn, int ydied, string quote);
 
-//		void remove();  //ef timi gefst
+		int getListDatabase();  //ef timi gefst
+        void removeEntery(int enteryRemove);
 //      void editEntery(); ef timi gefst
 
         //errorcheck functions

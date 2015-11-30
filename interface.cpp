@@ -25,7 +25,7 @@ int InterFace::actionSelect(){
     bool loop;
     getline(cin, dummyString);
 
-    if(a !='1' && a !='2' && a !='3' && a !='4'){
+    if(a !='1' && a !='2' && a !='3' && a !='4' && a !='5'){
         cout << "Invalid input" << endl;
         
     }else{
@@ -45,6 +45,10 @@ int InterFace::actionSelect(){
                 break;
             case '4':
                 loop = 0;
+                break;
+            case '5':
+                cout<<endl;
+                InterFace::printRemoveMenu();
                 break;
             default:
                 cout << "Invalid" << endl;
@@ -73,7 +77,7 @@ void InterFace::displayMainMenu(){
 }
 
 void InterFace::printAddMenu(){
-    cout << "\033[2J\033[1;1H";
+
     string name;
     string quote;
     Service serVar;
@@ -132,8 +136,6 @@ void InterFace::printAddMenu(){
 
     serVar.createPerson(name, gender, bYear, dYear);
 
-
-   cout << "\033[2J\033[1;1H"; //"hreinsar" skjáinn.
 //   runInterFace(); //keyrir aftur main menu
 
 }
@@ -165,22 +167,23 @@ void InterFace::printDisplayMenu(){
 
     do{
         if(sortWith ==3){
-            cout << "1.Females first" << endl;
+            cout << "1. Females first" << endl;
             cout << "2. Males first" << endl;
             cin >> order;
         }
         else{
-            cout << "1. Descending" << endl; //Sér fyrir gender?
-            cout << "2. Ascending" << endl;
+            cout << "1. Ascending" << endl; //Sér fyrir gender?
+            cout << "2. Descending" << endl;
             cin >> order;
         }
 
+        
 
         if (order == 1){
-            servVar.sortDisplay(sortWith, 1);
+            servVar.sortDisplay(sortWith, 0);
             }
         else if (order == 2){
-             servVar.sortDisplay(sortWith, 0);
+             servVar.sortDisplay(sortWith, 1);
             }
             
     }while (order != 1 && order !=2);
@@ -190,26 +193,65 @@ void InterFace::printSearchMenu(){
     Service servVar;
     string searchS;
 
-    cout << "What would you like to search for?" << endl;
-    cin.ignore();
+    cout << "What would you like to search for? " ;
     getline(cin, searchS);
+    cout<<endl<<"Found \"" << searchS << "\" in following enteries:"<<endl<<endl;
+
     servVar.search(searchS);
 }
 
 
 void InterFace::printPerson(vector<Persons> &list){
+    string buffer;
+
+    cout<<"#  Name:   \t\t\t\tGender:\tBorn:\tDied:"<<endl; //\tQuote
 
     for(unsigned int i=0; i<list.size(); i++){
-        cout << "Name: " << list.at(i).getF() << " " << list.at(i).getL() << endl;
-        cout << "Gender: ";
-            if(list.at(i).getGender()){
-                cout << "Female";}
-            else{
-                cout << "Male";}
-        cout << endl;
-        cout << "Year born: " << list.at(i).getYearBorn() << endl;
-        cout << "Died: " << list.at(i).getYearDied() << endl<<endl;
+        cout << i+1;
+        if(i<10)
+            cout<<"  ";
+        else if(9<i && i<100)
+            cout<<" ";
+
+        cout << list.at(i).getF() << " " << list.at(i).getL();
+
+        buffer= list.at(i).getF() + " " + list.at(i).getL();
+        for(unsigned int j=0; j< (37- buffer.length()); j++){
+            cout<<" ";
+        }
+
+        if(list.at(i).getGender()){
+            cout << "Female"<< '\t';}
+        else{
+            cout << "Male"<< '\t';}
+
+        cout << list.at(i).getYearBorn() << '\t';
+
+        if( 0 == (list.at(i).getYearDied()) )
+            cout <<"Alive!" <<endl;
+        else
+            cout << list.at(i).getYearDied() <<endl;
+
         //cout << "Quote: " << list.at(i).getQuote() << endl;
     }
 }
 
+void InterFace::printRemoveMenu(){
+    Service serVar;
+    int enteryRemove, totalEnt;
+    totalEnt= serVar.getListDatabase();
+    cout<< "Which one of these enteries do you want to remove(select #)? ";
+
+
+    do{    
+        cin >> enteryRemove;
+
+        if(cin.fail()){
+            cin.clear();
+            cin.get();
+            cout<<"Invalid input. Enter number of entery from the list: ";   
+           }
+    }while( (cin.fail())  );
+
+    serVar.removeEntery(enteryRemove);
+}
