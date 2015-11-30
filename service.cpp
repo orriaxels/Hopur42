@@ -52,7 +52,6 @@ string Service::makeSearchable(vector<Persons> list, int index){
     return searchable;
 }
 
-<<<<<<< HEAD
 
 //Used to compare values of Person for sorting algorithm
 bool compFirstname(Persons p1, Persons p2){

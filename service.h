@@ -32,10 +32,10 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
 
         //errorcheck functions
         bool isActionLegal(char choice);
-        bool isNameLegal(string name);
+        bool isNameLegal(string& name);
         bool isGenderLegal(char gender);
         bool isBirthYearLegal(int birth);
-        bool isDeathYearLegal(int death);
+        bool isDeathYearLegal(int death, int birthYear);
         bool isQuoteLegal(string quote);
 
     private:

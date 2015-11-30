@@ -87,13 +87,12 @@ void InterFace::printAddMenu(){
     do{
         cout << "Name: "; 
         getline(cin, name);
-    }while(!(var.isNameLegal(name)));
-
+    }while( !(serVar.isNameLegal(name)) );
     do{    
         cout << "Gender (m for male / f for female): ";
         cin >> gender;
         gender = tolower(gender);
-    }while(!(var.isGenderLegal(gender)));    
+    }while(!(serVar.isGenderLegal(gender)));    
 
 
 
@@ -104,7 +103,7 @@ void InterFace::printAddMenu(){
             cin.clear();
             cin.get();   
            }
-    }while(!(var.isBirthYearLegal(bYear)));    
+    }while(!(serVar.isBirthYearLegal(bYear)));    
 
 
    do{    
@@ -117,7 +116,7 @@ void InterFace::printAddMenu(){
             cout << "Invalid input, please insert valid year" << endl;
             deathLoop = 1;
         }else{
-            if(var.isDeathYearLegal(dYear, bYear)){
+            if(serVar.isDeathYearLegal(dYear, bYear)){
                 deathLoop = 0;        
             }else{
                 deathLoop = 1;
@@ -129,7 +128,7 @@ void InterFace::printAddMenu(){
         cout << "Enter famous quote (input 0 for no quote): ";
         cin.ignore();
         getline(cin, quote);
-    }while(!(var.isQuoteLegal(quote)));
+    }while(!(serVar.isQuoteLegal(quote)));
 
     cout<<"ERRORCHECKTEXT"<<endl<<endl;
     cout<<name<<"  "<<gender<<"  "<<bYear<<"  "<<dYear<<"  "<<quote;
