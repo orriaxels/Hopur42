@@ -104,6 +104,7 @@ void createPerson(string name, char gender, int yborn, int ydied){
     stringstream nameStream;
     nameStream.str(name);
     Persons newP;
+    Repository repoVar;
 
     //Seperate name string and set first and last name    
     while (nameStream >> buffer){ //seperates the string word by word using stringstream
@@ -116,9 +117,9 @@ void createPerson(string name, char gender, int yborn, int ydied){
     for(unsigned int i=0; i<nameContainer.size()-1; i++){
         buffer+=nameContainer.at(i);
     }
-    newP.setF(buffer);  //Sets first name
+    newP.setFirst(buffer);  //Sets first name
     buffer="";
-    newP.setL(nameContainer.at(nameContainer.end())); //sets last element in vector as last name
+    newP.setLast(nameContainer.back()); //sets last element in vector as last name
     //-------------
 
     //Sets gender to by input. False for male, true for female
@@ -129,7 +130,9 @@ void createPerson(string name, char gender, int yborn, int ydied){
 
     //Sets birth and died year;
     newP.setBorn(yborn);
-    newP.setDied(ydied);  
+    newP.setDied(ydied); 
+
+    repoVar.writeToFile(newP);
 
 }
 
@@ -152,9 +155,9 @@ void createPerson(string name, char gender, int yborn, int ydied, string quote){
     for(unsigned int i=0; i<nameContainer.size()-1; i++){
         buffer+=nameContainer.at(i);
     }
-    newP.setF(buffer);  //Sets first name
+    newP.setFirst(buffer);  //Sets first name
     buffer="";
-    newP.setL(nameContainer.at(nameContainer.end())); //sets last element in vector as last name
+    newP.setLast(nameContainer.back()); //sets last element in vector as last name
     //-------------
 
     //Sets gender to by input. False for male, true for female

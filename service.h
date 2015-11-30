@@ -26,7 +26,7 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
         //4 sort by year born, 5 if sort by last name
         //Order of sort = 0 for Acending. 1 for decending
 
-        void createPerson(string name, char gender, int yborn, int ydied)
+        void createPerson(string name, char gender, int yborn, int ydied);
         void createPerson(string name, char gender, int yborn, int ydied, string quote);
 
 //		void remove();  //ef timi gefst
