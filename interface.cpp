@@ -137,41 +137,48 @@ void InterFace::printDisplayMenu(){
     Service servVar;
     int sortWith, order;
 
- //   do{
-        cout << "What would you like to sort by?" << endl
-             << "1. First name" << endl
-             << "2. Last name" << endl
-             << "3. Gender" << endl
-             << "4. Year of birth" << endl
-             << "5. Year of death" << endl;
-
-        cin >> sortWith;
-        cout << endl;
-
-        servVar.sortDisplay(sortWith, 1);
-
-        //Tarf ad laga villutekk her fyrir nedan 
-/*
-        if (sortWith > 5 || sortWith < 1){
-            cout << "Input Invalid. Please try again." << endl;
-            cout << endl;
-        }
-
-   // }while(sortWith > 5 || sortWith < 1);
+    cout << "What would you like to sort by?" << endl;
+    cout << "1. First name" << endl;
+    cout << "2. Last name" << endl;
+    cout << "3. Gender" << endl;
+    cout << "4. Year of birth" << endl;
+    cout << "5. Year of death" << endl;
 
     do{
-        cout << "1. Descending" << endl; //Sér fyrir gender?
-        cout << "2. Ascending" << endl;
-        cin >> order;
+        cin >> sortWith;
+        cout << endl;  
+
+        if(cin.fail()){
+            cin.clear();
+            cin.get();
+            cout << "Invalid input. Please try again." << endl;
+        }
+        else if (sortWith > 5 || sortWith <1){
+            cout << "Invalid input. Please try again." << endl;
+        }
+   }while(sortWith > 5 || sortWith < 1);
+
+    do{
+        if(sortWith ==3){
+            cout << "1.Females first" << endl;
+            cout << "2. Males first" << endl;
+            cin >> order;
+        }
+        else{
+            cout << "1. Descending" << endl; //Sér fyrir gender?
+            cout << "2. Ascending" << endl;
+            cin >> order;
+        }
+
 
         if (order == 1){
-            truFal = true;
+            servVar.sortDisplay(sortWith, 1);
             }
         else if (order == 2){
-             truFal = false;
+             servVar.sortDisplay(sortWith, 0);
             }
             
-    }while (order != 1 && order !=2);*/
+    }while (order != 1 && order !=2);
 }
 
 void InterFace::printSearchMenu(){
@@ -194,7 +201,8 @@ void InterFace::printPerson(vector<Persons> &list){
                 cout << "Female";}
             else{
                 cout << "Male";}
-        cout <<endl<< "Year born: " << list.at(i).getYearBorn() << endl;
+        cout << endl;
+        cout << "Year born: " << list.at(i).getYearBorn() << endl;
         cout << "Died: " << list.at(i).getYearDied() << endl<<endl;
         //cout << "Quote: " << list.at(i).getQuote() << endl;
     }

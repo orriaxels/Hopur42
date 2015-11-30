@@ -140,6 +140,8 @@ bool compFirstname(Persons p1, Persons p2){
     return p1.getF() < p2.getF(); }
 bool compLastname(Persons p1, Persons p2){
     return p1.getL() < p2.getL(); }
+bool compGender(Persons p1, Persons p2){
+    return p1.getGender() < p2.getGender(); }
 bool compYearBorn(Persons p1, Persons p2){
     return p1.getYearBorn() < p2.getYearBorn(); }
 bool compYearDied(Persons p1, Persons p2){
@@ -159,10 +161,13 @@ void Service::sortDisplay(int sortBy, bool orderofsort){
         case 2: // Sort by last name
             sort(list.begin(), list.end(), compLastname);
             break;
-        case 3: //Sort by year born
+        case 3: // Sort by last name
+            sort(list.begin(), list.end(), compGender);
+            break;    
+        case 4: //Sort by year born
             sort(list.begin(), list.end(), compYearBorn);
             break;
-        case 4: //Sort by year died
+        case 5: //Sort by year died
             sort(list.begin(), list.end(), compYearDied);
             break;
         default:
