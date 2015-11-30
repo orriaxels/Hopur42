@@ -157,9 +157,17 @@ void InterFace::printDisplayMenu(){
    }while(sortWith > 5 || sortWith < 1);
 
     do{
-        cout << "1. Descending" << endl; //Sér fyrir gender?
-        cout << "2. Ascending" << endl;
-        cin >> order;
+        if(sortWith ==3){
+            cout << "1.Females first" << endl;
+            cout << "2. Males first" << endl;
+            cin >> order;
+        }
+        else{
+            cout << "1. Descending" << endl; //Sér fyrir gender?
+            cout << "2. Ascending" << endl;
+            cin >> order;
+        }
+
 
         if (order == 1){
             servVar.sortDisplay(sortWith, 1);
