@@ -20,7 +20,7 @@ class InterFace //Ser um samdkipti vid notanda in/out
         void printDisplayMenu(); //Spyr notenda hvernig hann vill persónurnar sorteraðar, sendir inn int og bool í sort fall.
         void printSearchMenu(); //Nær í streng frá notenda og sendir í search fall.
         void actionSelect(); //Notandi velur aðgerð og kallar á viðeigandi fall (Display, add etc.)
-        void printPerson(vector<Persons> &list);
+        void printPerson(vector<Persons> &list); //Prentar út sorteraðar persónur
 
     private:
     			// Verda liklega ekki breitur til ad vinna med
