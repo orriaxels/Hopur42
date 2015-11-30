@@ -134,7 +134,6 @@ void InterFace::printAddMenu(){
 void InterFace::printDisplayMenu(){
     Service servVar;
     int sortWith, order;
-    bool truFal;
 
  //   do{
         cout << "What would you like to sort by?" << endl
@@ -148,7 +147,8 @@ void InterFace::printDisplayMenu(){
         cout << endl;
 
         servVar.sortDisplay(sortWith, 1);
-        /Tarf ad laga villutekk her fyrir nedan 
+
+        //Tarf ad laga villutekk her fyrir nedan 
 /*
         if (sortWith > 5 || sortWith < 1){
             cout << "Input Invalid. Please try again." << endl;
@@ -173,12 +173,13 @@ void InterFace::printDisplayMenu(){
 }
 
 void InterFace::printSearchMenu(){
-    string searchString;
-    cout << "Search Menu" << endl;
+    Service servVar;
+    string searchS;
+
     cout << "What would you like to search for?" << endl;
     cin.ignore();
-    getline(cin, searchString);
-   // Service::search(const string searchString)
+    getline(cin, searchS);
+    servVar.search(searchS);
 }
 
 
@@ -187,11 +188,11 @@ void InterFace::printPerson(vector<Persons> &list){
     for(unsigned int i=0; i<list.size(); i++){
         cout << "Name: " << list.at(i).getF() << " " << list.at(i).getL() << endl;
         cout << "Gender: ";
-     /*       if(list.at(i).getGender() == false){
+            if(list.at(i).getGender()){
+                cout << "Female";}
+            else{
                 cout << "Male";}
-             else{
-                cout << "Female";}*/
-        cout << "Year born: " << list.at(i).getYearBorn() << endl;
+        cout <<endl<< "Year born: " << list.at(i).getYearBorn() << endl;
         cout << "Died: " << list.at(i).getYearDied() << endl<<endl;
         //cout << "Quote: " << list.at(i).getQuote() << endl;
     }

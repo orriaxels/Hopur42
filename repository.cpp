@@ -48,20 +48,22 @@ void Repository::readFile(){
             dateStart++;
         }while(isdigit(buffer[0]));
 
-        //read in first name
+        //read in first name. For loop if fName is more than one word
         for(unsigned int i=0 ; i<dateStart-1; i++){
             buffer+=subStrings.at(i);
         }
-
         Per.setFirst(buffer);
         buffer=""; //clear buffer for use later
+
+        //Sets last name
         Per.setLast(subStrings.at(dateStart));
         dateStart++;
 
-
+        //reads gender into the person
         Per.setGender( convertToInt(subStrings.at(dateStart)) );//
         dateStart++;
 
+        //reads year born from file
         Per.setBorn( convertToInt(subStrings.at(dateStart)) );
         dateStart++;
 
