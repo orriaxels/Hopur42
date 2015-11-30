@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+
 #include "interface.h"
 #include "service.h"
 
@@ -40,24 +41,22 @@ int InterFace::actionSelect(){
                 break;
         }
     }while(a !='1' && a !='2' && a !='3' && a !='4');
-
     return 0;
 }
 void InterFace::displayMainMenu(){
-    cout << "Welcome to this awesome database" << endl;
-    cout << endl;
-    cout << "What would you like to do?" << endl;
-    cout << "  1. Add a new entry" << endl;
-    cout << "  2. Display the database" << endl;
-    cout << "  3. Search the database" << endl;
-    cout << "  4. Quit" << endl;
-    cout << endl;
-    cout << "Please select an option from the list: ";
+    cout<< "Welcome to this awesome database" << endl
+        << endl
+        << "What would you like to do?" << endl
+        << "  1. Add a new entry" << endl
+        << "  2. Display the database" << endl
+        << "  3. Search the database" << endl
+        << "  4. Quit" << endl
+        << endl
+        << "Please select an option from the list: ";
 
     //Hugsanlega haegt ad setja inn clearscreen her sidar
     //#include <stdlib.h>
     //system("cls"); //virkar bara fyrir windows samt
-
 }
 
 void InterFace::printAddMenu(){
@@ -130,45 +129,46 @@ void InterFace::printAddMenu(){
             cout << "Ivalid amount characters, needs at least 6" << endl;
         }
    }while(!(var.isQuoteLegal(quote)));
-
-
 }
 
 void InterFace::printDisplayMenu(){
-    int choice, asORde;
+    Service servVar;
+    int sortWith, order;
     bool truFal;
 
-    do{
-        cout << "What would you like to sort by?" << endl;
-        cout << "1. First name" << endl;
-        cout << "2. Last name" << endl;
-        cout << "3. Gender" << endl;
-        cout << "4. Year of birth" << endl;
-        cout << "5. Year of death" << endl;
+ //   do{
+        cout << "What would you like to sort by?" << endl
+             << "1. First name" << endl
+             << "2. Last name" << endl
+             << "3. Gender" << endl
+             << "4. Year of birth" << endl
+             << "5. Year of death" << endl;
 
-        cin >> choice;
+        cin >> sortWith;
         cout << endl;
 
-        if (choice > 5 || choice < 1){
+        servVar.sortDisplay(sortWith);
+
+        if (sortWith > 5 || sortWith < 1){
             cout << "Input Invalid. Please try again." << endl;
             cout << endl;
         }
-    }while(choice > 5 || choice < 1);
 
-        do{
-            cout << "1. Descending" << endl; //Sér fyrir gender?
-            cout << "2. Ascending" << endl;
-            cin >> asORde;
+   // }while(sortWith > 5 || sortWith < 1);
+/*
+    do{
+        cout << "1. Descending" << endl; //Sér fyrir gender?
+        cout << "2. Ascending" << endl;
+        cin >> order;
 
-            if (asORde == 1){
-                truFal = true;
-             //   Service::sortDisplay(choice, truFal);
-                }
-            else if (asORde == 2){
-                 truFal = false;
-            //     Service::sortDisplay(choice, truFal);
-                }
-            }while (asORde != 1 && asORde !=2);
+        if (order == 1){
+            truFal = true;
+            }
+        else if (order == 2){
+             truFal = false;
+            }
+            
+    }while (order != 1 && order !=2);*/
 }
 
 void InterFace::printSearchMenu(){
@@ -178,11 +178,10 @@ void InterFace::printSearchMenu(){
     cin.ignore();
     getline(cin, searchString);
    // Service::search(const string searchString)
-
 }
 
 
-void InterFace::printPerson(vector<Persons> list){
+void InterFace::printPerson(vector<Persons> &list){
 
     for(unsigned int i=0; i<list.size(); i++){
         cout << "Name: " << list.at(i).getF() << " " << list.at(i).getL() << endl;

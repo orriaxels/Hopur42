@@ -9,7 +9,7 @@ Persons::Persons(){
 	firstname="";
 	lastname="";
 	yearBorn=0;//Jesus 
-	yearDied=1; // Jesus died at 33	
+	yearDied=1; 
 }
 
 Persons::Persons(string fName, string lName, int born, int died){
