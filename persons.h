@@ -33,12 +33,12 @@ class Persons
 		void setBorn(const int yBorn);
 		void setDied(const int yDied);        
 	private:
-		string firstname; 
-		string lastname;
-		string quote;
-		bool gender; 	//False for male, true for female
-		int yearBorn; 	
-		int yearDied;
+		string firstname; 	//First name, if person has middle name it stores it here;
+		string lastname;	//Last name 
+		string quote;		//If qoute is recorded for person
+		bool gender; 		//False for male, true for female
+		int yearBorn; 		//Year born
+		int yearDied;		//Year of death, 0 if still alive
 };
 
 #endif // PERSONS_H

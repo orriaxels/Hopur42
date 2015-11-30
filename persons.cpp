@@ -30,18 +30,18 @@ Persons::Persons(string fName, string lName, int born, int died, string Quote){
     quote=Quote;
 }
 
-string Persons::getF(sting firstname){
+string Persons::getF(string firstname){
     firstname = firstname;
 
     retrun firstname;
 }
 
-string Persons::getL(sting lastname){
+string Persons::getL(string lastname){
     lastname = lastname;
 
     return lastname;
 }
-string Persons::getQuote(sting quote){
+string Persons::getQuote(string quote){
     quote = qoute;
     return quote;
 }
