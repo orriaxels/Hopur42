@@ -17,9 +17,9 @@ class InterFace //Ser um samdkipti vid notanda in/out
 		void runInterFace();
 		void displayMainMenu();
 		void printAddMenu();
-		void printDisplayMenu();
-		void printSearchMenu();
-        int actionSelect(); //Af hverju skilar tetta fall int? Virdist ekki notad
+        void printDisplayMenu(); //Spyr notenda hvernig hann vill persónurnar sorteraðar, sendir inn int og bool í sort fall.
+        void printSearchMenu(); //Nær í streng frá notenda og sendir í search fall.
+        void actionSelect(); //Notandi velur aðgerð og kallar á viðeigandi fall (Display, add etc.)
         void printPerson(vector<Persons> &list);
 
     private:
