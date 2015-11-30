@@ -20,39 +20,39 @@ int InterFace::actionSelect(){
     char a;
     string dummyString; //lennti í smá veseni með getline, setti þetta inn samkvæmt
                         //internetinu, þetta virðist laga þá villu
-        cout << "Please select an option from the list: ";
-        cin >> a;
-        bool loop;
-        getline(cin, dummyString);
+    cout << "Please select an option from the list: ";
+    cin >> a;
+    bool loop;
+    getline(cin, dummyString);
 
-        if(a !='1' && a !='2' && a !='3' && a !='4'){
-            cout << "Invalid input" << endl;
-            
-        }else{
-            do{
-                switch(a){
-                case '1':
-                    cout << endl;
-                    InterFace::printAddMenu();
-                    break;
-                case '2':
-                    cout << endl;
-                    InterFace::printDisplayMenu();
-                    break;
-                case '3':
-                    cout << endl;
-                    InterFace::printSearchMenu();
-                    break;
-                case '4':
-                    loop = 0;
-                    break;
-                default:
-                    cout << "Invalid" << endl;
-                    break;
-            
-                }
-            }while(loop);
-        }    
+    if(a !='1' && a !='2' && a !='3' && a !='4'){
+        cout << "Invalid input" << endl;
+        
+    }else{
+        do{
+            switch(a){
+            case '1':
+                cout << endl;
+                InterFace::printAddMenu();
+                break;
+            case '2':
+                cout << endl;
+                InterFace::printDisplayMenu();
+                break;
+            case '3':
+                cout << endl;
+                InterFace::printSearchMenu();
+                break;
+            case '4':
+                loop = 0;
+                break;
+            default:
+                cout << "Invalid" << endl;
+                break;
+        
+            }
+        }while(loop);
+    }    
     return 0;
 }
 
