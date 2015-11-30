@@ -19,10 +19,10 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
 
         void search(const string searchString); //Not tested
         bool isActionLegal(char choice);
-        bool isNameLegal(string name);
+        bool isNameLegal(string& name);
         bool isGenderLegal(char gender);
         bool isBirthYearLegal(int birth);
-        bool isDeathYearLegal(int death);
+        bool isDeathYearLegal(int death, int birthYear);
         bool isQuoteLegal(string quote);
 
         void sortDisplay(int sortBy, bool orderofsort);
@@ -36,8 +36,7 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
 
     private:
         string makeSearchable(vector<Persons> list, int index);
-        int birthYear;
-        string n;
+        
     	
 
 };

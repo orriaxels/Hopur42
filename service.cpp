@@ -52,74 +52,55 @@ string Service::makeSearchable(vector<Persons> list, int index){
     return searchable;
 }
 
-// bool isActionLegal(char choice){
-//     if(choice.length() > 1 && choice.length() < 1){
-//         cout << "Invalid input"
-//         return false;
-//     }
-//     else if(!isalnum(choice)){
-//         cout << "Invalid input" << endl;
-//         return false;
-//     }
-// }
-
-bool Service::isNameLegal(string name){
-   cout << name << endl;
-   for(unsigned int i = 0; i < name.length(); ++i){
-        if((islower(name[0])) || (islower(name[i]) && name[i-1] == ' ')){
-            name[i] = toupper(name[i]);
-        }else if(!isalpha(name[i])){
-            if(name[i] == ' ' && name[i+1] == ' '){
-                cout <<"test" << endl;
-                name.erase(name.begin()+i); 
-                i--; 
-            }else if (name[i] != ' '){
-                cout << "'" << name[i] << "' "<< "not valid in name" << endl;
-                return false;   
+bool Service::isNameLegal(string& name){
+    if(name.empty()){
+        cout << "Invalid input, reenter" << endl;
+        return false;
+    }else{
+        for(unsigned int i = 0; i < name.length(); ++i){
+            if((islower(name[0])) || (islower(name[i]) && name[i-1] == ' ')){
+                name[i] = toupper(name[i]);
             }
-        }else if( (i != 0) && (isupper(name[i]) && name[i-1] != ' ')){
-            name[i] = tolower(name[i]);
+            else if(!isalpha(name[i])){
+                if(name[i] == ' ' && name[i+1] == ' '){
+                    name.erase(name.begin()+i); 
+                    i--; 
+                }else if (name[i] != ' '){
+                    cout << "'" << name[i] << "' "<< "not valid in name" << endl;
+                    return false;   
+                }
+            }else if( (i != 0) && (isupper(name[i]) && name[i-1] != ' ')){
+                name[i] = tolower(name[i]);
+            }
         }
-    }
-    //n = name;
-    cout << n <<endl;
+    } 
+    
     return true;
-
 }
-
-
-
-
-    // if(name.length() < 2 || name.length() > 31){
-    //     return false;
-    // }    
-    // else{
-    //     return true;
-    // }
-
 
 bool Service::isGenderLegal(char gender){
     if(gender == 'm' || gender == 'f'){
         return true;    
     }else{
+        cout << "Invalid input, please reenter" << endl;
         return false;
     }
 }
 
 bool Service::isBirthYearLegal(int birth){
-     birthYear= birth;
         if(birth > 1800 && birth < 2005){
             return true;
         }else{        
+            cout << "Invalid input, please reenter" << endl;
             return false;
         }
 }
 
-bool Service::isDeathYearLegal(int death){
+bool Service::isDeathYearLegal(int death, int birthYear){
             if( (death > birthYear && death < 2016) || (death == 0) ){
                 return true;
-            }else if(death == birthYear){
-                cout << "Invalid input, can't be the same as year of birth" << endl;
+            }else if(death <= birthYear){
+                cout << "Invalid input, can't be the same as year of birth or before" << endl;
                 return false;
             }    
             else{
@@ -129,7 +110,7 @@ bool Service::isDeathYearLegal(int death){
 }
 
 bool Service::isQuoteLegal(string quote){
-    if(quote.length() == 0){
+    if(quote == "0"){
         return true;
     }
     else if(quote.length() < 5){

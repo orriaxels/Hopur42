@@ -12,37 +12,50 @@ InterFace::InterFace(){} //default constructor
 
 
 void InterFace::runInterFace(){
-     InterFace::displayMainMenu();
-     InterFace::actionSelect();
+        InterFace::displayMainMenu();
+        InterFace::actionSelect();    
 }
 
 int InterFace::actionSelect(){  
-    char a = '0';
-    do{
+    char a;
+    string dummyString; //lennti í smá veseni með getline, setti þetta inn samkvæmt
+                        //internetinu, þetta virðist laga þá villu
+        cout << "Please select an option from the list: ";
         cin >> a;
-        switch(a){
-            case '1':
-                cout << endl;
-                InterFace::printAddMenu();
-                break;
-            case '2':
-                cout << endl;
-                InterFace::printDisplayMenu();
-                break;
-            case '3':
-                cout << endl;
-                InterFace::printSearchMenu();
-                break;
-            case '4':
-                cout << "false" << endl;
-                return 0;
-            default:
-                cout << "Input not available" << endl;
-                break;
-        }
-    }while(a !='1' && a !='2' && a !='3' && a !='4');
+        bool loop;
+        getline(cin, dummyString);
+
+        if(a !='1' && a !='2' && a !='3' && a !='4'){
+            cout << "Invalid input" << endl;
+            
+        }else{
+            do{
+                switch(a){
+                case '1':
+                    cout << endl;
+                    InterFace::printAddMenu();
+                    break;
+                case '2':
+                    cout << endl;
+                    InterFace::printDisplayMenu();
+                    break;
+                case '3':
+                    cout << endl;
+                    InterFace::printSearchMenu();
+                    break;
+                case '4':
+                    loop = 0;
+                    break;
+                default:
+                    cout << "Invalid" << endl;
+                    break;
+            
+                }
+            }while(loop);
+        }    
     return 0;
 }
+
 void InterFace::displayMainMenu(){
     cout<< "Welcome to this awesome database" << endl
         << endl
@@ -51,8 +64,8 @@ void InterFace::displayMainMenu(){
         << "  2. Display the database" << endl
         << "  3. Search the database" << endl
         << "  4. Quit" << endl
-        << endl
-        << "Please select an option from the list: ";
+        << endl;
+       
 
     //Hugsanlega haegt ad setja inn clearscreen her sidar
     //#include <stdlib.h>
@@ -60,75 +73,64 @@ void InterFace::displayMainMenu(){
 }
 
 void InterFace::printAddMenu(){
+    cout << "\033[2J\033[1;1H";
     string name;
     string quote;
     Service var;
     char gender;
     int bYear = 0;
     int dYear = 0;
-    bool loop = 0;
+    bool deathLoop = 0;
     
     cout << "Enter information" << endl;
     
     do{
-        cout << "Name: ";
-        name = "";
-        cin.ignore();  
+        cout << "Name: "; 
         getline(cin, name);
-        cout << name << endl;
     }while(!(var.isNameLegal(name)));
-    
+
     do{    
         cout << "Gender (m for male / f for female): ";
         cin >> gender;
         gender = tolower(gender);
-        if(!(var.isGenderLegal(gender))){
-            cout << "Invalid input, please reenter" << endl;
-        }
     }while(!(var.isGenderLegal(gender)));    
 
 
     do{    
         cout << "Year of birth: ";
         cin >> bYear;
-        if(!(var.isBirthYearLegal(bYear))){
            if(cin.fail()){
-                bYear = 0;
                 cin.clear();
-                cin.get();
-                cout << "Invalid input, please insert valid year " << endl;     
-           }else{
-                cout << "Invalid input, please insert valid year " << endl; 
-            }    
-        }
+                cin.get();   
+           }
     }while(!(var.isBirthYearLegal(bYear)));    
 
    do{    
         cout << "Year of death (input 0 if still alive): ";
         cin >> dYear;
+        
         if(cin.fail()){
             cin.clear();
             cin.get();
-            cout << "Invalid input, please insert valid year " << endl;
-            loop = 1;
+            cout << "Invalid input, please insert valid year" << endl;
+            deathLoop = 1;
         }else{
-            if(var.isDeathYearLegal(dYear)){
-                loop = 0;        
+            if(var.isDeathYearLegal(dYear, bYear)){
+                deathLoop = 0;        
             }else{
-                loop = 1;
+                deathLoop = 1;
             }        
-        }
-         
-    }while(loop);    
+        }     
+    }while(deathLoop);    
     
     do{
         cout << "Enter famous quote (input 0 for no quote): ";
         cin.ignore();
         getline(cin, quote);
-        if(!(var.isQuoteLegal(quote))){
-            cout << "Ivalid amount characters, needs at least 6" << endl;
-        }
    }while(!(var.isQuoteLegal(quote)));
+
+   cout << "\033[2J\033[1;1H"; //"hreinsar" skjáinn.
+   runInterFace(); //keyrir aftur main menu
 }
 
 void InterFace::printDisplayMenu(){
