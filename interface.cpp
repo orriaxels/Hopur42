@@ -130,12 +130,10 @@ void InterFace::printAddMenu(){
         getline(cin, quote);
     }while(!(serVar.isQuoteLegal(quote)));
 
-    cout<<"ERRORCHECKTEXT"<<endl<<endl;
-    cout<<name<<"  "<<gender<<"  "<<bYear<<"  "<<dYear<<"  "<<quote;
-//   serVar.createPerson(name, gender, bYear, dYear, quote);
+    serVar.createPerson(name, gender, bYear, dYear);
 
 
-//   cout << "\033[2J\033[1;1H"; //"hreinsar" skjáinn.
+   cout << "\033[2J\033[1;1H"; //"hreinsar" skjáinn.
 //   runInterFace(); //keyrir aftur main menu
 
 }

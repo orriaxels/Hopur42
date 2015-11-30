@@ -8,20 +8,23 @@ using namespace std;
 Persons::Persons(){
 	firstname="";
 	lastname="";
+	gender=0;
 	yearBorn=0;//Jesus 
 	yearDied=0; 
 }
 
-Persons::Persons(string fName, string lName, int born, int died){
+Persons::Persons(string fName, string lName, bool pGender, int born, int died){
 	firstname=fName;
 	lastname=lName;
+	gender=pGender;
 	yearBorn=born; 
 	yearDied=died;	
 }
 
-Persons::Persons(string fName, string lName, int born, int died, string Quote){
+Persons::Persons(string fName, string lName, bool pGender, int born, int died, string Quote){
 	firstname=fName;
 	lastname=lName;
+	gender=pGender;
 	yearBorn=born; 
 	yearDied=died;
 	quote=Quote;	

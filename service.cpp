@@ -96,8 +96,8 @@ void Service::sortDisplay(int sortBy, bool orderofsort){
     }
     interVar.printPerson(list);
 }
-/*
-void createPerson(string name, char gender, int yborn, int ydied){
+
+void Service::createPerson(string name, char gender, int yborn, int ydied){
 
     string buffer="";
     vector<string> nameContainer;
@@ -116,6 +116,8 @@ void createPerson(string name, char gender, int yborn, int ydied){
     buffer="";
     for(unsigned int i=0; i<nameContainer.size()-1; i++){
         buffer+=nameContainer.at(i);
+        if(i< (nameContainer.size()-2))
+            buffer+=" ";
     }
     newP.setFirst(buffer);  //Sets first name
     buffer="";
@@ -143,7 +145,8 @@ void createPerson(string name, char gender, int yborn, int ydied, string quote){
     stringstream nameStream;
     nameStream.str(name);
     Persons newP;
-
+    Repository repoVar;
+    
     //Seperate name string and set first and last name    
     while (nameStream >> buffer){ //seperates the string word by word using stringstream
             if(buffer=="-1")
@@ -154,6 +157,8 @@ void createPerson(string name, char gender, int yborn, int ydied, string quote){
     buffer="";
     for(unsigned int i=0; i<nameContainer.size()-1; i++){
         buffer+=nameContainer.at(i);
+        if(i< (nameContainer.size()-2))
+            buffer+=" ";
     }
     newP.setFirst(buffer);  //Sets first name
     buffer="";
@@ -168,12 +173,16 @@ void createPerson(string name, char gender, int yborn, int ydied, string quote){
 
     //Sets birth and died year;
     newP.setBorn(yborn);
-    newP.setDied(ydied);  
+    newP.setDied(ydied); 
 
     newP.setQuote(quote);
+
+    repoVar.writeToFile(newP);  
+
+    
 }
 
-*/
+
 
 /*
 void Service::remove()  ef timi gefst

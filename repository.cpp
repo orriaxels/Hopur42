@@ -93,7 +93,8 @@ void Repository::writeToFile(Persons newPerson){
     ofstream toFile;
     toFile.open("itpersons.txt", ios::app); //app  append, or end of file
 
-    toFile  << newPerson.getF() << " "
+    toFile  << endl
+            << newPerson.getF() << " "
             << newPerson.getL() << " "
             << newPerson.getGender() << " "
             << newPerson.getYearBorn() << " "

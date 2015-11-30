@@ -14,8 +14,8 @@ class Persons
 	public:
 		//Constructors
 		Persons(); 
-		Persons(string fName, string lName, int born, int died);
-        Persons(string fName, string lName, int born, int died, string Quote);
+		Persons(string fName, string lName, bool pGender, int born, int died);
+        Persons(string fName, string lName, bool pGender, int born, int died, string Quote);
 
         //Returns value of variables.
         string getF(); 
