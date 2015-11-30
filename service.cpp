@@ -16,6 +16,7 @@ Service::Service(){//default constructor
 
 void Service::search(const string searchString){
     Repository repoVar;
+    InterFace interVar;
     string buffer;
     vector<Persons> list=repoVar.getList();
     vector<Persons> foundIn;
@@ -26,7 +27,7 @@ void Service::search(const string searchString){
             foundIn.push_back(list.at(i));
         }
     }
-    //Send vector to interface for print NOT IMPLEMENTED
+    interVar.printPerson(foundIn);
 }
 
 string Service::makeSearchable(vector<Persons> list, int index){
@@ -35,15 +36,15 @@ string Service::makeSearchable(vector<Persons> list, int index){
     ostringstream stringstream;
 
     searchable=list.at(index).getF();
-    searchable+="\t" ;		//svo ekki finnist stafir tar sem skett er saman
+    searchable+=" " ;		//svo ekki finnist stafir tar sem skett er saman
 
     searchable+=list.at(index).getL();
-    searchable+="\t" ;
+    searchable+=" " ;
 
     stringstream << list.at(index).getYearBorn();
     searchable+=stringstream.str();
     stringstream.str("");
-    searchable+="\t";
+    searchable+=" ";
 
     stringstream << list.at(index).getYearDied();
     searchable+=stringstream.str();
@@ -165,8 +166,9 @@ bool compYearDied(Persons p1, Persons p2){
 
 
 //Sorts list
-void Service::sortDisplay(int sortBy){
+void Service::sortDisplay(int sortBy, bool orderofsort){
     Repository repoVar;
+    InterFace interVar;
     vector<Persons> list=repoVar.getList();
 
     switch(sortBy){
@@ -185,5 +187,8 @@ void Service::sortDisplay(int sortBy){
         default:
             break; //Shouldnt happen. Error check on input needed
     }
-    //Send vector to interface for print NOT IMPLEMENTED
+    if(orderofsort){
+        reverse(list.begin(),list.end());
+    }
+    interVar.printPerson(list);
 }

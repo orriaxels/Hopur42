@@ -33,11 +33,11 @@ class Persons
 		void setBorn(const int yBorn);
 		void setDied(const int yDied);        
 	private:
-		string firstname; //If two names needs to be decided
+		string firstname; 
 		string lastname;
 		string quote;
-		bool gender; //False for male, true for female
-		int yearBorn;  //Hugsanlega setja upp breyta sidar med dagsetningu ef timi gefst
+		bool gender; 	//False for male, true for female
+		int yearBorn; 	
 		int yearDied;
 };
 

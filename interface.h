@@ -20,9 +20,7 @@ class InterFace //Ser um samdkipti vid notanda in/out
 		void printDisplayMenu();
 		void printSearchMenu();
         int actionSelect(); //Af hverju skilar tetta fall int? Virdist ekki notad
-        void printPerson(vector<Persons> list);
-
-        //þarf fall hér til að senda inn vector<person> til ad prenta 
+        void printPerson(vector<Persons> &list);
 
     private:
     			// Verda liklega ekki breitur til ad vinna med
