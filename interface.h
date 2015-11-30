@@ -24,7 +24,8 @@ class InterFace //Ser um samdkipti vid notanda in/out
 
         //þarf fall hér til að senda inn vector<person> til ad prenta 
 
-    private:    // Verda liklega ekki breitur til ad vinna med
+    private:
+    			// Verda liklega ekki breitur til ad vinna med
                 // Hugsanlega haegt ad setja hjalparfoll
 };
 

@@ -61,7 +61,8 @@ void InterFace::displayMainMenu(){
 }
 
 void InterFace::printAddMenu(){
-    string name, quote;
+    string name;
+    string quote;
     Service var;
     char gender;
     int bYear = 0;
@@ -71,12 +72,11 @@ void InterFace::printAddMenu(){
     cout << "Enter information" << endl;
     
     do{
-        cout << "Name: " ;
-        cin.ignore();
+        cout << "Name: ";
+        name = "";
+        cin.ignore();  
         getline(cin, name);
-        if(!(var.isNameLegal(name))){
-            cout << "Invalid input, please reenter" << endl;
-        }
+        cout << name << endl;
     }while(!(var.isNameLegal(name)));
     
     do{    
