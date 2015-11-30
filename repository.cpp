@@ -7,9 +7,8 @@
 #include "repository.h"
 #include "persons.h"
 
-Repository::Repository()
-{
-    readFile();
+Repository::Repository(){
+    //default construct
 }
 
 
@@ -105,5 +104,6 @@ void Repository::writeToFile(Persons newPerson){
 }
 
 vector<Persons> Repository::getList(){
+    readFile();
     return list;
 }
