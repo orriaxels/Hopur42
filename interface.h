@@ -30,3 +30,5 @@ class InterFace //Ser um samdkipti vid notanda in/out
 };
 
 #endif
+
+

@@ -73,10 +73,10 @@ void InterFace::displayMainMenu(){
 }
 
 void InterFace::printAddMenu(){
-    cout << "\033[2J\033[1;1H";
-    string name;
+   // cout << "\033[2J\033[1;1H";
+    string name, illegal;
     string quote;
-    Service var;
+    Service serVar;
     char gender;
     int bYear = 0;
     int dYear = 0;
@@ -87,23 +87,32 @@ void InterFace::printAddMenu(){
     do{
         cout << "Name: "; 
         getline(cin, name);
-    }while(!(var.isNameLegal(name)));
+        if(serVar.isNameLegal(name, illegal) == false){
+           cout << "'" << illegal << "' "<< "not valid in name" << endl;
+        }
+    }while( !(serVar.isNameLegal(name, illegal)) );
 
     do{    
         cout << "Gender (m for male / f for female): ";
         cin >> gender;
         gender = tolower(gender);
-    }while(!(var.isGenderLegal(gender)));    
-
+        if(serVar.isGenderLegal(gender) == false){
+            cout << "Invalid input, please reenter" << endl;
+        }
+    }while(!(serVar.isGenderLegal(gender)));    
 
     do{    
         cout << "Year of birth: ";
         cin >> bYear;
-           if(cin.fail()){
-                cin.clear();
-                cin.get();   
+        if(cin.fail()){
+            cin.clear();
+            cin.get();   
            }
-    }while(!(var.isBirthYearLegal(bYear)));    
+        if(serVar.isBirthYearLegal(bYear) == false){
+             cout << "Invalid input, please reenter" << endl;
+        }
+    }while(!(serVar.isBirthYearLegal(bYear)));    
+
 
    do{    
         cout << "Year of death (input 0 if still alive): ";
@@ -112,37 +121,51 @@ void InterFace::printAddMenu(){
         if(cin.fail()){
             cin.clear();
             cin.get();
-            cout << "Invalid input, please insert valid year" << endl;
+            cout << "Invalid input, please insert a valid year" << endl;
             deathLoop = 1;
         }else{
-            if(var.isDeathYearLegal(dYear, bYear)){
+            if(serVar.isDeathYearLegal(dYear, bYear)){
                 deathLoop = 0;        
             }else{
-                deathLoop = 1;
-            }        
-        }     
+                if(dYear < bYear){
+                    cout << "Impossible, you can't be dead before you are born!" << endl;
+                    deathLoop = 1;
+                }
+                else if(dYear == bYear){
+                    cout << "Not likely, you are a not an important person in the computer world at the age 0" << endl;
+                    deathLoop = 1;
+                }        
+            }
+                
+        }             
     }while(deathLoop);    
     
     do{
         cout << "Enter famous quote (input 0 for no quote): ";
         cin.ignore();
         getline(cin, quote);
-   }while(!(var.isQuoteLegal(quote)));
+    }while(!(serVar.isQuoteLegal(quote)));
 
-   cout << "\033[2J\033[1;1H"; //"hreinsar" skjáinn.
-   runInterFace(); //keyrir aftur main menu
+    cout << "ERRORCHECKTEXT" << endl << endl;
+    cout << name << "  " << gender << "  " << bYear << "  " << dYear << "  " << quote << endl;
+//   serVar.createPerson(name, gender, bYear, dYear, quote);
+
+
+//   cout << "\033[2J\033[1;1H"; //"hreinsar" skjáinn.
+//   runInterFace(); //keyrir aftur main menu
+
 }
 
 void InterFace::printDisplayMenu(){
     Service servVar;
     int sortWith, order;
 
-    cout << "What would you like to sort by?" << endl;
-    cout << "1. First name" << endl;
-    cout << "2. Last name" << endl;
-    cout << "3. Gender" << endl;
-    cout << "4. Year of birth" << endl;
-    cout << "5. Year of death" << endl;
+    cout << "What would you like to sort by?" << endl
+         << "1. First name" << endl
+         << "2. Last name" << endl
+         << "3. Gender" << endl
+         << "4. Year of birth" << endl
+         << "5. Year of death" << endl;
 
     do{
         cin >> sortWith;
@@ -153,7 +176,7 @@ void InterFace::printDisplayMenu(){
             cin.get();
             cout << "Invalid input. Please try again." << endl;
         }
-        else if (sortWith > 5 || sortWith <1){
+        else if (sortWith > 5 || sortWith < 1){
             cout << "Invalid input. Please try again." << endl;
         }
    }while(sortWith > 5 || sortWith < 1);
