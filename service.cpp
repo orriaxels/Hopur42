@@ -96,7 +96,7 @@ void Service::sortDisplay(int sortBy, bool orderofsort){
     }
     interVar.printPerson(list);
 }
-
+/*
 void createPerson(string name, char gender, int yborn, int ydied){
 
     string buffer="";
@@ -105,7 +105,7 @@ void createPerson(string name, char gender, int yborn, int ydied){
     nameStream.str(name);
     Persons newP;
     Repository repoVar;
-
+    
     //Seperate name string and set first and last name    
     while (nameStream >> buffer){ //seperates the string word by word using stringstream
             if(buffer=="-1")
@@ -135,7 +135,7 @@ void createPerson(string name, char gender, int yborn, int ydied){
     repoVar.writeToFile(newP);
 
 }
-
+*/
 void createPerson(string name, char gender, int yborn, int ydied, string quote){
 
     string buffer="";

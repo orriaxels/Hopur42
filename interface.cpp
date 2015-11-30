@@ -62,7 +62,7 @@ void InterFace::displayMainMenu(){
 void InterFace::printAddMenu(){
     string name;
     string quote;
-    Service var;
+    Service serVar;
     char gender;
     int bYear = 0;
     int dYear = 0;
@@ -76,22 +76,22 @@ void InterFace::printAddMenu(){
         cin.ignore();  
         getline(cin, name);
         cout << name << endl;
-    }while(!(var.isNameLegal(name)));
+    }while(!(serVar.isNameLegal(name)));
     
     do{    
         cout << "Gender (m for male / f for female): ";
         cin >> gender;
         gender = tolower(gender);
-        if(!(var.isGenderLegal(gender))){
+        if(!(serVar.isGenderLegal(gender))){
             cout << "Invalid input, please reenter" << endl;
         }
-    }while(!(var.isGenderLegal(gender)));    
+    }while(!(serVar.isGenderLegal(gender)));    
 
 
     do{    
         cout << "Year of birth: ";
         cin >> bYear;
-        if(!(var.isBirthYearLegal(bYear))){
+        if(!(serVar.isBirthYearLegal(bYear))){
            if(cin.fail()){
                 bYear = 0;
                 cin.clear();
@@ -101,7 +101,7 @@ void InterFace::printAddMenu(){
                 cout << "Invalid input, please insert valid year " << endl; 
             }    
         }
-    }while(!(var.isBirthYearLegal(bYear)));    
+    }while(!(serVar.isBirthYearLegal(bYear)));    
 
    do{    
         cout << "Year of death (input 0 if still alive): ";
@@ -112,7 +112,7 @@ void InterFace::printAddMenu(){
             cout << "Invalid input, please insert valid year " << endl;
             loop = 1;
         }else{
-            if(var.isDeathYearLegal(dYear)){
+            if(serVar.isDeathYearLegal(dYear)){
                 loop = 0;        
             }else{
                 loop = 1;
@@ -125,22 +125,26 @@ void InterFace::printAddMenu(){
         cout << "Enter famous quote (input 0 for no quote): ";
         cin.ignore();
         getline(cin, quote);
-        if(!(var.isQuoteLegal(quote))){
+        if(!(serVar.isQuoteLegal(quote))){
             cout << "Ivalid amount characters, needs at least 6" << endl;
         }
-   }while(!(var.isQuoteLegal(quote)));
+   }while(!(serVar.isQuoteLegal(quote)));
+
+   cout<<"ERRORCHECKTEXT"<<endl<<endl;
+   cout<<name<<"  "<<gender<<"  "<<bYear<<"  "<<dYear<<"  "<<quote;
+//   serVar.createPerson(name, gender, bYear, dYear, quote);
 }
 
 void InterFace::printDisplayMenu(){
     Service servVar;
     int sortWith, order;
 
-    cout << "What would you like to sort by?" << endl;
-    cout << "1. First name" << endl;
-    cout << "2. Last name" << endl;
-    cout << "3. Gender" << endl;
-    cout << "4. Year of birth" << endl;
-    cout << "5. Year of death" << endl;
+    cout << "What would you like to sort by?" << endl
+         << "1. First name" << endl
+         << "2. Last name" << endl
+         << "3. Gender" << endl
+         << "4. Year of birth" << endl
+         << "5. Year of death" << endl;
 
     do{
         cin >> sortWith;
