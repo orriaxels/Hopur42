@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <stdlib.h>
+#include <limits>
 
 #include "interface.h"
 #include "service.h"
@@ -44,11 +46,13 @@ int InterFace::actionSelect(){
                 InterFace::printSearchMenu();
                 break;
             case '4':
+                cout<<endl;
+                InterFace::printRemoveMenu();
+                break;
                 loop = 0;
                 break;
             case '5':
-                cout<<endl;
-                InterFace::printRemoveMenu();
+                loop = 0;
                 break;
             default:
                 cout << "Invalid" << endl;
@@ -67,13 +71,9 @@ void InterFace::displayMainMenu(){
         << "  1. Add a new entry" << endl
         << "  2. Display the database" << endl
         << "  3. Search the database" << endl
-        << "  4. Quit" << endl
+        << "  4. Remove entry from database"<<endl
+        << "  5. Quit" << endl
         << endl;
-       
-
-    //Hugsanlega haegt ad setja inn clearscreen her sidar
-    //#include <stdlib.h>
-    //system("cls"); //virkar bara fyrir windows samt
 }
 
 void InterFace::printAddMenu(){
@@ -93,7 +93,7 @@ void InterFace::printAddMenu(){
         getline(cin, name);
     }while( !(serVar.isNameLegal(name)) );
     do{    
-        cout << "Gender (m for male / f for female): ";
+        cout << "Gender (f=female, m=male): ";
         cin >> gender;
         gender = tolower(gender);
     }while(!(serVar.isGenderLegal(gender)));    
@@ -134,10 +134,17 @@ void InterFace::printAddMenu(){
         getline(cin, quote);
     }while(!(serVar.isQuoteLegal(quote)));
 
-    serVar.createPerson(name, gender, bYear, dYear);
+    if(quote=="0")
+        serVar.createPerson(name, gender, bYear, dYear);
+    else
+        serVar.createPerson(name, gender, bYear, dYear, quote);
 
-//   runInterFace(); //keyrir aftur main menu
-
+    cout<<endl<<"Entry sucsessfully added to database"<<endl;
+    
+    system("pause");
+    system("cls");
+    
+    runInterFace();
 }
 
 void InterFace::printDisplayMenu(){
@@ -187,6 +194,13 @@ void InterFace::printDisplayMenu(){
             }
             
     }while (order != 1 && order !=2);
+
+    cout<<endl<<endl;
+
+    system("pause");
+    system("cls");
+    
+    runInterFace();
 }
 
 void InterFace::printSearchMenu(){
@@ -199,7 +213,6 @@ void InterFace::printSearchMenu(){
 
     servVar.search(searchS);
 }
-
 
 void InterFace::printPerson(vector<Persons> &list){
     string buffer;
@@ -238,8 +251,8 @@ void InterFace::printPerson(vector<Persons> &list){
 
 void InterFace::printRemoveMenu(){
     Service serVar;
-    int enteryRemove, totalEnt;
-    totalEnt= serVar.getListDatabase();
+    int enteryRemove;
+    serVar.getListDatabase();
     cout<< "Which one of these enteries do you want to remove(select #)? ";
 
 
@@ -254,4 +267,10 @@ void InterFace::printRemoveMenu(){
     }while( (cin.fail())  );
 
     serVar.removeEntery(enteryRemove);
+    cout<< endl<<"Entery sucsessfully removed. (backup_itPersons.txt contains orginal list)"<<endl; 
+
+    system("pause");
+    system("cls");
+    
+    runInterFace();
 }

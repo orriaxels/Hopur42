@@ -138,7 +138,7 @@ void Service::createPerson(string name, char gender, int yborn, int ydied){
 
 }
 
-void createPerson(string name, char gender, int yborn, int ydied, string quote){
+void Service::createPerson(string name, char gender, int yborn, int ydied, string quote){
 
     string buffer="";
     vector<string> nameContainer;
@@ -193,13 +193,16 @@ int Service::getListDatabase(){  //ef timi gefst
 
 void Service::removeEntery(int enteryRemove){
     Repository repoVar;
-    InterFace intVar;
     vector<Persons> List=repoVar.getList();
 
-    List.erase(List.begin() + (enteryRemove-1) );
-    
+    //Backs up current list into file backup_itpersons.txt
+    repoVar.backupList(List);
 
-    
+    //removes selcted from list
+    List.erase(List.begin() + (enteryRemove-1) );
+
+    //Rewrites the hole list to orginal file
+    repoVar.rewriteList(List);
 }
 
 
