@@ -35,12 +35,8 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
         bool somthingthere();
 
         //errorcheck functions
-        bool isActionLegal(char choice);
         bool isNameLegal(string& name, string& illegal);
-        bool isGenderLegal(char gender);
-        bool isBirthYearLegal(int birth);
-        bool isDeathYearLegal(int death, int birthYear);
-        bool isKnownForLegal(string knownFor);
+        
     private:
         string makeSearchable(vector<Persons> list, int index);
         

@@ -59,7 +59,8 @@ void Repository::readFile(){
                 //read in first name. For loop if fName is more than one word
                 for(unsigned int i=0 ; i<dateStart-1; ++i){
                     buffer+=subStrings.at(i);
-                    buffer+=" ";
+                    if(i<(dateStart-2))
+                        buffer+=" ";
                 }
                 Per.setFirst(buffer);
                 buffer=""; //clear buffer for use later
@@ -145,7 +146,6 @@ void Repository::rewriteList(vector<Persons> listnew){
 
     backup.close();
 }
-
 
 
 vector<Persons> Repository::getList(){

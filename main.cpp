@@ -12,21 +12,3 @@ int main(){
     
     return 0;
 }
-
-/*
-
-search is case sensitive
-og ekki birta ef ekekrt finnst
-
-main manu is invalid input not working as inteded
-
-
-
-strengur í gender
-
-getur dáið í framtíðinni
-
-
-
-
-*/

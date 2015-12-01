@@ -77,17 +77,16 @@ void InterFace::displayMainMenu(){
 
 void InterFace::printAddMenu(){
 
-    string name, illegal;
-    string knownFor;
     Service serVar;
-    string gender;
+    string name, illegal;
+    string knownFor="";
+    string gender="";
     int bYear = 0;
     int dYear = 0;
-    bool deathLoop = 0;
-    bool genderLoop = 0;
-    
+
     cout << "Enter information" << endl;
-    
+   
+    //Get name input
     do{
         cout << "Name: "; 
         getline(cin, name);
@@ -96,75 +95,56 @@ void InterFace::printAddMenu(){
         }
     }while( !(serVar.isNameLegal(name, illegal)) );
 
+    //Get gender input
     do{
         cout << "Gender (f=female, m=male): ";
         cin >> gender;
-       if(gender.length() < 1 || gender.length() > 1){
-            cout << "Invalid input" << endl;
-            genderLoop = 1;
-        }else if(gender == "f" || gender == "F" || gender == "m" || gender == "M"){
-            genderLoop = 0;
-        }else{
-            genderLoop = 1;
+        if(gender != "f" && gender != "F" && gender != "m" && gender != "M"){
+            cin.clear();
+            cin.ignore();
+            cout<<"Invalid input."<<endl;
         }
-    }while(genderLoop);
+    }while(gender != "f" && gender != "F" && gender != "m" && gender != "M");
 
-    // do{    
-    //     cout << "Gender (f=female, m=male): ";
-    //     cin >> gender;
-    //     gender = tolower(gender);
-    //     if(serVar.isGenderLegal(gender) == false){
-    //         cout << "Invalid input, please reenter" << endl;
-    //     }
-    // }while(!(serVar.isGenderLegal(gender)));    
-
-    do{    
+    //Get birth year input
+    do{
         cout << "Year of birth: ";
         cin >> bYear;
-        if(cin.fail()){
+        if(cin.fail() || bYear < 1 || bYear > 2010 ){
             cin.clear();
-            cin.get();   
-           }
-        if(serVar.isBirthYearLegal(bYear) == false){
-             cout << "Invalid input, please reenter" << endl;
+            cin.ignore( 1000, '\n' ) ; 
+            cout<<"Invalid input."<<endl;   
         }
-    }while(!(serVar.isBirthYearLegal(bYear)));    
 
-   do{    
-        cout << "Year of death (\"0\" to skip): ";
+    }while( bYear < 1 || bYear > 2010 );
+
+
+    //Get death year input
+    do{    
+        cout << "Year of death (\"0\" if alive): ";
         cin >> dYear;
         
-        if(cin.fail()){
+        if( cin.fail() || (dYear > 2015) || (dYear < bYear+8) ){//google says youngest CS is at least 10
+            if  (dYear > 2015)
+                cout<<"Invalid input. Litle pessimistic arent we?"<<endl;  
+            else if ( (dYear < bYear+8) ) { 
+                cout<<"Invalid input. Have to be at least 8."<<endl; }
+            else {
+                cout<<"Invalid input."<<endl;}
+
             cin.clear();
-            cin.get();
-            cout << "Invalid input, please insert a valid year" << endl;
-            deathLoop = 1;
-        }else{
-            if(dYear == 0){
-                deathLoop = 0;
-            }
-            else if(dYear < bYear){
-                cout << "Impossible, you can't be dead before you are born!" << endl;
-                deathLoop = 1;
-            }
-            else if(dYear == bYear){
-                cout << "Not likely, you are a not an important person in the computer world at the age 0" << endl;
-                deathLoop = 1;
-            }
-            else if(dYear > 2015){
-                cout << "Invalid death year" << endl;
-                deathLoop = 1;
-            }else{
-                deathLoop = 0;
-            }        
-        }           
-    }while(deathLoop);
+            cin.ignore( 1000, '\n' ) ;     
+        }       
+    }while( (dYear > 2015) || (dYear < bYear+8) );
     
+    //Get input Known for info
     do{
         cout << "Is known for (\"0\" to skip): ";
         cin.ignore();
         getline(cin, knownFor);
-    }while(!(serVar.isKnownForLegal(knownFor)));
+        if((knownFor != "0") && (knownFor.length() < 3) )
+            cout<<"Invalid input."<<endl;
+    }while( (knownFor != "0") && (knownFor.length() < 3) );
 
 
     serVar.createPerson(name, gender, bYear, dYear, knownFor);
@@ -216,7 +196,6 @@ void InterFace::printDisplayMenu(){
                 cin >> order;
             }
 
-            
 
             if (order == 1){
                 servVar.sortDisplay(sortWith, 0);
@@ -228,7 +207,7 @@ void InterFace::printDisplayMenu(){
         }while (order != 1 && order !=2);
     }
     else{
-        cout<<"Nothing to display(database is emty)";
+        cout<<"Nothing to display(database is empty)";
     }
 
     cout<<endl<<endl;
