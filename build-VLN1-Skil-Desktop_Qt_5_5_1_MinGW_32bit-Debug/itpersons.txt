@@ -1,7 +1,12 @@
-Alan Turing 0 1912 1954 Cryptanalysis of the Enigma  
-Grace Hopper 1 1906 1992 one of Harvard Mark I computer's first programmers  
-Ada Lovelace 1 1815 1852 0  
-Tom Barnesrs-Lee 0 1955 0  
-Bill Gates 0 1955 0 co-founder of microsoft  
-Apakottur Apason 0 1987 0 Vera undarlegur  
-Gunndar Thor Magunsson 0 1970 0 0 
+Alan Turing 0 1912 1954 Cryptanalysis of the Enigma.
+Grace Hopper 1 1906 1992 Harvard Mark I computer's first programmer. 
+Ada Lovelace 1 1815 1852 Her work on Sketch of the Analytical Engine.
+Tim BernersLee 0 1955 0 Invented worldwide web. 
+Bill Gates 0 1955 0 Co-founder of Microsoft.
+Charles Babbage 0 1791 1871 Originated the concept of general-purpose computer.
+George Boole 0 1815 1864 Formalized Boolean algebra.
+Sophie Wilson 1 1957 0 Wrote BBC Basic programming language.
+Claude Shannon 0 1916 2001 Founded information theory and practical digital circuit design.
+Gerard Salton 0 1927 1995 A pioneer of automatic information retrieval.
+Bjarne Stroustrup 0 1950 0 Creator of C++ programming language. 
+Api 0 1980 0 Vera api i tovlum
