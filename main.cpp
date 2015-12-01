@@ -19,4 +19,13 @@ search is case sensitive
 
 main manu is invalid input not working as inteded
 
+
+
+strengur í gender
+
+getur dáið í framtíðinni
+
+
+
+
 */

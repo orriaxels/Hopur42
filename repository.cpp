@@ -70,8 +70,8 @@ void Repository::readFile(){
         dateStart++;
         
 
-       for(unsigned int j = dateStart; dateStart<subStrings.size(); dateStart++){
-           buffer+=subStrings.at(dateStart);
+       for(unsigned int j = dateStart; j<subStrings.size(); j++){
+           buffer+=subStrings.at(j);
            buffer+=" ";
        }
            
