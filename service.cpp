@@ -79,7 +79,7 @@ void Service::sortDisplay(int sortBy, bool orderofsort){
         case 2: // Sort by last name
             sort(list.begin(), list.end(), compLastname);
             break;
-        case 3: // Sort by last name
+        case 3: // Sort by gender
             sort(list.begin(), list.end(), compGender);
             break;    
         case 4: //Sort by year born
@@ -96,9 +96,9 @@ void Service::sortDisplay(int sortBy, bool orderofsort){
     }
     interVar.printPerson(list);
 }
-/*
-void createPerson(string name, char gender, int yborn, int ydied){
 
+
+void Service::createPerson(string name, char gender, int yborn, int ydied){
     string buffer="";
     vector<string> nameContainer;
     stringstream nameStream;
@@ -116,6 +116,9 @@ void createPerson(string name, char gender, int yborn, int ydied){
     buffer="";
     for(unsigned int i=0; i<nameContainer.size()-1; i++){
         buffer+=nameContainer.at(i);
+
+        if(i< (nameContainer.size()-2))
+            buffer+=" ";
     }
     newP.setFirst(buffer);  //Sets first name
     buffer="";
@@ -136,14 +139,15 @@ void createPerson(string name, char gender, int yborn, int ydied){
 
 }
 
-void createPerson(string name, char gender, int yborn, int ydied, string quote){
+void Service::createPerson(string name, char gender, int yborn, int ydied, string knownFor){
 
     string buffer="";
     vector<string> nameContainer;
     stringstream nameStream;
     nameStream.str(name);
     Persons newP;
-
+    Repository repoVar;
+    
     //Seperate name string and set first and last name    
     while (nameStream >> buffer){ //seperates the string word by word using stringstream
             if(buffer=="-1")
@@ -154,6 +158,10 @@ void createPerson(string name, char gender, int yborn, int ydied, string quote){
     buffer="";
     for(unsigned int i=0; i<nameContainer.size()-1; i++){
         buffer+=nameContainer.at(i);
+
+        if(i< (nameContainer.size()-2))
+            buffer+=" ";
+
     }
     newP.setFirst(buffer);  //Sets first name
     buffer="";
@@ -170,35 +178,50 @@ void createPerson(string name, char gender, int yborn, int ydied, string quote){
     newP.setBorn(yborn);
     newP.setDied(ydied);  
 
-    newP.setQuote(quote);
+    newP.setKnownFor(knownFor);
+
+    repoVar.writeToFile(newP);   
 }
 
-*/
+
 
 /*
-void Service::remove()  ef timi gefst
-{
-
-}
-
 void Service::editEntery()  //ef timi gefst
 {
 
 }
 */
 
-// bool isActionLegal(char choice){
-//     if(choice.length() > 1 && choice.length() < 1){
-//         cout << "Invalid input"
-//         return false;
-//     }
-//     else if(!isalnum(choice)){
-//         cout << "Invalid input" << endl;
-//         return false;
-//     }
-// }
 
-bool Service::isNameLegal(string& name, string& illegal){
+}
+
+int Service::getListDatabase(){  //ef timi gefst
+    Repository repoVar;
+    InterFace intVar;
+    vector<Persons> List=repoVar.getList();
+
+    intVar.printPerson(List);
+
+    return List.size();
+}
+
+void Service::removeEntery(int enteryRemove){
+    Repository repoVar;
+    vector<Persons> List=repoVar.getList();
+
+    //Backs up current list into file backup_itpersons.txt
+    repoVar.backupList(List);
+
+    //removes selcted from list
+    List.erase(List.begin() + (enteryRemove-1) );
+
+    //Rewrites the hole list to orginal file
+    repoVar.rewriteList(List);
+}
+
+
+bool Service::isNameLegal(string& name){
+>>>>>>> refs/remotes/origin/reworkInputchecks
     if(name.empty()){
         cout << "Invalid input, reenter" << endl;
         return false;
@@ -248,11 +271,11 @@ bool Service::isDeathYearLegal(int death, int birthYear){
             }                
 }
 
-bool Service::isQuoteLegal(string quote){
-    if(quote == "0"){
+bool Service::isKnownForLegal(string knownFor){
+    if(knownFor == "0"){
         return true;
     }
-    else if(quote.length() < 5){
+    else if(knownFor.length() < 5){
         return false;
     }
     else{

@@ -14,6 +14,8 @@ public:
 	void readFile();  //reads in from file into private var
 	void writeToFile(Persons newPerson); //adds to end of file new line
 	vector<Persons> getList();
+	void backupList(vector<Persons> listBackup);
+	void rewriteList(vector<Persons> listnew);
 private:
 	vector<Persons> list;
     int convertToInt(string strConvert);

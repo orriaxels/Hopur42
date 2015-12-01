@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <stdlib.h>
+#include <limits>
 
 #include "interface.h"
 #include "service.h"
@@ -20,39 +22,45 @@ int InterFace::actionSelect(){
     char a;
     string dummyString; //lennti í smá veseni með getline, setti þetta inn samkvæmt
                         //internetinu, þetta virðist laga þá villu
-        cout << "Please select an option from the list: ";
-        cin >> a;
-        bool loop;
-        getline(cin, dummyString);
+    cout << "Please select an option from the list: ";
+    cin >> a;
+    bool loop;
+    getline(cin, dummyString);
 
-        if(a !='1' && a !='2' && a !='3' && a !='4'){
-            cout << "Invalid input" << endl;
-            
-        }else{
-            do{
-                switch(a){
-                case '1':
-                    cout << endl;
-                    InterFace::printAddMenu();
-                    break;
-                case '2':
-                    cout << endl;
-                    InterFace::printDisplayMenu();
-                    break;
-                case '3':
-                    cout << endl;
-                    InterFace::printSearchMenu();
-                    break;
-                case '4':
-                    loop = 0;
-                    break;
-                default:
-                    cout << "Invalid" << endl;
-                    break;
-            
-                }
-            }while(loop);
-        }    
+    if(a !='1' && a !='2' && a !='3' && a !='4' && a !='5'){
+        cout << "Invalid input" << endl;
+        
+    }else{
+        do{
+            switch(a){
+            case '1':
+                cout << endl;
+                InterFace::printAddMenu();
+                break;
+            case '2':
+                cout << endl;
+                InterFace::printDisplayMenu();
+                break;
+            case '3':
+                cout << endl;
+                InterFace::printSearchMenu();
+                break;
+            case '4':
+                cout<<endl;
+                InterFace::printRemoveMenu();
+                break;
+                loop = 0;
+                break;
+            case '5':
+                loop = 0;
+                break;
+            default:
+                cout << "Invalid" << endl;
+                break;
+        
+            }
+        }while(loop);
+    }    
     return 0;
 }
 
@@ -63,19 +71,15 @@ void InterFace::displayMainMenu(){
         << "  1. Add a new entry" << endl
         << "  2. Display the database" << endl
         << "  3. Search the database" << endl
-        << "  4. Quit" << endl
+        << "  4. Remove entry from database"<<endl
+        << "  5. Quit" << endl
         << endl;
-       
-
-    //Hugsanlega haegt ad setja inn clearscreen her sidar
-    //#include <stdlib.h>
-    //system("cls"); //virkar bara fyrir windows samt
 }
 
 void InterFace::printAddMenu(){
-   // cout << "\033[2J\033[1;1H";
+
     string name, illegal;
-    string quote;
+    string knownFor;
     Service serVar;
     char gender;
     int bYear = 0;
@@ -93,7 +97,7 @@ void InterFace::printAddMenu(){
     }while( !(serVar.isNameLegal(name, illegal)) );
 
     do{    
-        cout << "Gender (m for male / f for female): ";
+        cout << "Gender (f=female, m=male): ";
         cin >> gender;
         gender = tolower(gender);
         if(serVar.isGenderLegal(gender) == false){
@@ -115,7 +119,7 @@ void InterFace::printAddMenu(){
 
 
    do{    
-        cout << "Year of death (input 0 if still alive): ";
+        cout << "Year of death (\"0\" to skip): ";
         cin >> dYear;
         
         if(cin.fail()){
@@ -141,19 +145,22 @@ void InterFace::printAddMenu(){
     }while(deathLoop);    
     
     do{
-        cout << "Enter famous quote (input 0 for no quote): ";
+        cout << "Is known for (\"0\" to skip): ";
         cin.ignore();
-        getline(cin, quote);
-    }while(!(serVar.isQuoteLegal(quote)));
+        getline(cin, knownFor);
+    }while(!(serVar.isKnownForLegal(knownFor)));
 
-    cout << "ERRORCHECKTEXT" << endl << endl;
-    cout << name << "  " << gender << "  " << bYear << "  " << dYear << "  " << quote << endl;
-//   serVar.createPerson(name, gender, bYear, dYear, quote);
+    if(knownFor=="0")
+        serVar.createPerson(name, gender, bYear, dYear);
+    else
+        serVar.createPerson(name, gender, bYear, dYear, knownFor);
 
-
-//   cout << "\033[2J\033[1;1H"; //"hreinsar" skjáinn.
-//   runInterFace(); //keyrir aftur main menu
-
+    cout<<endl<<"Entry sucsessfully added to database"<<endl;
+    
+    system("pause");
+    system("cls");
+    
+    runInterFace();
 }
 
 void InterFace::printDisplayMenu(){
@@ -161,11 +168,12 @@ void InterFace::printDisplayMenu(){
     int sortWith, order;
 
     cout << "What would you like to sort by?" << endl
-         << "1. First name" << endl
-         << "2. Last name" << endl
-         << "3. Gender" << endl
-         << "4. Year of birth" << endl
-         << "5. Year of death" << endl;
+         << "1. First name" << "  ||  "
+         << "2. Last name" << "  ||  "
+         << "3. Gender" << "  ||  "
+         << "4. Year of birth" << "  ||  "
+         << "5. Year of death" << endl
+         << "Enter choice (1-5): ";
 
     do{
         cin >> sortWith;
@@ -183,51 +191,115 @@ void InterFace::printDisplayMenu(){
 
     do{
         if(sortWith ==3){
-            cout << "1.Females first" << endl;
-            cout << "2. Males first" << endl;
+            cout << "1. Males first" << endl;
+            cout << "2. Females first" << endl;
             cin >> order;
         }
         else{
-            cout << "1. Descending" << endl; //Sér fyrir gender?
-            cout << "2. Ascending" << endl;
+            cout << "1. Ascending(a-z)" << "  ||  "
+                 << "2. Descending(z-a)" << endl << "Enter choice: ";
             cin >> order;
         }
 
+        
 
         if (order == 1){
-            servVar.sortDisplay(sortWith, 1);
+            servVar.sortDisplay(sortWith, 0);
             }
         else if (order == 2){
-             servVar.sortDisplay(sortWith, 0);
+             servVar.sortDisplay(sortWith, 1);
             }
             
     }while (order != 1 && order !=2);
+
+    cout<<endl<<endl;
+
+    system("pause");
+    system("cls");
+    
+    runInterFace();
 }
 
 void InterFace::printSearchMenu(){
     Service servVar;
     string searchS;
 
-    cout << "What would you like to search for?" << endl;
-    cin.ignore();
+    cout << "What would you like to search for? " ;
     getline(cin, searchS);
+    cout<<endl<<"Found \"" << searchS << "\" in following enteries:"<<endl;
+
     servVar.search(searchS);
+
+    cout<<endl;
+    system("pause");
+    system("cls");
+    
+    runInterFace();
 }
 
 
 void InterFace::printPerson(vector<Persons> &list){
+    string buffer;
+
+    cout<<endl<<"#  Name:   \t\t\t\tGender:\tBorn:\tDied:\tKnown for:"<<endl; //
 
     for(unsigned int i=0; i<list.size(); i++){
-        cout << "Name: " << list.at(i).getF() << " " << list.at(i).getL() << endl;
-        cout << "Gender: ";
-            if(list.at(i).getGender()){
-                cout << "Female";}
-            else{
-                cout << "Male";}
-        cout << endl;
-        cout << "Year born: " << list.at(i).getYearBorn() << endl;
-        cout << "Died: " << list.at(i).getYearDied() << endl<<endl;
-        //cout << "Quote: " << list.at(i).getQuote() << endl;
+        cout << i+1;
+        if(i<9)
+            cout<<"  ";
+        else if(8<i && i<99)
+            cout<<" ";
+
+        cout << list.at(i).getF() << " " << list.at(i).getL();
+
+        buffer= list.at(i).getF() + " " + list.at(i).getL();
+        for(unsigned int j=0; j< (37- buffer.length()); j++){
+            cout<<" ";
+        }
+
+        if(list.at(i).getGender()){
+            cout << "Female"<< '\t';}
+        else{
+            cout << "Male"<< '\t';}
+
+        cout << list.at(i).getYearBorn() << '\t';
+
+
+        if( 0 == (list.at(i).getYearDied()) )
+            cout <<"Alive!" <<'\t';
+        else
+            cout << list.at(i).getYearDied() << '\t' ;
+
+
+        if( "0 " == (list.at(i).getKnownFor()) )
+            cout << " " <<endl;
+        else
+            cout << list.at(i).getKnownFor() << endl;
     }
 }
 
+void InterFace::printRemoveMenu(){
+    Service serVar;
+    int enteryRemove;
+    serVar.getListDatabase();
+    cout<< endl << "Which one of these enteries do you want to remove(select #)? ";
+
+
+    do{    
+        cin >> enteryRemove;
+
+        if(cin.fail()){
+            cin.clear();
+            cin.get();
+            cout<<"Invalid input. Enter number of entery from the list: ";   
+           }
+    }while( (cin.fail())  );
+
+    serVar.removeEntery(enteryRemove);
+    cout<< endl<<"Entery sucsessfully removed. (backup_itPersons.txt contains orginal list)"<<endl; 
+
+    system("pause");
+    system("cls");
+    
+    runInterFace();
+}

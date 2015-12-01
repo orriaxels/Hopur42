@@ -68,13 +68,14 @@ void Repository::readFile(){
 
         Per.setDied( convertToInt(subStrings.at(dateStart)) );
         dateStart++;
-//qoute code
-//        for(dateStart; dateStart<subStrings.size(); dateStart++){
-//            buffer+=subStrings.at(dateStart);
-//            buffer+=" ";
-//        }
+        
+
+       for(dateStart; dateStart<subStrings.size(); dateStart++){
+           buffer+=subStrings.at(dateStart);
+           buffer+=" ";
+       }
            
-        Per.setQuote(buffer);
+        Per.setKnownFor(buffer);
         list.push_back(Per);
         } 
     }
@@ -98,10 +99,44 @@ void Repository::writeToFile(Persons newPerson){
             << newPerson.getGender() << " "
             << newPerson.getYearBorn() << " "
             << newPerson.getYearDied() << " "
-            << newPerson.getQuote() << " ";
+            << newPerson.getKnownFor() << " "<<endl;
 
     toFile.close();
 }
+
+
+void Repository::backupList(vector<Persons> listBackup){
+    ofstream backup;
+    backup.open("backup_itPersons.txt", ofstream::trunc);
+
+    for(unsigned int i=0; i<listBackup.size(); i++)
+    backup  << listBackup.at(i).getF() << " "
+            << listBackup.at(i).getL() << " "
+            << listBackup.at(i).getGender() << " "
+            << listBackup.at(i).getYearBorn() << " "
+            << listBackup.at(i).getYearDied() << " "
+            << listBackup.at(i).getKnownFor() << " "<<endl;
+
+    backup.close();
+
+}
+
+void Repository::rewriteList(vector<Persons> listnew){
+    ofstream backup;
+    backup.open("itPersons.txt", ofstream::trunc);
+
+    for(unsigned int i=0; i<listnew.size(); i++)
+    backup  << listnew.at(i).getF() << " "
+            << listnew.at(i).getL() << " "
+            << listnew.at(i).getGender() << " "
+            << listnew.at(i).getYearBorn() << " "
+            << listnew.at(i).getYearDied() << " "
+            << listnew.at(i).getKnownFor() << " "<<endl;
+
+    backup.close();
+}
+
+
 
 vector<Persons> Repository::getList(){
     readFile();
