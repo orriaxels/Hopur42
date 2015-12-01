@@ -184,15 +184,6 @@ void Service::createPerson(string name, char gender, int yborn, int ydied, strin
 }
 
 
-
-/*
-void Service::editEntery()  //ef timi gefst
-{
-
-}
-*/
-
-
 int Service::getListDatabase(){  //ef timi gefst
     Repository repoVar;
     InterFace intVar;
