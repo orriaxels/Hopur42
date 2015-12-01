@@ -185,7 +185,7 @@ void Service::createPerson(string name, string gender, int yborn, int ydied, str
     //-------------
 
     //Sets gender to by input. False for male, true for female
-    if(gender == "f")
+    if(gender == "f" || gender == "F")
         newP.setGender(true);
     else
         newP.setGender(false);
