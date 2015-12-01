@@ -294,22 +294,28 @@ void InterFace::printPerson(vector<Persons> &list){
 void InterFace::printRemoveMenu(){
     Service serVar;
     int enteryRemove;
-    serVar.getListDatabase();
-    cout<< endl << "Which one of these enteries do you want to remove(select #)? ";
 
+    if( serVar.somthingthere() ){
 
-    do{    
-        cin >> enteryRemove;
+        serVar.getListDatabase();
+        cout<< endl << "Which one of these enteries do you want to remove(select #)? ";
 
-        if(cin.fail()){
-            cin.clear();
-            cin.get();
-            cout<<"Invalid input. Enter number of entery from the list: ";   
-           }
-    }while( (cin.fail())  );
+        do{    
+            cin >> enteryRemove;
 
-    serVar.removeEntery(enteryRemove);
-    cout<< endl<<"Entery sucsessfully removed. (backup_itPersons.txt contains orginal list)"<<endl; 
+            if(cin.fail()){
+                cin.clear();
+                cin.get();
+                cout<<"Invalid input. Enter number of entery from the list: ";   
+               }
+        }while( (cin.fail())  );
+
+        serVar.removeEntery(enteryRemove);
+        cout<< endl<<"Entery sucsessfully removed. (backup_itPersons.txt contains orginal list)"<<endl; 
+    }
+    else{
+        cout<< "Database is empty. You can add to list in main menu."<<endl;
+    }
 
     system("pause");
     system("cls");
