@@ -15,7 +15,7 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
 	public:
 		Service();
 
-        void search(const string searchString); 
+        void search(string searchString); 
         //search for entery that contains a string
         
         void sortDisplay(int sortBy, bool orderofsort);

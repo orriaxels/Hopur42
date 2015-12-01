@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <sstream>
+#include <sstream> 
 
 #include "service.h"
 #include "interface.h"
@@ -14,12 +14,15 @@ using namespace std;
 Service::Service(){//default constructor
 }
 
-void Service::search(const string searchString){
+void Service::search(string searchString){
     Repository repoVar;
     InterFace interVar;
     string buffer;
     vector<Persons> list=repoVar.getList();
     vector<Persons> foundIn;
+
+    //converts search query to lowercase
+    transform(searchString.begin(), searchString.end(), searchString.begin(), ::tolower);
 
     for(unsigned int i=0; i < list.size(); i++){
         buffer=makeSearchable(list, i);
@@ -48,6 +51,9 @@ string Service::makeSearchable(vector<Persons> list, int index){
 
     stringstream << list.at(index).getYearDied();
     searchable+=stringstream.str();
+
+    //convert to lowercase to match serachstring
+    transform(searchable.begin(), searchable.end(), searchable.begin(), ::tolower);
 
     return searchable;
 }
