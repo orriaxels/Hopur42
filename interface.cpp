@@ -167,44 +167,46 @@ void InterFace::printDisplayMenu(){
              << "2. Last name" << "  ||  "
              << "3. Gender" << "  ||  "
              << "4. Year of birth" << "  ||  "
-             << "5. Year of death" << endl
-             << "Enter choice (1-5): ";
+             << "5. Year of death" << endl;
 
         do{
-            cin >> sortWith;
-            cout << endl;  
+            cout << "Enter choice: ";
+            cin >> sortWith;  
 
-            if(cin.fail()){
+            if(cin.fail() || (sortWith !=1 && sortWith !=2 && sortWith !=3 && sortWith !=4 && sortWith !=5 )){
                 cin.clear();
-                cin.get();
-                cout << "Invalid input. Please try again." << endl;
+                cin.ignore( 1000, '\n' ) ; 
+                cout << "Invalid input." << endl;
             }
-            else if (sortWith > 5 || sortWith < 1){
-                cout << "Invalid input. Please try again." << endl;
-            }
-       }while(sortWith > 5 || sortWith < 1);
+       }while(sortWith !=1 && sortWith !=2 && sortWith !=3 && sortWith !=4 && sortWith !=5 );
+
+        
+        if(sortWith ==3 ){
+            cout << "1. Males first" << "  ||  "
+                 << "2. Females first" << endl;
+        }
+        else{
+            cout << "1. Ascending(a-z)" << "  ||  "
+                 << "2. Descending(z-a)" << endl;
+        }           
 
         do{
-            if(sortWith ==3){
-                cout << "1. Males first" << "  ||  "
-                     << "2. Females first" << endl <<"Enter choice: ";
-                cin >> order;
-            }
-            else{
-                cout << "1. Ascending(a-z)" << "  ||  "
-                     << "2. Descending(z-a)" << endl << "Enter choice: ";
-                cin >> order;
-            }
+            cout << "Enter choice: ";
+            cin >> order;  
 
+            if( cin.fail() || (sortWith !=1 && sortWith !=2) ){
+                cin.clear();
+                cin.ignore( 1000, '\n' ) ; 
+                cout << "Invalid input." << endl;
+            }
+        }while( order != 1 && order !=2);
 
-            if (order == 1){
-                servVar.sortDisplay(sortWith, 0);
-                }
-            else if (order == 2){
-                 servVar.sortDisplay(sortWith, 1);
-                }
-                
-        }while (order != 1 && order !=2);
+        if (order == 1){
+            servVar.sortDisplay(sortWith, 0);
+        }
+        else if (order == 2){
+             servVar.sortDisplay(sortWith, 1);
+        }
     }
     else{
         cout<<"Nothing to display(database is empty)";
