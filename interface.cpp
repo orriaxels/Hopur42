@@ -65,7 +65,7 @@ int InterFace::actionSelect(){
 }
 
 void InterFace::displayMainMenu(){
-    cout<< "Welcome to this awesome database" << endl
+    cout<< "Welcome! This database contains information about great computer scientists." << endl
         << endl
         << "What would you like to do?" << endl
         << "  1. Add a new entry" << endl
@@ -191,8 +191,8 @@ void InterFace::printDisplayMenu(){
 
     do{
         if(sortWith ==3){
-            cout << "1. Males first" << endl;
-            cout << "2. Females first" << endl;
+            cout << "1. Males first" << "  ||  "
+                 << "2. Females first" << endl <<"Enter choice: ";
             cin >> order;
         }
         else{

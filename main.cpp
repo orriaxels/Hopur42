@@ -13,3 +13,10 @@ int main(){
     return 0;
 }
 
+/*
+
+search is case sensitive
+
+main manu is invalid input not working as inteded
+
+*/

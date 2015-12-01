@@ -193,8 +193,6 @@ void Service::editEntery()  //ef timi gefst
 */
 
 
-}
-
 int Service::getListDatabase(){  //ef timi gefst
     Repository repoVar;
     InterFace intVar;
@@ -220,8 +218,7 @@ void Service::removeEntery(int enteryRemove){
 }
 
 
-bool Service::isNameLegal(string& name){
->>>>>>> refs/remotes/origin/reworkInputchecks
+bool Service::isNameLegal(string& name, string& illegal){
     if(name.empty()){
         cout << "Invalid input, reenter" << endl;
         return false;
