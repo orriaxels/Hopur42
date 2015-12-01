@@ -28,55 +28,65 @@ void Repository::readFile(){
     while( (getline(inFile, lineString) )){
 
         if(1){ 
-        vector<string> subStrings;
-        stringstream inStream;
-        inStream.str(lineString);
-        unsigned int dateStart=0;
-        string buffer="";
+            vector<string> subStrings;
+            stringstream inStream;
+            inStream.str(lineString);
+            unsigned int dateStart=0;
+            string buffer="";
 
-       //Reads line word by word into vector
-        while (inStream >> buffer){
-            if(buffer=="-1")
-                break;
-            subStrings.push_back(buffer);
-        }
+           //Reads line word by word into vector
+            while (inStream >> buffer){
+                subStrings.push_back(buffer);
+            }
 
-        //Find if name length is longer than two
-        do{
-            buffer=subStrings.at(dateStart);
+            //finds first element containing number(0 or 1 in this case)
+            for(unsigned int i=0; i<subStrings.size();i++){
+                buffer=subStrings.at(i);
+                if((isdigit(buffer[0])) ){
+                    buffer="";
+                    break;
+                }
+                else{
+                    dateStart++;
+                }
+            }
+
+            if(dateStart==1){
+                Per.setFirst(subStrings.at(0));
+                Per.setLast("");
+            }
+            else{ 
+                //read in first name. For loop if fName is more than one word
+                for(unsigned int i=0 ; i<dateStart-1; ++i){
+                    buffer+=subStrings.at(i);
+                    buffer+=" ";
+                }
+                Per.setFirst(buffer);
+                buffer=""; //clear buffer for use later
+
+                //Sets last name
+                Per.setLast(subStrings.at(dateStart-1));
+            }
+
+            //reads gender into the person
+            Per.setGender( convertToInt(subStrings.at(dateStart)) );//
             dateStart++;
-        }while(isdigit(buffer[0]));
 
-        //read in first name. For loop if fName is more than one word
-        for(unsigned int i=0 ; i<dateStart-1; i++){
-            buffer+=subStrings.at(i);
-        }
-        Per.setFirst(buffer);
-        buffer=""; //clear buffer for use later
+            //reads year born from file
+            Per.setBorn( convertToInt(subStrings.at(dateStart)) );
+            dateStart++;
 
-        //Sets last name
-        Per.setLast(subStrings.at(dateStart));
-        dateStart++;
+            Per.setDied( convertToInt(subStrings.at(dateStart)) );
+            dateStart++;
+            
 
-        //reads gender into the person
-        Per.setGender( convertToInt(subStrings.at(dateStart)) );//
-        dateStart++;
-
-        //reads year born from file
-        Per.setBorn( convertToInt(subStrings.at(dateStart)) );
-        dateStart++;
-
-        Per.setDied( convertToInt(subStrings.at(dateStart)) );
-        dateStart++;
-        
-
-       for(dateStart; dateStart < subStrings.size(); dateStart++){
-           buffer+=subStrings.at(dateStart);
-           buffer+=" ";
-       }
-           
-        Per.setKnownFor(buffer);
-        list.push_back(Per);
+           for(dateStart; dateStart < subStrings.size(); dateStart++){
+               buffer+=subStrings.at(dateStart);
+               buffer+=" ";
+            }
+               
+            Per.setKnownFor(buffer);
+            list.push_back(Per);
         } 
     }
     inFile.close();

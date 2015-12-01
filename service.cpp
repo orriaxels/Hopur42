@@ -112,48 +112,6 @@ void Service::sortDisplay(int sortBy, bool orderofsort){
     interVar.printPerson(list);
 }
 
-/*
-void Service::createPerson(string name, char gender, int yborn, int ydied){
-    string buffer="";
-    vector<string> nameContainer;
-    stringstream nameStream;
-    nameStream.str(name);
-    Persons newP;
-    Repository repoVar;
-    
-    //Seperate name string and set first and last name    
-    while (nameStream >> buffer){ //seperates the string word by word using stringstream
-            if(buffer=="-1")
-                break;
-            nameContainer.push_back(buffer);
-    }
-    //Creates string containing all the name but the last name(last element in vector)
-    buffer="";
-    for(unsigned int i=0; i<nameContainer.size()-1; i++){
-        buffer+=nameContainer.at(i);
-
-        if(i< (nameContainer.size()-2))
-            buffer+=" ";
-    }
-    newP.setFirst(buffer);  //Sets first name
-    buffer="";
-    newP.setLast(nameContainer.back()); //sets last element in vector as last name
-    //-------------
-
-    //Sets gender to by input. False for male, true for female
-    if(gender=='f')
-        newP.setGender(true);
-    else
-        newP.setGender(false);
-
-    //Sets birth and died year;
-    newP.setBorn(yborn);
-    newP.setDied(ydied); 
-
-    repoVar.writeToFile(newP);
-
-} */
-
 void Service::createPerson(string name, char gender, int yborn, int ydied, string knownFor){
 
     string buffer="";
