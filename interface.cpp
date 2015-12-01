@@ -149,10 +149,8 @@ void InterFace::printAddMenu(){
         getline(cin, knownFor);
     }while(!(serVar.isKnownForLegal(knownFor)));
 
-    if(knownFor=="0")
-        serVar.createPerson(name, gender, bYear, dYear);
-    else
-        serVar.createPerson(name, gender, bYear, dYear, knownFor);
+
+    serVar.createPerson(name, gender, bYear, dYear, knownFor);
 
     cout<<endl<<"Entry sucsessfully added to database"<<endl;
     
@@ -226,7 +224,7 @@ void InterFace::printSearchMenu(){
     cout << "What would you like to search for? " ;
     getline(cin, searchS);
 
-    cout<<endl<<"Found \"" << searchS << "\" in following enteries:"<<endl;
+    
 
     servVar.search(searchS);
 
@@ -235,6 +233,14 @@ void InterFace::printSearchMenu(){
     system("cls");
     
     runInterFace();
+}
+
+void InterFace::notFound(bool wasfound, const string searchStr){
+    if(wasfound)
+        cout<<endl<<"Found \"" << searchStr << "\" in following enteries:"<<endl;
+    else
+        cout<<"No enteries conatining \"" << searchStr << "\" found in database."<<endl;
+
 }
 
 

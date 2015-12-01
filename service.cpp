@@ -31,10 +31,12 @@ void Service::search(string searchString){
         }
     }
 
- //   if(foundIn.size() == 0)
-//        interVar.notFound();
-//    else
+    if(foundIn.size() == 0)
+        interVar.notFound(false, searchString);
+    else{
+        interVar.notFound(true, searchString);
         interVar.printPerson(foundIn);
+    }
 }
 
 string Service::makeSearchable(vector<Persons> list, int index){
@@ -110,7 +112,7 @@ void Service::sortDisplay(int sortBy, bool orderofsort){
     interVar.printPerson(list);
 }
 
-
+/*
 void Service::createPerson(string name, char gender, int yborn, int ydied){
     string buffer="";
     vector<string> nameContainer;
@@ -150,7 +152,7 @@ void Service::createPerson(string name, char gender, int yborn, int ydied){
 
     repoVar.writeToFile(newP);
 
-}
+} */
 
 void Service::createPerson(string name, char gender, int yborn, int ydied, string knownFor){
 

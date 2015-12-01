@@ -16,7 +16,7 @@ class InterFace //Ser um samdkipti vid notanda in/out
 		InterFace();
 		void runInterFace();
 		void printPerson(vector<Persons> &list);
-		void notFound();
+		void notFound(bool wasfound, const string searchStr);
 		
     private:
     	void displayMainMenu();
