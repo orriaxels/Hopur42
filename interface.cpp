@@ -164,50 +164,55 @@ void InterFace::printDisplayMenu(){
     Service servVar;
     int sortWith, order;
 
-    cout << "What would you like to sort by?" << endl
-         << "1. First name" << "  ||  "
-         << "2. Last name" << "  ||  "
-         << "3. Gender" << "  ||  "
-         << "4. Year of birth" << "  ||  "
-         << "5. Year of death" << endl
-         << "Enter choice (1-5): ";
+    if(servVar.somthingthere()){
+        cout << "What would you like to sort by?" << endl
+             << "1. First name" << "  ||  "
+             << "2. Last name" << "  ||  "
+             << "3. Gender" << "  ||  "
+             << "4. Year of birth" << "  ||  "
+             << "5. Year of death" << endl
+             << "Enter choice (1-5): ";
 
-    do{
-        cin >> sortWith;
-        cout << endl;  
+        do{
+            cin >> sortWith;
+            cout << endl;  
 
-        if(cin.fail()){
-            cin.clear();
-            cin.get();
-            cout << "Invalid input. Please try again." << endl;
-        }
-        else if (sortWith > 5 || sortWith < 1){
-            cout << "Invalid input. Please try again." << endl;
-        }
-   }while(sortWith > 5 || sortWith < 1);
-
-    do{
-        if(sortWith ==3){
-            cout << "1. Males first" << "  ||  "
-                 << "2. Females first" << endl <<"Enter choice: ";
-            cin >> order;
-        }
-        else{
-            cout << "1. Ascending(a-z)" << "  ||  "
-                 << "2. Descending(z-a)" << endl << "Enter choice: ";
-            cin >> order;
-        }
-
-        
-
-        if (order == 1){
-            servVar.sortDisplay(sortWith, 0);
+            if(cin.fail()){
+                cin.clear();
+                cin.get();
+                cout << "Invalid input. Please try again." << endl;
             }
-        else if (order == 2){
-             servVar.sortDisplay(sortWith, 1);
+            else if (sortWith > 5 || sortWith < 1){
+                cout << "Invalid input. Please try again." << endl;
             }
+       }while(sortWith > 5 || sortWith < 1);
+
+        do{
+            if(sortWith ==3){
+                cout << "1. Males first" << "  ||  "
+                     << "2. Females first" << endl <<"Enter choice: ";
+                cin >> order;
+            }
+            else{
+                cout << "1. Ascending(a-z)" << "  ||  "
+                     << "2. Descending(z-a)" << endl << "Enter choice: ";
+                cin >> order;
+            }
+
             
-    }while (order != 1 && order !=2);
+
+            if (order == 1){
+                servVar.sortDisplay(sortWith, 0);
+                }
+            else if (order == 2){
+                 servVar.sortDisplay(sortWith, 1);
+                }
+                
+        }while (order != 1 && order !=2);
+    }
+    else{
+        cout<<"Nothing to display(database is emty)";
+    }
 
     cout<<endl<<endl;
 

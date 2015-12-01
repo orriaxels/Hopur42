@@ -30,6 +30,9 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
 		int getListDatabase();  
         void removeEntery(int enteryRemove);
 
+        //Checks if DB is emty
+        bool somthingthere();
+
         //errorcheck functions
         bool isActionLegal(char choice);
         bool isNameLegal(string& name, string& illegal);

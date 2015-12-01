@@ -181,6 +181,15 @@ void Service::removeEntery(int enteryRemove){
     repoVar.rewriteList(List);
 }
 
+bool Service::somthingthere(){
+    Repository repoVar;
+    vector<Persons> listForsize=repoVar.getList();
+
+    if(listForsize.size()==0)
+        return false;
+    else
+        return true;
+}
 
 bool Service::isNameLegal(string& name, string& illegal){
     if(name.empty()){
