@@ -16,6 +16,7 @@ int main(){
 /*
 
 search is case sensitive
+og ekki birta ef ekekrt finnst
 
 main manu is invalid input not working as inteded
 

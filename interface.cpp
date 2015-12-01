@@ -49,8 +49,6 @@ int InterFace::actionSelect(){
                 cout<<endl;
                 InterFace::printRemoveMenu();
                 break;
-                loop = 0;
-                break;
             case '5':
                 loop = 0;
                 break;
@@ -60,7 +58,9 @@ int InterFace::actionSelect(){
         
             }
         }while(loop);
-    }    
+        
+    }
+    actionSelect();    
     return 0;
 }
 
