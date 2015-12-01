@@ -16,13 +16,14 @@ class InterFace //Ser um samdkipti vid notanda in/out
 		InterFace();
 		void runInterFace();
 		void printPerson(vector<Persons> &list);
+		void notFound();
 		
     private:
     	void displayMainMenu();
 		void printAddMenu();
 		void printDisplayMenu();
 		void printSearchMenu();
-        int actionSelect(); 
+        void actionSelect(); 
         void printRemoveMenu();
 };
 

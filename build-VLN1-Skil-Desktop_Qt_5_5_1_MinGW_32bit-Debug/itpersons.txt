@@ -3,5 +3,4 @@ Grace Hopper 1 1906 1992 one of Harvard Mark I computer's first programmers
 Ada Lovelace 1 1815 1852 0  
 Tom Barnesrs-Lee 0 1955 0  
 Bill Gates 0 1955 0 co-founder of microsoft  
-Apakottur 0 1888 0 Apakotturinn 
-Apakottur Apason 0 1987 0 Vera undarlegur 
+Apakottur Apason 0 1987 0 Vera undarlegur  

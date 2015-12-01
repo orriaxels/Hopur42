@@ -18,50 +18,49 @@ void InterFace::runInterFace(){
         InterFace::actionSelect();    
 }
 
-int InterFace::actionSelect(){  
+void InterFace::actionSelect(){  
     char a;
     string dummyString; //lennti í smá veseni með getline, setti þetta inn samkvæmt
-                        //internetinu, þetta virðist laga þá villu
+    bool loop;                    //internetinu, þetta virðist laga þá villu
+
+    do{
     cout << "Please select an option from the list: ";
     cin >> a;
-    bool loop;
     getline(cin, dummyString);
 
-    if(a !='1' && a !='2' && a !='3' && a !='4' && a !='5'){
+    if(a !='1' && a !='2' && a !='3' && a !='4' && a !='5')
         cout << "Invalid input" << endl;
+
+    }while(a !='1' && a !='2' && a !='3' && a !='4' && a !='5');
         
-    }else{
-        do{
-            switch(a){
-            case '1':
-                cout << endl;
-                InterFace::printAddMenu();
-                break;
-            case '2':
-                cout << endl;
-                InterFace::printDisplayMenu();
-                break;
-            case '3':
-                cout << endl;
-                InterFace::printSearchMenu();
-                break;
-            case '4':
-                cout<<endl;
-                InterFace::printRemoveMenu();
-                break;
-            case '5':
-                loop = 0;
-                break;
-            default:
-                cout << "Invalid" << endl;
-                break;
-        
-            }
-        }while(loop);
-        
-    }
-    actionSelect();    
-    return 0;
+
+    do{
+        switch(a){
+        case '1':
+            cout << endl;
+            InterFace::printAddMenu();
+            break;
+        case '2':
+            cout << endl;
+            InterFace::printDisplayMenu();
+            break;
+        case '3':
+            cout << endl;
+            InterFace::printSearchMenu();
+            break;
+        case '4':
+            cout<<endl;
+            InterFace::printRemoveMenu();
+            break;
+        case '5':
+            loop = 0;
+            break;
+        default:
+            cout << "Invalid" << endl;
+            break;
+    
+        }
+    }while(loop );
 }
 
 void InterFace::displayMainMenu(){
@@ -226,6 +225,7 @@ void InterFace::printSearchMenu(){
 
     cout << "What would you like to search for? " ;
     getline(cin, searchS);
+
     cout<<endl<<"Found \"" << searchS << "\" in following enteries:"<<endl;
 
     servVar.search(searchS);
@@ -241,40 +241,44 @@ void InterFace::printSearchMenu(){
 void InterFace::printPerson(vector<Persons> &list){
     string buffer;
 
-    cout<<endl<<"#  Name:   \t\t\t\tGender:\tBorn:\tDied:\tKnown for:"<<endl; //
+    if( list.size() == 0)
+        cout<<endl<<"Nothing to display"<<endl;
+    else{
+        cout<<endl<<"#  Name:   \t\t\t\tGender:\tBorn:\tDied:\tKnown for:"<<endl; //
 
-    for(unsigned int i=0; i<list.size(); i++){
-        cout << i+1;
-        if(i<9)
-            cout<<"  ";
-        else if(8<i && i<99)
-            cout<<" ";
+        for(unsigned int i=0; i<list.size(); i++){
+            cout << i+1;
+            if(i<9)
+                cout<<"  ";
+            else if(8<i && i<99)
+                cout<<" ";
 
-        cout << list.at(i).getF() << " " << list.at(i).getL();
+            cout << list.at(i).getF() << " " << list.at(i).getL();
 
-        buffer= list.at(i).getF() + " " + list.at(i).getL();
-        for(unsigned int j=0; j< (37- buffer.length()); j++){
-            cout<<" ";
+            buffer= list.at(i).getF() + " " + list.at(i).getL();
+            for(unsigned int j=0; j< (37- buffer.length()); j++){
+                cout<<" ";
+            }
+
+            if(list.at(i).getGender()){
+                cout << "Female"<< '\t';}
+            else{
+                cout << "Male"<< '\t';}
+
+            cout << list.at(i).getYearBorn() << '\t';
+
+
+            if( 0 == (list.at(i).getYearDied()) )
+                cout <<"Alive" <<'\t';
+            else
+                cout << list.at(i).getYearDied() << '\t' ;
+
+
+            if( "0 " == (list.at(i).getKnownFor()) )
+                cout << " " <<endl;
+            else
+                cout << list.at(i).getKnownFor() << endl;
         }
-
-        if(list.at(i).getGender()){
-            cout << "Female"<< '\t';}
-        else{
-            cout << "Male"<< '\t';}
-
-        cout << list.at(i).getYearBorn() << '\t';
-
-
-        if( 0 == (list.at(i).getYearDied()) )
-            cout <<"Alive!" <<'\t';
-        else
-            cout << list.at(i).getYearDied() << '\t' ;
-
-
-        if( "0 " == (list.at(i).getKnownFor()) )
-            cout << " " <<endl;
-        else
-            cout << list.at(i).getKnownFor() << endl;
     }
 }
 

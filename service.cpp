@@ -30,7 +30,11 @@ void Service::search(string searchString){
             foundIn.push_back(list.at(i));
         }
     }
-    interVar.printPerson(foundIn);
+
+ //   if(foundIn.size() == 0)
+//        interVar.notFound();
+//    else
+        interVar.printPerson(foundIn);
 }
 
 string Service::makeSearchable(vector<Persons> list, int index){
@@ -42,6 +46,9 @@ string Service::makeSearchable(vector<Persons> list, int index){
     searchable+=" " ;		//svo ekki finnist stafir tar sem skett er saman
 
     searchable+=list.at(index).getL();
+    searchable+=" " ;
+
+    searchable+=list.at(index).getKnownFor();
     searchable+=" " ;
 
     stringstream << list.at(index).getYearBorn();
