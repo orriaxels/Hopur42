@@ -25,7 +25,7 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
 
         //used to create new entry
   //      void createPerson(string name, char gender, int yborn, int ydied);
-        void createPerson(string name, char gender, int yborn, int ydied, string knownFor);
+        void createPerson(string name, string gender, int yborn, int ydied, string knownFor);
 
         //used when deleting a entry from DB
 		int getListDatabase();  

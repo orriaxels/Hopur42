@@ -113,7 +113,7 @@ void Service::sortDisplay(int sortBy, bool orderofsort){
 }
 
 /*
-void Service::createPerson(string name, char gender, int yborn, int ydied){
+void Service::createPerson(string name, string gender, int yborn, int ydied){
     string buffer="";
     vector<string> nameContainer;
     stringstream nameStream;
@@ -141,7 +141,7 @@ void Service::createPerson(string name, char gender, int yborn, int ydied){
     //-------------
 
     //Sets gender to by input. False for male, true for female
-    if(gender=='f')
+    if(gender == "f" || gender == "F")
         newP.setGender(true);
     else
         newP.setGender(false);
@@ -154,7 +154,7 @@ void Service::createPerson(string name, char gender, int yborn, int ydied){
 
 } */
 
-void Service::createPerson(string name, char gender, int yborn, int ydied, string knownFor){
+void Service::createPerson(string name, string gender, int yborn, int ydied, string knownFor){
 
     string buffer="";
     vector<string> nameContainer;
@@ -184,7 +184,7 @@ void Service::createPerson(string name, char gender, int yborn, int ydied, strin
     //-------------
 
     //Sets gender to by input. False for male, true for female
-    if(gender=='f')
+    if(gender == "f")
         newP.setGender(true);
     else
         newP.setGender(false);
@@ -250,13 +250,13 @@ bool Service::isNameLegal(string& name, string& illegal){
     return true;
 }
 
-bool Service::isGenderLegal(char gender){
-    if(gender == 'm' || gender == 'f'){
-        return true;    
-    }else{
-        return false;
-    }
-}
+// bool Service::isGenderLegal(char gender){
+//     if(gender == 'm' || gender == 'f'){
+//         return true;    
+//     }else{
+//         return false;
+//     }
+// }
 
 bool Service::isBirthYearLegal(int birth){
         if(birth > 1800 && birth < 2005){
