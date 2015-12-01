@@ -124,7 +124,7 @@ void InterFace::printAddMenu(){
         cout << "Year of death (\"0\" if alive): ";
         cin >> dYear;
         
-        if( cin.fail() || (dYear > 2015) || (dYear < bYear+8) ){//google says youngest CS is at least 10
+        if( cin.fail() || (dYear > 2015) ||  ( (dYear < bYear+8) && dYear != 0 )  ){//google says youngest CS is at least 10
             if  (dYear > 2015)
                 cout<<"Invalid input. Litle pessimistic arent we?"<<endl;  
             else if ( (dYear < bYear+8) ) { 
@@ -135,7 +135,7 @@ void InterFace::printAddMenu(){
             cin.clear();
             cin.ignore( 1000, '\n' ) ;     
         }       
-    }while( (dYear > 2015) || (dYear < bYear+8) );
+    }while( (dYear > 2015) || ( (dYear < bYear+8) && dYear != 0 ) );
     
     //Get input Known for info
     do{
