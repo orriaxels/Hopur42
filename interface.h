@@ -14,12 +14,18 @@ class InterFace //Ser um samdkipti vid notanda in/out
 {
 	public:
 		InterFace();
-		void runInterFace();
-		void printPerson(vector<Persons> &list);
-		void notFound(bool wasfound, const string searchStr);
+		void runInterFace(); 
+		//Starts main interface of the program
+		
+		void printPerson(vector<Persons> &list); 
+		//Prints out a list of person objects
+		
+		void notFound(bool wasfound, const string searchStr); 
+		//Display messages depending on if searchStr was found
+		//wasfound=true prints found message and vice versa
 		
     private:
-    	void displayMainMenu();
+    	void displayMainMenu(); 
 		void printAddMenu();
 		void printDisplayMenu();
 		void printSearchMenu();

@@ -14,20 +14,20 @@ Repository::Repository(){
 
 void Repository::readFile(){
     
-    Persons Per;
-    
+    Persons Per;    
     ifstream inFile;
-    inFile.open("itpersons.txt");
+    inFile.open("itpersons.txt");  //opens file
 
-    if ((inFile.fail())){        
-        cout << endl<<endl<< "File failed to open";
-    } 
+    if ((inFile.fail())){        //error message if file failed to open. 
+        cout << endl<< "File failed to open"<<endl;
+
+    }
 
     string lineString;
 
     while( (getline(inFile, lineString) )){
 
-        if(1){ 
+        if(1){  //to make all var dynamic each run
             vector<string> subStrings;
             stringstream inStream;
             inStream.str(lineString);
@@ -50,7 +50,7 @@ void Repository::readFile(){
                     dateStart++;
                 }
             }
-
+            //if only one name then it sets only first name
             if(dateStart==1){
                 Per.setFirst(subStrings.at(0));
                 Per.setLast("");
@@ -80,17 +80,18 @@ void Repository::readFile(){
             Per.setDied( convertToInt(subStrings.at(dateStart)) );
             dateStart++;
             
-
+            //reads into buffer word from word til end and puts in Known for 
            for(dateStart; dateStart < subStrings.size(); dateStart++){
                buffer+=subStrings.at(dateStart);
                buffer+=" ";
             }
                
-            Per.setKnownFor(buffer);
+            Per.setKnownFor(buffer); 
+
             list.push_back(Per);
         } 
     }
-    inFile.close();
+    inFile.close(); //close file after use
 }
 
 int Repository::convertToInt(string strConvert){
@@ -103,7 +104,7 @@ int Repository::convertToInt(string strConvert){
 
 void Repository::writeToFile(Persons newPerson){
     ofstream toFile;
-    toFile.open("itpersons.txt", ios::app); //app  append, or end of file
+    toFile.open("itpersons.txt", ios::app); //app  to wrtie to end of file
 
     toFile  << newPerson.getF() << " "
             << newPerson.getL() << " "
@@ -118,7 +119,7 @@ void Repository::writeToFile(Persons newPerson){
 
 void Repository::backupList(vector<Persons> listBackup){
     ofstream backup;
-    backup.open("backup_itPersons.txt", ofstream::trunc);
+    backup.open("backup_itPersons.txt", ofstream::trunc); //trunc to delete contents before write
 
     for(unsigned int i=0; i<listBackup.size(); i++)
     backup  << listBackup.at(i).getF() << " "
@@ -134,7 +135,7 @@ void Repository::backupList(vector<Persons> listBackup){
 
 void Repository::rewriteList(vector<Persons> listnew){
     ofstream backup;
-    backup.open("itPersons.txt", ofstream::trunc);
+    backup.open("itPersons.txt", ofstream::trunc); //trunc to delete contents before write
 
     for(unsigned int i=0; i<listnew.size(); i++)
     backup  << listnew.at(i).getF() << " "

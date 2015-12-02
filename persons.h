@@ -14,7 +14,6 @@ class Persons
 	public:
 		//Constructors
 		Persons(); 
-		Persons(string fName, string lName, bool pGender, int born, int died);
         Persons(string fName, string lName, bool pGender, int born, int died, string KnownFor);
 
         //Returns value of variables.
@@ -35,7 +34,7 @@ class Persons
 	private:
 		string firstname; 	//First name, if person has middle name it stores it here;
 		string lastname;	//Last name 
-		string knownfor;		//If qoute is recorded for person
+		string knownfor;	//If qoute is recorded for person
 		bool gender; 		//False for male, true for female
 		int yearBorn; 		//Year born
 		int yearDied;		//Year of death, 0 if still alive

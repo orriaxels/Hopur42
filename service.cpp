@@ -26,8 +26,8 @@ void Service::search(string searchString){
 
     for(unsigned int i=0; i < list.size(); i++){
         buffer=makeSearchable(list, i);
-        if (buffer.find(searchString) != string::npos) {
-            foundIn.push_back(list.at(i));
+        if (buffer.find(searchString) != string::npos) { //compares 1 object agains searchstring
+            foundIn.push_back(list.at(i));                 //if found puts object in foundIn vector
         }
     }
 
@@ -45,7 +45,7 @@ string Service::makeSearchable(vector<Persons> list, int index){
     ostringstream stringstream;
 
     searchable=list.at(index).getF();
-    searchable+=" " ;		//svo ekki finnist stafir tar sem skett er saman
+    searchable+=" " ;		
 
     searchable+=list.at(index).getL();
     searchable+=" " ;
@@ -154,11 +154,11 @@ void Service::createPerson(string name, string gender, int yborn, int ydied, str
 
     newP.setKnownFor(knownFor);
 
-    repoVar.writeToFile(newP);   
+    repoVar.writeToFile(newP);  //write new entery to the file 
 }
 
 
-int Service::getListDatabase(){  //ef timi gefst
+int Service::getListDatabase(){  //returns list from file
     Repository repoVar;
     InterFace intVar;
     vector<Persons> List=repoVar.getList();
@@ -197,7 +197,7 @@ bool Service::isNameLegal(string& name, string& illegal){
         cout << "Invalid input, reenter" << endl;
         return false;
     }else{
-        for(unsigned int i = 0; i < name.length(); ++i){
+        for(unsigned int i = 0; i < name.length(); ++i){ //sets first letter in name as upper case
             if((islower(name[0])) || (islower(name[i]) && name[i-1] == ' ')){
                 name[i] = toupper(name[i]);
             }

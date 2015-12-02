@@ -20,8 +20,8 @@ void InterFace::runInterFace(){
 
 void InterFace::actionSelect(){  
     char a;
-    string dummyString; //lennti í smá veseni með getline, setti þetta inn samkvæmt
-    bool loop;                    //internetinu, þetta virðist laga þá villu
+    string dummyString; 
+    bool loop;                    
 
     do{
     cout << "Please select an option from the list: ";
@@ -161,7 +161,8 @@ void InterFace::printDisplayMenu(){
     Service servVar;
     int sortWith, order;
 
-    if(servVar.somthingthere()){
+
+    if(servVar.somthingthere()){//Checks if list is empty before printing out menu
         cout << "What would you like to sort by?" << endl
              << "1. First name" << "  ||  "
              << "2. Last name" << "  ||  "
@@ -208,7 +209,7 @@ void InterFace::printDisplayMenu(){
              servVar.sortDisplay(sortWith, 1);
         }
     }
-    else{
+    else{ //if database is empty does only pint this message
         cout<<"Nothing to display(database is empty)";
     }
 
@@ -226,8 +227,6 @@ void InterFace::printSearchMenu(){
 
     cout << "What would you like to search for? " ;
     getline(cin, searchS);
-
-    
 
     servVar.search(searchS);
 
@@ -250,10 +249,10 @@ void InterFace::notFound(bool wasfound, const string searchStr){
 void InterFace::printPerson(vector<Persons> &list){
     string buffer;
 
-    if( list.size() == 0)
+    if( list.size() == 0) //if nothing to display
         cout<<endl<<"Nothing to display"<<endl;
     else{
-        cout<<endl<<"#  Name:   \t\t\t\tGender:\tBorn:\tDied:\tKnown for:"<<endl; //
+        cout<<endl<<"#  Name:   \t\t\t\tGender:\tBorn:\tDied:\tKnown for:"<<endl; //header for table
 
         for(unsigned int i=0; i<list.size(); i++){
             cout << i+1;
@@ -295,7 +294,7 @@ void InterFace::printRemoveMenu(){
     Service serVar;
     int enteryRemove;
 
-    if( serVar.somthingthere() ){
+    if( serVar.somthingthere() ){ //checs if List is empty befor displaying menu
 
         serVar.getListDatabase();
         cout<< endl << "Which one of these enteries do you want to remove(select #)? ";

@@ -1,0 +1,5 @@
+Hugsanlegt er að til að hægt sé að keyra skrá í tölvunni hjá þér hef ég látið fylgja aðra .dll fæla sem hugsanlega þarf. VLN1-Skil.exe keyrði hjá okkar hóp með þessu config.
+
+Einnig eru .o skrár þar.
+------------------------------
+Kóða fyrir verkefni er að finna undir \code möppu. Þar eru allar .cpp og allir .h fælar

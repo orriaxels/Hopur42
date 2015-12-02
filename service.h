@@ -23,22 +23,25 @@ class Service  //Ser um allar adgeridr, sort, search, kannski meira
         //       4 sort by year born,  5 if sort by last name
         //Order of sort = 0 for Acending. 1 for decending
 
-        //used to create new entry
-  //      void createPerson(string name, char gender, int yborn, int ydied);
+        
         void createPerson(string name, string gender, int yborn, int ydied, string knownFor);
+        //used to create new entry. 
 
-        //used when deleting a entry from DB
+        
 		int getListDatabase();  
         void removeEntery(int enteryRemove);
+        //used when deleting a entry from DB
 
-        //Checks if DB is emty
+       
         bool somthingthere();
+         //Checks if DB is emty
 
-        //errorcheck functions
         bool isNameLegal(string& name, string& illegal);
+        //errorcheck functions
         
     private:
         string makeSearchable(vector<Persons> list, int index);
+        //takes elements of Person vector and converts into lowercase string for comparing
         
     	
 
