@@ -9,3 +9,5 @@ Orri Axelsson				orria15@ru.is			8478946
 Grétar Matthíasson			gretarm15@ru.is			8489556
 Skósveinar:
 Guðlaugur	Hólmfríður
+
+https://github.com/orriaxels/Hopur42
