@@ -260,7 +260,7 @@ void InterFace::printAddCompMenu(){
             compType = "Electronic";
             break;
         case '3':
-            compType = "cElectro-Mechanical";
+            compType = "Electro-Mechanical";
             break;
         case '4':
             compType = "Transistorized";
@@ -375,11 +375,10 @@ void InterFace::printDispCompMenu(){
 
     if(servVar.somthingthere()){//Checks if list is empty before printing out menu
         cout << "What would you like to sort by?" << endl
-             << "1. First name" << "  ||  "
-             << "2. Last name" << "  ||  "
-             << "3. Gender" << "  ||  "
-             << "4. Year of birth" << "  ||  "
-             << "5. Year of death" << endl;
+             << "1. Name " << "  ||  "
+             << "2. Type " << "  ||  "
+             << "3. Built or not " << "  ||  "
+             << "4. Year built " << "  ||  " << endl;
 
         do{
             cout << "Enter choice: ";
@@ -394,12 +393,12 @@ void InterFace::printDispCompMenu(){
 
 
         if(sortWith ==3 ){
-            cout << "1. Males first" << "  ||  "
-                 << "2. Females first" << endl;
+            cout << "1. Built first" << "  ||  "
+                 << "2. Not built first" << endl;
         }
         else{
-            cout << "1. Ascending(a-z)" << "  ||  "
-                 << "2. Descending(z-a)" << endl;
+            cout << "1. Ascending(a-z/0-9)" << "  ||  "
+                 << "2. Descending(z-a/9-0)" << endl;
         }
 
         do{
@@ -421,7 +420,7 @@ void InterFace::printDispCompMenu(){
         }
     }
     else{ //if database is empty does only pint this message
-        cout<<"Nothing to display(database is empty)";
+        cout << "Nothing to display(database is empty)";
     }
 
     cout<<endl<<endl;
