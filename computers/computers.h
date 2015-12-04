@@ -1,10 +1,12 @@
+#ifndef computers_h
+#define computers_h
+
 #include <iostream>
 #include <string>
-#endif // COMPUTERS_H
 
 using namespace std;
 
-class Computer
+class Computers
 {
     public:
         Computers();
@@ -26,3 +28,5 @@ class Computer
         bool ifBuild;  // True for build, false for not build
         int buildyear;  // The year the computer was build
 };
+
+#endif // COMPUTERS_H
