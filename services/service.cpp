@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <sstream> 
+#include <sstream>
 
 #include "service.h"
 #include "interface.h"
@@ -18,7 +18,7 @@ void Service::search(string searchString){
     Repository repoVar;
     InterFace interVar;
     string buffer;
-    vector<Persons> list=repoVar.getList();
+    vector<Persons> list=repoVar.getScientistList();
     vector<Persons> foundIn;
 
     //converts search query to lowercase
@@ -45,7 +45,7 @@ string Service::makeSearchable(vector<Persons> list, int index){
     ostringstream stringstream;
 
     searchable=list.at(index).getF();
-    searchable+=" " ;		
+    searchable+=" " ;
 
     searchable+=list.at(index).getL();
     searchable+=" " ;
@@ -85,7 +85,7 @@ bool compYearDied(Persons p1, Persons p2){
 void Service::sortDisplay(int sortBy, bool orderofsort){
     Repository repoVar;
     InterFace interVar;
-    vector<Persons> list=repoVar.getList();
+    vector<Persons> list=repoVar.getScientistList();
 
     switch(sortBy){
         case 1: //Sort by First name
@@ -96,7 +96,7 @@ void Service::sortDisplay(int sortBy, bool orderofsort){
             break;
         case 3: // Sort by gender
             sort(list.begin(), list.end(), compGender);
-            break;    
+            break;
         case 4: //Sort by year born
             sort(list.begin(), list.end(), compYearBorn);
             break;
@@ -121,8 +121,8 @@ void Service::createPerson(string name, string gender, int yborn, int ydied, str
     nameStream.str(name);
     Persons newP;
     Repository repoVar;
-    
-    //Seperate name string and set first and last name    
+
+    //Seperate name string and set first and last name
     while (nameStream >> buffer){ //seperates the string word by word using stringstream
             if(buffer=="-1")
                 break;
@@ -150,41 +150,41 @@ void Service::createPerson(string name, string gender, int yborn, int ydied, str
 
     //Sets birth and died year;
     newP.setBorn(yborn);
-    newP.setDied(ydied);  
+    newP.setDied(ydied);
 
     newP.setKnownFor(knownFor);
 
-    repoVar.writeToFile(newP);  //write new entery to the file 
+    repoVar.addToDatabase(newP);  //write new entery to the file
 }
 
 
 int Service::getListDatabase(){  //returns list from file
     Repository repoVar;
     InterFace intVar;
-    vector<Persons> List=repoVar.getList();
+    vector<Persons> List=repoVar.getScientistList();
 
     intVar.printPerson(List);
 
     return List.size();
 }
 
-void Service::removeEntery(int enteryRemove){
-    Repository repoVar;
-    vector<Persons> List=repoVar.getList();
-
-    //Backs up current list into file backup_itpersons.txt
-    repoVar.backupList(List);
-
-    //removes selcted from list
-    List.erase(List.begin() + (enteryRemove-1) );
-
-    //Rewrites the hole list to orginal file
-    repoVar.rewriteList(List);
-}
+// void Service::removeEntery(int enteryRemove){
+//     Repository repoVar;
+//     vector<Persons> List=repoVar.getScientistList();
+//
+//     //Backs up current list into file backup_itpersons.txt
+//   //  repoVar.backupList(List);
+//
+//     //removes selcted from list
+//     List.erase(List.begin() + (enteryRemove-1) );
+//
+//     //Rewrites the hole list to orginal file
+//     repoVar.rewriteList(List);
+// }
 
 bool Service::somthingthere(){
     Repository repoVar;
-    vector<Persons> listForsize=repoVar.getList();
+    vector<Persons> listForsize=repoVar.getScientistList();
 
     if(listForsize.size()==0)
         return false;
@@ -203,17 +203,17 @@ bool Service::isNameLegal(string& name, string& illegal){
             }
             else if(!isalpha(name[i])){
                 if(name[i] == ' ' && name[i+1] == ' '){
-                    name.erase(name.begin()+i); 
-                    i--; 
+                    name.erase(name.begin()+i);
+                    i--;
                 }else if (name[i] != ' '){
                     illegal = name[i];
-                    return false;   
+                    return false;
                 }
             }else if( (i != 0) && (isupper(name[i]) && name[i-1] != ' ')){
                 name[i] = tolower(name[i]);
             }
         }
-    } 
-    
+    }
+
     return true;
 }

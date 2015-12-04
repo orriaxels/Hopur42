@@ -9,19 +9,18 @@ Persons::Persons(){
 	firstname="";
 	lastname="";
 	gender=0;
-	yearBorn=0;//Jesus 
-	yearDied=0; 
+	yearBorn=0;//Jesus
+	yearDied=0;
 }
 
 Persons::Persons(string fName, string lName, bool pGender, int born, int died, string KnownFor){
 	firstname=fName;
 	lastname=lName;
 	gender=pGender;
-	yearBorn=born; 
+	yearBorn=born;
 	yearDied=died;
-	knownfor=KnownFor;	
+	knownfor=KnownFor;
 }
-
 
 //get funcitons
 string Persons::getF(){
@@ -38,7 +37,7 @@ string Persons::getKnownFor(){
 }
 int Persons::getYearBorn(){
 	return yearBorn;
-} 
+}
 int Persons::getYearDied(){
 	return yearDied;
 }

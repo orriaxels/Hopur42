@@ -1,4 +1,4 @@
-QT += core
+QT += core sql
 QT -= gui
 
 TARGET = VLN1-Skil
@@ -7,15 +7,14 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-HEADERS += \
-    interface.h \
-    persons.h \
-    repository.h \
-    service.h
+SOURCES += main.cpp \
+    models/persons.cpp \
+    services/service.cpp \
+    ui/interface.cpp \
+    repo/repository.cpp
 
-SOURCES += \
-    interface.cpp \
-    main.cpp \
-    persons.cpp \
-    repository.cpp \
-    service.cpp
+HEADERS +=  \
+    models/persons.h \
+    services/service.h \
+    ui/interface.h \
+    repo/repository.h
