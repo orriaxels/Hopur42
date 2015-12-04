@@ -432,6 +432,48 @@ void InterFace::printDispCompMenu(){
 }
 
 void InterFace::printSearchMenu(){
+    int choose;
+    string dummyString;
+
+    cout << "In what database would you like to search" << endl;
+    cout << "1: Scientists" << endl;
+    cout << "2: Computers" << endl;
+
+    do{
+        cout << "Enter choice: ";
+        cin >> choose;
+        getline(cin, dummyString);
+        if( (cin.fail()) || (choose !=1 && choose != 2 )){
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input." << endl;
+        }
+    }while(choose != 1 && choose != 2);
+
+    if(choose == 1){
+        printPersSearchMenu();
+    }else{
+        printCompSearchMenu();
+    }
+}
+
+void InterFace::printPersSearchMenu(){
+    Service servVar;
+    string searchS;
+
+    cout << "What would you like to search for? " ;
+    getline(cin, searchS);
+
+    servVar.search(searchS);
+
+    cout<<endl;
+    system("pause");
+    system("cls");
+
+    runInterFace();
+}
+
+void InterFace::printCompSearchMenu(){
     Service servVar;
     string searchS;
 
