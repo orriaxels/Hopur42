@@ -64,11 +64,11 @@ void InterFace::actionSelect(){
 }
 
 void InterFace::displayMainMenu(){
-    cout<< "Welcome! This database contains information about great computer scientists." << endl
+    cout<< "Welcome! This database contains information about great computer scientists and computers." << endl
         << endl
         << "What would you like to do?" << endl
         << "  1. Add a new entry" << endl
-        << "  2. Display the database" << endl
+        << "  2. Display database" << endl
         << "  3. Search the database" << endl
         << "  4. Remove entry from database"<<endl
         << "  5. Quit" << endl
@@ -152,18 +152,18 @@ void InterFace::printAddPersonMenu(){
         cout << "Year of death (\"0\" if alive): ";
         cin >> dYear;
         
-        if( cin.fail() || (dYear > 2015) ||  ( (dYear < bYear+8) && dYear != 0 )  ){//google says youngest CS is at least 10
+        if( cin.fail() || (dYear > 2015) ||  ( (dYear < bYear+8 || dYear > bYear+110) && dYear != 0 )  ){//google says youngest CS is at least 10
             if  (dYear > 2015)
                 cout<<"Invalid input. Litle pessimistic arent we?"<<endl;  
-            else if ( (dYear < bYear+8) ) { 
-                cout<<"Invalid input. Have to be at least 8."<<endl; }
-            else {
+            else if (dYear < bYear+8 || dYear > bYear+100){ 
+                cout<<"Invalid input, can´t be that young or that old."<<endl; 
+            }else {
                 cout<<"Invalid input."<<endl;}
 
             cin.clear();
             cin.ignore( 1000, '\n' ) ;     
         }       
-    }while( (dYear > 2015) || ( (dYear < bYear+8) && dYear != 0 ) );
+    }while( (dYear > 2015) || ( (dYear < bYear+8 || dYear > bYear+110) && dYear != 0 ) );
     
     //Get input Known for info
     do{
@@ -281,8 +281,98 @@ void InterFace::printAddCompMenu(){
     runInterFace();
 }
 
-
 void InterFace::printDisplayMenu(){
+    int choose;
+    string dummyString;
+    cout << "Choose what database to display: " << endl;
+    cout << "1: Display scientists database" << endl;
+    cout << "2: Display computer database" << endl;
+    
+
+    do{
+        cout << "Enter choice: ";
+        cin >> choose;
+        getline(cin, dummyString);
+        
+        if( ( cin.fail() ) || ( choose != 1 && choose != 2 )){
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input." << endl;
+        }
+    }while(choose != 1 && choose != 2);
+
+    if(choose == 1){
+        printDispPersMenu();
+    }else{
+        printDispCompMenu();
+    }
+}
+
+void InterFace::printDispPersMenu(){
+    Service servVar;
+    int sortWith, order;
+
+
+    if(servVar.somthingthere()){//Checks if list is empty before printing out menu
+        cout << "What would you like to sort by?" << endl
+             << "1. First name" << "  ||  "
+             << "2. Last name" << "  ||  "
+             << "3. Gender" << "  ||  "
+             << "4. Year of birth" << "  ||  "
+             << "5. Year of death" << endl;
+
+        do{
+            cout << "Enter choice: ";
+            cin >> sortWith;  
+
+            if(cin.fail() || (sortWith !=1 && sortWith !=2 && sortWith !=3 && sortWith !=4 && sortWith !=5 )){
+                cin.clear();
+                cin.ignore( 1000, '\n' ) ; 
+                cout << "Invalid input." << endl;
+            }
+       }while(sortWith !=1 && sortWith !=2 && sortWith !=3 && sortWith !=4 && sortWith !=5 );
+
+        
+        if(sortWith ==3 ){
+            cout << "1. Males first" << "  ||  "
+                 << "2. Females first" << endl;
+        }
+        else{
+            cout << "1. Ascending(a-z)" << "  ||  "
+                 << "2. Descending(z-a)" << endl;
+        }           
+
+        do{
+            cout << "Enter choice: ";
+            cin >> order;  
+
+            if( cin.fail() || (sortWith !=1 && sortWith !=2) ){
+                cin.clear();
+                cin.ignore( 1000, '\n' ) ; 
+                cout << "Invalid input." << endl;
+            }
+        }while( order != 1 && order !=2);
+
+        if (order == 1){
+            servVar.sortDisplay(sortWith, 0);
+        }
+        else if (order == 2){
+             servVar.sortDisplay(sortWith, 1);
+        }
+    }
+    else{ //if database is empty does only pint this message
+        cout<<"Nothing to display(database is empty)";
+    }
+
+    cout<<endl<<endl;
+
+    system("pause");
+    system("cls");
+    
+    runInterFace();
+}
+
+void InterFace::printDispCompMenu(){
     Service servVar;
     int sortWith, order;
 

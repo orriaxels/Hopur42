@@ -30,6 +30,8 @@ class InterFace //Ser um samdkipti vid notanda in/out
 		void printAddPersonMenu();
 		void printAddCompMenu();
 		void printDisplayMenu();
+		void printDispPersMenu();
+		void printDispCompMenu();
 		void printSearchMenu();
         void actionSelect(); 
         void printRemoveMenu();
