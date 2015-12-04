@@ -238,36 +238,32 @@ void InterFace::printAddCompMenu(){
 
     do{
         cout << "What type of computer is it" << endl;;
-        cout << "1:" << endl;
-        cout << "2:" << endl;
-        cout << "3:" << endl;
-        cout << "4:" << endl;
-        cout << "5:" << endl;
+        cout << "1: Mechanical" << endl;
+        cout << "2: Electronic" << endl;
+        cout << "3: Electro-Mechanical" << endl;
+        cout << "4: Transistorized" << endl;
         cout << "choose: ";
         cin >> cType;
         getline(cin, dummyString);
-        if(cType !='1' && cType !='2' && cType !='3' && cType !='4' && cType !='5'){
+        if(cType !='1' && cType !='2' && cType !='3' && cType !='4'){
             cout << "Invalid Input." << endl;
         }
-    }while(cType !='1' && cType !='2' && cType !='3' && cType !='4' && cType !='5');
+    }while(cType !='1' && cType !='2' && cType !='3' && cType !='4');
 
     do{
         //Á eftir að setja inn tegundir af tölvum, spurning hvort við viljum ekki hafa það þannig að við skrifum það bara
         switch(cType){
         case '1':
-           compType = "choiceOne";
+           compType = "Mechanical";
             break;
         case '2':
-            compType = "choiceTwo";
+            compType = "Electronic";
             break;
         case '3':
-            compType = "choiceThree";
+            compType = "cElectro-Mechanical";
             break;
         case '4':
-            compType = "choiceFour";
-            break;
-        case '5':
-            compType = "shiiiiiiii";
+            compType = "Transistorized";
             break;
         default:
             loop = 0;
