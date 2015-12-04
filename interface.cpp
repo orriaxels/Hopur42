@@ -224,7 +224,7 @@ void InterFace::printAddCompMenu(){
                 getline(cin, dummyString);
                     if(cin.fail()){
                         cin.clear();
-                        cin.ignore();
+                        cin.ignore(1000, '\n');
                         cout << "Invalid input." << endl;                       
                     }else if(yearBuilt < 1800 || yearBuilt > 2015){
                         cout << "Invalid input." << endl;
