@@ -3,8 +3,8 @@
 #include <string>
 #include <QtSql>
 
-#include "repository.h"
-#include "persons.h"
+#include "repo/repository.h"
+#include "models/persons.h"
 
 QSqlDatabase datab = QSqlDatabase::addDatabase("QSQLITE");
 

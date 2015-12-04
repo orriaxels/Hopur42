@@ -6,8 +6,8 @@
 #include <limits>
 #include <stdlib.h>
 
-#include "interface.h"
-#include "service.h"
+#include "ui/interface.h"
+#include "services/service.h"
 
 using namespace std;
 

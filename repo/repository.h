@@ -2,7 +2,7 @@
 #define REPOSITORY_H
 
 #include <vector>
-#include "persons.h"
+#include "models/persons.h"
 //#include "computer.h"
 
 class Repository  //Eina blokkin sem hefur bein samskipti vid .txt

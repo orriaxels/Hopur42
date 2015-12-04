@@ -4,9 +4,9 @@
 #include <vector>
 #include <string>
 
-#include "interface.h"
-#include "persons.h"
-#include "repository.h"
+#include "ui/interface.h"
+#include "models/persons.h"
+#include "repo/repository.h"
 
 using namespace std;
 

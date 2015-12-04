@@ -1,6 +1,6 @@
 #include <iostream>
-#include "persons.h"
-#include "interface.h"
+#include "models/persons.h"
+#include "ui/interface.h"
 
 using namespace std;
 
