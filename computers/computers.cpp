@@ -13,7 +13,7 @@ Computers::Computers(){
 }
 
 // Get functions
-Computers(string cName, string cType, bool build, int bldYear){
+Computers::Computers(string cName, string cType, bool build, int bldYear){
 	computername = cName;
 	computertype = cType;
 	ifBuild = build;

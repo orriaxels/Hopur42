@@ -11,10 +11,12 @@ SOURCES += main.cpp \
     models/persons.cpp \
     services/service.cpp \
     ui/interface.cpp \
-    repo/repository.cpp
+    repo/repository.cpp \
+    computers/computers.cpp
 
 HEADERS +=  \
     models/persons.h \
     services/service.h \
     ui/interface.h \
-    repo/repository.h
+    repo/repository.h \
+    computers/computers.h
