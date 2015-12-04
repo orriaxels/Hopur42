@@ -26,7 +26,9 @@ class InterFace //Ser um samdkipti vid notanda in/out
 		
     private:
     	void displayMainMenu(); 
-		void printAddMenu();
+    	void printAddMenu();
+		void printAddPersonMenu();
+		void printAddCompMenu();
 		void printDisplayMenu();
 		void printSearchMenu();
         void actionSelect(); 

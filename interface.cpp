@@ -4,6 +4,7 @@
 #include <sstream>
 #include <stdlib.h>
 #include <limits>
+#include <stdlib.h>
 
 #include "interface.h"
 #include "service.h"
@@ -33,7 +34,6 @@ void InterFace::actionSelect(){
 
     }while(a !='1' && a !='2' && a !='3' && a !='4' && a !='5');
         
-
     do{
         switch(a){
         case '1':
@@ -60,7 +60,7 @@ void InterFace::actionSelect(){
             break;
     
         }
-    }while(loop );
+    }while(loop);
 }
 
 void InterFace::displayMainMenu(){
@@ -76,6 +76,34 @@ void InterFace::displayMainMenu(){
 }
 
 void InterFace::printAddMenu(){
+    int choose;
+    string dummyString;
+    cout << "Choose what to add: " << endl;
+    cout << "1: Add scientist" << endl;
+    cout << "2: Add computer" << endl;
+    
+
+    do{
+        cout << "Enter choice: ";
+        cin >> choose;
+        getline(cin, dummyString);
+        
+        if( ( cin.fail() ) || ( choose != 1 && choose != 2 )){
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input." << endl;
+        }
+    }while(choose != 1 && choose != 2);
+
+    if(choose == 1){
+        printAddPersonMenu();
+    }else{
+        printAddCompMenu();
+    }
+
+}
+
+void InterFace::printAddPersonMenu(){
 
     Service serVar;
     string name, illegal;
@@ -156,6 +184,103 @@ void InterFace::printAddMenu(){
     
     runInterFace();
 }
+
+void InterFace::printAddCompMenu(){
+    
+    string compName = "";
+    string compType = "";
+    string dummyString = "";
+    string ifMade = "";
+    bool wasItMade = 0; //segir til hvort talvan hafi verið byggð
+    bool loop = 0;
+    int yearBuilt;
+    char cType;
+
+    cout << "\n";
+    cout << "Computer entry" << endl;
+
+
+    do{
+        cout << "Name: ";
+        getline(cin, compName);
+        if (compName.empty())
+        {
+            cout << "Invalid input, reenter" << endl;
+        }
+    }while(compName.empty());
+
+    do{
+        cout << "Was it built (y/n): ";
+        cin >> ifMade;
+        getline(cin, dummyString);    
+        if(ifMade.empty() || ifMade.length() > 1){
+            cout << "Invalid input." << endl;
+        }else if(ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N" ){
+            cout << "Invalid Input" << endl;
+        }else if(ifMade == "y" || ifMade == "Y"){
+            do{
+                cout << "When was the computer built: ";
+                cin >> yearBuilt;
+                getline(cin, dummyString);
+                    if(cin.fail()){
+                        cin.clear();
+                        cin.ignore();
+                        cout << "Invalid input." << endl;                       
+                    }else if(yearBuilt < 1800 || yearBuilt > 2015){
+                        cout << "Invalid input." << endl;
+                    }else{
+                        wasItMade = 1;
+                    }                                       
+                }while(!wasItMade);
+            }
+        }while((ifMade != "n" && ifMade != "N") && !wasItMade);
+
+
+    do{
+        cout << "What type of computer is it" << endl;;
+        cout << "1:" << endl;
+        cout << "2:" << endl;
+        cout << "3:" << endl;
+        cout << "4:" << endl;
+        cout << "5:" << endl;
+        cout << "choose: ";
+        cin >> cType;
+        getline(cin, dummyString);
+        if(cType !='1' && cType !='2' && cType !='3' && cType !='4' && cType !='5'){
+            cout << "Invalid Input." << endl;
+        }
+    }while(cType !='1' && cType !='2' && cType !='3' && cType !='4' && cType !='5');
+
+    do{
+        //Á eftir að setja inn tegundir af tölvum, spurning hvort við viljum ekki hafa það þannig að við skrifum það bara
+        switch(cType){
+        case '1':
+           compType = "choiceOne";
+            break;
+        case '2':
+            compType = "choiceTwo";
+            break;
+        case '3':
+            compType = "choiceThree";
+            break;
+        case '4':
+            compType = "choiceFour";
+            break;
+        case '5':
+            compType = "shiiiiiiii";
+            break;
+        default:
+            loop = 0;
+            break;   
+        }
+    }while(loop);  
+
+    system("pause");
+    system("cls");
+    
+    runInterFace();
+}
+
 
 void InterFace::printDisplayMenu(){
     Service servVar;
