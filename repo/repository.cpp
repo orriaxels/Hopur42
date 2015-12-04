@@ -1,13 +1,10 @@
-#include <iostream>
 #include <vector>
 #include <string>
 #include <QtSql>
 
 #include "repo/repository.h"
 #include "models/persons.h"
-
-QSqlDatabase datab = QSqlDatabase::addDatabase("QSQLITE");
-
+#include "models/computers.h"
 
 Repository::Repository(){
     //default construct
@@ -15,16 +12,7 @@ Repository::Repository(){
 
 bool Repository::addToDatabase(Persons newPerson){
 
-//	QSqlDatabase datab = QSqlDatabase::addDatabase("QSQLITE");
-  datab.setDatabaseName("scientistandcomp.sqlite");
-	datab.open();
-
-  if (!datab.open()) {
-    cout<< "Unable to connecto to database"<<endl<<endl;
-		return false;
-	}
-
-	QSqlQuery query(datab);
+	QSqlQuery query;
 
 	//Need to be variables to work with query.exec
 	string fName = newPerson.getF();
@@ -34,11 +22,8 @@ bool Repository::addToDatabase(Persons newPerson){
 	int died = newPerson.getYearDied();
 	string known = newPerson.getKnownFor();
 
-
-
-	if(query.exec("INSERT INTO Scientists (FirstName, LastName, Gender, Born, Died, KnownFor) VALUES (fName, lName, gender, born, died, known)")){
+	if(query.exec("INSERT INTO scientists (FirstName, LastName, Gender, Born, Died, KnownFor) VALUES (fName, lName, gender, born, died, known)")){
 		cout<<endl<<"Database updated."<<endl;
-		datab.close();
 		return true;
 	}
 
@@ -46,53 +31,33 @@ bool Repository::addToDatabase(Persons newPerson){
 		cout<<endl<<"Unable to write to database."<<endl;
 		return false;
 	}
-
 }
-// Ready needs new varnames.
-// bool Repository::addToDatabase(Computer newComp){
-//
-// 	QSqlDatabase datab = QSqlDatabase::addDatabase("QSQLITE");
-// 	datab.setDatabaseName("scientistandcomp.sqlite");
-// datab.open();
-//
-// if (!datab.open()) {
-// 	cout<< "Unable to connecto to database"<<endl<<endl;
-// 	return false;
-// }
-//
-// QSqlQuery query(datab);
-//
-// 	//Need to be variables to work with query.exec
-// 	string name = newComp.getName();
-// 	bool made  = newComp.getMade();
-// 	int madeY = newComp.getMadeYear();
-// 	int designedY = newComp.getDesignedYear();
 
-//	datab.close();
+bool Repository::addToDatabase(Computers newComp){
+	QSqlQuery query;
 
-// 	if(query.exec("INSERT INTO Computers (name, LastName, Gender, Born, Died, KnownFor) VALUES (fName, lName, gender, born, died, known)")){
-// 		cout<<endl<<"Database updated."<<endl;
-// 		return true;
-// 	}
-// 	else{
-// 		cout<<endl<<"Unable to write to database."<<endl;
-// 		return false;
-// 	}
-// }
+	//Need to be variables to work with query.exec
+	string name = newComp.getName();
+	string type = newComp.getType();
+	bool builtOrNot  = newComp.getBuild();
+	int builtY = newComp.getBuildYear();
+
+	if(query.exec("INSERT INTO Computers (Name, Year_built, Type, Built_or_not) VALUES (name, builtY,type, builtOrNot)")){
+		cout<<endl<<"Database updated."<<endl;
+		return true;
+	}
+	else{
+		cout<<endl<<"Unable to write to database."<<endl;
+		return false;
+	}
+}
 
 
 vector<Persons> Repository::getScientistList(){
 
-	datab.setDatabaseName("scientistandcomp.sqlite");
-	datab.open();
+	QSqlQuery query;
 
-	if (!datab.open()) {
-		cout<< "Unable to connecto to database"<<endl<<endl;
-	}
-
-	QSqlQuery query(datab);
-
-	query.exec("SELECT * FROM Scientists");
+	query.exec("SELECT * FROM scientists");
 	while(query.next()){
 		string fName = query.value("FirstName").toString().toStdString();
 		string lName = query.value("LastName").toString().toStdString();
@@ -104,27 +69,28 @@ vector<Persons> Repository::getScientistList(){
 		Persons perFromList(fName, lName, gender, born, died, known);
 		scientistsList.push_back(perFromList);
 	}
-	datab.close();
-//	QSqlDatabase::removeDatabase("scientistandcomp.sqlite");
+
 	return scientistsList;
 }
 
-// vector<Computer> Repository::getComputerList(){
-//while(query.next()){
-// 	int id = query.value("id").toUInt();
-// 	string name = query.value("First name").toString().toStdString();
-// 	name += query.value("Last name").toString().toStdString();
-// 	bool gender = query.value("Gender").toUInt();
-// 	int born = query.value("Born").toUInt();
-// 	int died = query.value("Died").toUInt();
-// 	string known = query.value("Known for").toString().toStdString();
-//
-// 	cout<< id<<"  "<< name<<"  "<< gender<<"  "<<born<<"  "<<died<<"  "<<endl;
-// }
-// }
-//
+vector<Computers> Repository::getComputerList(){
+
+	QSqlQuery query;
+
+  while(query.next()){
+		string name = query.value("Name").toString().toStdString();
+		string type = query.value("Type").toString().toStdString();
+		bool builtOrNot  = query.value("Built_or_not").toUInt();
+		int builtY = query.value("Year_built").toUInt();
+
+		Computers newComp(name, type, builtOrNot, builtY);
+		computerList.push_back(newComp);
+  }
+	return computerList;
+}
+
 // vector<Junction> Repository::getJunctionList(){
-//while(query.next()){
+// while(query.next()){
 // 	int id = query.value("id").toUInt();
 // 	string name = query.value("First name").toString().toStdString();
 // 	name += query.value("Last name").toString().toStdString();
@@ -136,4 +102,3 @@ vector<Persons> Repository::getScientistList(){
 // 	cout<< id<<"  "<< name<<"  "<< gender<<"  "<<born<<"  "<<died<<"  "<<endl;
 // }
 // }
-//

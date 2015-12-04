@@ -12,11 +12,12 @@ SOURCES += main.cpp \
     services/service.cpp \
     ui/interface.cpp \
     repo/repository.cpp \
-    computers/computers.cpp
+    models/computers.cpp
 
 HEADERS +=  \
     models/persons.h \
     services/service.h \
     ui/interface.h \
     repo/repository.h \
-    computers/computers.h
+    models/computers.h \
+    initdatabaseconnect.h

@@ -3,21 +3,22 @@
 
 #include <vector>
 #include "models/persons.h"
-//#include "computer.h"
+#include "models/computers.h"
 
-class Repository  //Eina blokkin sem hefur bein samskipti vid .txt
+class Repository
 {
 public:
   Repository();
   bool addToDatabase(Persons newPerson);
-  //bool addToDatabase(Computer newComp);   Need class name!!
+  bool addToDatabase(Computers newComp);
 
   vector<Persons> getScientistList();
-  //vector<Computer> getComputerList();
+  vector<Computers> getComputerList();
   //vector<Junction> getJunctionList();
 
 private:
   vector<Persons> scientistsList;	//contains list of all Persons in file
+  vector<Computers> computerList;
 
 };
 
