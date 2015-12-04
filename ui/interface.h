@@ -37,6 +37,8 @@ class InterFace //Ser um samdkipti vid notanda in/out
 			void printCompSearchMenu();
 			void actionSelect();
 			void printRemoveMenu();
+			void printRemovePersMenu();
+			void printRemoveCompMenu();
 };
 
 #endif

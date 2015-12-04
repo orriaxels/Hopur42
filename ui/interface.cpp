@@ -81,22 +81,24 @@ void InterFace::printAddMenu(){
     cout << "Choose what to add: " << endl;
     cout << "1: Add scientist" << endl;
     cout << "2: Add computer" << endl;
-
+    cout << "0: Cancel" << endl;
 
     do{
         cout << "Enter choice: ";
         cin >> choose;
         getline(cin, dummyString);
 
-        if( ( cin.fail() ) || ( choose != 1 && choose != 2 )){
+        if( ( cin.fail() ) || ( choose != 1 && choose != 2 && choose != 0)){
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "Invalid input." << endl;
         }
-    }while(choose != 1 && choose != 2);
+    }while(choose != 1 && choose != 2 && choose != 0);
 
     if(choose == 1){
         printAddPersonMenu();
+    }else if(choose == 0){
+        runInterFace();
     }else{
         printAddCompMenu();
     }
@@ -283,6 +285,7 @@ void InterFace::printDisplayMenu(){
     cout << "Choose what database to display: " << endl;
     cout << "1: Display scientists database" << endl;
     cout << "2: Display computer database" << endl;
+    cout << "0: Cancel" << endl;
 
 
     do{
@@ -290,15 +293,17 @@ void InterFace::printDisplayMenu(){
         cin >> choose;
         getline(cin, dummyString);
 
-        if( ( cin.fail() ) || ( choose != 1 && choose != 2 )){
+        if( ( cin.fail() ) || ( choose != 1 && choose != 2 && choose != 0)){
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "Invalid input." << endl;
         }
-    }while(choose != 1 && choose != 2);
+    }while(choose != 1 && choose != 2 && choose != 0);
 
     if(choose == 1){
         printDispPersMenu();
+    }else if(choose == 0){
+        runInterFace();
     }else{
         printDispCompMenu();
     }
@@ -438,21 +443,24 @@ void InterFace::printSearchMenu(){
     cout << "In what database would you like to search" << endl;
     cout << "1: Scientists" << endl;
     cout << "2: Computers" << endl;
+    cout << "0: Cancel" << endl;
 
     do{
         cout << "Enter choice: ";
         cin >> choose;
         getline(cin, dummyString);
-        if( (cin.fail()) || (choose !=1 && choose != 2 )){
+        if( (cin.fail()) || (choose !=1 && choose != 2 && choose != 0)){
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "Invalid input." << endl;
         }
-    }while(choose != 1 && choose != 2);
+    }while(choose != 1 && choose != 2 && choose != 0);
 
     if(choose == 1){
         printPersSearchMenu();
-    }else{
+    }else if(choose == 0){
+        runInterFace();
+    }else{    
         printCompSearchMenu();
     }
 }
@@ -543,6 +551,66 @@ void InterFace::printPerson(vector<Persons> &list){
 }
 
 void InterFace::printRemoveMenu(){
+    int choose;
+    string dummyString;
+
+    cout << "In what database would you like to remove data" << endl;
+    cout << "1: Scientists" << endl;
+    cout << "2: Computers" << endl;
+    cout << "0: Cancel" << endl;
+
+    do{
+        cout << "Enter choice: ";
+        cin >> choose;
+        getline(cin, dummyString);
+        if( (cin.fail()) || (choose !=1 && choose != 2 && choose != 0)){
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input." << endl;
+        }
+    }while(choose != 1 && choose != 2 && choose != 0);
+
+    if(choose == 1){
+        printRemovePersMenu();
+    }else if(choose == 0){
+        runInterFace();
+    }else{    
+        printRemoveCompMenu();
+    }
+}
+void InterFace::printRemovePersMenu(){
+    Service serVar;
+    int enteryRemove;
+
+    if( serVar.somthingthere() ){ //checs if List is empty befor displaying menu
+
+        serVar.getListDatabase();
+        cout<< endl << "Which one of these enteries do you want to remove(select # / 0 for cancel)? ";
+
+        do{
+            cin >> enteryRemove;
+
+            if(cin.fail()){
+                cin.clear();
+                cin.get();
+                cout<<"Invalid input. Enter number of entery from the list: ";
+            }
+        }while( (cin.fail())  );
+
+      //  serVar.removeEntery(enteryRemove);
+        cout<< endl<<"Entery sucsessfully removed. (backup_itPersons.txt contains orginal list)"<<endl;
+    }
+    else{
+        cout<< "Database is empty. You can add to list in main menu."<<endl;
+    }
+
+    system("pause");
+    system("cls");
+
+    runInterFace();
+}
+
+void InterFace::printRemoveCompMenu(){
     Service serVar;
     int enteryRemove;
 
