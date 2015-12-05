@@ -27,7 +27,8 @@ void InterFace::actionSelect(){
     do{
     cout << "Please select an option from the list: ";
     cin >> a;
-    getline(cin, dummyString);
+    cin.ignore(1000, '\n');
+    //getline(cin, dummyString);
 
     if(a !='1' && a !='2' && a !='3' && a !='4' && a !='5')
         cout << "Invalid input" << endl;
@@ -86,7 +87,8 @@ void InterFace::printAddMenu(){
     do{
         cout << "Enter choice: ";
         cin >> choose;
-        getline(cin, dummyString);
+        cin.ignore(1000, '\n');
+        //getline(cin, dummyString);
 
         if( ( cin.fail() ) || ( choose != 1 && choose != 2 && choose != 0)){
             cin.clear();
@@ -214,7 +216,8 @@ void InterFace::printAddCompMenu(){
     do{
         cout << "Was it built (y/n): ";
         cin >> ifMade;
-        getline(cin, dummyString);
+        cin.ignore(1000, '\n');
+        //getline(cin, dummyString);
         if(ifMade.empty() || ifMade.length() > 1){
             cout << "Invalid input." << endl;
         }else if(ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N" ){
@@ -223,7 +226,8 @@ void InterFace::printAddCompMenu(){
             do{
                 cout << "When was the computer built: ";
                 cin >> yearBuilt;
-                getline(cin, dummyString);
+                cin.ignore(1000, '\n');
+                //getline(cin, dummyString);
                     if(cin.fail()){
                         cin.clear();
                         cin.ignore(1000, '\n');
@@ -246,7 +250,8 @@ void InterFace::printAddCompMenu(){
         cout << "4: Transistorized" << endl;
         cout << "choose: ";
         cin >> cType;
-        getline(cin, dummyString);
+        cin.ignore(1000, '\n');
+        //getline(cin, dummyString);
         if(cType !='1' && cType !='2' && cType !='3' && cType !='4'){
             cout << "Invalid Input." << endl;
         }
@@ -291,7 +296,8 @@ void InterFace::printDisplayMenu(){
     do{
         cout << "Enter choice: ";
         cin >> choose;
-        getline(cin, dummyString);
+        cin.ignore(1000, '\n');
+        //getline(cin, dummyString);
 
         if( ( cin.fail() ) || ( choose != 1 && choose != 2 && choose != 0)){
             cin.clear();
@@ -448,7 +454,8 @@ void InterFace::printSearchMenu(){
     do{
         cout << "Enter choice: ";
         cin >> choose;
-        getline(cin, dummyString);
+        cin.ignore(1000, '\n');
+        //getline(cin, dummyString);
         if( (cin.fail()) || (choose !=1 && choose != 2 && choose != 0)){
             cin.clear();
             cin.ignore(1000, '\n');
@@ -562,7 +569,8 @@ void InterFace::printRemoveMenu(){
     do{
         cout << "Enter choice: ";
         cin >> choose;
-        getline(cin, dummyString);
+        cin.ignore(1000, '\n');
+        //getline(cin, dummyString);
         if( (cin.fail()) || (choose !=1 && choose != 2 && choose != 0)){
             cin.clear();
             cin.ignore(1000, '\n');
