@@ -5,14 +5,15 @@
 #include <stdlib.h>
 #include <limits>
 #include <stdlib.h>
+#include <iomanip>
 
 #include "ui/interface.h"
 #include "services/service.h"
+#include "models/computers.h"
 
 using namespace std;
 
 InterFace::InterFace(){} //default constructor
-
 
 void InterFace::runInterFace(){
         InterFace::displayMainMenu();
@@ -355,10 +356,10 @@ void InterFace::printDispPersMenu(){
         }while( order != 1 && order !=2);
 
         if (order == 1){
-            servVar.sortDisplay(sortWith, 0);
+            printPerson( servVar.getSortedPersonsList(sortWith, 0) );
         }
         else if (order == 2){
-             servVar.sortDisplay(sortWith, 1);
+            printPerson( servVar.getSortedPersonsList(sortWith, 1) );
         }
     }
     else{ //if database is empty does only pint this message
@@ -389,12 +390,12 @@ void InterFace::printDispCompMenu(){
             cout << "Enter choice: ";
             cin >> sortWith;
 
-            if(cin.fail() || (sortWith !=1 && sortWith !=2 && sortWith !=3 && sortWith !=4 && sortWith !=5 )){
+            if(cin.fail() || (sortWith !=1 && sortWith !=2 && sortWith !=3 && sortWith !=4 )){
                 cin.clear();
                 cin.ignore( 1000, '\n' ) ;
                 cout << "Invalid input." << endl;
             }
-       }while(sortWith !=1 && sortWith !=2 && sortWith !=3 && sortWith !=4 && sortWith !=5 );
+       }while(sortWith !=1 && sortWith !=2 && sortWith !=3 && sortWith !=4 );
 
 
         if(sortWith ==3 ){
@@ -418,10 +419,10 @@ void InterFace::printDispCompMenu(){
         }while( order != 1 && order !=2);
 
         if (order == 1){
-            servVar.sortDisplay(sortWith, 0);
+            printComputers( servVar.getSortedComputersList(sortWith, 0) );
         }
         else if (order == 2){
-             servVar.sortDisplay(sortWith, 1);
+          printComputers( servVar.getSortedComputersList(sortWith, 1) );
         }
     }
     else{ //if database is empty does only pint this message
@@ -460,7 +461,7 @@ void InterFace::printSearchMenu(){
         printPersSearchMenu();
     }else if(choose == 0){
         runInterFace();
-    }else{    
+    }else{
         printCompSearchMenu();
     }
 }
@@ -506,48 +507,71 @@ void InterFace::notFound(bool wasfound, const string searchStr){
 }
 
 
-void InterFace::printPerson(vector<Persons> &list){
+void InterFace::printPerson(vector<Persons> persList){
     string buffer;
 
-    if( list.size() == 0) //if nothing to display
+    if( persList.size() == 0) //if nothing to display
         cout<<endl<<"Nothing to display"<<endl;
     else{
         cout<<endl<<"#  Name:   \t\t\t\tGender:\tBorn:\tDied:\tKnown for:"<<endl; //header for table
 
-        for(unsigned int i=0; i<list.size(); i++){
+        for(unsigned int i=0; i<persList.size(); i++){
             cout << i+1;
             if(i<9)
                 cout<<"  ";
             else if(8<i && i<99)
                 cout<<" ";
 
-            cout << list.at(i).getF() << " " << list.at(i).getL();
+            cout << persList.at(i).getF() << " " << persList.at(i).getL();
 
-            buffer= list.at(i).getF() + " " + list.at(i).getL();
+            buffer= persList.at(i).getF() + " " + persList.at(i).getL();
             for(unsigned int j=0; j< (37- buffer.length()); j++){
                 cout<<" ";
             }
 
-            if(list.at(i).getGender()){
+            if(persList.at(i).getGender()){
                 cout << "Female"<< '\t';}
             else{
                 cout << "Male"<< '\t';}
 
-            cout << list.at(i).getYearBorn() << '\t';
+            cout << persList.at(i).getYearBorn() << '\t';
 
 
-            if( 0 == (list.at(i).getYearDied()) )
+            if( 0 == (persList.at(i).getYearDied()) )
                 cout <<"Alive" <<'\t';
             else
-                cout << list.at(i).getYearDied() << '\t' ;
+                cout << persList.at(i).getYearDied() << '\t' ;
 
 
-            if( "0 " == (list.at(i).getKnownFor()) )
+            if( "0 " == (persList.at(i).getKnownFor()) )
                 cout << " " <<endl;
             else
-                cout << list.at(i).getKnownFor() << endl;
+                cout << persList.at(i).getKnownFor() << endl;
         }
     }
+}
+
+void InterFace::printComputers(vector<Computers> compList){
+  string buffer;
+  cout<<'\n'<<setw(3)<<left<<"#"
+      <<setw(30)<<"Name:"<<setw(20)<<"Type:"<<setw(8)<<"Built:"
+      <<"Year built:"<<endl;
+  for(unsigned int i=0; i<compList.size(); i++){
+
+      cout << setw(3) << left<< i+1;
+      cout << setw(30)<< left<< compList.at(i).getName();
+      cout << setw(20)<< compList.at(i).getType();
+
+      if(compList.at(i).getBuild()){
+          cout << setw(8)<<"Yes";}
+      else{
+          cout << setw(8)<< "No";}
+
+      if( NULL == (compList.at(i).getBuildYear()) )
+          cout <<"" <<'\n';
+      else
+          cout << compList.at(i).getBuildYear() << '\n' ;
+       }
 }
 
 void InterFace::printRemoveMenu(){
@@ -574,7 +598,7 @@ void InterFace::printRemoveMenu(){
         printRemovePersMenu();
     }else if(choose == 0){
         runInterFace();
-    }else{    
+    }else{
         printRemoveCompMenu();
     }
 }

@@ -23,22 +23,22 @@ Persons::Persons(string fName, string lName, bool pGender, int born, int died, s
 }
 
 //get funcitons
-string Persons::getF(){
+string Persons::getF() const{
 	return firstname;
 }
-string Persons::getL(){
+string Persons::getL() const{
 	return lastname;
 }
-bool Persons::getGender(){
+bool Persons::getGender() const{
     return gender;
 }
-string Persons::getKnownFor(){
+string Persons::getKnownFor() const{
 	return knownfor;
 }
-int Persons::getYearBorn(){
+int Persons::getYearBorn() const{
 	return yearBorn;
 }
-int Persons::getYearDied(){
+int Persons::getYearDied() const{
 	return yearDied;
 }
 

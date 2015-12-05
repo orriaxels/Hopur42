@@ -20,19 +20,19 @@ Computers::Computers(string cName, string cType, bool build, int bldYear){
 	buildyear = bldYear;
 }
 
-string Computers::getName(){
+string Computers::getName() const{
 	return computername;
 }
 
-string Computers::getType(){
+string Computers::getType() const{
 	return computertype;
 }
 
-bool Computers::getBuild(){
+bool Computers::getBuild() const{
 	return ifBuild;
 }
 
-int Computers::getBuildYear(){
+int Computers::getBuildYear() const{
 	return buildyear;
 }
 

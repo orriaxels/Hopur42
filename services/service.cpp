@@ -7,7 +7,9 @@
 #include "services/service.h"
 #include "ui/interface.h"
 #include "models/persons.h"
+#include "models/computers.h"
 #include "repo/repository.h"
+#include "util/objectsort.h"
 
 using namespace std;
 
@@ -67,49 +69,21 @@ string Service::makeSearchable(vector<Persons> list, int index){
     return searchable;
 }
 
-
-//Used to compare values of Person for sorting algorithm
-bool compFirstname(Persons p1, Persons p2){
-    return p1.getF() < p2.getF(); }
-bool compLastname(Persons p1, Persons p2){
-    return p1.getL() < p2.getL(); }
-bool compGender(Persons p1, Persons p2){
-    return p1.getGender() < p2.getGender(); }
-bool compYearBorn(Persons p1, Persons p2){
-    return p1.getYearBorn() < p2.getYearBorn(); }
-bool compYearDied(Persons p1, Persons p2){
-    return p1.getYearDied() < p2.getYearDied(); }
-
-
 //Sorts list
-void Service::sortDisplay(int sortBy, bool orderofsort){
-    Repository repoVar;
-    InterFace interVar;
-    vector<Persons> list=repoVar.getScientistList();
+vector<Persons> Service::getSortedPersonsList(int sortBy, bool orderofsort){
+    vector<Persons> personsList=repository.getScientistList();
 
-    switch(sortBy){
-        case 1: //Sort by First name
-            sort(list.begin(), list.end(), compFirstname);
-            break;
-        case 2: // Sort by last name
-            sort(list.begin(), list.end(), compLastname);
-            break;
-        case 3: // Sort by gender
-            sort(list.begin(), list.end(), compGender);
-            break;
-        case 4: //Sort by year born
-            sort(list.begin(), list.end(), compYearBorn);
-            break;
-        case 5: //Sort by year died
-            sort(list.begin(), list.end(), compYearDied);
-            break;
-        default:
-            break; //Shouldnt happen. Error check on input needed
-    }
-    if(orderofsort){
-        reverse(list.begin(),list.end());
-    }
-    interVar.printPerson(list);
+    sort(personsList.begin(), personsList.end(), ObjectSort(sortBy, orderofsort));
+
+    return personsList;
+}
+
+vector<Computers> Service::getSortedComputersList(int sortBy, bool orderofsort){
+    vector<Computers> compList=repository.getComputerList();
+
+    sort(compList.begin(), compList.end(), ObjectSort(sortBy, orderofsort));
+
+    return compList;
 }
 
 void Service::createPerson(string name, string gender, int yborn, int ydied, string knownFor){

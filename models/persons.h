@@ -17,13 +17,13 @@ class Persons
     Persons(string fName, string lName, bool pGender, int born, int died, string KnownFor);
 
     //Returns value of variables.
-		int getId();
-    string getF();
-		string getL();
-    string getKnownFor();
-    bool getGender();
-    int getYearBorn();
-    int getYearDied();
+		int getId() const;
+    string getF() const;
+		string getL() const;
+    string getKnownFor() const;
+    bool getGender() const;
+    int getYearBorn() const;
+    int getYearDied() const;
 
     //Sets single variable of Person object
 		void setFirst(const string firstName);

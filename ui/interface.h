@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "models/persons.h"
+#include "models/computers.h"
 
 
 using namespace std;
@@ -16,8 +17,8 @@ class InterFace //Ser um samdkipti vid notanda in/out
 		InterFace();
 		void runInterFace();
 		//Starts main interface of the program
-		
-		void printPerson(vector<Persons> &list);
+
+		void printPerson(vector<Persons> persList);
 		//Prints out a list of person objects
 
 		void notFound(bool wasfound, const string searchStr);
@@ -25,6 +26,7 @@ class InterFace //Ser um samdkipti vid notanda in/out
 		//wasfound=true prints found message and vice versa
 
     private:
+			void printComputers(vector<Computers> compList);
 			void displayMainMenu();
 			void printAddMenu();
 			void printAddPersonMenu();

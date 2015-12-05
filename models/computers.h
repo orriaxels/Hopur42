@@ -12,10 +12,10 @@ class Computers
         Computers();
         Computers(string cName, string cType, bool build, int bldYear);
 
-        string getName();
-        string getType();
-        bool getBuild();
-        int getBuildYear();
+        string getName() const;
+        string getType() const;
+        bool getBuild() const;
+        int getBuildYear() const;
 
         void setName(const string computerName);
         void setType(const string computerType);

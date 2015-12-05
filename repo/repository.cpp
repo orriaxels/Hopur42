@@ -52,7 +52,6 @@ bool Repository::addToDatabase(Computers newComp){
 	}
 }
 
-
 vector<Persons> Repository::getScientistList(){
 
 	QSqlQuery query;
@@ -76,7 +75,8 @@ vector<Persons> Repository::getScientistList(){
 vector<Computers> Repository::getComputerList(){
 
 	QSqlQuery query;
-
+	int i=0;
+	query.exec("SELECT * FROM Computers");
   while(query.next()){
 		string name = query.value("Name").toString().toStdString();
 		string type = query.value("Type").toString().toStdString();
