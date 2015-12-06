@@ -33,3 +33,38 @@ bool Inputcheck::isInputGood(int fromNumber, int toNumber, string& input){
   interfaceVar.invalidInput();
   return false;
 }
+
+bool Inputcheck::isNameGood(string& name, string& illegal){
+  if(name.empty()){
+    return false;
+  }else{
+      for(unsigned int i = 0; i < name.length(); i++){ 
+          if((islower(name[0])) || (islower(name[i]) && name[i-1] == ' ')){
+                name[i] = toupper(name[i]);
+            }
+          else if(!isalpha(name[i])){
+                if(name[i] == ' ' && name[i+1] == ' '){
+                    name.erase(name.begin()+i);
+                    i--;
+                }else if(name[i] != ' ' ){
+                  illegal = name[i];
+                  return false;
+                }    
+                
+            }else if( (i != 0) && (isupper(name[i]) && name[i-1] != ' ')){
+                name[i] = tolower(name[i]);
+            }
+        }    
+      return true;
+    }    
+}
+
+bool Inputcheck::isStringEmpty(string text){
+  if(text.empty()){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+

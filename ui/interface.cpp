@@ -107,11 +107,13 @@ void InterFace::printAddPersonMenu(){
     //Get name input
     do{
         cout << "Name: ";
-        getline(cin, name);
-        if(serviceVar.isNameLegal(name, illegal) == false){
-           cout << "'" << illegal << "' "<< "not valid in name" << endl;
-        }
-    }while( !(serviceVar.isNameLegal(name, illegal)) );
+        getline(cin, name);  
+        if(inputCheckVar.isStringEmpty(name)){
+            cout << "Invalid input, this field can´t be empty" << endl;
+        }else if(inputCheckVar.isNameGood(name, illegal) == false){
+            cout << "'" << illegal << "' "<< "not valid in name" << endl; 
+        }       
+    }while(!(inputCheckVar.isNameGood(name, illegal)));
 
     //Get gender input
     do{

@@ -7,6 +7,8 @@ class Inputcheck
     public:
       Inputcheck();
       bool isInputGood(int fromNumber, int toNumber, string& input) ;
+	  bool isNameGood(string& name, string& illegal);
+	  bool isStringEmpty(string text);	    
     private:
 };
 

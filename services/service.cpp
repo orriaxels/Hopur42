@@ -164,29 +164,3 @@ bool Service::somthingthere(){
     else
         return true;
 }
-
-bool Service::isNameLegal(string& name, string& illegal){
-    if(name.empty()){
-        cout << "Invalid input, reenter" << endl;
-        return false;
-    }else{
-        for(unsigned int i = 0; i < name.length(); ++i){ //sets first letter in name as upper case
-            if((islower(name[0])) || (islower(name[i]) && name[i-1] == ' ')){
-                name[i] = toupper(name[i]);
-            }
-            else if(!isalpha(name[i])){
-                if(name[i] == ' ' && name[i+1] == ' '){
-                    name.erase(name.begin()+i);
-                    i--;
-                }else if (name[i] != ' '){
-                    illegal = name[i];
-                    return false;
-                }
-            }else if( (i != 0) && (isupper(name[i]) && name[i-1] != ' ')){
-                name[i] = tolower(name[i]);
-            }
-        }
-    }
-
-    return true;
-}
