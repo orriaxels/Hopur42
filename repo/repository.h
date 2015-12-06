@@ -9,12 +9,12 @@ class Repository
 {
 public:
   Repository();
+
   bool addToDatabase(Persons newPerson);
   bool addToDatabase(Computers newComp);
 
   vector<Persons> getScientistList();
   vector<Computers> getComputerList();
-  //vector<Junction> getJunctionList();
 
 private:
   vector<Persons> scientistsList;	//contains list of all Persons in file

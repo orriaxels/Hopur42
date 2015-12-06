@@ -4,32 +4,30 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "models/persons.h"
+
+#include "ui/interface.h"
+#include "services/service.h"
 #include "models/computers.h"
+#include "models/persons.h"
+#include "util/inputcheck.h"
 
-
-using namespace std;
-
-
-class InterFace //Ser um samdkipti vid notanda in/out
+class InterFace
 {
 	public:
 		InterFace();
-		void runInterFace();
-		//Starts main interface of the program
+		void runInterFace(); 		//Starts main interface of the program
 
-		void printPerson(vector<Persons> persList);
-		//Prints out a list of person objects
+		void printPerson(vector<Persons> persList); 		//Prints out a list of person objects
 
-		void notFound(bool wasfound, const string searchStr);
-		//Display messages depending on if searchStr was found
-		//wasfound=true prints found message and vice versa
-
+		void notFound(bool wasfound, const string searchStr); 		//Display messages depending on if searchStr was found  wasfound=true prints found message and vice versa
+		void invalidInput();
     private:
+			Service serviceVar;
 			void printComputers(vector<Computers> compList);
 			void displayMainMenu();
 			void printAddMenu();
 			void printAddPersonMenu();
+			Inputcheck inputCheckVar;
 			void printAddCompMenu();
 			void printDisplayMenu();
 			void printDispPersMenu();
@@ -41,6 +39,8 @@ class InterFace //Ser um samdkipti vid notanda in/out
 			void printRemoveMenu();
 			void printRemovePersMenu();
 			void printRemoveCompMenu();
+
+
 };
 
 #endif

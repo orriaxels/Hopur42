@@ -4,23 +4,24 @@ QT -= gui
 TARGET = VLN1-Skil
 CONFIG += console
 CONFIG -= app_bundle
-CONFIG += C++11
 
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    models/persons.cpp \
-    services/service.cpp \
     ui/interface.cpp \
-    repo/repository.cpp \
+    models/persons.cpp \
     models/computers.cpp \
-    util/objectsort.cpp
+    services/service.cpp \
+    repo/repository.cpp \
+    util/objectsort.cpp \
+    util/inputcheck.cpp
 
 HEADERS +=  \
-    models/persons.h \
-    services/service.h \
     ui/interface.h \
-    repo/repository.h \
+    models/persons.h \
     models/computers.h \
-    initdatabaseconnect.h \
-    util/objectsort.h
+    services/service.h \
+    repo/repository.h \
+    util/objectsort.h \
+    util/inputcheck.h \
+    util/initdatabaseconnect.h

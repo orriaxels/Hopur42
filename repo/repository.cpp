@@ -73,9 +73,7 @@ vector<Persons> Repository::getScientistList(){
 }
 
 vector<Computers> Repository::getComputerList(){
-
 	QSqlQuery query;
-	int i=0;
 	query.exec("SELECT * FROM Computers");
   while(query.next()){
 		string name = query.value("Name").toString().toStdString();
@@ -88,17 +86,3 @@ vector<Computers> Repository::getComputerList(){
   }
 	return computerList;
 }
-
-// vector<Junction> Repository::getJunctionList(){
-// while(query.next()){
-// 	int id = query.value("id").toUInt();
-// 	string name = query.value("First name").toString().toStdString();
-// 	name += query.value("Last name").toString().toStdString();
-// 	bool gender = query.value("Gender").toUInt();
-// 	int born = query.value("Born").toUInt();
-// 	int died = query.value("Died").toUInt();
-// 	string known = query.value("Known for").toString().toStdString();
-//
-// 	cout<< id<<"  "<< name<<"  "<< gender<<"  "<<born<<"  "<<died<<"  "<<endl;
-// }
-// }

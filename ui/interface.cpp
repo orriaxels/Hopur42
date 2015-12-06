@@ -1,13 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <sstream>
-#include <stdlib.h>
+#include <stdlib.h>//atoi()
 #include <iomanip>//for setw()
 
 #include "ui/interface.h"
 #include "services/service.h"
 #include "models/computers.h"
+#include "models/persons.h"
 
 using namespace std;
 
@@ -19,48 +19,44 @@ void InterFace::runInterFace(){
 }
 
 void InterFace::actionSelect(){
-    char a;
-    string dummyString;
-    bool loop;
+  char a;
+  string choice;
+  bool loop;
 
-    do{
-    cout << "Please select an option from the list: ";
-    cin >> a;
-    cin.ignore(1000, '\n');
-    //getline(cin, dummyString);
+  cout << "Please select an option from the list: ";
+  do{
+      cin >> choice;
+  }while(! inputCheckVar.isInputGood(1, 5, choice));
+  a=choice[0];
 
-    if(a !='1' && a !='2' && a !='3' && a !='4' && a !='5')
-        cout << "Invalid input" << endl;
+  do{
+      switch(a){
+      case '1':
+          cout << endl;
+          InterFace::printAddMenu();
+          break;
+      case '2':
+          cout << endl;
+          InterFace::printDisplayMenu();
+          break;
+      case '3':
+          cout << endl;
+          InterFace::printSearchMenu();
+          break;
+      case '4':
+          cout<<endl;
+          InterFace::printRemoveMenu();
+          break;
+      case '5':
+          loop = 0;
+          break;
+      default:
+          cout << "Invalid" << endl;
+          break;
 
-    }while(a !='1' && a !='2' && a !='3' && a !='4' && a !='5');
+      }
+  }while(loop);
 
-    do{
-        switch(a){
-        case '1':
-            cout << endl;
-            InterFace::printAddMenu();
-            break;
-        case '2':
-            cout << endl;
-            InterFace::printDisplayMenu();
-            break;
-        case '3':
-            cout << endl;
-            InterFace::printSearchMenu();
-            break;
-        case '4':
-            cout<<endl;
-            InterFace::printRemoveMenu();
-            break;
-        case '5':
-            loop = 0;
-            break;
-        default:
-            cout << "Invalid" << endl;
-            break;
-
-        }
-    }while(loop);
 }
 
 void InterFace::displayMainMenu(){
@@ -76,29 +72,21 @@ void InterFace::displayMainMenu(){
 }
 
 void InterFace::printAddMenu(){
-    int choose;
-    string dummyString;
+    string choice;
+
     cout << "Choose what to add: " << endl;
     cout << "1: Add scientist" << endl;
     cout << "2: Add computer" << endl;
     cout << "0: Cancel" << endl;
+    cout << "Enter choice: ";
 
     do{
-        cout << "Enter choice: ";
-        cin >> choose;
-        cin.ignore(1000, '\n');
-        //getline(cin, dummyString);
+        cin >> choice;
+    }while(! inputCheckVar.isInputGood(0, 2, choice));
 
-        if( ( cin.fail() ) || ( choose != 1 && choose != 2 && choose != 0)){
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout << "Invalid input." << endl;
-        }
-    }while(choose != 1 && choose != 2 && choose != 0);
-
-    if(choose == 1){
+    if(choice == "1"){
         printAddPersonMenu();
-    }else if(choose == 0){
+    }else if(choice == "0"){
         runInterFace();
     }else{
         printAddCompMenu();
@@ -108,7 +96,6 @@ void InterFace::printAddMenu(){
 
 void InterFace::printAddPersonMenu(){
 
-    Service serVar;
     string name, illegal;
     string knownFor="";
     string gender="";
@@ -121,10 +108,10 @@ void InterFace::printAddPersonMenu(){
     do{
         cout << "Name: ";
         getline(cin, name);
-        if(serVar.isNameLegal(name, illegal) == false){
+        if(serviceVar.isNameLegal(name, illegal) == false){
            cout << "'" << illegal << "' "<< "not valid in name" << endl;
         }
-    }while( !(serVar.isNameLegal(name, illegal)) );
+    }while( !(serviceVar.isNameLegal(name, illegal)) );
 
     //Get gender input
     do{
@@ -178,12 +165,9 @@ void InterFace::printAddPersonMenu(){
     }while( (knownFor != "0") && (knownFor.length() < 3) );
 
 
-    serVar.createPerson(name, gender, bYear, dYear, knownFor);
+    serviceVar.createPerson(name, gender, bYear, dYear, knownFor);
 
     cout<<endl<<"Entry sucsessfully added to database"<<endl;
-
-    system("pause");
-    system("cls");
 
     runInterFace();
 }
@@ -277,37 +261,24 @@ void InterFace::printAddCompMenu(){
         }
     }while(loop);
 
-    system("pause");
-    system("cls");
-
     runInterFace();
 }
 
 void InterFace::printDisplayMenu(){
-    int choose;
-    string dummyString;
+    string choice;
     cout << "Choose what database to display: " << endl;
     cout << "1: Display scientists database" << endl;
     cout << "2: Display computer database" << endl;
     cout << "0: Cancel" << endl;
-
+    cout << "Enter choice: ";
 
     do{
-        cout << "Enter choice: ";
-        cin >> choose;
-        cin.ignore(1000, '\n');
-        //getline(cin, dummyString);
+        cin >> choice;
+    }while(! inputCheckVar.isInputGood(0, 2, choice));
 
-        if( ( cin.fail() ) || ( choose != 1 && choose != 2 && choose != 0)){
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout << "Invalid input." << endl;
-        }
-    }while(choose != 1 && choose != 2 && choose != 0);
-
-    if(choose == 1){
+    if(choice == "1"){
         printDispPersMenu();
-    }else if(choose == 0){
+    }else if(choice == "0"){
         runInterFace();
     }else{
         printDispCompMenu();
@@ -315,31 +286,23 @@ void InterFace::printDisplayMenu(){
 }
 
 void InterFace::printDispPersMenu(){
-    Service servVar;
     int sortWith, order;
+    string choice;;
 
-
-    if(servVar.somthingthere()){//Checks if list is empty before printing out menu
+    if(serviceVar.somthingthere()){//Checks if list is empty before printing out menu
         cout << "What would you like to sort by?" << endl
              << "1. First name" << "  ||  "
              << "2. Last name" << "  ||  "
              << "3. Gender" << "  ||  "
              << "4. Year of birth" << "  ||  "
              << "5. Year of death" << endl;
-
+        cout << "Enter choice: ";
         do{
-            cout << "Enter choice: ";
-            cin >> sortWith;
+            cin >> choice;
+        }while( ! inputCheckVar.isInputGood(1, 5, choice) ) ;
+        sortWith=atoi(choice.c_str() );
 
-            if(cin.fail() || (sortWith !=1 && sortWith !=2 && sortWith !=3 && sortWith !=4 && sortWith !=5 )){
-                cin.clear();
-                cin.ignore( 1000, '\n' ) ;
-                cout << "Invalid input." << endl;
-            }
-       }while(sortWith !=1 && sortWith !=2 && sortWith !=3 && sortWith !=4 && sortWith !=5 );
-
-
-        if(sortWith ==3 ){
+        if(sortWith == 3 ){
             cout << "1. Males first" << "  ||  "
                  << "2. Females first" << endl;
         }
@@ -347,59 +310,43 @@ void InterFace::printDispPersMenu(){
             cout << "1. Ascending(a-z)" << "  ||  "
                  << "2. Descending(z-a)" << endl;
         }
-
+        cout << "Enter choice: ";
         do{
-            cout << "Enter choice: ";
-            cin >> order;
-
-            if( cin.fail() || (sortWith !=1 && sortWith !=2) ){
-                cin.clear();
-                cin.ignore( 1000, '\n' ) ;
-                cout << "Invalid input." << endl;
-            }
-        }while( order != 1 && order !=2);
+            cin >> choice;
+        }while(! inputCheckVar.isInputGood(1,2, choice) );
+        order=atoi(choice.c_str() );
 
         if (order == 1){
-            printPerson( servVar.getSortedPersonsList(sortWith, 0) );
+            printPerson( serviceVar.getSortedPersonsList(sortWith, 0) );
         }
         else if (order == 2){
-            printPerson( servVar.getSortedPersonsList(sortWith, 1) );
+            printPerson( serviceVar.getSortedPersonsList(sortWith, 1) );
         }
     }
     else{ //if database is empty does only pint this message
         cout<<"Nothing to display(database is empty)";
     }
 
-    cout<<endl<<endl;
-
-    system("pause");
-    system("cls");
+    cout<<endl<<endl<<endl<<endl;
 
     runInterFace();
 }
 
 void InterFace::printDispCompMenu(){
-    Service servVar;
     int sortWith, order;
+    string choice;
 
-
-    if(servVar.somthingthere()){//Checks if list is empty before printing out menu
+    if(serviceVar.somthingthere()){//Checks if list is empty before printing out menu
         cout << "What would you like to sort by?" << endl
              << "1. Name " << "  ||  "
              << "2. Type " << "  ||  "
              << "3. Built or not " << "  ||  "
-             << "4. Year built " << "  ||  " << endl;
-
-        do{
-            cout << "Enter choice: ";
-            cin >> sortWith;
-
-            if(cin.fail() || (sortWith !=1 && sortWith !=2 && sortWith !=3 && sortWith !=4 )){
-                cin.clear();
-                cin.ignore( 1000, '\n' ) ;
-                cout << "Invalid input." << endl;
-            }
-       }while(sortWith !=1 && sortWith !=2 && sortWith !=3 && sortWith !=4 );
+             << "4. Year built " << "  ||  " << endl
+             << "Enter choice: ";
+         do{
+             cin >> choice;
+         }while( ! inputCheckVar.isInputGood(1,4, choice) ) ;
+         sortWith=atoi(choice.c_str() );
 
 
         if(sortWith ==3 ){
@@ -411,22 +358,17 @@ void InterFace::printDispCompMenu(){
                  << "2. Descending(z-a/9-0)" << endl;
         }
 
+        cout << "Enter choice: ";
         do{
-            cout << "Enter choice: ";
-            cin >> order;
-
-            if( cin.fail() || (sortWith !=1 && sortWith !=2) ){
-                cin.clear();
-                cin.ignore( 1000, '\n' ) ;
-                cout << "Invalid input." << endl;
-            }
-        }while( order != 1 && order !=2);
+            cin >> choice;
+        }while(! inputCheckVar.isInputGood(1,2, choice) );
+        order=atoi(choice.c_str() );
 
         if (order == 1){
-            printComputers( servVar.getSortedComputersList(sortWith, 0) );
+            printComputers( serviceVar.getSortedComputersList(sortWith, 0) );
         }
         else if (order == 2){
-          printComputers( servVar.getSortedComputersList(sortWith, 1) );
+          printComputers( serviceVar.getSortedComputersList(sortWith, 1) );
         }
     }
     else{ //if database is empty does only pint this message
@@ -435,36 +377,24 @@ void InterFace::printDispCompMenu(){
 
     cout<<endl<<endl;
 
-    system("pause");
-    system("cls");
-
     runInterFace();
 }
 
 void InterFace::printSearchMenu(){
-    int choose;
-    string dummyString;
+    string choice;
 
     cout << "In what database would you like to search" << endl;
     cout << "1: Scientists" << endl;
     cout << "2: Computers" << endl;
     cout << "0: Cancel" << endl;
-
+    cout << "Enter choice: ";
     do{
-        cout << "Enter choice: ";
-        cin >> choose;
-        cin.ignore(1000, '\n');
-        //getline(cin, dummyString);
-        if( (cin.fail()) || (choose !=1 && choose != 2 && choose != 0)){
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout << "Invalid input." << endl;
-        }
-    }while(choose != 1 && choose != 2 && choose != 0);
+        cin >> choice;
+    }while(! inputCheckVar.isInputGood(0,2, choice) );
 
-    if(choose == 1){
+    if(choice == "1"){
         printPersSearchMenu();
-    }else if(choose == 0){
+    }else if(choice == "0"){
         runInterFace();
     }else{
         printCompSearchMenu();
@@ -472,33 +402,25 @@ void InterFace::printSearchMenu(){
 }
 
 void InterFace::printPersSearchMenu(){
-    Service servVar;
     string searchS;
 
     cout << "What would you like to search for? " ;
     getline(cin, searchS);
 
-    servVar.search(searchS);
+    serviceVar.search(searchS);
 
     cout<<endl;
-    system("pause");
-    system("cls");
 
     runInterFace();
 }
 
 void InterFace::printCompSearchMenu(){
-    Service servVar;
     string searchS;
 
     cout << "What would you like to search for? " ;
     getline(cin, searchS);
 
-    servVar.search(searchS);
-
-    cout<<endl;
-    system("pause");
-    system("cls");
+    serviceVar.search(searchS);
 
     runInterFace();
 }
@@ -510,7 +432,6 @@ void InterFace::notFound(bool wasfound, const string searchStr){
         cout<<"No enteries conatining \"" << searchStr << "\" found in database."<<endl;
 
 }
-
 
 void InterFace::printPerson(vector<Persons> persList){
     string buffer;
@@ -580,41 +501,34 @@ void InterFace::printComputers(vector<Computers> compList){
 }
 
 void InterFace::printRemoveMenu(){
-    int choose;
-    string dummyString;
+    string choice;
+
 
     cout << "In what database would you like to remove data" << endl;
     cout << "1: Scientists" << endl;
     cout << "2: Computers" << endl;
     cout << "0: Cancel" << endl;
-
+    cout << "Enter choice: ";
     do{
-        cout << "Enter choice: ";
-        cin >> choose;
-        cin.ignore(1000, '\n');
-        //getline(cin, dummyString);
-        if( (cin.fail()) || (choose !=1 && choose != 2 && choose != 0)){
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout << "Invalid input." << endl;
-        }
-    }while(choose != 1 && choose != 2 && choose != 0);
+        cin >> choice;
+    }while(! inputCheckVar.isInputGood(0,2, choice) );
 
-    if(choose == 1){
+    if(choice == "1"){
         printRemovePersMenu();
-    }else if(choose == 0){
+    }else if(choice == "0"){
         runInterFace();
     }else{
         printRemoveCompMenu();
     }
 }
+
 void InterFace::printRemovePersMenu(){
-    Service serVar;
+
     int enteryRemove;
 
-    if( serVar.somthingthere() ){ //checs if List is empty befor displaying menu
+    if( serviceVar.somthingthere() ){ //checs if List is empty befor displaying menu
 
-        serVar.getListDatabase();
+        serviceVar.getListDatabase();
         cout<< endl << "Which one of these enteries do you want to remove(select # / 0 for cancel)? ";
 
         do{
@@ -627,26 +541,23 @@ void InterFace::printRemovePersMenu(){
             }
         }while( (cin.fail())  );
 
-      //  serVar.removeEntery(enteryRemove);
+      //  serviceVar.removeEntery(enteryRemove);
         cout<< endl<<"Entery sucsessfully removed. (backup_itPersons.txt contains orginal list)"<<endl;
     }
     else{
         cout<< "Database is empty. You can add to list in main menu."<<endl;
     }
 
-    system("pause");
-    system("cls");
-
     runInterFace();
 }
 
 void InterFace::printRemoveCompMenu(){
-    Service serVar;
+
     int enteryRemove;
 
-    if( serVar.somthingthere() ){ //checs if List is empty befor displaying menu
+    if( serviceVar.somthingthere() ){ //checs if List is empty befor displaying menu
 
-        serVar.getListDatabase();
+        serviceVar.getListDatabase();
         cout<< endl << "Which one of these enteries do you want to remove(select #)? ";
 
         do{
@@ -659,15 +570,16 @@ void InterFace::printRemoveCompMenu(){
                }
         }while( (cin.fail())  );
 
-      //  serVar.removeEntery(enteryRemove);
+      //  serviceVar.removeEntery(enteryRemove);
         cout<< endl<<"Entery sucsessfully removed. (backup_itPersons.txt contains orginal list)"<<endl;
     }
     else{
         cout<< "Database is empty. You can add to list in main menu."<<endl;
     }
 
-    system("pause");
-    system("cls");
-
     runInterFace();
+}
+
+void InterFace::invalidInput(){
+  cout<<"This input is not vaild. Please try again: ";
 }

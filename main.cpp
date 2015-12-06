@@ -1,5 +1,5 @@
 #include "ui/interface.h"
-#include "initdatabaseconnect.h"
+#include "util/initdatabaseconnect.h"
 
 using namespace std;
 
