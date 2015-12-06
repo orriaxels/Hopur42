@@ -3,9 +3,7 @@
 #include <string>
 #include <sstream>
 #include <stdlib.h>
-#include <limits>
-#include <stdlib.h>
-#include <iomanip>
+#include <iomanip>//for setw()
 
 #include "ui/interface.h"
 #include "services/service.h"
