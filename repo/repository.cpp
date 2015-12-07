@@ -2,6 +2,8 @@
 #include <string>
 #include <QtSql>
 
+#include <Qstring>
+
 #include "repo/repository.h"
 #include "models/persons.h"
 #include "models/computers.h"
@@ -15,20 +17,24 @@ bool Repository::addToDatabase(Persons newPerson){
 	QSqlQuery query;
 
 	//Need to be variables to work with query.exec
-	string fName = newPerson.getF();
-	string lName = newPerson.getL();
+	QString fName = QString::fromStdString( (newPerson.getF()).c_str() );
+	QString lName = QString::fromStdString( (newPerson.getL()).c_str() );
 	bool gender = newPerson.getGender();
 	int born = newPerson.getYearBorn();
 	int died = newPerson.getYearDied();
-	string known = newPerson.getKnownFor();
+	QString known = QString::fromStdString( (newPerson.getKnownFor()).c_str() );
 
-	if(query.exec("INSERT INTO scientists (FirstName, LastName, Gender, Born, Died, KnownFor) VALUES (fName, lName, gender, born, died, known)")){
-		cout<<endl<<"Database updated."<<endl;
+	query.prepare("INSERT INTO Scientists (FirstName, LastName, Gender, Born, Died, KnownFor) VALUES (:FirstName, :LastName, :Gender, :Born, :Died, :KnownFor)" );
+  query.bindValue(":FirstName", fName);
+	query.bindValue(":LastName", lName);
+	query.bindValue(":Gender", gender);
+	query.bindValue(":Born", born);
+	query.bindValue(":Died", died);
+	query.bindValue(":KnownFor", known);
+	if( query.exec() ){
 		return true;
 	}
-
 	else{
-		cout<<endl<<"Unable to write to database."<<endl;
 		return false;
 	}
 }
@@ -37,17 +43,21 @@ bool Repository::addToDatabase(Computers newComp){
 	QSqlQuery query;
 
 	//Need to be variables to work with query.exec
-	string name = newComp.getName();
-	string type = newComp.getType();
-	bool builtOrNot  = newComp.getBuild();
+	QString name = QString::fromStdString( ( newComp.getName() ).c_str() );
 	int builtY = newComp.getBuildYear();
+	QString type = QString::fromStdString( ( newComp.getType() ).c_str() );
+	bool builtOrNot  = newComp.getBuild();
 
-	if(query.exec("INSERT INTO Computers (Name, Year_built, Type, Built_or_not) VALUES (name, builtY,type, builtOrNot)")){
-		cout<<endl<<"Database updated."<<endl;
+
+	query.prepare("INSERT INTO Computers (Name, Year_built, Type, Built_or_not) VALUES (:Name, :Year_built, :Type, :Built_or_not)" );
+  query.bindValue(":Name", name);
+	query.bindValue(":Year_built", builtY);
+	query.bindValue(":Type", type);
+	query.bindValue(":Built_or_not", builtOrNot);
+	if( query.exec() ){
 		return true;
 	}
 	else{
-		cout<<endl<<"Unable to write to database."<<endl;
 		return false;
 	}
 }

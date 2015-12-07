@@ -19,7 +19,9 @@ class Service
 		vector<Persons> getSortedPersonsList(int sortBy, bool orderOfSort);
 		vector<Computers> getSortedComputersList(int sortBy, bool orderOfSort);
 
-		void createPerson(string name, string gender, int yborn, int ydied, string knownFor);
+		bool createPerson(string name, string gender, int yborn, int ydied, string knownFor);
+		bool createComputer(string compName, string compType, bool built, int yBuilt);
+
 		int getListDatabase();
 		void removeEntery(int enteryRemove);
 		bool somthingthere();
