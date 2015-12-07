@@ -107,12 +107,12 @@ void InterFace::printAddPersonMenu(){
     //Get name input
     do{
         cout << "Name: ";
-        getline(cin, name);  
+        getline(cin, name);
         if(inputCheckVar.isStringEmpty(name)){
             cout << "Invalid input, this field can´t be empty" << endl;
         }else if(inputCheckVar.isNameGood(name, illegal) == false){
-            cout << "'" << illegal << "' "<< "not valid in name" << endl; 
-        }       
+            cout << "'" << illegal << "' "<< "not valid in name" << endl;
+        }
     }while(!(inputCheckVar.isNameGood(name, illegal)));
 
     //Get gender input
@@ -167,9 +167,11 @@ void InterFace::printAddPersonMenu(){
     }while( (knownFor != "0") && (knownFor.length() < 3) );
 
 
-    serviceVar.createPerson(name, gender, bYear, dYear, knownFor);
 
-    cout<<endl<<"Entry sucsessfully added to database"<<endl;
+    if( serviceVar.createPerson(name, gender, bYear, dYear, knownFor) )
+      cout<<endl<<"Entry sucsessfully added to database"<<endl<<endl<<endl;
+    else
+      cout<<endl<<"Unable to write to database"<<endl<<endl<<endl;
 
     runInterFace();
 }
@@ -262,6 +264,11 @@ void InterFace::printAddCompMenu(){
             break;
         }
     }while(loop);
+
+    if( serviceVar.createComputer(compName, compType, wasItMade, yearBuilt) )
+      cout<<endl<<"Entry sucsessfully added to database"<<endl<<endl<<endl;
+    else
+      cout<<endl<<"Unable to write to database"<<endl<<endl<<endl;
 
     runInterFace();
 }
