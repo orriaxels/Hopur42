@@ -274,8 +274,8 @@ void InterFace::printDisplayMenu(){
 }
 
 void InterFace::printDispPersMenu(){
-    int sortWith, order;
-    string choice;;
+    int sortWith, order, var;
+    string choice, again;
 
     if(serviceVar.somthingthere()){//Checks if list is empty before printing out menu
         cout << "What would you like to sort by?" << endl
@@ -311,18 +311,33 @@ void InterFace::printDispPersMenu(){
             printPerson( serviceVar.getSortedPersonsList(sortWith, 1) );
         }
     }
-    else{ //if database is empty does only pint this message
+    else{ //if database is empty does only pint this messsage
         cout<<"Nothing to display(database is empty)";
     }
 
-    cout<<endl<<endl<<endl<<endl;
+    cout << endl << endl;
 
-    runInterFace();
+    cout << "1. Sort again" << endl;
+    cout << "2. Back to main menu" << endl;
+    cout << "Enter choice: ";
+    do{
+        cin >> again;
+    } while(! inputCheckVar.isInputGood(1,2, again));
+    var = atoi(again.c_str());
+
+    if (var == 1){
+        // cool function 
+        cout << "Awesome function that lets you sort again..." << endl;
+    }
+    else if (var == 2){
+        cout << endl << endl << endl << endl;
+        runInterFace();
+    }
 }
 
 void InterFace::printDispCompMenu(){
-    int sortWith, order;
-    string choice;
+    int sortWith, order, var;
+    string choice, again;
 
     if(serviceVar.somthingthere()){//Checks if list is empty before printing out menu
         cout << "What would you like to sort by?" << endl
@@ -363,9 +378,24 @@ void InterFace::printDispCompMenu(){
         cout << "Nothing to display(database is empty)";
     }
 
-    cout<<endl<<endl;
+    cout << endl << endl;
 
-    runInterFace();
+    cout << "1. Sort again" << endl;
+    cout << "2. Back to main menu" << endl;
+    cout << "Enter choice: ";
+    do{
+        cin >> again;
+    } while(! inputCheckVar.isInputGood(1,2, again));
+    var = atoi(again.c_str());
+
+    if (var == 1){
+        // cool function 
+        cout << "Awesome function that lets you sort again..." << endl;
+    }
+    else if (var == 2){
+        cout << endl << endl << endl << endl;
+        runInterFace();
+    }
 }
 
 void InterFace::printSearchMenu(){
@@ -390,32 +420,66 @@ void InterFace::printSearchMenu(){
 }
 
 void InterFace::printPersSearchMenu(){
-    string searchS;
+    string searchS, choice;
+    int var;
 
     cout << "What would you like to search for? " ;
     getline(cin, searchS);
 
     serviceVar.search(searchS);
 
-    cout<<endl;
+    cout << endl << endl;
 
-    runInterFace();
+    cout << "1. Search again" << endl;
+    cout << "2. Back to main menu" << endl;
+    cout << "Enter choice: ";
+    do{
+        cin >> choice;
+    } while(! inputCheckVar.isInputGood(1,2, choice));
+    var = atoi(choice.c_str());    
+    
+    if (var == 1 ){
+        cout << endl << endl << endl;
+        printSearchMenu();
+    }
+    else if(var == 2){
+        cout << endl << endl << endl;
+        runInterFace();
+    }
 }
 
 void InterFace::printCompSearchMenu(){
-    string searchS;
+    string searchS, choice;
+    int var;
 
-    cout << "What would you like to search for? " ;
+    cout << "What would you like to search for? ";
     getline(cin, searchS);
 
     serviceVar.search(searchS);
 
-    runInterFace();
+    cout << endl << endl;
+    
+    cout << "1. Search again" << endl;
+    cout << "2. Back to main menu" << endl;
+    cout << "Enter choice: ";
+    do{
+        cin >> choice;
+    } while(! inputCheckVar.isInputGood(1,2, choice));
+    var = atoi(choice.c_str());    
+   
+    if (var == 1 ){
+        cout << endl << endl << endl;
+        printSearchMenu();
+    }
+    else if(var == 2){
+        cout << endl << endl << endl;
+        runInterFace();
+    }
 }
 
 void InterFace::notFound(bool wasfound, const string searchStr){
     if(wasfound)
-        cout<<endl<<"Found \"" << searchStr << "\" in following enteries:"<<endl;
+        cout << endl << "Found \"" << searchStr << "\" in following enteries:" << endl;
     else
         cout<<"No enteries conatining \"" << searchStr << "\" found in database."<<endl;
 
@@ -512,7 +576,8 @@ void InterFace::printRemoveMenu(){
 
 void InterFace::printRemovePersMenu(){
 
-    int enteryRemove;
+    int enteryRemove, var;
+    string choice;
 
     if( serviceVar.somthingthere() ){ //checs if List is empty befor displaying menu
 
@@ -527,21 +592,38 @@ void InterFace::printRemovePersMenu(){
                 cin.get();
                 cout<<"Invalid input. Enter number of entery from the list: ";
             }
-        }while( (cin.fail())  );
+        }while( (cin.fail()) );
 
       //  serviceVar.removeEntery(enteryRemove);
-        cout<< endl<<"Entery sucsessfully removed. (backup_itPersons.txt contains orginal list)"<<endl;
+        cout << endl << "Entery sucsessfully removed. (backup_itPersons.txt contains orginal list)" << endl;
     }
     else{
-        cout<< "Database is empty. You can add to list in main menu."<<endl;
+        cout << "Database is empty. You can add to list in main menu." << endl;
     }
 
-    runInterFace();
+    cout << endl << endl;
+    
+    cout << "1. Remove something else from the list" << endl;
+    cout << "2. Back to main menu" << endl;
+    cout << "Enter choice: ";
+    do{
+        cin >> choice;
+    } while(! inputCheckVar.isInputGood(1,2, choice));
+    var = atoi(choice.c_str());
+
+    if (var == 1){
+        cout << endl << endl << endl;
+        printRemoveMenu();
+    } else if (var == 2){
+        cout << endl << endl << endl;
+        runInterFace();
+    }
 }
 
 void InterFace::printRemoveCompMenu(){
 
-    int enteryRemove;
+    int enteryRemove, var;
+    string choice;
 
     if( serviceVar.somthingthere() ){ //checs if List is empty befor displaying menu
 
@@ -559,15 +641,32 @@ void InterFace::printRemoveCompMenu(){
         }while( (cin.fail())  );
 
       //  serviceVar.removeEntery(enteryRemove);
-        cout<< endl<<"Entery sucsessfully removed. (backup_itPersons.txt contains orginal list)"<<endl;
+        cout << endl << "Entery sucsessfully removed. (backup_itPersons.txt contains orginal list)" << endl;
     }
     else{
-        cout<< "Database is empty. You can add to list in main menu."<<endl;
+        cout << "Database is empty. You can add to list in main menu." << endl;
     }
 
-    runInterFace();
+    cout << endl << endl;
+    
+    cout << "1. Remove something else from the list" << endl;
+    cout << "2. Back to main menu" << endl;
+    cout << "Enter choice: ";
+    do{
+        cin >> choice;
+    } while(! inputCheckVar.isInputGood(1,2, choice));
+    var = atoi(choice.c_str());
+
+    if (var == 1){
+        cout << endl << endl << endl;
+        printRemoveMenu();
+    } else if (var == 2){
+        cout << endl << endl << endl;
+        runInterFace();
+    }
+
 }
 
 void InterFace::invalidInput(){
-  cout<<"This input is not vaild. Please try again: ";
+  cout << "This input is not vaild. Please try again: ";
 }
