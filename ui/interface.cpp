@@ -108,9 +108,7 @@ void InterFace::printAddPersonMenu(){
     do{
         cout << "Name: ";
         getline(cin, name);
-        if(inputCheckVar.isStringEmpty(name)){
-            cout << "Invalid input, this field can´t be empty" << endl;
-        }else if(inputCheckVar.isNameGood(name, illegal) == false){
+        if(inputCheckVar.isNameGood(name, illegal) == false){
             cout << "'" << illegal << "' "<< "not valid in name" << endl;
         }
     }while(!(inputCheckVar.isNameGood(name, illegal)));
@@ -130,32 +128,22 @@ void InterFace::printAddPersonMenu(){
     do{
         cout << "Year of birth: ";
         cin >> bYear;
-        if(cin.fail() || bYear < 1 || bYear > 2010 ){
-            cin.clear();
-            cin.ignore( 1000, '\n' ) ;
+        if(inputCheckVar.cinFailCheck(bYear)){
+            cout << "Invalid input" << endl;
+        }else if(inputCheckVar.checkNumber(bYear, 1800, 2010)){
             cout<<"Invalid input."<<endl;
         }
 
-    }while( bYear < 1 || bYear > 2010 );
-
+    }while(inputCheckVar.cinFailCheck(bYear) || inputCheckVar.checkNumber(bYear, 1800, 2010));
 
     //Get death year input
     do{
         cout << "Year of death (\"0\" if alive): ";
         cin >> dYear;
-
-        if( cin.fail() || (dYear > 2015) ||  ( (dYear < bYear+8 || dYear > bYear+110) && dYear != 0 )  ){//google says youngest CS is at least 10
-            if  (dYear > 2015)
-                cout<<"Invalid input. Litle pessimistic arent we?"<<endl;
-            else if (dYear < bYear+8 || dYear > bYear+100){
-                cout<<"Invalid input, can´t be that young or that old."<<endl;
-            }else {
-                cout<<"Invalid input."<<endl;}
-
-            cin.clear();
-            cin.ignore( 1000, '\n' ) ;
-        }
-    }while( (dYear > 2015) || ( (dYear < bYear+8 || dYear > bYear+110) && dYear != 0 ) );
+        if((inputCheckVar.cinFailCheck(dYear)) || (inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0)){
+            cout << "Invalid input" << endl;
+       }
+    }while((inputCheckVar.cinFailCheck(dYear)) || (inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0));
 
     //Get input Known for info
     do{
@@ -180,7 +168,6 @@ void InterFace::printAddCompMenu(){
 
     string compName = "";
     string compType = "";
-    string dummyString = "";
     string ifMade = "";
     bool wasItMade = 0; //segir til hvort talvan hafi verið byggð
     bool loop = 0;
@@ -189,7 +176,6 @@ void InterFace::printAddCompMenu(){
 
     cout << "\n";
     cout << "Computer entry" << endl;
-
 
     do{
         cout << "Name: ";
@@ -204,7 +190,6 @@ void InterFace::printAddCompMenu(){
         cout << "Was it built (y/n): ";
         cin >> ifMade;
         cin.ignore(1000, '\n');
-        //getline(cin, dummyString);
         if(ifMade.empty() || ifMade.length() > 1){
             cout << "Invalid input." << endl;
         }else if(ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N" ){
@@ -214,12 +199,9 @@ void InterFace::printAddCompMenu(){
                 cout << "When was the computer built: ";
                 cin >> yearBuilt;
                 cin.ignore(1000, '\n');
-                //getline(cin, dummyString);
-                    if(cin.fail()){
-                        cin.clear();
-                        cin.ignore(1000, '\n');
+                    if(inputCheckVar.cinFailCheck(yearBuilt)){
                         cout << "Invalid input." << endl;
-                    }else if(yearBuilt < 1800 || yearBuilt > 2015){
+                    }else if(inputCheckVar.checkNumber(yearBuilt, 1800, 2015)){
                         cout << "Invalid input." << endl;
                     }else{
                         wasItMade = 1;
@@ -227,7 +209,6 @@ void InterFace::printAddCompMenu(){
                 }while(!wasItMade);
             }
         }while((ifMade != "n" && ifMade != "N") && !wasItMade);
-
 
     do{
         cout << "What type of computer is it" << endl;;
@@ -238,14 +219,12 @@ void InterFace::printAddCompMenu(){
         cout << "choose: ";
         cin >> cType;
         cin.ignore(1000, '\n');
-        //getline(cin, dummyString);
         if(cType !='1' && cType !='2' && cType !='3' && cType !='4'){
             cout << "Invalid Input." << endl;
         }
     }while(cType !='1' && cType !='2' && cType !='3' && cType !='4');
 
     do{
-        //Á eftir að setja inn tegundir af tölvum, spurning hvort við viljum ekki hafa það þannig að við skrifum það bara
         switch(cType){
         case '1':
            compType = "Mechanical";
