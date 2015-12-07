@@ -131,7 +131,6 @@ void InterFace::printAddPersonMenu(){
         if(inputCheckVar.checkNumber(bYear, 1800, 2010)){
             cout<<"Invalid input."<<endl;
         }
-
     }while(inputCheckVar.cinFailCheck() || inputCheckVar.checkNumber(bYear, 1800, 2010));
 
     do{
@@ -139,8 +138,7 @@ void InterFace::printAddPersonMenu(){
         cin >> dYear;
         if(inputCheckVar.cinFailCheck()){
             cout << "Invalid input." << endl;
-        }
-        else if(inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0){
+        }else if(inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0){
             cout<<"Invalid input."<<endl;
         }
     }while((dYear != 0 && inputCheckVar.checkNumber(dYear, bYear+8, bYear+110)) || inputCheckVar.cinFailCheck());
