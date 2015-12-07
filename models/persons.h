@@ -15,6 +15,7 @@ class Persons
 		//Constructors
 		Persons();
     Persons(string fName, string lName, bool pGender, int born, int died, string KnownFor);
+		Persons(int tableId, string fName, string lName, bool pGender, int born, int died, string KnownFor);
 
     //Returns value of variables.
 		int getId() const;
@@ -33,6 +34,7 @@ class Persons
 		void setBorn(const int yBorn);
 		void setDied(const int yDied);
 	private:
+		int persId;
 		string firstname; 	//First name, if person has middle name it stores it here;
 		string lastname;	//Last name
 		string knownfor;	//If qoute is recorded for person

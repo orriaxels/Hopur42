@@ -13,8 +13,8 @@ public:
   bool addToDatabase(Persons newPerson);
   bool addToDatabase(Computers newComp);
 
-  vector<Persons> getScientistList();
-  vector<Computers> getComputerList();
+  vector<Persons> getScientistList(int byColumn, bool aceDesc);
+  vector<Computers> getComputerList(int byColumn, bool aceDesc);
 
 private:
   vector<Persons> scientistsList;	//contains list of all Persons in file

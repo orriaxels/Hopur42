@@ -16,8 +16,8 @@ class Service
 
 		void search(string searchString);
 
-		vector<Persons> getSortedPersonsList(int sortBy, bool orderofsort);
-		vector<Computers> getSortedComputersList(int sortBy, bool orderofsort);
+		vector<Persons> getSortedPersonsList(int sortBy, bool orderOfSort);
+		vector<Computers> getSortedComputersList(int sortBy, bool orderOfSort);
 
 		void createPerson(string name, string gender, int yborn, int ydied, string knownFor);
 		int getListDatabase();

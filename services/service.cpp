@@ -8,7 +8,6 @@
 #include "models/persons.h"
 #include "models/computers.h"
 #include "repo/repository.h"
-#include "util/objectsort.h"
 
 using namespace std;
 
@@ -16,72 +15,42 @@ Service::Service(){//default constructor
 }
 
 void Service::search(string searchString){
-    Repository repoVar;
-    InterFace interVar;
-    string buffer;
-    vector<Persons> list=repoVar.getScientistList();
-    vector<Persons> foundIn;
-
-    //converts search query to lowercase
-    transform(searchString.begin(), searchString.end(), searchString.begin(), ::tolower);
-
-    for(unsigned int i=0; i < list.size(); i++){
-        buffer=makeSearchable(list, i);
-        if (buffer.find(searchString) != string::npos) { //compares 1 object agains searchstring
-            foundIn.push_back(list.at(i));                 //if found puts object in foundIn vector
-        }
-    }
-
-    if(foundIn.size() == 0)
-        interVar.notFound(false, searchString);
-    else{
-        interVar.notFound(true, searchString);
-        interVar.printPerson(foundIn);
-    }
+    // Repository repoVar;
+    // InterFace interVar;
+    // string buffer;
+    // //vector<Persons> list=repoVar.getScientistList();
+    // //vector<Persons> foundIn;
+    //
+    // //converts search query to lowercase
+    // transform(searchString.begin(), searchString.end(), searchString.begin(), ::tolower);
+    //
+    // for(unsigned int i=0; i < list.size(); i++){
+    //     buffer=makeSearchable(list, i);
+    //     if (buffer.find(searchString) != string::npos) { //compares 1 object agains searchstring
+    //         foundIn.push_back(list.at(i));                 //if found puts object in foundIn vector
+    //     }
+    // }
+    //
+    // if(foundIn.size() == 0)
+    //     interVar.notFound(false, searchString);
+    // else{
+    //     interVar.notFound(true, searchString);
+    //     interVar.printPerson(foundIn);
+    // }
 }
 
-string Service::makeSearchable(vector<Persons> list, int index){
 
-    string searchable="";
-    ostringstream stringstream;
-
-    searchable=list.at(index).getF();
-    searchable+=" " ;
-
-    searchable+=list.at(index).getL();
-    searchable+=" " ;
-
-    searchable+=list.at(index).getKnownFor();
-    searchable+=" " ;
-
-    stringstream << list.at(index).getYearBorn();
-    searchable+=stringstream.str();
-    stringstream.str("");
-    searchable+=" ";
-
-    stringstream << list.at(index).getYearDied();
-    searchable+=stringstream.str();
-
-    //convert to lowercase to match serachstring
-    transform(searchable.begin(), searchable.end(), searchable.begin(), ::tolower);
-
-    return searchable;
-}
 
 //Sorts list
-vector<Persons> Service::getSortedPersonsList(int sortBy, bool orderofsort){
-    vector<Persons> personsList=repository.getScientistList();
+vector<Persons> Service::getSortedPersonsList(int sortBy, bool orderOfSort){
 
-    sort(personsList.begin(), personsList.end(), ObjectSort(sortBy, orderofsort));
-
+    vector<Persons> personsList=repository.getScientistList(sortBy, orderOfSort);
     return personsList;
 }
 
-vector<Computers> Service::getSortedComputersList(int sortBy, bool orderofsort){
-    vector<Computers> compList=repository.getComputerList();
+vector<Computers> Service::getSortedComputersList(int sortBy, bool orderOfSort){
 
-    sort(compList.begin(), compList.end(), ObjectSort(sortBy, orderofsort));
-
+    vector<Computers> compList=repository.getComputerList(sortBy, orderOfSort);
     return compList;
 }
 
@@ -134,11 +103,11 @@ void Service::createPerson(string name, string gender, int yborn, int ydied, str
 int Service::getListDatabase(){  //returns list from file
     Repository repoVar;
     InterFace intVar;
-    vector<Persons> List=repoVar.getScientistList();
+    //vector<Persons> List=repoVar.getScientistList();
 
-    intVar.printPerson(List);
+    //intVar.printPerson(List);
 
-    return List.size();
+    //return List.size();
 }
 
 // void Service::removeEntery(int enteryRemove){
@@ -157,10 +126,10 @@ int Service::getListDatabase(){  //returns list from file
 
 bool Service::somthingthere(){
     Repository repoVar;
-    vector<Persons> listForsize=repoVar.getScientistList();
+    //vector<Persons> listForsize=repoVar.getScientistList();
 
-    if(listForsize.size()==0)
-        return false;
-    else
-        return true;
+    // if(listForsize.size()==0)
+    //     return false;
+    // else
+    //     return true;
 }

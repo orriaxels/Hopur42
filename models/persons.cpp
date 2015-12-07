@@ -21,8 +21,20 @@ Persons::Persons(string fName, string lName, bool pGender, int born, int died, s
 	yearDied=died;
 	knownfor=KnownFor;
 }
+Persons::Persons(int tableId, string fName, string lName, bool pGender, int born, int died, string KnownFor){
+	persId=tableId;
+	firstname=fName;
+	lastname=lName;
+	gender=pGender;
+	yearBorn=born;
+	yearDied=died;
+	knownfor=KnownFor;
+}
 
 //get funcitons
+int Persons::getId() const{
+	return persId;
+}
 string Persons::getF() const{
 	return firstname;
 }

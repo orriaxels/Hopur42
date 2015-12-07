@@ -1,6 +1,8 @@
 #ifndef INITDATABASECONNECT
 #define INITDATABASECONNECT
+
 #include <QtSql>
+
 static bool createConnection()
 {
   QSqlDatabase datab = QSqlDatabase::addDatabase("QSQLITE");

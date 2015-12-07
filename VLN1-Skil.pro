@@ -13,7 +13,6 @@ SOURCES += main.cpp \
     models/computers.cpp \
     services/service.cpp \
     repo/repository.cpp \
-    util/objectsort.cpp \
     util/inputcheck.cpp
 
 HEADERS +=  \
@@ -22,6 +21,5 @@ HEADERS +=  \
     models/computers.h \
     services/service.h \
     repo/repository.h \
-    util/objectsort.h \
     util/inputcheck.h \
     util/initdatabaseconnect.h

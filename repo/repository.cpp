@@ -52,12 +52,52 @@ bool Repository::addToDatabase(Computers newComp){
 	}
 }
 
-vector<Persons> Repository::getScientistList(){
+vector<Persons> Repository::getScientistList(int byColumn, bool aceDesc){
 
 	QSqlQuery query;
+	scientistsList.clear();
 
-	query.exec("SELECT * FROM scientists");
+	switch(byColumn){  //Order by does not work with string, thus query commands in case
+		case 1:
+			if(aceDesc)
+				query.exec("SELECT * FROM Scientists ORDER BY FirstName DESC");
+			else
+				query.exec("SELECT * FROM Scientists ORDER BY FirstName ASC");
+			break;
+		case 2:
+			if(aceDesc)
+				query.exec("SELECT * FROM Scientists ORDER BY LastName DESC");
+			else
+				query.exec("SELECT * FROM Scientists ORDER BY LastName ASC");
+			break;
+		case 3:
+			if(aceDesc)
+				query.exec("SELECT * FROM Scientists ORDER BY GenderGender DESC");
+			else
+				query.exec("SELECT * FROM Scientists ORDER BY Gender ASC");
+			break;
+		case 4:
+			if(aceDesc)
+				query.exec("SELECT * FROM Scientists ORDER BY Born DESC");
+			else
+				query.exec("SELECT * FROM Scientists ORDER BY Born ASC");
+			break;
+		case 5:
+			if(aceDesc)
+				query.exec("SELECT * FROM Scientists ORDER BY Died DESC");
+			else
+				query.exec("SELECT * FROM Scientists ORDER BY Died ASC");
+			break;
+		default:
+			if(aceDesc)
+				query.exec("SELECT * FROM Scientists ORDER BY rowid DESC");
+			else
+				query.exec("SELECT * FROM Scientists ORDER BY rowid ASC");
+			break;
+	}
+
 	while(query.next()){
+		int id=query.value("rowid").toUInt();
 		string fName = query.value("FirstName").toString().toStdString();
 		string lName = query.value("LastName").toString().toStdString();
 		bool gender = query.value("Gender").toBool();
@@ -65,23 +105,59 @@ vector<Persons> Repository::getScientistList(){
 		int died = query.value("Died").toUInt();
 		string known = query.value("KnownFor").toString().toStdString();
 
-		Persons perFromList(fName, lName, gender, born, died, known);
+		Persons perFromList(id, fName, lName, gender, born, died, known);
 		scientistsList.push_back(perFromList);
 	}
 
 	return scientistsList;
 }
 
-vector<Computers> Repository::getComputerList(){
+vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
+
 	QSqlQuery query;
-	query.exec("SELECT * FROM Computers");
+	computerList.clear();
+
+	switch(byColumn){
+		case 1:
+			if(aceDesc)
+				query.exec("SELECT * FROM Computers ORDER BY Name DESC");
+			else
+			query.exec("SELECT * FROM Computers ORDER BY Name ASC");
+			break;
+		case 2:
+			if(aceDesc)
+				query.exec("SELECT * FROM Computers ORDER BY Type DESC");
+			else
+				query.exec("SELECT * FROM Computers ORDER BY Type ASC");
+			break;
+		case 3:
+			if(aceDesc)
+				query.exec("SELECT * FROM Computers ORDER BY Built_or_not DESC");
+			else
+				query.exec("SELECT * FROM Computers ORDER BY Built_or_not ASC");
+			break;
+		case 4:
+			if(aceDesc)
+				query.exec("SELECT * FROM Computers ORDER BY Year_built DESC");
+			else
+				query.exec("SELECT * FROM Computers ORDER BY Year_built ASC");
+			break;
+		default:
+			if(aceDesc)
+				query.exec("SELECT * FROM Computers ORDER BY rowid DESC");
+			else
+				query.exec("SELECT * FROM Computers ORDER BY rowid ASC");
+			break;
+	}
+
   while(query.next()){
+		int id=query.value("rowid").toUInt();
 		string name = query.value("Name").toString().toStdString();
 		string type = query.value("Type").toString().toStdString();
 		bool builtOrNot  = query.value("Built_or_not").toUInt();
 		int builtY = query.value("Year_built").toUInt();
 
-		Computers newComp(name, type, builtOrNot, builtY);
+		Computers newComp(id, name, type, builtOrNot, builtY);
 		computerList.push_back(newComp);
   }
 	return computerList;
