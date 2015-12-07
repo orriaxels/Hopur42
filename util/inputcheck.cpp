@@ -38,33 +38,46 @@ bool Inputcheck::isNameGood(string& name, string& illegal){
   if(name.empty()){
     return false;
   }else{
-      for(unsigned int i = 0; i < name.length(); i++){ 
-          if((islower(name[0])) || (islower(name[i]) && name[i-1] == ' ')){
-                name[i] = toupper(name[i]);
-            }
-          else if(!isalpha(name[i])){
-                if(name[i] == ' ' && name[i+1] == ' '){
-                    name.erase(name.begin()+i);
-                    i--;
-                }else if(name[i] != ' ' ){
-                  illegal = name[i];
-                  return false;
-                }    
-                
-            }else if( (i != 0) && (isupper(name[i]) && name[i-1] != ' ')){
+    for(unsigned int i = 0; i < name.length(); i++){ 
+      if((islower(name[0])) || (islower(name[i]) && name[i-1] == ' ')){
+        name[i] = toupper(name[i]);
+      }
+      else if(!isalpha(name[i])){
+        if(name[i] == ' ' && name[i+1] == ' '){
+          name.erase(name.begin()+i);
+          i--;
+        }else if(name[i] != ' ' ){
+          illegal = name[i];
+          return false;
+        }else if( (i != 0) && (isupper(name[i]) && name[i-1] != ' ')){
                 name[i] = tolower(name[i]);
-            }
-        }    
+        }
+      }    
+      
       return true;
-    }    
+   }    
+  }
 }
 
-bool Inputcheck::isStringEmpty(string text){
-  if(text.empty()){
+bool Inputcheck::cinFailCheck(int input){
+  if(cin.fail()){
+    cin.clear();
+    cin.ignore(1000, '\n');
+    return true;
+  }else{
+    return false;
+  }
+}  
+
+bool Inputcheck::checkNumber(int year, int lowerNumber, int higerNumber){
+  if(year < lowerNumber || year > higerNumber){
+    return true;
+  }else if(year > 2015){
     return true;
   }else{
     return false;
   }
 }
+
 
 
