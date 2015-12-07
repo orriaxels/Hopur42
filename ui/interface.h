@@ -16,29 +16,27 @@ class InterFace
 	public:
 		InterFace();
 		void runInterFace(); 		//Starts main interface of the program
-
-		void printPerson(vector<Persons> persList); 		//Prints out a list of person objects
-
 		void notFound(bool wasfound, const string searchStr); 		//Display messages depending on if searchStr was found  wasfound=true prints found message and vice versa
 		void invalidInput();
-    private:
-			Service serviceVar;
-			void printComputers(vector<Computers> compList);
-			void displayMainMenu();
-			void printAddMenu();
-			void printAddPersonMenu();
-			Inputcheck inputCheckVar;
-			void printAddCompMenu();
-			void printDisplayMenu();
-			void printDispPersMenu();
-			void printDispCompMenu();
-			void printSearchMenu();
-			void printPersSearchMenu();
-			void printCompSearchMenu();
-			void actionSelect();
-			void printRemoveMenu();
-			void printRemovePersMenu();
-			void printRemoveCompMenu();
+  private:
+		Service serviceVar;
+		void printComputers(vector<Computers> compList);
+		void printPerson(vector<Persons> persList); 		//Prints out a list of person objects
+		void displayMainMenu();
+		void printAddMenu();
+		void printAddPersonMenu();
+		Inputcheck inputCheckVar;
+		void printAddCompMenu();
+		void printDisplayMenu();
+		void printDispPersMenu();
+		void printDispCompMenu();
+		void printSearchMenu();
+		void printPersSearchMenu();
+		void printCompSearchMenu();
+		void actionSelect();
+		void printRemoveMenu();
+		void printRemovePersMenu();
+		void printRemoveCompMenu();
 
 
 };

@@ -90,7 +90,6 @@ bool Service::createComputer(string compName, string compType, bool built, int y
     return true;
   else
     return false;
-
 }
 
 int Service::getListDatabase(){  //returns list from file
@@ -103,19 +102,21 @@ int Service::getListDatabase(){  //returns list from file
     //return List.size();
 }
 
-// void Service::removeEntery(int enteryRemove){
-//     Repository repoVar;
-//     vector<Persons> List=repoVar.getScientistList();
-//
-//     //Backs up current list into file backup_itpersons.txt
-//   //  repoVar.backupList(List);
-//
-//     //removes selcted from list
-//     List.erase(List.begin() + (enteryRemove-1) );
-//
-//     //Rewrites the hole list to orginal file
-//     repoVar.rewriteList(List);
-// }
+bool Service::removeEntery(int numberList, const vector<Persons> listToRemoveFrom){
+  int idOfPerson = ( listToRemoveFrom.at(numberList) ).getId();
+  if( repository.removeComputer(idOfPerson) )
+    return true;
+  else
+    return false;
+}
+
+bool Service::removeEntery(int numberList, const vector<Computers> listToRemoveFrom){
+  int idOfComp = ( listToRemoveFrom.at(numberList) ).getId();
+  if( repository.removePerson(idOfComp) )
+    return true;
+  else
+    return false;
+}
 
 bool Service::somthingthere(){
     Repository repoVar;

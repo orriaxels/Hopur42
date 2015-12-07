@@ -1,7 +1,6 @@
 #include <vector>
 #include <string>
 #include <QtSql>
-
 #include <Qstring>
 
 #include "repo/repository.h"
@@ -17,7 +16,7 @@ bool Repository::addToDatabase(Persons newPerson){
 	QSqlQuery query;
 
 	//Need to be variables to work with query.exec
-	QString fName = QString::fromStdString( (newPerson.getF()).c_str() );
+	QString fName = QString::fromStdString( (newPerson.getF()).c_str() ); //bindvalue needs QString
 	QString lName = QString::fromStdString( (newPerson.getL()).c_str() );
 	bool gender = newPerson.getGender();
 	int born = newPerson.getYearBorn();
@@ -62,6 +61,32 @@ bool Repository::addToDatabase(Computers newComp){
 	}
 }
 
+bool Repository::removePerson(int enteryToRemoveId){
+	QSqlQuery query;
+	query.prepare("UPDATE Scientists SET Deleted=1 WHERE id=:id");
+	query.bindValue(":id", enteryToRemoveId);
+
+	if( query.exec() ){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+bool Repository::removeComputer(int enteryToRemoveId){
+	QSqlQuery query;
+	query.prepare("UPDATE Computers SET Deleted = 1 WHERE id = :rowid" );
+	query.bindValue(":rowid", enteryToRemoveId);
+
+	if( query.exec() ){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
 vector<Persons> Repository::getScientistList(int byColumn, bool aceDesc){
 
 	QSqlQuery query;
@@ -70,44 +95,44 @@ vector<Persons> Repository::getScientistList(int byColumn, bool aceDesc){
 	switch(byColumn){  //Order by does not work with string, thus query commands in case
 		case 1:
 			if(aceDesc)
-				query.exec("SELECT * FROM Scientists ORDER BY FirstName DESC");
+				query.exec("SELECT * FROM Scientists WHERE Deleted IN (0) ORDER BY FirstName DESC");
 			else
-				query.exec("SELECT * FROM Scientists ORDER BY FirstName ASC");
+				query.exec("SELECT * FROM Scientists WHERE Deleted IN (0) ORDER BY FirstName ASC");
 			break;
 		case 2:
 			if(aceDesc)
-				query.exec("SELECT * FROM Scientists ORDER BY LastName DESC");
+				query.exec("SELECT * FROM Scientists WHERE Deleted IN (0) ORDER BY LastName DESC");
 			else
-				query.exec("SELECT * FROM Scientists ORDER BY LastName ASC");
+				query.exec("SELECT * FROM Scientists WHERE Deleted IN (0) ORDER BY LastName ASC");
 			break;
 		case 3:
 			if(aceDesc)
-				query.exec("SELECT * FROM Scientists ORDER BY GenderGender DESC");
+				query.exec("SELECT * FROM Scientists WHERE Deleted IN (0) ORDER BY GenderGender DESC");
 			else
-				query.exec("SELECT * FROM Scientists ORDER BY Gender ASC");
+				query.exec("SELECT * FROM Scientists WHERE Deleted IN (0) ORDER BY Gender ASC");
 			break;
 		case 4:
 			if(aceDesc)
-				query.exec("SELECT * FROM Scientists ORDER BY Born DESC");
+				query.exec("SELECT * FROM Scientists WHERE Deleted IN (0) ORDER BY Born DESC");
 			else
-				query.exec("SELECT * FROM Scientists ORDER BY Born ASC");
+				query.exec("SELECT * FROM Scientists WHERE Deleted IN (0) ORDER BY Born ASC");
 			break;
 		case 5:
 			if(aceDesc)
-				query.exec("SELECT * FROM Scientists ORDER BY Died DESC");
+				query.exec("SELECT * FROM Scientists WHERE Deleted IN (0) ORDER BY Died DESC");
 			else
-				query.exec("SELECT * FROM Scientists ORDER BY Died ASC");
+				query.exec("SELECT * FROM Scientists WHERE Deleted IN (0) ORDER BY Died ASC");
 			break;
 		default:
 			if(aceDesc)
-				query.exec("SELECT * FROM Scientists ORDER BY rowid DESC");
+				query.exec("SELECT * FROM Scientists WHERE Deleted IN (0) ORDER BY id DESC");
 			else
-				query.exec("SELECT * FROM Scientists ORDER BY rowid ASC");
+				query.exec("SELECT * FROM Scientists WHERE Deleted IN (0) ORDER BY id ASC");
 			break;
 	}
 
 	while(query.next()){
-		int id=query.value("rowid").toUInt();
+		int id = query.value("id").toUInt();
 		string fName = query.value("FirstName").toString().toStdString();
 		string lName = query.value("LastName").toString().toStdString();
 		bool gender = query.value("Gender").toBool();
@@ -130,38 +155,38 @@ vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
 	switch(byColumn){
 		case 1:
 			if(aceDesc)
-				query.exec("SELECT * FROM Computers ORDER BY Name DESC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Name DESC");
 			else
-			query.exec("SELECT * FROM Computers ORDER BY Name ASC");
+			query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Name ASC");
 			break;
 		case 2:
 			if(aceDesc)
-				query.exec("SELECT * FROM Computers ORDER BY Type DESC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Type DESC");
 			else
-				query.exec("SELECT * FROM Computers ORDER BY Type ASC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Type ASC");
 			break;
 		case 3:
 			if(aceDesc)
-				query.exec("SELECT * FROM Computers ORDER BY Built_or_not DESC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Built_or_not DESC");
 			else
-				query.exec("SELECT * FROM Computers ORDER BY Built_or_not ASC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Built_or_not ASC");
 			break;
 		case 4:
 			if(aceDesc)
-				query.exec("SELECT * FROM Computers ORDER BY Year_built DESC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Year_built DESC");
 			else
-				query.exec("SELECT * FROM Computers ORDER BY Year_built ASC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Year_built ASC");
 			break;
 		default:
 			if(aceDesc)
-				query.exec("SELECT * FROM Computers ORDER BY rowid DESC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY rowid DESC");
 			else
-				query.exec("SELECT * FROM Computers ORDER BY rowid ASC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY rowid ASC");
 			break;
 	}
 
   while(query.next()){
-		int id=query.value("rowid").toUInt();
+		int id= query.value("id").toUInt();
 		string name = query.value("Name").toString().toStdString();
 		string type = query.value("Type").toString().toStdString();
 		bool builtOrNot  = query.value("Built_or_not").toUInt();

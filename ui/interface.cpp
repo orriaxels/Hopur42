@@ -512,29 +512,23 @@ void InterFace::printRemoveMenu(){
 
 void InterFace::printRemovePersMenu(){
 
-    int enteryRemove;
+    vector<Persons> sortedList = serviceVar.getSortedPersonsList(1,0);
+    int enteryRemove, numberOfEnteries = sortedList.size();
+    string input;
 
-    if( serviceVar.somthingthere() ){ //checs if List is empty befor displaying menu
+    printPerson( sortedList );
+    cout<< endl << "Which one of these enteries do you want to remove(select # / 0 for cancel)? ";
 
-        serviceVar.getListDatabase();
-        cout<< endl << "Which one of these enteries do you want to remove(select # / 0 for cancel)? ";
+    do{
+        cin >> input;
+    }while( ! inputCheckVar.isInputGood(1, numberOfEnteries, input)   );
+    enteryRemove = (atoi( input.c_str() ) ) -1;
 
-        do{
-            cin >> enteryRemove;
 
-            if(cin.fail()){
-                cin.clear();
-                cin.get();
-                cout<<"Invalid input. Enter number of entery from the list: ";
-            }
-        }while( (cin.fail())  );
-
-      //  serviceVar.removeEntery(enteryRemove);
-        cout<< endl<<"Entery sucsessfully removed. (backup_itPersons.txt contains orginal list)"<<endl;
-    }
-    else{
-        cout<< "Database is empty. You can add to list in main menu."<<endl;
-    }
+    if( serviceVar.removeEntery(enteryRemove, sortedList) )
+      cout<< endl<<"Entry no longer visable in list"<<endl<<endl;
+    else
+      cout<< endl<<"Unable to delete"<<endl<<endl;
 
     runInterFace();
 }

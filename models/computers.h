@@ -13,15 +13,12 @@ class Computers
         Computers(string cName, string cType, bool build, int bldYear);
         Computers(int tableId, string cName, string cType, bool build, int bldYear);
 
+
+        int getId() const;
         string getName() const;
         string getType() const;
         bool getBuild() const;
         int getBuildYear() const;
-
-        // void setName(const string computerName);
-        // void setType(const string computerType);
-        // void setBuild(const bool build);
-        // void setBuildYear(const int buildYear);
 
     private:
         int compId;

@@ -13,6 +13,9 @@ public:
   bool addToDatabase(Persons newPerson);
   bool addToDatabase(Computers newComp);
 
+  bool removePerson(int enteryToRemoveId);
+  bool removeComputer(int enteryToRemoveId);
+
   vector<Persons> getScientistList(int byColumn, bool aceDesc);
   vector<Computers> getComputerList(int byColumn, bool aceDesc);
 

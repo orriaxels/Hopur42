@@ -26,6 +26,9 @@ Computers::Computers(int tableId, string cName, string cType, bool build, int bl
 }
 
 // Get functions
+int Computers::getId() const{
+	return compId;
+}
 string Computers::getName() const{
 	return computername;
 }
@@ -41,20 +44,3 @@ bool Computers::getBuild() const{
 int Computers::getBuildYear() const{
 	return buildyear;
 }
-
-// // Set functions
-// void Computers::setName(const string computerName){
-// 	computername = computerName;
-// }
-//
-// void Computers::setType(const string computerType){
-// 	computertype = computerType;
-// }
-//
-// void Computers::setBuild(const bool build){
-// 	ifBuild = build;
-// }
-//
-// void Computers::setBuildYear(const int buildYear){
-// 	buildyear = buildYear;
-// }

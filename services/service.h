@@ -14,16 +14,17 @@ class Service
 	public:
 		Service();
 
-		void search(string searchString);
-
 		vector<Persons> getSortedPersonsList(int sortBy, bool orderOfSort);
 		vector<Computers> getSortedComputersList(int sortBy, bool orderOfSort);
 
 		bool createPerson(string name, string gender, int yborn, int ydied, string knownFor);
 		bool createComputer(string compName, string compType, bool built, int yBuilt);
 
+		bool removeEntery(int numberList, const vector<Persons> listToRemoveFrom);
+		bool removeEntery(int numberList, const vector<Computers> listToRemoveFrom);
+
+		void search(string searchString);
 		int getListDatabase();
-		void removeEntery(int enteryRemove);
 		bool somthingthere();
 		bool isNameLegal(string& name, string& illegal);
 
