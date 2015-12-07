@@ -72,7 +72,7 @@ bool Inputcheck::checkNumber(int year, int lowerNumber, int higerNumber){
   if(year < lowerNumber || year > higerNumber){
     return true;
   }else if(year > 2015){
-    return false;
+    return true;
   }
   else{
     return false;

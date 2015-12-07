@@ -138,7 +138,7 @@ void InterFace::printAddPersonMenu(){
         cout << "Year of death (0 if still alive): ";
         cin >> dYear;
         if(inputCheckVar.cinFailCheck()){
-            cout << "Invalid shit" << endl;
+            cout << "Invalid input." << endl;
         }
         else if(inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0){
             cout<<"Invalid input."<<endl;
