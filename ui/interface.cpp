@@ -128,22 +128,23 @@ void InterFace::printAddPersonMenu(){
     do{
         cout << "Year of birth: ";
         cin >> bYear;
-        if(inputCheckVar.cinFailCheck(bYear)){
-            cout << "Invalid input" << endl;
-        }else if(inputCheckVar.checkNumber(bYear, 1800, 2010)){
+        if(inputCheckVar.checkNumber(bYear, 1800, 2010)){
             cout<<"Invalid input."<<endl;
         }
 
-    }while(inputCheckVar.cinFailCheck(bYear) || inputCheckVar.checkNumber(bYear, 1800, 2010));
+    }while(inputCheckVar.cinFailCheck() || inputCheckVar.checkNumber(bYear, 1800, 2010));
 
-    //Get death year input
     do{
-        cout << "Year of death (\"0\" if alive): ";
+        cout << "Year of death (0 if still alive): ";
         cin >> dYear;
-        if((inputCheckVar.cinFailCheck(dYear)) || (inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0)){
-            cout << "Invalid input" << endl;
-       }     
-    }while((inputCheckVar.cinFailCheck(dYear)) || (inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0));
+        if(inputCheckVar.cinFailCheck()){
+            cout << "Invalid shit" << endl;
+        }
+        else if(inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0){
+            cout<<"Invalid input."<<endl;
+        }
+
+    }while((dYear != 0 && inputCheckVar.checkNumber(dYear, bYear+8, bYear+110)) || inputCheckVar.cinFailCheck());
 
     //Get input Known for info
     do{
@@ -197,7 +198,7 @@ void InterFace::printAddCompMenu(){
                 cout << "When was the computer built: ";
                 cin >> yearBuilt;
                 cin.ignore(1000, '\n');
-                    if(inputCheckVar.cinFailCheck(yearBuilt)){
+                    if(inputCheckVar.cinFailCheck()){
                         cout << "Invalid input." << endl;
                     }else if(inputCheckVar.checkNumber(yearBuilt, 1800, 2015)){               
                         cout << "Invalid input." << endl;
