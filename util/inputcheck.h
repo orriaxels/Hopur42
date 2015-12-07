@@ -9,7 +9,7 @@ class Inputcheck
       bool isInputGood(int fromNumber, int toNumber, string& input) ;
 	  bool isNameGood(string& name, string& illegal);
 	  bool isStringEmpty(string text);
-	  bool cinFailCheck(int input);	  
+	  bool cinFailCheck();	  
 	  bool checkNumber(int year, int lowerNumber, int higerNumber);  
     private:
 };
