@@ -24,8 +24,10 @@ public:
 
   /*@brief searches database for matching string column by column
   * @param searchString string to search for in database
+  * @param searchString2 assumes you are looking for first and last name
   * @return retuns vector of scientists/computers where searchString was found */
   vector<Persons> searchScientist(string searchString);
+  vector<Persons> searchScientist(string searchString1, string searchString2);
   vector<Computers> searchComputer(string searchString);
 
   /*@brief Fetches sorted vector of all computers/scientists from database

@@ -12,12 +12,28 @@
 Service::Service(){}//default constructor
 
 vector<Persons> Service::searchScient(string searchString){
-  //To fit into like query prend/append % on both sides of searchstring
-  searchString.insert (0, 1, '%');
-  searchString+='%';
 
-  vector<Persons> foundIn=repository.searchScientist(searchString);
-  return foundIn;
+  string buffer="";
+  vector<string> substringContainer;
+	stringstream searchStream;
+	searchStream.str(searchString);
+	while (searchStream >> buffer){
+      //To fit into like query prend/append % on both sides of searchstring
+      buffer.insert (0, 1, '%');
+      buffer+='%';
+
+			substringContainer.push_back(buffer);
+	}
+
+  if(substringContainer.size() == 1){
+    vector<Persons> foundIn=repository.searchScientist( substringContainer.at(0) );
+    return foundIn;
+  }
+  else{
+    vector<Persons> foundIn=repository.searchScientist(substringContainer.at(0), substringContainer.at(1));
+    return foundIn;
+  }
+
 }
 
 vector<Computers>Service::searchComp(string searchString){

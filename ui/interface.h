@@ -22,6 +22,7 @@ class InterFace
 
 		void displayMainMenu();
 		void actionSelect();
+		void searchMenu();
 
 		void printPerson(vector<Persons> persList);
 		void printComputers(vector<Computers> compList);
@@ -34,11 +35,6 @@ class InterFace
 		void printDisplayMenu();
 		void printDispPersMenu();
 		void printDispCompMenu();
-
-		void searchMenu();
-		void printPersSearchMenu();
-		void printCompSearchMenu();
-
 
 		void printRemoveMenu();
 		void printRemovePersMenu();

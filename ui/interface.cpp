@@ -388,30 +388,24 @@ void InterFace::searchMenu(){
         cin >> choice;
     }while(! inputCheckVar.isInputGood(0,3, choice) );
 
+    cout << "What would you like to search for? " ;
+    getline(cin, searchS);
+
     if(choice == "1"){
-      cout << "What would you like to search for? " ;
-      getline(cin, searchS);
       cout  << endl
             << "Following scientists enteries contain "<<searchS<<endl;
-
       printPerson( serviceVar.searchScient(searchS)  );
       cout<<endl<<endl;
     }
     else if(choice == "2"){
-      cout << "What would you like to search for? ";
-      getline(cin, searchS);
       cout  << endl
             << "Following computer enteries contain "<<searchS<<endl;
-
       printComputers( serviceVar.searchComp(searchS)  );
       cout<<endl<<endl;
     }
     else if(choice == "3"){
-      cout << "What would you like to search for? " ;
-      getline(cin, searchS);
       cout  << endl
             << "Following scientists enteries contain "<<searchS<<endl;
-
       printPerson( serviceVar.searchScient(searchS)  );
 
       cout  << endl
