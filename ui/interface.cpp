@@ -52,7 +52,7 @@ void InterFace::actionSelect(){
           break;
       case '3':
           cout << endl;
-          InterFace::printSearchMenu();
+          InterFace::searchMenu();
           break;
       case '4':
           cout<<endl;
@@ -374,36 +374,55 @@ void InterFace::printDispCompMenu(){
     }
 }
 
-void InterFace::printSearchMenu(){
-    string choice;
+void InterFace::searchMenu(){
+    string searchS, choice;
 
-    cout << "In what database would you like to search" << endl;
-    cout << "1: Scientists" << endl;
-    cout << "2: Computers" << endl;
-    cout << "0: Cancel" << endl;
-    cout << "Enter choice: ";
+    cout  << "In what database would you like to search" << endl
+          << "1: Scientists" << endl
+          << "2: Computers" << endl
+          << "3: Both"<<endl
+          << "0: Cancel" << endl
+          << "Enter choice: ";
+
     do{
         cin >> choice;
-    }while(! inputCheckVar.isInputGood(0,2, choice) );
+    }while(! inputCheckVar.isInputGood(0,3, choice) );
 
     if(choice == "1"){
-        printPersSearchMenu();
-    }else if(choice == "0"){
-        runInterFace();
-    }else{
-        printCompSearchMenu();
+      cout << "What would you like to search for? " ;
+      getline(cin, searchS);
+      cout  << endl
+            << "Following scientists enteries contain "<<searchS<<endl;
+
+      printPerson( serviceVar.searchScient(searchS)  );
+      cout<<endl<<endl;
     }
-}
+    else if(choice == "2"){
+      cout << "What would you like to search for? ";
+      getline(cin, searchS);
+      cout  << endl
+            << "Following computer enteries contain "<<searchS<<endl;
 
-void InterFace::printPersSearchMenu(){
-    string searchS, choice;
-    int var;
+      printComputers( serviceVar.searchComp(searchS)  );
+      cout<<endl<<endl;
+    }
+    else if(choice == "3"){
+      cout << "What would you like to search for? " ;
+      getline(cin, searchS);
+      cout  << endl
+            << "Following scientists enteries contain "<<searchS<<endl;
 
-    cout << "What would you like to search for? " ;
-    getline(cin, searchS);
+      printPerson( serviceVar.searchScient(searchS)  );
 
-    cout << endl << endl;
-    printPerson( serviceVar.searchScient(searchS)  );
+      cout  << endl
+            << "Following computer enteries contain "<<searchS<<endl;
+      printComputers( serviceVar.searchComp(searchS)  );
+      cout<<endl<<endl;
+    }
+    else{
+      runInterFace();
+    }
+
 
     cout << "1. Search again" << endl;
     cout << "2. Back to main menu" << endl;
@@ -411,47 +430,16 @@ void InterFace::printPersSearchMenu(){
     do{
         cin >> choice;
     } while(! inputCheckVar.isInputGood(1,2, choice));
-    var = atoi(choice.c_str());
 
-    if (var == 1 ){
+    if (choice == "1" ){
         cout << endl << endl << endl;
-        printSearchMenu();
+        searchMenu();
     }
-    else if(var == 2){
-        cout << endl << endl << endl;
-        runInterFace();
-    }
-}
-
-void InterFace::printCompSearchMenu(){
-    string searchS, choice;
-    int var;
-
-    cout << "What would you like to search for? ";
-    getline(cin, searchS);
-
-
-    cout << endl << endl;
-    printComputers( serviceVar.searchComp(searchS)  );
-
-    cout << "1. Search again" << endl;
-    cout << "2. Back to main menu" << endl;
-    cout << "Enter choice: ";
-    do{
-        cin >> choice;
-    } while(! inputCheckVar.isInputGood(1,2, choice));
-    var = atoi(choice.c_str());
-
-    if (var == 1 ){
-        cout << endl << endl << endl;
-        printSearchMenu();
-    }
-    else if(var == 2){
+    else if(choice == "2"){
         cout << endl << endl << endl;
         runInterFace();
     }
 }
-
 
 void InterFace::printRemoveMenu(){
     string choice;
@@ -560,7 +548,7 @@ void InterFace::invalidInput(){
 }
 
 void InterFace::printPerson(vector<Persons> persList){
-
+    string nameBuffer="";
     if( persList.size() > 0){
       //Print heaader for table
       cout << '\n' << setw(3) << left << "#"
@@ -570,7 +558,9 @@ void InterFace::printPerson(vector<Persons> persList){
 
       for(unsigned int i=0; i<persList.size(); i++){
         cout << setw(3)  << left << i+1;
-        cout << setw(36) << persList.at(i).getF() << " " << persList.at(i).getL();
+
+        nameBuffer=persList.at(i).getF() + " " + persList.at(i).getL(); //to work with setw needs to be 1 string
+        cout << setw(36) << nameBuffer;
 
         if(persList.at(i).getGender()){
             cout << setw(10)<< "Female";}

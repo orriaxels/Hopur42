@@ -35,7 +35,7 @@ class InterFace
 		void printDispPersMenu();
 		void printDispCompMenu();
 
-		void printSearchMenu();
+		void searchMenu();
 		void printPersSearchMenu();
 		void printCompSearchMenu();
 
