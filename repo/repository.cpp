@@ -1,9 +1,7 @@
 #include <vector>
 #include <string>
-#include <QtCore/QCoreApplication>
 #include <QtSql>
 #include <Qstring>
-#include <QDebug>
 
 #include "repo/repository.h"
 #include "models/persons.h"
@@ -95,11 +93,10 @@ vector<Persons> Repository::searchScientist(string searchString){
 
 	//SELECT * FROM Scientists WHERE Deleted IN (0) AND FirstName LIKE %a%
 	//Þessi virkar í sqlite.exe get ekki leitað í öllum dálkum.
-	query.prepare("SELECT * FROM Scientists WHERE Deleted IN (0) AND FirstName=:FirstName");
-	query.bindValue(":FirstName", qSearch + '%');
-	if(!query.exec() )
-		cout<<"SqLite error:";
-
+	query.prepare("SELECT * FROM Scientists WHERE FirstName LIKE :search");
+	query.bindValue(":search", qSearch);
+	// if(!query.exec() )
+	// 	cout<<"SqLite error invalid query";
 
 	while(query.next()){
 		int id = query.value("id").toUInt();
@@ -191,7 +188,7 @@ vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
 			if(aceDesc)
 				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Name DESC");
 			else
-			query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Name ASC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Name ASC");
 			break;
 		case 2:
 			if(aceDesc)
@@ -213,9 +210,9 @@ vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
 			break;
 		default:
 			if(aceDesc)
-				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY rowid DESC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY  id DESC");
 			else
-				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY rowid ASC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY id ASC");
 			break;
 	}
 

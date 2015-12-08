@@ -27,7 +27,6 @@ vector<Persons> Service::getSortedPersonsList(int sortBy, bool orderOfSort){
     vector<Persons> personsList=repository.getScientistList(sortBy, orderOfSort);
     return personsList;
 }
-
 vector<Computers> Service::getSortedComputersList(int sortBy, bool orderOfSort){
 
     vector<Computers> compList=repository.getComputerList(sortBy, orderOfSort);
@@ -49,8 +48,8 @@ bool Service::createPerson(string name, string gender, int yborn, int ydied, str
 
     for(unsigned int i=0; i<nameContainer.size()-1; i++){
         bufferFirst+=nameContainer.at(i);
-        if(i< (nameContainer.size()-2))
-            buffer+=" ";
+        if(i < (nameContainer.size()-2))
+            bufferFirst+=" ";
     }
     bufferLast= nameContainer.back(); //sets last element in vector as last name
 
@@ -76,16 +75,6 @@ bool Service::createComputer(string compName, string compType, bool built, int y
     return false;
 }
 
-int Service::getListDatabase(){  //returns list from file
-    Repository repoVar;
-    InterFace intVar;
-    //vector<Persons> List=repoVar.getScientistList();
-
-    //intVar.printPerson(List);
-
-    //return List.size();
-}
-
 bool Service::removePersEntery(int numberList, const vector<Persons> listToRemoveFrom){
   int idOfPerson = ( listToRemoveFrom.at(numberList) ).getId();
   if( repository.removePerson(idOfPerson) )
@@ -100,14 +89,4 @@ bool Service::removeCompEntery(int numberList, const vector<Computers> listToRem
     return true;
   else
     return false;
-}
-
-bool Service::somthingthere(){
-    Repository repoVar;
-    //vector<Persons> listForsize=repoVar.getScientistList();
-
-    // if(listForsize.size()==0)
-    //     return false;
-    // else
-    //     return true;
 }
