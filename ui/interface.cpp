@@ -27,22 +27,21 @@ void InterFace::displayMainMenu(){
         << "  3. Search the database" << endl
         << "  4. Remove entry from database"<<endl
         << "  5. Quit" << endl
-        << endl;
+        << endl
+        << "Please select an option from the list: ";
 }
 
 void InterFace::actionSelect(){
-  char a;
   string choice;
   bool loop;
 
-  cout << "Please select an option from the list: ";
   do{
       cin >> choice;
   }while(! inputCheckVar.isInputGood(1, 5, choice));
-  a=choice[0];
+  char selection=choice[0];
 
   do{
-      switch(a){
+      switch(selection){
       case '1':
           cout << endl;
           InterFace::printAddMenu();
@@ -68,17 +67,16 @@ void InterFace::actionSelect(){
 
       }
   }while(loop);
-
 }
 
 void InterFace::printAddMenu(){
     string choice;
 
-    cout << "Choose what to add: " << endl;
-    cout << "1: Add scientist" << endl;
-    cout << "2: Add computer" << endl;
-    cout << "0: Cancel" << endl;
-    cout << "Enter choice: ";
+    cout  << "Choose what to add: " << endl
+          << "1: Add scientist" << endl
+          << "2: Add computer" << endl
+          << "0: Cancel" << endl
+          << "Enter choice: ";
 
     do{
         cin >> choice;

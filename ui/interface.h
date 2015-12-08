@@ -19,21 +19,27 @@ class InterFace
   private:
 		Service serviceVar;
 		Inputcheck inputCheckVar;
-		
+
+		void displayMainMenu();
+		void actionSelect();
+
 		void printPerson(vector<Persons> persList);
 		void printComputers(vector<Computers> compList);
 
-		void displayMainMenu();
+
 		void printAddMenu();
 		void printAddPersonMenu();
 		void printAddCompMenu();
+
 		void printDisplayMenu();
 		void printDispPersMenu();
 		void printDispCompMenu();
+
 		void printSearchMenu();
 		void printPersSearchMenu();
 		void printCompSearchMenu();
-		void actionSelect();
+
+
 		void printRemoveMenu();
 		void printRemovePersMenu();
 		void printRemoveCompMenu();
