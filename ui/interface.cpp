@@ -169,78 +169,64 @@ void InterFace::printAddCompMenu(){
     string ifMade = "";
     bool wasItMade = 0; //segir til hvort talvan hafi verið byggð
     bool loop = 0;
-    int yearBuilt;
-    char cType;
+    int yearBuilt = NULL;
+    string cType = "";
 
     cout << "\n";
     cout << "Computer entry" << endl;
+    cout << "Name: ";
 
     do{
-        cout << "Name: ";
         getline(cin, compName);
         if (compName.empty())
         {
-            cout << "Invalid input, reenter" << endl;
+            invalidInput();
+            //cout << "Invalid input, reenter" << endl;
         }
     }while(compName.empty());
 
+    cout << "Was it built (y/n): "; 
     do{
-        cout << "Was it built (y/n): ";
         cin >> ifMade;
-        cin.ignore(1000, '\n');
-        if(ifMade.empty() || ifMade.length() > 1){
-            cout << "Invalid input." << endl;
-        }else if(ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N" ){
-            cout << "Invalid Input" << endl;
-        }else if(ifMade == "y" || ifMade == "Y"){
-            do{
-                cout << "When was the computer built: ";
-                cin >> yearBuilt;
-                cin.ignore(1000, '\n');
-                    if(inputCheckVar.cinFailCheck()){
-                        cout << "Invalid input." << endl;
-                    }else if(inputCheckVar.checkNumber(yearBuilt, 1800, 2015)){
-                        cout << "Invalid input." << endl;
-                    }else{
-                        wasItMade = 1;
-                    }
-                }while(!wasItMade);
+        if((ifMade.empty() || ifMade.length() > 1) || ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N"){
+            invalidInput();
+        }else{
+            wasItMade = 1;
+        }
+    }while((ifMade.empty() || ifMade.length() > 1) || ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N");
+    
+    if(wasItMade){
+        cout << "When was the computer built: ";
+        do{
+            cin >> yearBuilt;
+            if(inputCheckVar.cinFailCheck()){
+                invalidInput();
+            }else if(inputCheckVar.checkNumber(yearBuilt, 1000, 2015)){
+                invalidInput();
             }
-        }while((ifMade != "n" && ifMade != "N") && !wasItMade);
+        }while(inputCheckVar.checkNumber(yearBuilt, 1000, 2015) || inputCheckVar.cinFailCheck());
+    }
 
-    do{
         cout << "What type of computer is it" << endl;;
         cout << "1: Mechanical" << endl;
         cout << "2: Electronic" << endl;
         cout << "3: Electro-Mechanical" << endl;
         cout << "4: Transistorized" << endl;
         cout << "choose: ";
-        cin >> cType;
-        cin.ignore(1000, '\n');
-        if(cType !='1' && cType !='2' && cType !='3' && cType !='4'){
-            cout << "Invalid Input." << endl;
-        }
-    }while(cType !='1' && cType !='2' && cType !='3' && cType !='4');
-
-    do{
-        switch(cType){
-        case '1':
-           compType = "Mechanical";
-            break;
-        case '2':
+        
+        do{
+            cin >> cType;
+        }while(! inputCheckVar.isInputGood(1, 4, cType));
+        
+        if(cType == "1"){
+            compType = "Mechanical";
+        }else if(cType == "2"){
             compType = "Electronic";
-            break;
-        case '3':
+        }else if(cType == "3"){
             compType = "Electro-Mechanical";
-            break;
-        case '4':
+        }else if(cType == "4"){
             compType = "Transistorized";
-            break;
-        default:
-            loop = 0;
-            break;
         }
-    }while(loop);
 
     if( serviceVar.createComputer(compName, compType, wasItMade, yearBuilt) )
       cout<<endl<<"Entry sucsessfully added to database"<<endl<<endl<<endl;
@@ -575,7 +561,7 @@ void InterFace::printRemovePersMenu(){
 
     do{
         cin >> input;
-    }while( ! inputCheckVar.isInputGood(1, numberOfEnteries, input)   );
+    }while( ! inputCheckVar.isInputGood(0, numberOfEnteries, input)   );
     enteryRemove = (atoi( input.c_str() ) ) -1;
 
 
