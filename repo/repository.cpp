@@ -91,13 +91,11 @@ bool Repository::removeComputer(int enteryToRemoveId){
 vector<Persons> Repository::searchScientist(string searchString){
 	QSqlQuery query;
 	QString qSearch = QString::fromStdString( (searchString.c_str()) );
-
+	scientistsList.clear();
 	//SELECT * FROM Scientists WHERE Deleted IN (0) AND FirstName LIKE %a%
-	//Þessi virkar í sqlite.exe get ekki leitað í öllum dálkum.
-	query.prepare("SELECT * FROM Scientists WHERE FirstName LIKE :search");
+	query.prepare("SELECT * FROM Scientists WHERE FirstName  LIKE :search OR LastName  LIKE :search OR Born  LIKE :search OR Died  LIKE :search OR KnownFor LIKE :search ");
 	query.bindValue(":search", qSearch);
-	// if(!query.exec() )
-	// 	cout<<"SqLite error invalid query";
+	query.exec();
 
 	while(query.next()){
 		int id = query.value("id").toUInt();
@@ -111,12 +109,61 @@ vector<Persons> Repository::searchScientist(string searchString){
 		Persons perFromList(id, fName, lName, gender, born, died, known);
 		scientistsList.push_back(perFromList);
 	}
+	//reads from junction table ond stores connection with scientists
+	for(unsigned int i=0; i< computerList.size(); i++){
+
+		vector<int> idPersons;
+		idPersons.clear();
+		int idComputer= (computerList.at(i)).getId();
+
+		query.prepare("SELECT * FROM Associate WHERE comp_id=:comp_id");
+		query.bindValue(":comp_id", idComputer);
+		query.exec();
+
+		while(query.next()){
+			idPersons.push_back( query.value("scientist_id").toUInt() );
+		}
+		(computerList.at(i)).setConnectWithPers(idPersons);
+	}
 
 	return scientistsList;
 }
 
 vector<Computers> Repository::searchComputer(string searchString){
-//asdf
+	QSqlQuery query;
+	QString qSearch = QString::fromStdString( (searchString.c_str()) );
+	computerList.clear();
+
+	query.prepare("SELECT * FROM Computers WHERE Name LIKE :search OR Type LIKE :search OR Built_or_not LIKE :search OR Year_built LIKE :search");
+	query.bindValue(":search", qSearch);
+	query.exec();
+	while(query.next()){
+		int id= query.value("id").toUInt();
+		string name = query.value("Name").toString().toStdString();
+		string type = query.value("Type").toString().toStdString();
+		bool builtOrNot  = query.value("Built_or_not").toUInt();
+		int builtY = query.value("Year_built").toUInt();
+
+		Computers newComp(id, name, type, builtOrNot, builtY);
+		computerList.push_back(newComp);
+	}
+	//reads from junction table ond stores connection with scientists
+	for(unsigned int i=0; i< computerList.size(); i++){
+
+		vector<int> idPersons;
+		idPersons.clear();
+		int idComputer= (computerList.at(i)).getId();
+
+		query.prepare("SELECT * FROM Associate WHERE comp_id=:comp_id");
+		query.bindValue(":comp_id", idComputer);
+		query.exec();
+
+		while(query.next()){
+			idPersons.push_back( query.value("scientist_id").toUInt() );
+		}
+		(computerList.at(i)).setConnectWithPers(idPersons);
+	}
+	return computerList;
 }
 
 vector<Persons> Repository::getScientistList(int byColumn, bool aceDesc){

@@ -14,10 +14,14 @@ Service::Service(){//default constructor
 }
 
 vector<Persons> Service::searchScient(string searchString){
+  searchString.insert (0, 1, '%');
+  searchString+='%';
   vector<Persons> foundIn=repository.searchScientist(searchString);
   return foundIn;
 }
 vector<Computers>Service::searchComp(string searchString){
+  searchString.insert (0, 1, '%');
+  searchString+='%';
   vector<Computers> foundIn=repository.searchComputer(searchString);
   return foundIn;
 }
