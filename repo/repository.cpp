@@ -61,6 +61,8 @@ bool Repository::addToDatabase(Computers newComp){
 	}
 }
 
+
+
 bool Repository::removePerson(int enteryToRemoveId){
 	QSqlQuery query;
 	query.prepare("UPDATE Scientists SET Deleted=1 WHERE id=:id");
@@ -86,6 +88,8 @@ bool Repository::removeComputer(int enteryToRemoveId){
 		return false;
 	}
 }
+
+
 
 vector<Persons> Repository::searchScientist(string searchString){
 	QSqlQuery query;
@@ -163,6 +167,8 @@ vector<Computers> Repository::searchComputer(string searchString){
 	}
 	return computerList;
 }
+
+
 
 vector<Persons> Repository::getScientistList(int byColumn, bool aceDesc){
 
