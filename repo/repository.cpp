@@ -37,7 +37,6 @@ bool Repository::addToDatabase(Persons newPerson){
 		return false;
 	}
 }
-
 bool Repository::addToDatabase(Computers newComp){
 	QSqlQuery query;
 
@@ -73,7 +72,6 @@ bool Repository::removePerson(int enteryToRemoveId){
 		return false;
 	}
 }
-
 bool Repository::removeComputer(int enteryToRemoveId){
 	QSqlQuery query;
 	query.prepare("UPDATE Computers SET Deleted = 1 WHERE id = :id" );
@@ -238,7 +236,6 @@ vector<Persons> Repository::getScientistList(int byColumn, bool aceDesc){
 	}
 	return scientistsList;
 }
-
 vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
 
 	QSqlQuery query;

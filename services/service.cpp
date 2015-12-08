@@ -13,14 +13,18 @@ Service::Service(){//default constructor
 }
 
 vector<Persons> Service::searchScient(string searchString){
+  //To fit into query prend/append % on both sides of searchstring
   searchString.insert (0, 1, '%');
   searchString+='%';
+
   vector<Persons> foundIn=repository.searchScientist(searchString);
   return foundIn;
 }
 vector<Computers>Service::searchComp(string searchString){
+  //To fit into query prend/append % on both sides of searchstring
   searchString.insert (0, 1, '%');
   searchString+='%';
+
   vector<Computers> foundIn=repository.searchComputer(searchString);
   return foundIn;
 }
@@ -37,7 +41,6 @@ vector<Computers> Service::getSortedComputersList(int sortBy, bool orderOfSort){
 }
 
 bool Service::createPerson(string name, string gender, int yborn, int ydied, string knownFor){
-
     string buffer="", bufferFirst="", bufferLast="";
     bool bufferGender;
     vector<string> nameContainer;
@@ -48,7 +51,7 @@ bool Service::createPerson(string name, string gender, int yborn, int ydied, str
     while (nameStream >> buffer){
           nameContainer.push_back(buffer);
     }
-
+    //in case only one name is entered sets as first rather than lastname
     if(nameContainer.size() == 1){
       bufferFirst= nameContainer.back();
     }
@@ -67,6 +70,7 @@ bool Service::createPerson(string name, string gender, int yborn, int ydied, str
         bufferGender=false;
 
     Persons newPerson(bufferFirst, bufferLast, bufferGender, yborn, ydied, knownFor);
+
     if( repository.addToDatabase(newPerson) )
       return true;
     else
@@ -88,7 +92,6 @@ bool Service::removePersEntery(int numberList, const vector<Persons> listToRemov
   else
     return false;
 }
-
 bool Service::removeCompEntery(int numberList, const vector<Computers> listToRemoveFrom){
   int idOfComp = ( listToRemoveFrom.at(numberList) ).getId();
   if( repository.removeComputer(idOfComp) )

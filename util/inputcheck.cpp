@@ -4,9 +4,7 @@
 #include "ui/interface.h"
 
 using namespace std;
-Inputcheck::Inputcheck(){
-//default
-}
+Inputcheck::Inputcheck(){}
 
 bool Inputcheck::isInputGood(int fromNumber, int toNumber, string& input){
   int compareTo =0;
@@ -38,7 +36,7 @@ bool Inputcheck::isNameGood(string& name, string& illegal){
   if(name.empty()){
       return false;
     }else{
-        for(unsigned int i = 0; i < name.length(); i++){ 
+        for(unsigned int i = 0; i < name.length(); i++){
             if((islower(name[0])) || (islower(name[i]) && name[i-1] == ' ')){
                   name[i] = toupper(name[i]);
               }
@@ -49,28 +47,28 @@ bool Inputcheck::isNameGood(string& name, string& illegal){
                   }else if(name[i] != ' ' ){
                     illegal = name[i];
                       return false;
-                  }    
-                  
+                  }
+
               }else if( (i != 0) && (isupper(name[i]) && name[i-1] != ' ')){
                   name[i] = tolower(name[i]);
               }
-          }    
+          }
         return true;
-      }    
+      }
   }
 void Inputcheck::cinFailCheck(){
     cin.clear();
     cin.ignore(1000, '\n');
     InterFace interfaceVar;
     interfaceVar.invalidInput();
-}  
+}
 
 bool Inputcheck::checkNumber(int year, int lowerNumber, int higerNumber){
   InterFace interfaceVar;
 
   if(cin.fail()){
     cinFailCheck();
-    return false;  
+    return false;
   }else if(year < lowerNumber || year > higerNumber){
     cinFailCheck();
     return false;
@@ -82,6 +80,3 @@ bool Inputcheck::checkNumber(int year, int lowerNumber, int higerNumber){
     return true;
   }
 }
-
-
-

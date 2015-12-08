@@ -1,9 +1,5 @@
 #include <string>
-#include <iostream>
 #include "persons.h"
-
-using namespace std;
-
 
 Persons::Persons(){
 	firstname="";
