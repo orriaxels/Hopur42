@@ -13,29 +13,13 @@
 Service::Service(){//default constructor
 }
 
-void Service::search(string searchString){
-    // Repository repoVar;
-    // InterFace interVar;
-    // string buffer;
-    // //vector<Persons> list=repoVar.getScientistList();
-    // //vector<Persons> foundIn;
-    //
-    // //converts search query to lowercase
-    // transform(searchString.begin(), searchString.end(), searchString.begin(), ::tolower);
-    //
-    // for(unsigned int i=0; i < list.size(); i++){
-    //     buffer=makeSearchable(list, i);
-    //     if (buffer.find(searchString) != string::npos) { //compares 1 object agains searchstring
-    //         foundIn.push_back(list.at(i));                 //if found puts object in foundIn vector
-    //     }
-    // }
-    //
-    // if(foundIn.size() == 0)
-    //     interVar.notFound(false, searchString);
-    // else{
-    //     interVar.notFound(true, searchString);
-    //     interVar.printPerson(foundIn);
-    // }
+vector<Persons> Service::searchScient(string searchString){
+  vector<Persons> foundIn=repository.searchScientist(searchString);
+  return foundIn;
+}
+vector<Computers>Service::searchComp(string searchString){
+  vector<Computers> foundIn=repository.searchComputer(searchString);
+  return foundIn;
 }
 
 vector<Persons> Service::getSortedPersonsList(int sortBy, bool orderOfSort){

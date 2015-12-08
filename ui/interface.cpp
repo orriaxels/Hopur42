@@ -275,43 +275,40 @@ void InterFace::printDispPersMenu(){
     int sortWith, order, var;
     string choice, again;
 
-    if(serviceVar.somthingthere()){//Checks if list is empty before printing out menu
-        cout << "What would you like to sort by?" << endl
-             << "1. First name" << "  ||  "
-             << "2. Last name" << "  ||  "
-             << "3. Gender" << "  ||  "
-             << "4. Year of birth" << "  ||  "
-             << "5. Year of death" << endl;
-        cout << "Enter choice: ";
-        do{
-            cin >> choice;
-        }while( ! inputCheckVar.isInputGood(1, 5, choice) ) ;
-        sortWith=atoi(choice.c_str() );
 
-        if(sortWith == 3 ){
-            cout << "1. Males first" << "  ||  "
-                 << "2. Females first" << endl;
-        }
-        else{
-            cout << "1. Ascending(a-z)" << "  ||  "
-                 << "2. Descending(z-a)" << endl;
-        }
-        cout << "Enter choice: ";
-        do{
-            cin >> choice;
-        }while(! inputCheckVar.isInputGood(1,2, choice) );
-        order=atoi(choice.c_str() );
+    cout << "What would you like to sort by?" << endl
+         << "1. First name" << "  ||  "
+         << "2. Last name" << "  ||  "
+         << "3. Gender" << "  ||  "
+         << "4. Year of birth" << "  ||  "
+         << "5. Year of death" << endl;
+    cout << "Enter choice: ";
+    do{
+        cin >> choice;
+    }while( ! inputCheckVar.isInputGood(1, 5, choice) ) ;
+    sortWith=atoi(choice.c_str() );
 
-        if (order == 1){
-            printPerson( serviceVar.getSortedPersonsList(sortWith, 0) );
-        }
-        else if (order == 2){
-            printPerson( serviceVar.getSortedPersonsList(sortWith, 1) );
-        }
+    if(sortWith == 3 ){
+        cout << "1. Males first" << "  ||  "
+             << "2. Females first" << endl;
     }
-    else{ //if database is empty does only pint this messsage
-        cout<<"Nothing to display(database is empty)";
+    else{
+        cout << "1. Ascending(a-z)" << "  ||  "
+             << "2. Descending(z-a)" << endl;
     }
+    cout << "Enter choice: ";
+    do{
+        cin >> choice;
+    }while(! inputCheckVar.isInputGood(1,2, choice) );
+    order=atoi(choice.c_str() );
+
+    if (order == 1){
+        printPerson( serviceVar.getSortedPersonsList(sortWith, 0) );
+    }
+    else if (order == 2){
+        printPerson( serviceVar.getSortedPersonsList(sortWith, 1) );
+    }
+
 
     cout << endl << endl;
 
@@ -337,44 +334,40 @@ void InterFace::printDispCompMenu(){
     int sortWith, order, var;
     string choice, again;
 
-    if(serviceVar.somthingthere()){//Checks if list is empty before printing out menu
-        cout << "What would you like to sort by?" << endl
-             << "1. Name " << "  ||  "
-             << "2. Type " << "  ||  "
-             << "3. Built or not " << "  ||  "
-             << "4. Year built " << "  ||  " << endl
-             << "Enter choice: ";
-         do{
-             cin >> choice;
-         }while( ! inputCheckVar.isInputGood(1,4, choice) ) ;
-         sortWith=atoi(choice.c_str() );
+    cout << "What would you like to sort by?" << endl
+         << "1. Name " << "  ||  "
+         << "2. Type " << "  ||  "
+         << "3. Built or not " << "  ||  "
+         << "4. Year built " << "  ||  " << endl
+         << "Enter choice: ";
+     do{
+         cin >> choice;
+     }while( ! inputCheckVar.isInputGood(1,4, choice) ) ;
+     sortWith=atoi(choice.c_str() );
 
 
-        if(sortWith ==3 ){
-            cout << "1. Built first" << "  ||  "
-                 << "2. Not built first" << endl;
-        }
-        else{
-            cout << "1. Ascending(a-z/0-9)" << "  ||  "
-                 << "2. Descending(z-a/9-0)" << endl;
-        }
-
-        cout << "Enter choice: ";
-        do{
-            cin >> choice;
-        }while(! inputCheckVar.isInputGood(1,2, choice) );
-        order=atoi(choice.c_str() );
-
-        if (order == 1){
-            printComputers( serviceVar.getSortedComputersList(sortWith, 0) );
-        }
-        else if (order == 2){
-          printComputers( serviceVar.getSortedComputersList(sortWith, 1) );
-        }
+    if(sortWith ==3 ){
+        cout << "1. Built first" << "  ||  "
+             << "2. Not built first" << endl;
     }
-    else{ //if database is empty does only pint this message
-        cout << "Nothing to display(database is empty)";
+    else{
+        cout << "1. Ascending(a-z/0-9)" << "  ||  "
+             << "2. Descending(z-a/9-0)" << endl;
     }
+
+    cout << "Enter choice: ";
+    do{
+        cin >> choice;
+    }while(! inputCheckVar.isInputGood(1,2, choice) );
+    order=atoi(choice.c_str() );
+
+    if (order == 1){
+        printComputers( serviceVar.getSortedComputersList(sortWith, 0) );
+    }
+    else if (order == 2){
+      printComputers( serviceVar.getSortedComputersList(sortWith, 1) );
+    }
+
 
     cout << endl << endl;
 
@@ -424,9 +417,8 @@ void InterFace::printPersSearchMenu(){
     cout << "What would you like to search for? " ;
     getline(cin, searchS);
 
-    serviceVar.search(searchS);
-
     cout << endl << endl;
+    printPerson( serviceVar.searchScient(searchS)  );
 
     cout << "1. Search again" << endl;
     cout << "2. Back to main menu" << endl;
@@ -453,9 +445,9 @@ void InterFace::printCompSearchMenu(){
     cout << "What would you like to search for? ";
     getline(cin, searchS);
 
-    serviceVar.search(searchS);
 
     cout << endl << endl;
+    printComputers( serviceVar.searchComp(searchS)  );
 
     cout << "1. Search again" << endl;
     cout << "2. Back to main menu" << endl;
@@ -575,7 +567,7 @@ void InterFace::printRemoveMenu(){
 void InterFace::printRemovePersMenu(){
 
     vector<Persons> sortedList = serviceVar.getSortedPersonsList(1,0);
-    int enteryRemove, numberOfEnteries = sortedList.size();
+    int enteryRemove, numberOfEnteries = sortedList.size(), var;
     string input;
 
     printPerson( sortedList );
@@ -598,9 +590,9 @@ void InterFace::printRemovePersMenu(){
     cout << "2. Back to main menu" << endl;
     cout << "Enter choice: ";
     do{
-        cin >> choice;
-    } while(! inputCheckVar.isInputGood(1,2, choice));
-    var = atoi(choice.c_str());
+        cin >> input;
+    } while(! inputCheckVar.isInputGood(1,2, input));
+    var = atoi(input.c_str());
 
     if (var == 1){
         cout << endl << endl << endl;
@@ -609,52 +601,45 @@ void InterFace::printRemovePersMenu(){
         cout << endl << endl << endl;
         runInterFace();
     }
+    runInterFace();
 }
 
 void InterFace::printRemoveCompMenu(){
 
-    int enteryRemove, var;
-    string choice;
+  vector<Computers> sortedList = serviceVar.getSortedComputersList(1,0);
+  int enteryRemove, numberOfEnteries = sortedList.size() ,  var;
+  string input;
 
-    if( serviceVar.somthingthere() ){ //checs if List is empty befor displaying menu
+  printComputers( sortedList );
+  cout<< endl << "Which one of these enteries do you want to remove(select # / 0 for cancel)? ";
 
-        serviceVar.getListDatabase();
-        cout<< endl << "Which one of these enteries do you want to remove(select #)? ";
+  do{
+      cin >> input;
+  }while( ! inputCheckVar.isInputGood(1, numberOfEnteries, input)   );
+  enteryRemove = (atoi( input.c_str() ) ) -1;
 
-        do{
-            cin >> enteryRemove;
 
-            if(cin.fail()){
-                cin.clear();
-                cin.get();
-                cout<<"Invalid input. Enter number of entery from the list: ";
-               }
-        }while( (cin.fail())  );
+  if( serviceVar.removeEntery(enteryRemove, sortedList) )
+    cout<< endl<<"Entry no longer visable in list"<<endl<<endl;
+  else
+    cout<< endl<<"Unable to delete"<<endl<<endl;
 
-      //  serviceVar.removeEntery(enteryRemove);
-        cout << endl << "Entery sucsessfully removed. (backup_itPersons.txt contains orginal list)" << endl;
-    }
-    else{
-        cout << "Database is empty. You can add to list in main menu." << endl;
-    }
 
-    cout << endl << endl;
+  cout << "1. Remove something else from the list" << endl;
+  cout << "2. Back to main menu" << endl;
+  cout << "Enter choice: ";
+  do{
+      cin >> input;
+  } while(! inputCheckVar.isInputGood(1,2, input));
+  var = atoi(input.c_str());
 
-    cout << "1. Remove something else from the list" << endl;
-    cout << "2. Back to main menu" << endl;
-    cout << "Enter choice: ";
-    do{
-        cin >> choice;
-    } while(! inputCheckVar.isInputGood(1,2, choice));
-    var = atoi(choice.c_str());
-
-    if (var == 1){
-        cout << endl << endl << endl;
-        printRemoveMenu();
-    } else if (var == 2){
-        cout << endl << endl << endl;
-        runInterFace();
-    }
+  if (var == 1){
+      cout << endl << endl << endl;
+      printRemoveMenu();
+  } else if (var == 2){
+      cout << endl << endl << endl;
+      runInterFace();
+  }
 
 }
 

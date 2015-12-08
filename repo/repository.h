@@ -16,6 +16,9 @@ public:
   bool removePerson(int enteryToRemoveId);
   bool removeComputer(int enteryToRemoveId);
 
+  vector<Persons> searchScientist(string searchString);
+  vector<Computers> searchComputer(string searchString);
+
   vector<Persons> getScientistList(int byColumn, bool aceDesc);
   vector<Computers> getComputerList(int byColumn, bool aceDesc);
 

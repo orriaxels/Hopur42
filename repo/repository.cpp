@@ -2,6 +2,7 @@
 #include <string>
 #include <QtSql>
 #include <Qstring>
+#include <QDebug>
 
 #include "repo/repository.h"
 #include "models/persons.h"
@@ -63,7 +64,22 @@ bool Repository::addToDatabase(Computers newComp){
 
 bool Repository::removePerson(int enteryToRemoveId){
 	QSqlQuery query;
-	query.prepare("UPDATE Scientists SET Deleted=1 WHERE id=:id");
+	query.prepare("UPDATE Scientists SET Deleted=1 WHERE id=1");
+	//query.bindValue(":id", enteryToRemoveId);
+
+	if( query.exec() ){
+		return true;
+	}
+	 else {
+		//  cout<<"SqLite error:" << query.lastError().text();
+		// qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+				return false;
+	}
+}
+
+bool Repository::removeComputer(int enteryToRemoveId){
+	QSqlQuery query;
+	query.prepare("UPDATE Computers SET Deleted = 1 WHERE id = :id" );
 	query.bindValue(":id", enteryToRemoveId);
 
 	if( query.exec() ){
@@ -74,17 +90,36 @@ bool Repository::removePerson(int enteryToRemoveId){
 	}
 }
 
-bool Repository::removeComputer(int enteryToRemoveId){
+vector<Persons> Repository::searchScientist(string searchString){
 	QSqlQuery query;
-	query.prepare("UPDATE Computers SET Deleted = 1 WHERE id = :rowid" );
-	query.bindValue(":rowid", enteryToRemoveId);
+	QString qSearch = QString::fromStdString( (searchString.c_str()) );
 
-	if( query.exec() ){
-		return true;
+	//SELECT * FROM Scientists WHERE Deleted IN (0) AND FirstName LIKE %a%
+	//Þessi virkar í sqlite.exe get ekki leitað í öllum dálkum. 
+	query.prepare("SELECT * FROM Scientists WHERE Deleted IN (0) AND FirstName=:FirstName");
+	query.bindValue(":FirstName", qSearch + '%');
+	if(!query.exec() )
+		cout<<"SqLite error:";
+
+
+	while(query.next()){
+		int id = query.value("id").toUInt();
+		string fName = query.value("FirstName").toString().toStdString();
+		string lName = query.value("LastName").toString().toStdString();
+		bool gender = query.value("Gender").toBool();
+		int born = query.value("Born").toUInt();
+		int died = query.value("Died").toUInt();
+		string known = query.value("KnownFor").toString().toStdString();
+
+		Persons perFromList(id, fName, lName, gender, born, died, known);
+		scientistsList.push_back(perFromList);
 	}
-	else{
-		return false;
-	}
+
+	return scientistsList;
+}
+
+vector<Computers> Repository::searchComputer(string searchString){
+
 }
 
 vector<Persons> Repository::getScientistList(int byColumn, bool aceDesc){
