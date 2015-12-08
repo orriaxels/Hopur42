@@ -20,10 +20,13 @@ class InterFace
 		Service serviceVar;
 		Inputcheck inputCheckVar;
 
-		void displayMainMenu();
-		void actionSelect();
-		void searchMenu();
 
+		void displayMainMenu();	// Display main menu options
+		void actionSelect();		// Gets user input to what function user wants to use
+
+		void searchMenu();			//Displays interface for search function
+
+		//Prints out vector of persons/computers in list form
 		void printPerson(vector<Persons> persList);
 		void printComputers(vector<Computers> compList);
 
@@ -39,6 +42,9 @@ class InterFace
 		void printRemoveMenu();
 		void printRemovePersMenu();
 		void printRemoveCompMenu();
+
+		void displayDetails(Computers compDetails);
+		void displayDetails(Persons persDetails);
 
 };
 

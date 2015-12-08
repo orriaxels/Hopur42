@@ -40,8 +40,8 @@ public:
   /*@brief Gets Id of Associated computers/Scientists from junctiontable
   * @param findForComputer/findForPerson to find associated cunterpart
   * @return retuns vector with id of computers/scientists that are associated with parameter */
-  vector<int> getAssociated(Computers findForComputer);
-  vector<int> getAssociated(Persons findForPerson);
+  vector<int> getAssociatedP(Computers findForComputer);
+  vector<int> getAssociatedC(Persons findForPerson);
 private:
   vector<Persons> scientistsList;
   vector<Computers> computerList;

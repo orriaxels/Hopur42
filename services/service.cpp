@@ -57,22 +57,51 @@ vector<Computers> Service::getSortedComputersList(int sortBy, bool orderOfSort){
 }
 
 
+vector<Persons> Service::getAssociatedPers(Computers compDetails){
+  vector<int> idOfAss=repository.getAssociatedP(compDetails);
+  vector<Persons> associated, allScientist=repository.getScientistList(1,0);
+
+  for(unsigned int i=0; i< allScientist.size(); i++){
+    for(unsigned int j=0; j< idOfAss.size(); j++){
+      if( (allScientist.at(i)).getId() == (idOfAss.at(j)) ){
+        associated.push_back( (allScientist.at(i)) );
+      }
+    }
+  }
+  return associated;
+}
+
+vector<Computers> Service::getAssociatedComp(Persons persDetails){
+  vector<int> idOfAss=repository.getAssociatedC(persDetails);
+  vector<Computers> associated, allComputers=repository.getComputerList(1,0);
+
+  for(unsigned int i=0; i< allComputers.size(); i++){
+    for(unsigned int j=0; j< idOfAss.size(); j++){
+      if( (allComputers.at(i)).getId() == (idOfAss.at(j)) ){
+        associated.push_back( (allComputers.at(i)) );
+      }
+    }
+  }
+  return associated;
+}
+
+
 bool Service::createPerson(string name, string gender, int yborn, int ydied, string knownFor){
     string buffer="", bufferFirst="", bufferLast="";
     bool bufferGender;
     vector<string> nameContainer;
 
+    //To be able to seperate first and last name a sstream is created
+    stringstream nameStream;
+    nameStream.str(name);
+    while (nameStream >> buffer){
+          nameContainer.push_back(buffer);
+    }
+
     if(nameContainer.size() == 1){//in case only one name is entered sets as first rather than lastname
       bufferFirst= nameContainer.back();
     }
     else{
-      //To be able to seperate first and last name a sstream is created
-      stringstream nameStream;
-      nameStream.str(name);
-      while (nameStream >> buffer){
-            nameContainer.push_back(buffer);
-      }
-
       for(unsigned int i=0; i<nameContainer.size()-1; i++){ //first name arae all but the last in string
           bufferFirst+=nameContainer.at(i);
           if(i < (nameContainer.size()-2))

@@ -26,6 +26,9 @@ class Service
 		vector<Persons> searchScient(string searchString);
 		vector<Computers> searchComp(string searchString);
 
+		vector<Persons> getAssociatedPers(Computers compDetails);
+		vector<Computers> getAssociatedComp(Persons persDetails);
+
 		/*@brief Sorts data and makes ready to insert to DB
 		* @parameters self explanatory.
 		* @return True if sucsessfully added and false if writing to database failed */

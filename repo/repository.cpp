@@ -267,7 +267,7 @@ vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
 
 
 
-vector<int> Repository::getAssociated(Computers findForComputer){
+vector<int> Repository::getAssociatedP(Computers findForComputer){
 	QSqlQuery query;
 	int idComputer= findForComputer.getId();
 	vector<int> idOfAssociatedScientists;
@@ -282,7 +282,7 @@ vector<int> Repository::getAssociated(Computers findForComputer){
 	return idOfAssociatedScientists;
 }
 
-vector<int> Repository::getAssociated(Persons findForPerson){
+vector<int> Repository::getAssociatedC(Persons findForPerson){
 	QSqlQuery query;
 	int idPerson= findForPerson.getId();
 	vector<int> idOfAssociatedComputers;

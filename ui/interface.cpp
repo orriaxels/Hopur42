@@ -240,10 +240,9 @@ void InterFace::printDisplayMenu(){
 }
 
 void InterFace::printDispPersMenu(){
-    int sortWith, order;
-    string choice, var;
-    vector<Persons> sortedList = serviceVar.getSortedPersonsList(1,0);
-    int numberOfEnteries = sortedList.size(), personOfInterest;
+    int sortWith, numberOfEnteries, personDetail=0;
+    string choice;
+    vector<Persons> sortedList;
 
     cout << "What would you like to sort by?" << endl
          << "1. First name" << "  ||  "
@@ -269,55 +268,39 @@ void InterFace::printDispPersMenu(){
     do{
         cin >> choice;
     }while(! inputCheckVar.isInputGood(1,2, choice) );
-    order=atoi(choice.c_str() );
 
-    if (order == 1){
-        printPerson( serviceVar.getSortedPersonsList(sortWith, 0) );
+
+    if (choice == "1"){
+      sortedList=serviceVar.getSortedPersonsList(sortWith, 0);
+      printPerson( sortedList );
     }
-    else if (order == 2){
-        printPerson( serviceVar.getSortedPersonsList(sortWith, 1) );
+    else if (choice == "2"){
+      sortedList=serviceVar.getSortedPersonsList(sortWith, 0);
+      printPerson( sortedList );
     }
 
-    cout << endl;
+    numberOfEnteries=sortedList.size();
 
-    //morePersInfo();
-
-    cout << "If you would like to see more information on each person, please choose a # (0 for cancel): ";
+    cout  <<endl<<endl<< "To display more detail about entry enter number of entry(0 to main menu)" << endl
+          << "Enter choice: ";
     do{
-        cin >> var;
-    } while(!inputCheckVar.isInputGood(0, numberOfEnteries, var));
-    if(var == "0"){
+        cin >> choice;
+    } while(! inputCheckVar.isInputGood(0,numberOfEnteries, choice));
+    personDetail= (atoi(choice.c_str() ) ) -1;
+
+    if (choice == "0" ){
+        cout << endl << endl;
         runInterFace();
     }
-    //morePersInfo(sortedList.at(var));
-    //morePersInfo();
-
-    cout << endl << endl;
-
-    //if (var)
-
-  /*  cout << "1. Sort again" << endl;
-    cout << "2. Back to main menu" << endl;
-    cout << "Enter choice: ";
-    do{
-        cin >> again;
-    } while(! inputCheckVar.isInputGood(1,2, again));
-    var = atoi(again.c_str());
-
-    if (var == 1){
-        // cool function
-        cout << "Awesome function that lets you sort again..." << endl;
+    else{
+        displayDetails( sortedList.at(personDetail) );
     }
-    else if (var == 2){
-        cout << endl << endl << endl << endl;
-        runInterFace();
-    }*/
-    runInterFace();
 }
 
 void InterFace::printDispCompMenu(){
-    int sortWith, order, var;
-    string choice, again;
+  int sortWith, numberOfEnteries, computerDetail=0;
+  string choice;
+  vector<Computers> sortedList;
 
     cout << "What would you like to sort by?" << endl
          << "1. Name " << "  ||  "
@@ -339,38 +322,34 @@ void InterFace::printDispCompMenu(){
         cout << "1. Ascending(a-z/0-9)" << "  ||  "
              << "2. Descending(z-a/9-0)" << endl;
     }
-
     cout << "Enter choice: ";
     do{
         cin >> choice;
     }while(! inputCheckVar.isInputGood(1,2, choice) );
-    order=atoi(choice.c_str() );
 
-    if (order == 1){
-        printComputers( serviceVar.getSortedComputersList(sortWith, 0) );
+    if (choice == "1"){
+      sortedList=serviceVar.getSortedComputersList(sortWith, 0);
+      printComputers( sortedList );
     }
-    else if (order == 2){
-      printComputers( serviceVar.getSortedComputersList(sortWith, 1) );
+    else if (choice == "2"){
+      sortedList=serviceVar.getSortedComputersList(sortWith, 1);
+      printComputers( sortedList );
     }
+    numberOfEnteries=sortedList.size();
 
-
-    cout << endl << endl;
-
-    cout << "1. Sort again" << endl;
-    cout << "2. Back to main menu" << endl;
-    cout << "Enter choice: ";
+    cout  <<endl<<endl<< "To display more detail about entry enter number of entry(0 to main menu)" << endl
+          << "Enter choice: ";
     do{
-        cin >> again;
-    } while(! inputCheckVar.isInputGood(1,2, again));
-    var = atoi(again.c_str());
+        cin >> choice;
+    } while(! inputCheckVar.isInputGood(0,numberOfEnteries, choice));
+    computerDetail= (atoi(choice.c_str() ) ) -1;
 
-    if (var == 1){
-        // cool function
-        cout << "Awesome function that lets you sort again..." << endl;
-    }
-    else if (var == 2){
-        cout << endl << endl << endl << endl;
+    if (choice == "0" ){
+        cout << endl << endl;
         runInterFace();
+    }
+    else{
+        displayDetails( sortedList.at(computerDetail) );
     }
 }
 
@@ -607,4 +586,77 @@ void InterFace::printComputers(vector<Computers> compList){
   else{ //if nothing to display
   cout<<endl<<"Nothing to display"<<endl;
   }
+}
+
+
+void InterFace::displayDetails(Computers compDetails){
+  vector<Persons> assScientists= serviceVar.getAssociatedPers(compDetails);
+
+  cout<<endl<<endl
+      <<"Name: "<< compDetails.getName() <<endl
+      <<"Type: "<< compDetails.getType() <<endl
+      <<"Was computer built: ";
+
+  if( compDetails.getBuild() ){
+      cout<< "Yes"<<endl
+          <<"Built year: "<< compDetails.getBuildYear()<<endl;
+  }
+  else{
+      cout << "No"<<endl;
+  }
+
+  if(assScientists.size() > 0) {
+    cout<<"This computer is associated with the following scientist: "<<endl;
+    for(unsigned int i=0; i< assScientists.size(); i++){
+      cout << assScientists.at(i).getF() << " " << assScientists.at(i).getL()<<endl;
+    }
+  }
+  else{
+    cout<<"There are no scientist in current database associated with "<< compDetails.getName();
+  }
+  cout<<endl<<endl;
+  runInterFace();
+}
+
+void InterFace::displayDetails(Persons persDetails){
+  vector<Computers> assComputers = serviceVar.getAssociatedComp(persDetails);
+  string buffer="";
+
+  cout<<endl;
+  cout<<"Name: "<< persDetails.getF() + " " + persDetails.getL() <<endl
+      <<"Gender: ";
+  if( persDetails.getGender() ){
+      cout<< "Female"<<endl;
+  }
+  else{
+      cout << "Male"<<endl;
+  }
+  cout<< persDetails.getF() <<" was born in "<<persDetails.getYearBorn();
+  if( persDetails.getYearDied() == 0 )
+    cout<<" and is still alive today."<<endl;
+  else{
+        cout<< " and died in "<<persDetails.getYearDied() <<" when ";
+    if( persDetails.getGender() )
+        cout<< "she ";
+    else
+        cout << "he ";
+
+    cout<<"was "
+        << (persDetails.getYearDied() - persDetails.getYearBorn() )
+        << " years old."<<endl;
+  }
+  cout<< persDetails.getF()<< " was best known for: "<< persDetails.getKnownFor()<<endl;
+
+
+  if(assComputers.size() > 0) {
+    cout<<persDetails.getF()<<" is associated with the following computers: "<<endl;
+    for(unsigned int i=0; i< assComputers.size(); i++){
+      cout << i<<" "<< assComputers.at(i).getName() <<endl;
+    }
+  }
+  else{
+    cout<<"There are no computers in current database associated with "<< persDetails.getF();
+  }
+  cout<<endl<<endl;
+  runInterFace();
 }
