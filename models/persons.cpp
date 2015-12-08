@@ -49,9 +49,3 @@ int Persons::getYearBorn() const{
 int Persons::getYearDied() const{
 	return yearDied;
 }
-
-//set functions
-bool Persons::setConnectWithComp(const vector<int> compId){
- 	junctionWithComp.clear();
-	junctionWithComp=compId;
-}

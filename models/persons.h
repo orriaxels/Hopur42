@@ -23,9 +23,6 @@ class Persons
     int getYearBorn() const;
     int getYearDied() const;
 
-		//Creates connections in junction table
-		bool setConnectWithComp(const vector<int> compId);
-
 	private:
 		int persId;
 		string firstname; 	//First name, if person has middle name it stores it here;
@@ -34,7 +31,6 @@ class Persons
 		bool gender; 		//False for male, true for female
 		int yearBorn; 		//Year born
 		int yearDied;		//Year of death, 0 if still alive
-		vector<int> junctionWithComp;
 };
 
 #endif // PERSONS_H

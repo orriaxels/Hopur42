@@ -3,18 +3,17 @@
 
 #include <QtSql>
 
-static bool createConnection()
+//Creates static connection to database specified in set databasename
+//Keeps an open connection to database while program is running
+static bool createStaticConnection()
 {
-  QSqlDatabase datab = QSqlDatabase::addDatabase("QSQLITE");
-  datab.setDatabaseName("ComputerHardware.sqlite");
-	datab.open();
+  QSqlDatabase dataB = QSqlDatabase::addDatabase("QSQLITE");
+  dataB.setDatabaseName("ComputerHardware.sqlite");
+	dataB.open();
 
-  if ( !datab.open() ) {
-    cout<< "Unable to connecto to database"<<endl<<endl;
+  if ( !dataB.open() ) //since it creates file if db is not there this should not happen
 		return false;
-	}
-
+  else
     return true;
 }
-
 #endif // INITDATABASECONNECT

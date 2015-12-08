@@ -3,7 +3,6 @@
 #include "util/inputcheck.h"
 #include "ui/interface.h"
 
-using namespace std;
 Inputcheck::Inputcheck(){}
 
 bool Inputcheck::isInputGood(int fromNumber, int toNumber, string& input){

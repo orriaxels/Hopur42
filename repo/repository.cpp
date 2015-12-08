@@ -106,25 +106,9 @@ vector<Persons> Repository::searchScientist(string searchString){
 		Persons perFromList(id, fName, lName, gender, born, died, known);
 		scientistsList.push_back(perFromList);
 	}
-	//reads from junction table ond stores connection with scientists
-	for(unsigned int i=0; i< computerList.size(); i++){
-
-		vector<int> idPersons;
-		idPersons.clear();
-		int idComputer= (computerList.at(i)).getId();
-
-		query.prepare("SELECT * FROM Associate WHERE comp_id=:comp_id");
-		query.bindValue(":comp_id", idComputer);
-		query.exec();
-
-		while(query.next()){
-			idPersons.push_back( query.value("scientist_id").toUInt() );
-		}
-		(computerList.at(i)).setConnectWithPers(idPersons);
-	}
-
 	return scientistsList;
 }
+
 vector<Computers> Repository::searchComputer(string searchString){
 	QSqlQuery query;
 	QString qSearch = QString::fromStdString( (searchString.c_str()) );
@@ -142,22 +126,6 @@ vector<Computers> Repository::searchComputer(string searchString){
 
 		Computers newComp(id, name, type, builtOrNot, builtY);
 		computerList.push_back(newComp);
-	}
-	//reads from junction table ond stores connection with scientists
-	for(unsigned int i=0; i< computerList.size(); i++){
-
-		vector<int> idPersons;
-		idPersons.clear();
-		int idComputer= (computerList.at(i)).getId();
-
-		query.prepare("SELECT * FROM Associate WHERE comp_id=:comp_id");
-		query.bindValue(":comp_id", idComputer);
-		query.exec();
-
-		while(query.next()){
-			idPersons.push_back( query.value("scientist_id").toUInt() );
-		}
-		(computerList.at(i)).setConnectWithPers(idPersons);
 	}
 	return computerList;
 }
@@ -218,22 +186,6 @@ vector<Persons> Repository::getScientistList(int byColumn, bool aceDesc){
 		Persons perFromList(id, fName, lName, gender, born, died, known);
 		scientistsList.push_back(perFromList);
 	}
-
-	//reads from junction table ond stores connection with computers
-	for(unsigned int i=0; i< scientistsList.size(); i++){
-
-		vector<int> idComputers;
-		idComputers.clear();
-		int idScientist= (scientistsList.at(i)).getId();
-
-		query.prepare("SELECT * FROM Associate WHERE scientist_id=:scientist_id");
-		query.bindValue(":scientist_id", idScientist);
-		query.exec();
-		while(query.next()){
-			idComputers.push_back( query.value("comp_id").toUInt() );
-		}
-		(scientistsList.at(i)).setConnectWithComp(idComputers);
-	}
 	return scientistsList;
 }
 vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
@@ -284,21 +236,36 @@ vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
 		Computers newComp(id, name, type, builtOrNot, builtY);
 		computerList.push_back(newComp);
   }
-	//reads from junction table ond stores connection with scientists
-	for(unsigned int i=0; i< computerList.size(); i++){
-
-		vector<int> idPersons;
-		idPersons.clear();
-		int idComputer= (computerList.at(i)).getId();
-
-		query.prepare("SELECT * FROM Associate WHERE comp_id=:comp_id");
-		query.bindValue(":comp_id", idComputer);
-		query.exec();
-
-		while(query.next()){
-			idPersons.push_back( query.value("scientist_id").toUInt() );
-		}
-		(computerList.at(i)).setConnectWithPers(idPersons);
-	}
 	return computerList;
 }
+
+// //reads from junction table ond stores connection with scientists
+// for(unsigned int i=0; i< computerList.size(); i++){
+//
+// 	vector<int> idPersons;
+// 	idPersons.clear();
+// 	int idComputer= (computerList.at(i)).getId();
+//
+// 	query.prepare("SELECT * FROM Associate WHERE comp_id=:comp_id");
+// 	query.bindValue(":comp_id", idComputer);
+// 	query.exec();
+//
+// 	while(query.next()){
+// 		idPersons.push_back( query.value("scientist_id").toUInt() );
+// 	}
+// 	(computerList.at(i)).setConnectWithPers(idPersons);
+//
+// //reads from junction table ond stores connection with computers
+// for(unsigned int i=0; i< scientistsList.size(); i++){
+//
+// 	vector<int> idComputers;
+// 	idComputers.clear();
+// 	int idScientist= (scientistsList.at(i)).getId();
+//
+// 	query.prepare("SELECT * FROM Associate WHERE scientist_id=:scientist_id");
+// 	query.bindValue(":scientist_id", idScientist);
+// 	query.exec();
+// 	while(query.next()){
+// 		idComputers.push_back( query.value("comp_id").toUInt() );
+// 	}
+// 	(scientistsList.at(i)).setConnectWithComp(idComputers);
