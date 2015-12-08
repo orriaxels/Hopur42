@@ -128,18 +128,12 @@ void InterFace::printAddPersonMenu(){
     cout << "Year of birth: ";
     do{
         cin >> bYear;
-        if(inputCheckVar.checkNumber(bYear, 1800, 2010)){
-            invalidInput();
-        }
-    }while(inputCheckVar.cinFailCheck() || inputCheckVar.checkNumber(bYear, 1800, 2010));
+    }while(!inputCheckVar.checkNumber(bYear, 1000, 2010));
 
     cout << "Year of death (0 if still alive): ";
     do{
         cin >> dYear;
-        if(inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0){
-            invalidInput();
-        }
-    }while(inputCheckVar.cinFailCheck() || (inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0));
+    }while(dYear != 0 && !inputCheckVar.checkNumber(dYear, bYear+8, bYear+110));
 
     //Get input Known for info
     cout << "Is known for (\"0\" to skip): ";
@@ -197,12 +191,12 @@ void InterFace::printAddCompMenu(){
         cout << "When was the computer built: ";
         do{
             cin >> yearBuilt;
-            if(inputCheckVar.cinFailCheck()){
-                invalidInput();
-            }else if(inputCheckVar.checkNumber(yearBuilt, 1000, 2015)){
-                invalidInput();
-            }
-        }while(inputCheckVar.checkNumber(yearBuilt, 1000, 2015) || inputCheckVar.cinFailCheck());
+            // if(inputCheckVar.cinFailCheck()){
+            //     invalidInput();
+            // }else if(inputCheckVar.checkNumber(yearBuilt, 1000, 2015)){
+            //     invalidInput();
+            // }
+        }while(!inputCheckVar.checkNumber(yearBuilt, 1000, 2015));
     }
 
         cout << "What type of computer is it" << endl;;
