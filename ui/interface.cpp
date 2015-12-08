@@ -579,7 +579,7 @@ void InterFace::printRemovePersMenu(){
     enteryRemove = (atoi( input.c_str() ) ) -1;
 
 
-    if( serviceVar.removeEntery(enteryRemove, sortedList) )
+    if( serviceVar.removePersEntery(enteryRemove, sortedList) )
       cout<< endl<<"Entry no longer visable in list"<<endl<<endl;
     else
       cout<< endl<<"Unable to delete"<<endl<<endl;
@@ -619,7 +619,7 @@ void InterFace::printRemoveCompMenu(){
   enteryRemove = (atoi( input.c_str() ) ) -1;
 
 
-  if( serviceVar.removeEntery(enteryRemove, sortedList) )
+  if( serviceVar.removeCompEntery(enteryRemove, sortedList) )
     cout<< endl<<"Entry no longer visable in list"<<endl<<endl;
   else
     cout<< endl<<"Unable to delete"<<endl<<endl;

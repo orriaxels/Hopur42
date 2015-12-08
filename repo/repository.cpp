@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <QtCore/QCoreApplication>
 #include <QtSql>
 #include <Qstring>
 #include <QDebug>
@@ -64,16 +65,14 @@ bool Repository::addToDatabase(Computers newComp){
 
 bool Repository::removePerson(int enteryToRemoveId){
 	QSqlQuery query;
-	query.prepare("UPDATE Scientists SET Deleted=1 WHERE id=1");
-	//query.bindValue(":id", enteryToRemoveId);
+	query.prepare("UPDATE Scientists SET Deleted=1 WHERE id=:id");
+	query.bindValue(":id", enteryToRemoveId);
 
 	if( query.exec() ){
 		return true;
 	}
-	 else {
-		//  cout<<"SqLite error:" << query.lastError().text();
-		// qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
-				return false;
+	else {
+		return false;
 	}
 }
 
@@ -95,7 +94,7 @@ vector<Persons> Repository::searchScientist(string searchString){
 	QString qSearch = QString::fromStdString( (searchString.c_str()) );
 
 	//SELECT * FROM Scientists WHERE Deleted IN (0) AND FirstName LIKE %a%
-	//Þessi virkar í sqlite.exe get ekki leitað í öllum dálkum. 
+	//Þessi virkar í sqlite.exe get ekki leitað í öllum dálkum.
 	query.prepare("SELECT * FROM Scientists WHERE Deleted IN (0) AND FirstName=:FirstName");
 	query.bindValue(":FirstName", qSearch + '%');
 	if(!query.exec() )

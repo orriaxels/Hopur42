@@ -86,17 +86,17 @@ int Service::getListDatabase(){  //returns list from file
     //return List.size();
 }
 
-bool Service::removeEntery(int numberList, const vector<Persons> listToRemoveFrom){
+bool Service::removePersEntery(int numberList, const vector<Persons> listToRemoveFrom){
   int idOfPerson = ( listToRemoveFrom.at(numberList) ).getId();
-  if( repository.removeComputer(idOfPerson) )
+  if( repository.removePerson(idOfPerson) )
     return true;
   else
     return false;
 }
 
-bool Service::removeEntery(int numberList, const vector<Computers> listToRemoveFrom){
+bool Service::removeCompEntery(int numberList, const vector<Computers> listToRemoveFrom){
   int idOfComp = ( listToRemoveFrom.at(numberList) ).getId();
-  if( repository.removePerson(idOfComp) )
+  if( repository.removeComputer(idOfComp) )
     return true;
   else
     return false;

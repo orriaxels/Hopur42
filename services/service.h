@@ -23,8 +23,8 @@ class Service
 		bool createPerson(string name, string gender, int yborn, int ydied, string knownFor);
 		bool createComputer(string compName, string compType, bool built, int yBuilt);
 
-		bool removeEntery(int numberList, const vector<Persons> listToRemoveFrom);
-		bool removeEntery(int numberList, const vector<Computers> listToRemoveFrom);
+		bool removePersEntery(int numberList, const vector<Persons> listToRemoveFrom);
+		bool removeCompEntery(int numberList, const vector<Computers> listToRemoveFrom);
 
 		int getListDatabase();
 		bool somthingthere();
