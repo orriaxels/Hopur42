@@ -18,10 +18,22 @@ void InterFace::runInterFace(){
         InterFace::actionSelect();
 }
 
+void InterFace::displayMainMenu(){
+    cout<< "Welcome! This database contains information about great computer scientists and computers." << endl
+        << endl
+        << "What would you like to do?" << endl
+        << "  1. Add a new entry" << endl
+        << "  2. Display database" << endl
+        << "  3. Search the database" << endl
+        << "  4. Remove entry from database"<<endl
+        << "  5. Quit" << endl
+        << endl;
+}
+
 void InterFace::actionSelect(){
   char a;
   string choice;
-  bool loop;
+  bool loop; 
 
   cout << "Please select an option from the list: ";
   do{
@@ -57,18 +69,6 @@ void InterFace::actionSelect(){
       }
   }while(loop);
 
-}
-
-void InterFace::displayMainMenu(){
-    cout<< "Welcome! This database contains information about great computer scientists and computers." << endl
-        << endl
-        << "What would you like to do?" << endl
-        << "  1. Add a new entry" << endl
-        << "  2. Display database" << endl
-        << "  3. Search the database" << endl
-        << "  4. Remove entry from database"<<endl
-        << "  5. Quit" << endl
-        << endl;
 }
 
 void InterFace::printAddMenu(){
@@ -114,13 +114,11 @@ void InterFace::printAddPersonMenu(){
     }while(!(inputCheckVar.isNameGood(name, illegal)));
 
     //Get gender input
+    cout << "Gender (f=female, m=male): ";
     do{
-        cout << "Gender (f=female, m=male): ";
         cin >> gender;
         if(gender != "f" && gender != "F" && gender != "m" && gender != "M"){
-            cin.clear();
-            cin.ignore();
-            cout<<"Invalid input."<<endl;
+            inputCheckVar.cinFailCheck();
         }
     }while(gender != "f" && gender != "F" && gender != "m" && gender != "M");
 
