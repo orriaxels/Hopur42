@@ -64,7 +64,7 @@ void InterFace::actionSelect(){
           loop = 0;
           break;
       default:
-          cout << "Invalid" << endl;
+          invalidInput();
           break;
 
       }
