@@ -608,7 +608,7 @@ void InterFace::displayDetails(Computers compDetails){
   if(assScientists.size() > 0) {
     cout<<"This computer is associated with the following scientist: "<<endl;
     for(unsigned int i=0; i< assScientists.size(); i++){
-      cout << assScientists.at(i).getF() << " " << assScientists.at(i).getL()<<endl;
+      cout << i+1<<". "<<assScientists.at(i).getF() << " " << assScientists.at(i).getL()<<endl;
     }
   }
   else{
@@ -651,7 +651,7 @@ void InterFace::displayDetails(Persons persDetails){
   if(assComputers.size() > 0) {
     cout<<persDetails.getF()<<" is associated with the following computers: "<<endl;
     for(unsigned int i=0; i< assComputers.size(); i++){
-      cout << i<<" "<< assComputers.at(i).getName() <<endl;
+      cout << i+1<<". "<< assComputers.at(i).getName() <<endl;
     }
   }
   else{

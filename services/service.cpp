@@ -58,31 +58,13 @@ vector<Computers> Service::getSortedComputersList(int sortBy, bool orderOfSort){
 
 
 vector<Persons> Service::getAssociatedPers(Computers compDetails){
-  vector<int> idOfAss=repository.getAssociatedP(compDetails);
-  vector<Persons> associated, allScientist=repository.getScientistList(1,0);
-
-  for(unsigned int i=0; i< allScientist.size(); i++){
-    for(unsigned int j=0; j< idOfAss.size(); j++){
-      if( (allScientist.at(i)).getId() == (idOfAss.at(j)) ){
-        associated.push_back( (allScientist.at(i)) );
-      }
-    }
-  }
-  return associated;
+  vector<Persons> assScientists=repository.getAssociatedP(compDetails);
+  return assScientists;
 }
 
 vector<Computers> Service::getAssociatedComp(Persons persDetails){
-  vector<int> idOfAss=repository.getAssociatedC(persDetails);
-  vector<Computers> associated, allComputers=repository.getComputerList(1,0);
-
-  for(unsigned int i=0; i< allComputers.size(); i++){
-    for(unsigned int j=0; j< idOfAss.size(); j++){
-      if( (allComputers.at(i)).getId() == (idOfAss.at(j)) ){
-        associated.push_back( (allComputers.at(i)) );
-      }
-    }
-  }
-  return associated;
+  vector<Computers> assComputers=repository.getAssociatedC(persDetails);
+  return assComputers;
 }
 
 

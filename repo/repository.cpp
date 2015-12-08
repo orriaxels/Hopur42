@@ -2,6 +2,7 @@
 #include <string>
 #include <QtSql>
 #include <Qstring>
+#include <iostream>
 
 #include "repo/repository.h"
 #include "models/persons.h"
@@ -267,10 +268,13 @@ vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
 
 
 
-vector<int> Repository::getAssociatedP(Computers findForComputer){
+vector<Persons> Repository::getAssociatedP(Computers findForComputer){
 	QSqlQuery query;
+	scientistsList.clear();
+
 	int idComputer= findForComputer.getId();
 	vector<int> idOfAssociatedScientists;
+
 
 	query.prepare("SELECT * FROM Associate WHERE comp_id=:comp_id");
 	query.bindValue(":comp_id", idComputer);
@@ -279,10 +283,32 @@ vector<int> Repository::getAssociatedP(Computers findForComputer){
 	while(query.next()){
 		idOfAssociatedScientists.push_back( query.value("scientist_id").toUInt() );
 	}
-	return idOfAssociatedScientists;
+
+	//Gets computers with appropriate ID's from database
+	for(unsigned int i=0; i< idOfAssociatedScientists.size(); i++){
+		int idScientist=idOfAssociatedScientists.at(i);
+
+		query.prepare("SELECT * FROM Scientists WHERE id=:id");
+		query.bindValue(":id", idScientist);
+		query.exec();
+
+		query.first(); //.first because only one resault expected
+		int id = query.value("id").toUInt();
+		string fName = query.value("FirstName").toString().toStdString();
+		string lName = query.value("LastName").toString().toStdString();
+		bool gender = query.value("Gender").toBool();
+		int born = query.value("Born").toUInt();
+		int died = query.value("Died").toUInt();
+		string known = query.value("KnownFor").toString().toStdString();
+
+		Persons perFromList(id, fName, lName, gender, born, died, known);
+		scientistsList.push_back(perFromList);
+	}
+	return scientistsList;
 }
 
-vector<int> Repository::getAssociatedC(Persons findForPerson){
+vector<Computers> Repository::getAssociatedC(Persons findForPerson){
+	computerList.clear();
 	QSqlQuery query;
 	int idPerson= findForPerson.getId();
 	vector<int> idOfAssociatedComputers;
@@ -294,5 +320,24 @@ vector<int> Repository::getAssociatedC(Persons findForPerson){
 	while(query.next()){
 		idOfAssociatedComputers.push_back( query.value("comp_id").toUInt() );
 	}
-	return idOfAssociatedComputers;
+
+	//Gets computers with appropriate ID's from database
+	for(unsigned int i=0; i< idOfAssociatedComputers.size(); i++){
+		int idComp=idOfAssociatedComputers.at(i);
+
+		query.prepare("SELECT * FROM Computers WHERE id=:id");
+		query.bindValue(":id", idComp);
+		query.exec();
+
+		query.first(); //.first because only one resault expected
+		int id= query.value("id").toUInt();
+		string name = query.value("Name").toString().toStdString() ;
+		string type = query.value("Type").toString().toStdString();
+		bool builtOrNot  = query.value("Built_or_not").toUInt();
+		int builtY = query.value("Year_built").toUInt();
+		Computers newComp(id, name, type, builtOrNot, builtY);
+		computerList.push_back(newComp);
+
+	}
+	return computerList;
 }
