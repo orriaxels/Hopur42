@@ -128,18 +128,12 @@ void InterFace::printAddPersonMenu(){
     cout << "Year of birth: ";
     do{
         cin >> bYear;
-        if(inputCheckVar.checkNumber(bYear, 1800, 2010)){
-            invalidInput();
-        }
-    }while(inputCheckVar.cinFailCheck() || inputCheckVar.checkNumber(bYear, 1800, 2010));
+    }while(!inputCheckVar.checkNumber(bYear, 1000, 2010));
 
     cout << "Year of death (0 if still alive): ";
     do{
         cin >> dYear;
-        if(inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0){
-            invalidInput();
-        }
-    }while(inputCheckVar.cinFailCheck() || (inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0));
+    }while(dYear != 0 && !inputCheckVar.checkNumber(dYear, bYear+8, bYear+110));
 
     //Get input Known for info
     cout << "Is known for (\"0\" to skip): ";
@@ -166,7 +160,6 @@ void InterFace::printAddCompMenu(){
     string compType = "";
     string ifMade = "";
     bool wasItMade = 0; //segir til hvort talvan hafi verið byggð
-    bool loop = 0;
     int yearBuilt = NULL;
     string cType = "";
 
@@ -186,23 +179,18 @@ void InterFace::printAddCompMenu(){
     cout << "Was it built (y/n): "; 
     do{
         cin >> ifMade;
-        if((ifMade.empty() || ifMade.length() > 1) || ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N"){
+        if((ifMade.empty() || ifMade.length() > 1) || (ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N")){
             invalidInput();
         }else{
             wasItMade = 1;
         }
-    }while((ifMade.empty() || ifMade.length() > 1) || ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N");
+    }while((ifMade.empty() || ifMade.length() > 1) || (ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N"));
     
     if(wasItMade){
         cout << "When was the computer built: ";
         do{
             cin >> yearBuilt;
-            if(inputCheckVar.cinFailCheck()){
-                invalidInput();
-            }else if(inputCheckVar.checkNumber(yearBuilt, 1000, 2015)){
-                invalidInput();
-            }
-        }while(inputCheckVar.checkNumber(yearBuilt, 1000, 2015) || inputCheckVar.cinFailCheck());
+        }while(!inputCheckVar.checkNumber(yearBuilt, 1000, 2015));
     }
 
         cout << "What type of computer is it" << endl;;
