@@ -1,9 +1,5 @@
 #include <string>
-#include <iostream>
 #include "persons.h"
-
-using namespace std;
-
 
 Persons::Persons(){
 	firstname="";
@@ -31,6 +27,7 @@ Persons::Persons(int tableId, string fName, string lName, bool pGender, int born
 	knownfor=KnownFor;
 }
 
+
 //get funcitons
 int Persons::getId() const{
 	return persId;
@@ -52,10 +49,4 @@ int Persons::getYearBorn() const{
 }
 int Persons::getYearDied() const{
 	return yearDied;
-}
-
-//set functions
-bool Persons::setConnectWithComp(const vector<int> compId){
- 	junctionWithComp.clear();
-	junctionWithComp=compId;
 }

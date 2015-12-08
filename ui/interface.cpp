@@ -455,23 +455,13 @@ void InterFace::printCompSearchMenu(){
     }
 }
 
-<<<<<<< HEAD
-void InterFace::notFound(bool wasfound, const string searchStr){
-    if(wasfound)
-        cout << endl << "Found \"" << searchStr << "\" in following enteries:" << endl;
-    else
-        cout<<"No enteries conatining \"" << searchStr << "\" found in database."<<endl;
-
-}
 
 void InterFace::morePersInfo(const Computers showComputer){
-    
-    
-        
+
+
+
 }
 
-=======
->>>>>>> origin/master
 void InterFace::printPerson(vector<Persons> persList){
     string buffer;
 

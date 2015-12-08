@@ -44,8 +44,3 @@ bool Computers::getBuild() const{
 int Computers::getBuildYear() const{
 	return buildyear;
 }
-
-bool Computers::setConnectWithPers(const vector<int> persId){
-	junctionWithPers.clear();
-	junctionWithPers=persId;	
-}

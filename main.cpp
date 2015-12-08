@@ -1,16 +1,13 @@
 #include "ui/interface.h"
 #include "util/initdatabaseconnect.h"
 
-using namespace std;
-
-
 int main(){
-  
-    if (!createConnection())
+
+    if (!createStaticConnection())
       return 1;
 
     InterFace ifDisp;
-    ifDisp.runInterFace(); //opens the interface for user
+    ifDisp.runInterFace(); //opens the main interface
 
     return 0;
 }
