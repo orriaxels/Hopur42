@@ -608,14 +608,14 @@ void InterFace::printRemoveCompMenu(){
 
   vector<Computers> sortedList = serviceVar.getSortedComputersList(1,0);
   int enteryRemove, numberOfEnteries = sortedList.size() ,  var;
-  string input;
+  string input="";
 
   printComputers( sortedList );
   cout<< endl << "Which one of these enteries do you want to remove(select # / 0 for cancel)? ";
 
   do{
       cin >> input;
-  }while( ! inputCheckVar.isInputGood(1, numberOfEnteries, input)   );
+  }while( ! (inputCheckVar.isInputGood(0, numberOfEnteries, input))   );
   enteryRemove = (atoi( input.c_str() ) ) -1;
 
 

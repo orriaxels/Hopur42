@@ -66,7 +66,6 @@ bool Service::createPerson(string name, string gender, int yborn, int ydied, str
       return false;
 
 }
-
 bool Service::createComputer(string compName, string compType, bool built, int yBuilt){
   Computers newComputer(compName, compType, built, yBuilt);
   if( repository.addToDatabase(newComputer) )
