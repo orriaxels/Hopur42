@@ -125,31 +125,29 @@ void InterFace::printAddPersonMenu(){
     }while(gender != "f" && gender != "F" && gender != "m" && gender != "M");
 
     //Get birth year input
+    cout << "Year of birth: ";
     do{
-        cout << "Year of birth: ";
         cin >> bYear;
         if(inputCheckVar.checkNumber(bYear, 1800, 2010)){
-            cout<<"Invalid input."<<endl;
+            invalidInput();
         }
     }while(inputCheckVar.cinFailCheck() || inputCheckVar.checkNumber(bYear, 1800, 2010));
 
+    cout << "Year of death (0 if still alive): ";
     do{
-        cout << "Year of death (0 if still alive): ";
         cin >> dYear;
-        if(inputCheckVar.cinFailCheck()){
-            cout << "Invalid input." << endl;
-        }else if(inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0){
-            cout<<"Invalid input."<<endl;
+        if(inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0){
+            invalidInput();
         }
-    }while((dYear != 0 && inputCheckVar.checkNumber(dYear, bYear+8, bYear+110)) || inputCheckVar.cinFailCheck());
+    }while(inputCheckVar.cinFailCheck() || (inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0));
 
     //Get input Known for info
+    cout << "Is known for (\"0\" to skip): ";
     do{
-        cout << "Is known for (\"0\" to skip): ";
         cin.ignore();
         getline(cin, knownFor);
         if((knownFor != "0") && (knownFor.length() < 3) )
-            cout<<"Invalid input."<<endl;
+            invalidInput();
     }while( (knownFor != "0") && (knownFor.length() < 3) );
 
 
@@ -630,5 +628,5 @@ void InterFace::printRemoveCompMenu(){
 }
 
 void InterFace::invalidInput(){
-  cout << "This input is not vaild. Please try again: ";
+  cout << "This input is not valid. Please try again: ";
 }

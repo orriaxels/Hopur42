@@ -62,6 +62,7 @@ bool Inputcheck::cinFailCheck(){
   if(cin.fail()){
     cin.clear();
     cin.ignore(1000, '\n');
+    cout << "shiiii" << endl;
     return true;
   }else{
     return false;
