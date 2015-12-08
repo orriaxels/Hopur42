@@ -27,6 +27,7 @@ Persons::Persons(int tableId, string fName, string lName, bool pGender, int born
 	knownfor=KnownFor;
 }
 
+
 //get funcitons
 int Persons::getId() const{
 	return persId;

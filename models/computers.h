@@ -21,7 +21,7 @@ class Computers
         int getBuildYear() const;
 
     private:
-        int compId;           //Store PK of computer from table in DB
+        int compId;           // Stores PK of computer from table in DB
         string computername;  // Name of the computer
         string computertype;  // Type of the computer
         bool ifBuild;         // True for build, false for not build

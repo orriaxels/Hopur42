@@ -239,33 +239,34 @@ vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
 	return computerList;
 }
 
-// //reads from junction table ond stores connection with scientists
-// for(unsigned int i=0; i< computerList.size(); i++){
-//
-// 	vector<int> idPersons;
-// 	idPersons.clear();
-// 	int idComputer= (computerList.at(i)).getId();
-//
-// 	query.prepare("SELECT * FROM Associate WHERE comp_id=:comp_id");
-// 	query.bindValue(":comp_id", idComputer);
-// 	query.exec();
-//
-// 	while(query.next()){
-// 		idPersons.push_back( query.value("scientist_id").toUInt() );
-// 	}
-// 	(computerList.at(i)).setConnectWithPers(idPersons);
-//
-// //reads from junction table ond stores connection with computers
-// for(unsigned int i=0; i< scientistsList.size(); i++){
-//
-// 	vector<int> idComputers;
-// 	idComputers.clear();
-// 	int idScientist= (scientistsList.at(i)).getId();
-//
-// 	query.prepare("SELECT * FROM Associate WHERE scientist_id=:scientist_id");
-// 	query.bindValue(":scientist_id", idScientist);
-// 	query.exec();
-// 	while(query.next()){
-// 		idComputers.push_back( query.value("comp_id").toUInt() );
-// 	}
-// 	(scientistsList.at(i)).setConnectWithComp(idComputers);
+
+
+vector<int> Repository::getAssociated(Computers findForComputer){
+	QSqlQuery query;
+	int idComputer= findForComputer.getId();
+	vector<int> idOfAssociatedScientists;
+
+	query.prepare("SELECT * FROM Associate WHERE comp_id=:comp_id");
+	query.bindValue(":comp_id", idComputer);
+	query.exec();
+
+	while(query.next()){
+		idOfAssociatedScientists.push_back( query.value("scientist_id").toUInt() );
+	}
+	return idOfAssociatedScientists;
+}
+
+vector<int> Repository::getAssociated(Persons findForPerson){
+	QSqlQuery query;
+	int idPerson= findForPerson.getId();
+	vector<int> idOfAssociatedComputers;
+
+	query.prepare("SELECT * FROM Associate WHERE scientist_id=:scientist_id");
+	query.bindValue(":scientist_id", idPerson);
+	query.exec();
+
+	while(query.next()){
+		idOfAssociatedComputers.push_back( query.value("comp_id").toUInt() );
+	}
+	return idOfAssociatedComputers;
+}

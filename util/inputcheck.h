@@ -1,5 +1,6 @@
 #ifndef INPUTCHECK_H
 #define INPUTCHECK_H
+
 #include <string>
 using namespace std;
 class Inputcheck

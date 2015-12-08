@@ -33,7 +33,7 @@ void InterFace::displayMainMenu(){
 void InterFace::actionSelect(){
   char a;
   string choice;
-  bool loop; 
+  bool loop;
 
   cout << "Please select an option from the list: ";
   do{
@@ -174,7 +174,7 @@ void InterFace::printAddCompMenu(){
         }
     }while(compName.empty());
 
-    cout << "Was it built (y/n): "; 
+    cout << "Was it built (y/n): ";
     do{
         cin >> ifMade;
         if((ifMade.empty() || ifMade.length() > 1) || (ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N")){
@@ -183,7 +183,7 @@ void InterFace::printAddCompMenu(){
             wasItMade = 1;
         }
     }while((ifMade.empty() || ifMade.length() > 1) || (ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N"));
-    
+
     if(wasItMade){
         cout << "When was the computer built: ";
         do{
@@ -197,11 +197,11 @@ void InterFace::printAddCompMenu(){
         cout << "3: Electro-Mechanical" << endl;
         cout << "4: Transistorized" << endl;
         cout << "choose: ";
-        
+
         do{
             cin >> cType;
         }while(! inputCheckVar.isInputGood(1, 4, cType));
-        
+
         if(cType == "1"){
             compType = "Mechanical";
         }else if(cType == "2"){
@@ -435,14 +435,6 @@ void InterFace::printCompSearchMenu(){
         cout << endl << endl << endl;
         runInterFace();
     }
-}
-
-void InterFace::notFound(bool wasfound, const string searchStr){
-    if(wasfound)
-        cout << endl << "Found \"" << searchStr << "\" in following enteries:" << endl;
-    else
-        cout<<"No enteries conatining \"" << searchStr << "\" found in database."<<endl;
-
 }
 
 void InterFace::printPerson(vector<Persons> persList){

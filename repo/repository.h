@@ -28,12 +28,18 @@ public:
   vector<Persons> searchScientist(string searchString);
   vector<Computers> searchComputer(string searchString);
 
-  /*@brief Return vector of all computers/scientists from database sorted
+  /*@brief Fetches sorted vector of all computers/scientists from database
   * @param byColumn what column to sort by
   * @param aceDesc  if sorted Ascending or Descending
   * @return retuns sorted vector of Scientists/computers*/
   vector<Persons> getScientistList(int byColumn, bool aceDesc);
   vector<Computers> getComputerList(int byColumn, bool aceDesc);
+
+  /*@brief Gets Id of Associated computers/Scientists from junctiontable
+  * @param findForComputer/findForPerson to find associated cunterpart
+  * @return retuns vector with id of computers/scientists that are associated with parameter */
+  vector<int> getAssociated(Computers findForComputer);
+  vector<int> getAssociated(Persons findForPerson);
 private:
   vector<Persons> scientistsList;
   vector<Computers> computerList;

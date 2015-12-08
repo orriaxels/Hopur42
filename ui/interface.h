@@ -16,7 +16,6 @@ class InterFace
 	public:
 		InterFace();
 		void runInterFace(); 		//Starts main interface of the program
-		void notFound(bool wasfound, const string searchStr); 		//Display messages depending on if searchStr was found  wasfound=true prints found message and vice versa
 		void invalidInput();
   private:
 		Service serviceVar;
