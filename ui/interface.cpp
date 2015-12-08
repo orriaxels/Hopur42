@@ -8,7 +8,6 @@
 #include "services/service.h"
 #include "models/computers.h"
 #include "models/persons.h"
-#include "repo/repository.h"
 
 using namespace std;
 
@@ -456,79 +455,6 @@ void InterFace::printCompSearchMenu(){
 }
 
 
-void InterFace::morePersInfo(const Computers showComputer){
-
-
-
-}
-
-void InterFace::printPerson(vector<Persons> persList){
-    string buffer;
-
-    if( persList.size() == 0) //if nothing to display
-        cout<<endl<<"Nothing to display"<<endl;
-    else{
-        cout<<endl<<"#  Name:   \t\t\t\tGender:\tBorn:\tDied:\tKnown for:"<<endl; //header for table
-
-        for(unsigned int i=0; i<persList.size(); i++){
-            cout << i+1;
-            if(i<9)
-                cout<<"  ";
-            else if(8<i && i<99)
-                cout<<" ";
-
-            cout << persList.at(i).getF() << " " << persList.at(i).getL();
-
-            buffer= persList.at(i).getF() + " " + persList.at(i).getL();
-            for(unsigned int j=0; j< (37- buffer.length()); j++){
-                cout<<" ";
-            }
-
-            if(persList.at(i).getGender()){
-                cout << "Female"<< '\t';}
-            else{
-                cout << "Male"<< '\t';}
-
-            cout << persList.at(i).getYearBorn() << '\t';
-
-
-            if( 0 == (persList.at(i).getYearDied()) )
-                cout <<"Alive" <<'\t';
-            else
-                cout << persList.at(i).getYearDied() << '\t' ;
-
-
-            if( "0 " == (persList.at(i).getKnownFor()) )
-                cout << " " <<endl;
-            else
-                cout << persList.at(i).getKnownFor() << endl;
-        }
-    }
-}
-
-void InterFace::printComputers(vector<Computers> compList){
-  string buffer;
-  cout << '\n' << setw(3) << left << "#"
-       << setw(30) << "Name:" << setw(20) << "Type:" << setw(8) << "Built:"
-       << "Year built:" << endl;
-  for(unsigned int i = 0; i < compList.size(); i++){
-
-      cout << setw(3)  << left << i+1;
-      cout << setw(30) << left << compList.at(i).getName();
-      cout << setw(20) << compList.at(i).getType();
-
-      if(compList.at(i).getBuild()){
-          cout << setw(8) << "Yes";}
-      else{
-          cout << setw(8) << "No";}
-
-      if( NULL == (compList.at(i).getBuildYear()) )
-          cout << "" << '\n';
-      else
-          cout << compList.at(i).getBuildYear() << '\n' ;
-       }
-}
-
 void InterFace::printRemoveMenu(){
     string choice;
 
@@ -633,4 +559,64 @@ void InterFace::printRemoveCompMenu(){
 
 void InterFace::invalidInput(){
   cout << "This input is not valid. Please try again: ";
+}
+
+void InterFace::printPerson(vector<Persons> persList){
+
+    if( persList.size() > 0){
+      //Print heaader for table
+      cout << '\n' << setw(3) << left << "#"
+           << setw(36) << "Name:" << setw(10) << "Gender:" << setw(8) << "Born:"
+           << setw(8) << "Died:"<< "Known for:" << endl;
+
+
+      for(unsigned int i=0; i<persList.size(); i++){
+        cout << setw(3)  << left << i+1;
+        cout << setw(36) << persList.at(i).getF() << " " << persList.at(i).getL();
+
+        if(persList.at(i).getGender()){
+            cout << setw(10)<< "Female";}
+        else{
+            cout << setw(10)<< "Male";}
+
+        cout << setw(8) << persList.at(i).getYearBorn();
+
+        if( 0 == (persList.at(i).getYearDied()) )
+            cout << setw(8) <<"Alive";
+        else
+            cout << setw(8) << persList.at(i).getYearDied();
+
+
+        if( "0" == (persList.at(i).getKnownFor()) )
+            cout << " " <<endl;
+        else
+            cout << persList.at(i).getKnownFor() << endl;
+      }
+    }
+    else{ //if nothing to display
+    cout<<endl<<"Nothing to display"<<endl;
+  }
+}
+
+void InterFace::printComputers(vector<Computers> compList){
+  string buffer;
+  cout << '\n' << setw(3) << left << "#"
+       << setw(30) << "Name:" << setw(20) << "Type:" << setw(8) << "Built:"
+       << "Year built:" << endl;
+  for(unsigned int i = 0; i < compList.size(); i++){
+
+      cout << setw(3)  << left << i+1;
+      cout << setw(30) << left << compList.at(i).getName();
+      cout << setw(20) << compList.at(i).getType();
+
+      if(compList.at(i).getBuild()){
+          cout << setw(8) << "Yes";}
+      else{
+          cout << setw(8) << "No";}
+
+      if( NULL == (compList.at(i).getBuildYear()) )
+          cout << "" << '\n';
+      else
+          cout << compList.at(i).getBuildYear() << '\n' ;
+       }
 }

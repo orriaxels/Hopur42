@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <stdlib.h> //for atoi()
 
@@ -14,7 +15,7 @@ bool Inputcheck::isInputGood(int fromNumber, int toNumber, string& input){
   bool foundChar=false;
 
   //so it ignores all inputs with some chars
-  for(int j=0; j< input.length(); j++){
+  for(unsigned int j=0; j< input.length(); j++){
       if( !( isdigit(input[j]) ) )
           foundChar=true;
   }

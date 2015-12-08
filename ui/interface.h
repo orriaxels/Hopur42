@@ -1,7 +1,6 @@
 #ifndef interface_h
 #define interface_h
 
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -15,17 +14,18 @@ class InterFace
 {
 	public:
 		InterFace();
-		void runInterFace(); 		//Starts main interface of the program
-		void notFound(bool wasfound, const string searchStr); 		//Display messages depending on if searchStr was found  wasfound=true prints found message and vice versa
+		void runInterFace();
 		void invalidInput();
   private:
 		Service serviceVar;
+		Inputcheck inputCheckVar;
+		
+		void printPerson(vector<Persons> persList);
 		void printComputers(vector<Computers> compList);
-		void printPerson(vector<Persons> persList); 		//Prints out a list of person objects
+
 		void displayMainMenu();
 		void printAddMenu();
 		void printAddPersonMenu();
-		Inputcheck inputCheckVar;
 		void printAddCompMenu();
 		void printDisplayMenu();
 		void printDispPersMenu();
@@ -37,7 +37,6 @@ class InterFace
 		void printRemoveMenu();
 		void printRemovePersMenu();
 		void printRemoveCompMenu();
-		void morePersInfo(const Computers showComputers);
 
 };
 
