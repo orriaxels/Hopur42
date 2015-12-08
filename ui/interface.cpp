@@ -129,7 +129,7 @@ void InterFace::printAddPersonMenu(){
     cout << "Year of death (0 if still alive): ";
     do{
         cin >> dYear;
-    }while(dYear != 0 && !inputCheckVar.checkNumber(dYear, bYear+8, bYear+110));
+    }while(!inputCheckVar.checkDyear(dYear, bYear+8, bYear+110));
 
     //Get input Known for info
     cout << "Is known for (\"0\" to skip): ";

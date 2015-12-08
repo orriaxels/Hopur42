@@ -84,3 +84,23 @@ bool Inputcheck::checkNumber(int year, int lowerNumber, int higerNumber){
     return true;
   }
 }
+
+bool Inputcheck::checkDyear(int year, int lowerNumber, int higerNumber){
+  InterFace interfaceVar;
+
+  if(cin.fail()){
+    cinFailCheck();
+    return false;
+  }else if(year == 0){
+    return true;  
+  }else if(year < lowerNumber || year > higerNumber){
+    cinFailCheck();
+    return false;
+  }else if(year > 2015){
+    cinFailCheck();
+    return false;
+  }
+  else{
+    return true;
+  }
+}

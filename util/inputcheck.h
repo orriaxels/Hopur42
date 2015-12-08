@@ -13,6 +13,7 @@ class Inputcheck
       bool isStringEmpty(string text);
       void cinFailCheck();
       bool checkNumber(int year, int lowerNumber, int higerNumber);
+      bool checkDyear(int year, int lowerNumber, int higerNumber);
     private:
 };
 
