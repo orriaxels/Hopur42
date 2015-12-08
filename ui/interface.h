@@ -37,7 +37,7 @@ class InterFace
 		void printRemoveMenu();
 		void printRemovePersMenu();
 		void printRemoveCompMenu();
-
+		void morePersInfo(const Computers showComputers);
 
 };
 

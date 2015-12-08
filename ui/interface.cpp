@@ -8,6 +8,7 @@
 #include "services/service.h"
 #include "models/computers.h"
 #include "models/persons.h"
+#include "repo/repository.h"
 
 using namespace std;
 
@@ -272,9 +273,10 @@ void InterFace::printDisplayMenu(){
 }
 
 void InterFace::printDispPersMenu(){
-    int sortWith, order, var;
-    string choice, again;
-
+    int sortWith, order;
+    string choice, var;
+    vector<Persons> sortedList = serviceVar.getSortedPersonsList(1,0);
+    int numberOfEnteries = sortedList.size(), personOfInterest;
 
     cout << "What would you like to sort by?" << endl
          << "1. First name" << "  ||  "
@@ -309,10 +311,25 @@ void InterFace::printDispPersMenu(){
         printPerson( serviceVar.getSortedPersonsList(sortWith, 1) );
     }
 
+    cout << endl;
+
+    //morePersInfo();
+
+    cout << "If you would like to see more information on each person, please choose a # (0 for cancel): ";
+    do{
+        cin >> var;
+    } while(!inputCheckVar.isInputGood(0, numberOfEnteries, var));
+    if(var == "0"){
+        runInterFace();
+    }
+    //morePersInfo(sortedList.at(var));
+    //morePersInfo();
 
     cout << endl << endl;
 
-    cout << "1. Sort again" << endl;
+    //if (var)
+
+  /*  cout << "1. Sort again" << endl;
     cout << "2. Back to main menu" << endl;
     cout << "Enter choice: ";
     do{
@@ -327,7 +344,8 @@ void InterFace::printDispPersMenu(){
     else if (var == 2){
         cout << endl << endl << endl << endl;
         runInterFace();
-    }
+    }*/
+    runInterFace();
 }
 
 void InterFace::printDispCompMenu(){
@@ -475,6 +493,12 @@ void InterFace::notFound(bool wasfound, const string searchStr){
 
 }
 
+void InterFace::morePersInfo(const Computers showComputer){
+    
+    
+        
+}
+
 void InterFace::printPerson(vector<Persons> persList){
     string buffer;
 
@@ -521,22 +545,22 @@ void InterFace::printPerson(vector<Persons> persList){
 
 void InterFace::printComputers(vector<Computers> compList){
   string buffer;
-  cout<<'\n'<<setw(3)<<left<<"#"
-      <<setw(30)<<"Name:"<<setw(20)<<"Type:"<<setw(8)<<"Built:"
-      <<"Year built:"<<endl;
-  for(unsigned int i=0; i<compList.size(); i++){
+  cout << '\n' << setw(3) << left << "#"
+       << setw(30) << "Name:" << setw(20) << "Type:" << setw(8) << "Built:"
+       << "Year built:" << endl;
+  for(unsigned int i = 0; i < compList.size(); i++){
 
-      cout << setw(3) << left<< i+1;
-      cout << setw(30)<< left<< compList.at(i).getName();
-      cout << setw(20)<< compList.at(i).getType();
+      cout << setw(3)  << left << i+1;
+      cout << setw(30) << left << compList.at(i).getName();
+      cout << setw(20) << compList.at(i).getType();
 
       if(compList.at(i).getBuild()){
-          cout << setw(8)<<"Yes";}
+          cout << setw(8) << "Yes";}
       else{
-          cout << setw(8)<< "No";}
+          cout << setw(8) << "No";}
 
       if( NULL == (compList.at(i).getBuildYear()) )
-          cout <<"" <<'\n';
+          cout << "" << '\n';
       else
           cout << compList.at(i).getBuildYear() << '\n' ;
        }
@@ -580,9 +604,9 @@ void InterFace::printRemovePersMenu(){
 
 
     if( serviceVar.removePersEntery(enteryRemove, sortedList) )
-      cout<< endl<<"Entry no longer visable in list"<<endl<<endl;
+      cout << endl << "Entry no longer visable in list" << endl << endl;
     else
-      cout<< endl<<"Unable to delete"<<endl<<endl;
+      cout << endl << "Unable to delete" << endl << endl;
 
     cout << endl << endl;
 
@@ -611,18 +635,18 @@ void InterFace::printRemoveCompMenu(){
   string input;
 
   printComputers( sortedList );
-  cout<< endl << "Which one of these enteries do you want to remove(select # / 0 for cancel)? ";
+  cout << endl << "Which one of these enteries do you want to remove(select # / 0 for cancel)? ";
 
   do{
       cin >> input;
-  }while( ! inputCheckVar.isInputGood(1, numberOfEnteries, input)   );
-  enteryRemove = (atoi( input.c_str() ) ) -1;
+  }while( ! inputCheckVar.isInputGood(0, numberOfEnteries, input)   );
+  enteryRemove = atoi( input.c_str() ) -1;
 
 
   if( serviceVar.removeCompEntery(enteryRemove, sortedList) )
-    cout<< endl<<"Entry no longer visable in list"<<endl<<endl;
+    cout << endl << "Entry no longer visable in list" << endl << endl;
   else
-    cout<< endl<<"Unable to delete"<<endl<<endl;
+    cout << endl << "Unable to delete" << endl << endl;
 
 
   cout << "1. Remove something else from the list" << endl;
