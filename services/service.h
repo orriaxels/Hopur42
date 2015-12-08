@@ -35,6 +35,9 @@ class Service
 		bool createPerson(string name, string gender, int yborn, int ydied, string knownFor);
 		bool createComputer(string compName, string compType, bool built, int yBuilt);
 
+
+		bool createRelation(Computers relationComp, Persons relationScientist);
+
 		/*@brief finds TableId of person/computer to be "removed"
 		* @parameter number list is at which container person/comp to remove is
 		* @parameter listToRemoveFrom, contains the list the entery to remove was selected

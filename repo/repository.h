@@ -16,6 +16,8 @@ public:
   bool addToDatabase(Persons newPerson);
   bool addToDatabase(Computers newComp);
 
+  bool addRelation(int idPkComputer, int idPkScientists);
+
   /*@brief Sets deleted flag in database as 1. Does not remove completly from DB
   * @param enteryToRemoveId of scientist/comp to flag as deleted
   * @return returns true if database was sucsessfully updated, true if not */

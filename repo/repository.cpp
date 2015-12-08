@@ -60,6 +60,19 @@ bool Repository::addToDatabase(Computers newComp){
 		return false;
 	}
 }
+bool Repository::addRelation(int idPkComputer, int idPkScientists){
+	QSqlQuery query;
+	
+	query.prepare("INSERT INTO Associate (scientist_id, comp_id) VALUES (:scientist_id, :comp_id)" );
+	query.bindValue(":scientist_id", idPkScientists);
+	query.bindValue(":comp_id", idPkComputer);
+	if( query.exec() ){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
 
 bool Repository::removePerson(int enteryToRemoveId){
 	QSqlQuery query;
@@ -265,7 +278,6 @@ vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
   }
 	return computerList;
 }
-
 
 
 vector<Persons> Repository::getAssociatedP(Computers findForComputer){

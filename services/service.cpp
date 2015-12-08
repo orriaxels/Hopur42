@@ -114,6 +114,16 @@ bool Service::createComputer(string compName, string compType, bool built, int y
     return false;
 }
 
+bool Service::createRelation(Computers relationComp, Persons relationScientist){
+  int idComputer=relationComp.getId(),
+      idScientist=relationScientist.getId();
+  if( repository.addRelation(idComputer, idScientist) )
+    return true;
+  else
+    return false;
+}
+
+
 
 bool Service::removePersEntery(int numberList, const vector<Persons> listToRemoveFrom){
   int idOfPerson = ( listToRemoveFrom.at(numberList) ).getId();
