@@ -1,13 +1,10 @@
 #ifndef persons_h
 #define persons_h
 
-#include <iostream>
+#include <vector>
 #include <string>
 
 using namespace std;
-
-
-
 
 class Persons
 {
@@ -26,13 +23,9 @@ class Persons
     int getYearBorn() const;
     int getYearDied() const;
 
-    //Sets single variable of Person object
-		void setFirst(const string firstName);
-		void setLast(const string lastName);
-		void setKnownFor(const string persknownFor);
-		void setGender(const bool persGender);
-		void setBorn(const int yBorn);
-		void setDied(const int yDied);
+		//Creates connections in junction table
+		bool setConnectWithComp(const vector<int> compId);
+
 	private:
 		int persId;
 		string firstname; 	//First name, if person has middle name it stores it here;
@@ -41,6 +34,7 @@ class Persons
 		bool gender; 		//False for male, true for female
 		int yearBorn; 		//Year born
 		int yearDied;		//Year of death, 0 if still alive
+		vector<int> junctionWithComp;
 };
 
 #endif // PERSONS_H

@@ -1,6 +1,5 @@
 #include <vector>
 #include <string>
-#include <algorithm>
 #include <sstream>
 
 #include "services/service.h"
@@ -14,10 +13,14 @@ Service::Service(){//default constructor
 }
 
 vector<Persons> Service::searchScient(string searchString){
+  searchString.insert (0, 1, '%');
+  searchString+='%';
   vector<Persons> foundIn=repository.searchScientist(searchString);
   return foundIn;
 }
 vector<Computers>Service::searchComp(string searchString){
+  searchString.insert (0, 1, '%');
+  searchString+='%';
   vector<Computers> foundIn=repository.searchComputer(searchString);
   return foundIn;
 }
@@ -27,7 +30,6 @@ vector<Persons> Service::getSortedPersonsList(int sortBy, bool orderOfSort){
     vector<Persons> personsList=repository.getScientistList(sortBy, orderOfSort);
     return personsList;
 }
-
 vector<Computers> Service::getSortedComputersList(int sortBy, bool orderOfSort){
 
     vector<Computers> compList=repository.getComputerList(sortBy, orderOfSort);
@@ -47,13 +49,17 @@ bool Service::createPerson(string name, string gender, int yborn, int ydied, str
           nameContainer.push_back(buffer);
     }
 
-    for(unsigned int i=0; i<nameContainer.size()-1; i++){
-        bufferFirst+=nameContainer.at(i);
-        if(i< (nameContainer.size()-2))
-            buffer+=" ";
+    if(nameContainer.size() == 1){
+      bufferFirst= nameContainer.back();
     }
-    bufferLast= nameContainer.back(); //sets last element in vector as last name
-
+    else{
+      for(unsigned int i=0; i<nameContainer.size()-1; i++){
+          bufferFirst+=nameContainer.at(i);
+          if(i < (nameContainer.size()-2))
+              bufferFirst+=" ";
+      }
+      bufferLast= nameContainer.back(); //sets last element in vector as last name
+    }
 
     if(gender == "f" || gender == "F")
         bufferGender=true;
@@ -67,23 +73,12 @@ bool Service::createPerson(string name, string gender, int yborn, int ydied, str
       return false;
 
 }
-
 bool Service::createComputer(string compName, string compType, bool built, int yBuilt){
   Computers newComputer(compName, compType, built, yBuilt);
   if( repository.addToDatabase(newComputer) )
     return true;
   else
     return false;
-}
-
-int Service::getListDatabase(){  //returns list from file
-    Repository repoVar;
-    InterFace intVar;
-    //vector<Persons> List=repoVar.getScientistList();
-
-    //intVar.printPerson(List);
-
-    //return List.size();
 }
 
 bool Service::removePersEntery(int numberList, const vector<Persons> listToRemoveFrom){
@@ -100,14 +95,4 @@ bool Service::removeCompEntery(int numberList, const vector<Computers> listToRem
     return true;
   else
     return false;
-}
-
-bool Service::somthingthere(){
-    Repository repoVar;
-    //vector<Persons> listForsize=repoVar.getScientistList();
-
-    // if(listForsize.size()==0)
-    //     return false;
-    // else
-    //     return true;
 }

@@ -58,24 +58,28 @@ bool Inputcheck::isNameGood(string& name, string& illegal){
         return true;
       }    
   }
-bool Inputcheck::cinFailCheck(){
-  if(cin.fail()){
+void Inputcheck::cinFailCheck(){
     cin.clear();
     cin.ignore(1000, '\n');
-    return true;
-  }else{
-    return false;
-  }
+    InterFace interfaceVar;
+    interfaceVar.invalidInput();
 }  
 
 bool Inputcheck::checkNumber(int year, int lowerNumber, int higerNumber){
-  if(year < lowerNumber || year > higerNumber){
-    return true;
+  InterFace interfaceVar;
+
+  if(cin.fail()){
+    cinFailCheck();
+    return false;  
+  }else if(year < lowerNumber || year > higerNumber){
+    cinFailCheck();
+    return false;
   }else if(year > 2015){
-    return true;
+    cinFailCheck();
+    return false;
   }
   else{
-    return false;
+    return true;
   }
 }
 

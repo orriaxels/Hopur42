@@ -54,22 +54,8 @@ int Persons::getYearDied() const{
 	return yearDied;
 }
 
-//Set funcitons
-void Persons::setFirst(const string firstName){
-	firstname=firstName;
-}
-void Persons::setLast(const string lastName){
-	lastname=lastName;
-}
-void Persons::setKnownFor(const string persknownFor){
-	knownfor=persknownFor;
-}
-void Persons::setGender(const bool persGender){
-	gender=persGender;
-}
-void Persons::setBorn(const int yBorn){
-	yearBorn=yBorn;
-}
-void Persons::setDied(const int yDied){
-	yearDied=yDied;
+//set functions
+bool Persons::setConnectWithComp(const vector<int> compId){
+ 	junctionWithComp.clear();
+	junctionWithComp=compId;
 }

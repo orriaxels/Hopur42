@@ -26,9 +26,6 @@ class Service
 		bool removePersEntery(int numberList, const vector<Persons> listToRemoveFrom);
 		bool removeCompEntery(int numberList, const vector<Computers> listToRemoveFrom);
 
-		int getListDatabase();
-		bool somthingthere();
-
   private:
 			Repository repository;
 

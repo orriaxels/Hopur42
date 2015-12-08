@@ -19,10 +19,22 @@ void InterFace::runInterFace(){
         InterFace::actionSelect();
 }
 
+void InterFace::displayMainMenu(){
+    cout<< "Welcome! This database contains information about great computer scientists and computers." << endl
+        << endl
+        << "What would you like to do?" << endl
+        << "  1. Add a new entry" << endl
+        << "  2. Display database" << endl
+        << "  3. Search the database" << endl
+        << "  4. Remove entry from database"<<endl
+        << "  5. Quit" << endl
+        << endl;
+}
+
 void InterFace::actionSelect(){
   char a;
   string choice;
-  bool loop;
+  bool loop; 
 
   cout << "Please select an option from the list: ";
   do{
@@ -58,18 +70,6 @@ void InterFace::actionSelect(){
       }
   }while(loop);
 
-}
-
-void InterFace::displayMainMenu(){
-    cout<< "Welcome! This database contains information about great computer scientists and computers." << endl
-        << endl
-        << "What would you like to do?" << endl
-        << "  1. Add a new entry" << endl
-        << "  2. Display database" << endl
-        << "  3. Search the database" << endl
-        << "  4. Remove entry from database"<<endl
-        << "  5. Quit" << endl
-        << endl;
 }
 
 void InterFace::printAddMenu(){
@@ -115,42 +115,32 @@ void InterFace::printAddPersonMenu(){
     }while(!(inputCheckVar.isNameGood(name, illegal)));
 
     //Get gender input
+    cout << "Gender (f=female, m=male): ";
     do{
-        cout << "Gender (f=female, m=male): ";
         cin >> gender;
         if(gender != "f" && gender != "F" && gender != "m" && gender != "M"){
-            cin.clear();
-            cin.ignore();
-            cout<<"Invalid input."<<endl;
+            inputCheckVar.cinFailCheck();
         }
     }while(gender != "f" && gender != "F" && gender != "m" && gender != "M");
 
     //Get birth year input
+    cout << "Year of birth: ";
     do{
-        cout << "Year of birth: ";
         cin >> bYear;
-        if(inputCheckVar.checkNumber(bYear, 1800, 2010)){
-            cout<<"Invalid input."<<endl;
-        }
-    }while(inputCheckVar.cinFailCheck() || inputCheckVar.checkNumber(bYear, 1800, 2010));
+    }while(!inputCheckVar.checkNumber(bYear, 1000, 2010));
 
+    cout << "Year of death (0 if still alive): ";
     do{
-        cout << "Year of death (0 if still alive): ";
         cin >> dYear;
-        if(inputCheckVar.cinFailCheck()){
-            cout << "Invalid input." << endl;
-        }else if(inputCheckVar.checkNumber(dYear, bYear+8, bYear+110) && dYear != 0){
-            cout<<"Invalid input."<<endl;
-        }
-    }while((dYear != 0 && inputCheckVar.checkNumber(dYear, bYear+8, bYear+110)) || inputCheckVar.cinFailCheck());
+    }while(dYear != 0 && !inputCheckVar.checkNumber(dYear, bYear+8, bYear+110));
 
     //Get input Known for info
+    cout << "Is known for (\"0\" to skip): ";
     do{
-        cout << "Is known for (\"0\" to skip): ";
         cin.ignore();
         getline(cin, knownFor);
         if((knownFor != "0") && (knownFor.length() < 3) )
-            cout<<"Invalid input."<<endl;
+            invalidInput();
     }while( (knownFor != "0") && (knownFor.length() < 3) );
 
 
@@ -169,79 +159,59 @@ void InterFace::printAddCompMenu(){
     string compType = "";
     string ifMade = "";
     bool wasItMade = 0; //segir til hvort talvan hafi verið byggð
-    bool loop = 0;
-    int yearBuilt;
-    char cType;
+    int yearBuilt = NULL;
+    string cType = "";
 
     cout << "\n";
     cout << "Computer entry" << endl;
+    cout << "Name: ";
 
     do{
-        cout << "Name: ";
         getline(cin, compName);
         if (compName.empty())
         {
-            cout << "Invalid input, reenter" << endl;
+            invalidInput();
+            //cout << "Invalid input, reenter" << endl;
         }
     }while(compName.empty());
 
+    cout << "Was it built (y/n): "; 
     do{
-        cout << "Was it built (y/n): ";
         cin >> ifMade;
-        cin.ignore(1000, '\n');
-        if(ifMade.empty() || ifMade.length() > 1){
-            cout << "Invalid input." << endl;
-        }else if(ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N" ){
-            cout << "Invalid Input" << endl;
-        }else if(ifMade == "y" || ifMade == "Y"){
-            do{
-                cout << "When was the computer built: ";
-                cin >> yearBuilt;
-                cin.ignore(1000, '\n');
-                    if(inputCheckVar.cinFailCheck()){
-                        cout << "Invalid input." << endl;
-                    }else if(inputCheckVar.checkNumber(yearBuilt, 1800, 2015)){
-                        cout << "Invalid input." << endl;
-                    }else{
-                        wasItMade = 1;
-                    }
-                }while(!wasItMade);
-            }
-        }while((ifMade != "n" && ifMade != "N") && !wasItMade);
+        if((ifMade.empty() || ifMade.length() > 1) || (ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N")){
+            invalidInput();
+        }else{
+            wasItMade = 1;
+        }
+    }while((ifMade.empty() || ifMade.length() > 1) || (ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N"));
+    
+    if(wasItMade){
+        cout << "When was the computer built: ";
+        do{
+            cin >> yearBuilt;
+        }while(!inputCheckVar.checkNumber(yearBuilt, 1000, 2015));
+    }
 
-    do{
         cout << "What type of computer is it" << endl;;
         cout << "1: Mechanical" << endl;
         cout << "2: Electronic" << endl;
         cout << "3: Electro-Mechanical" << endl;
         cout << "4: Transistorized" << endl;
         cout << "choose: ";
-        cin >> cType;
-        cin.ignore(1000, '\n');
-        if(cType !='1' && cType !='2' && cType !='3' && cType !='4'){
-            cout << "Invalid Input." << endl;
-        }
-    }while(cType !='1' && cType !='2' && cType !='3' && cType !='4');
-
-    do{
-        switch(cType){
-        case '1':
-           compType = "Mechanical";
-            break;
-        case '2':
+        
+        do{
+            cin >> cType;
+        }while(! inputCheckVar.isInputGood(1, 4, cType));
+        
+        if(cType == "1"){
+            compType = "Mechanical";
+        }else if(cType == "2"){
             compType = "Electronic";
-            break;
-        case '3':
+        }else if(cType == "3"){
             compType = "Electro-Mechanical";
-            break;
-        case '4':
+        }else if(cType == "4"){
             compType = "Transistorized";
-            break;
-        default:
-            loop = 0;
-            break;
         }
-    }while(loop);
 
     if( serviceVar.createComputer(compName, compType, wasItMade, yearBuilt) )
       cout<<endl<<"Entry sucsessfully added to database"<<endl<<endl<<endl;
@@ -599,7 +569,7 @@ void InterFace::printRemovePersMenu(){
 
     do{
         cin >> input;
-    }while( ! inputCheckVar.isInputGood(1, numberOfEnteries, input)   );
+    }while( ! inputCheckVar.isInputGood(0, numberOfEnteries, input)   );
     enteryRemove = (atoi( input.c_str() ) ) -1;
 
 
@@ -632,7 +602,7 @@ void InterFace::printRemoveCompMenu(){
 
   vector<Computers> sortedList = serviceVar.getSortedComputersList(1,0);
   int enteryRemove, numberOfEnteries = sortedList.size() ,  var;
-  string input;
+  string input="";
 
   printComputers( sortedList );
   cout << endl << "Which one of these enteries do you want to remove(select # / 0 for cancel)? ";
@@ -641,6 +611,7 @@ void InterFace::printRemoveCompMenu(){
       cin >> input;
   }while( ! inputCheckVar.isInputGood(0, numberOfEnteries, input)   );
   enteryRemove = atoi( input.c_str() ) -1;
+
 
 
   if( serviceVar.removeCompEntery(enteryRemove, sortedList) )
@@ -668,5 +639,5 @@ void InterFace::printRemoveCompMenu(){
 }
 
 void InterFace::invalidInput(){
-  cout << "This input is not vaild. Please try again: ";
+  cout << "This input is not valid. Please try again: ";
 }
