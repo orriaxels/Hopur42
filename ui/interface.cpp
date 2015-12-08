@@ -75,6 +75,7 @@ void InterFace::printAddMenu(){
     cout  << "Choose what to add: " << endl
           << "1: Add scientist" << endl
           << "2: Add computer" << endl
+          << "3: Add relations" << endl
           << "0: Cancel" << endl
           << "Enter choice: ";
 
