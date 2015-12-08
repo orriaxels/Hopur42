@@ -2,7 +2,6 @@
 #include <string>
 #include <QtSql>
 #include <Qstring>
-#include <iostream>
 
 #include "repo/repository.h"
 #include "models/persons.h"
@@ -128,7 +127,6 @@ vector<Persons> Repository::searchScientist(string searchString){
 
 	return scientistsList;
 }
-
 vector<Computers> Repository::searchComputer(string searchString){
 	QSqlQuery query;
 	QString qSearch = QString::fromStdString( (searchString.c_str()) );

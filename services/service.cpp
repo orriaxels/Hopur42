@@ -1,6 +1,5 @@
 #include <vector>
 #include <string>
-#include <algorithm>
 #include <sstream>
 
 #include "services/service.h"
@@ -50,13 +49,17 @@ bool Service::createPerson(string name, string gender, int yborn, int ydied, str
           nameContainer.push_back(buffer);
     }
 
-    for(unsigned int i=0; i<nameContainer.size()-1; i++){
-        bufferFirst+=nameContainer.at(i);
-        if(i < (nameContainer.size()-2))
-            bufferFirst+=" ";
+    if(nameContainer.size() == 1){
+      bufferFirst= nameContainer.back();
     }
-    bufferLast= nameContainer.back(); //sets last element in vector as last name
-
+    else{
+      for(unsigned int i=0; i<nameContainer.size()-1; i++){
+          bufferFirst+=nameContainer.at(i);
+          if(i < (nameContainer.size()-2))
+              bufferFirst+=" ";
+      }
+      bufferLast= nameContainer.back(); //sets last element in vector as last name
+    }
 
     if(gender == "f" || gender == "F")
         bufferGender=true;
