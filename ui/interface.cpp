@@ -577,28 +577,34 @@ void InterFace::printPerson(vector<Persons> persList){
     }
     else{ //if nothing to display
     cout<<endl<<"Nothing to display"<<endl;
-  }
+    }
 }
 
 void InterFace::printComputers(vector<Computers> compList){
   string buffer;
-  cout << '\n' << setw(3) << left << "#"
-       << setw(30) << "Name:" << setw(20) << "Type:" << setw(8) << "Built:"
-       << "Year built:" << endl;
-  for(unsigned int i = 0; i < compList.size(); i++){
 
-      cout << setw(3)  << left << i+1;
-      cout << setw(30) << left << compList.at(i).getName();
-      cout << setw(20) << compList.at(i).getType();
+  if( compList.size() > 0){
+    cout << '\n' << setw(3) << left << "#"
+         << setw(30) << "Name:" << setw(20) << "Type:" << setw(8) << "Built:"
+         << "Year built:" << endl;
+    for(unsigned int i = 0; i < compList.size(); i++){
 
-      if(compList.at(i).getBuild()){
-          cout << setw(8) << "Yes";}
-      else{
-          cout << setw(8) << "No";}
+        cout << setw(3)  << left << i+1;
+        cout << setw(30) << left << compList.at(i).getName();
+        cout << setw(20) << compList.at(i).getType();
 
-      if( NULL == (compList.at(i).getBuildYear()) )
-          cout << "" << '\n';
-      else
-          cout << compList.at(i).getBuildYear() << '\n' ;
-       }
+        if(compList.at(i).getBuild()){
+            cout << setw(8) << "Yes";}
+        else{
+            cout << setw(8) << "No";}
+
+        if( NULL == (compList.at(i).getBuildYear()) )
+            cout << "" << '\n';
+        else
+            cout << compList.at(i).getBuildYear() << '\n' ;
+    }
+  }
+  else{ //if nothing to display
+  cout<<endl<<"Nothing to display"<<endl;
+  }
 }
