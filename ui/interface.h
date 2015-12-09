@@ -34,6 +34,7 @@ class InterFace
 		void printAddMenu();
 		void printAddPersonMenu();
 		void printAddCompMenu();
+		void printAddRelations();
 
 		void printDisplayMenu();
 		void printDispPersMenu();

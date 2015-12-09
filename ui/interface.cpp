@@ -81,14 +81,16 @@ void InterFace::printAddMenu(){
 
     do{
         cin >> choice;
-    }while(! inputCheckVar.isInputGood(0, 2, choice));
+    }while(! inputCheckVar.isInputGood(0, 3, choice));
 
     if(choice == "1"){
         printAddPersonMenu();
     }else if(choice == "0"){
         runInterFace();
-    }else{
+    }else if(choice == "2"){
         printAddCompMenu();
+    }else{
+        printAddRelations();
     }
 
 }
@@ -217,6 +219,17 @@ void InterFace::printAddCompMenu(){
       cout<<endl<<"Unable to write to database"<<endl<<endl<<endl;
 
     runInterFace();
+}
+
+void InterFace::printAddRelations(){
+  vector<Persons> objectsP;
+  vector<Computers> objectsC;
+  objectsP = serviceVar.getSortedPersonsList(1, 0);
+  objectsC = serviceVar.getSortedComputersList(1, 0);
+  printPerson(objectsP);
+  printComputers(objectsC);
+
+
 }
 
 void InterFace::printDisplayMenu(){
