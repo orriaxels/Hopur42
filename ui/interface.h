@@ -6,47 +6,47 @@
 
 #include "ui/interface.h"
 #include "services/service.h"
-#include "models/computers.h"
-#include "models/persons.h"
-#include "util/inputcheck.h"
+#include "models/computer.h"
+#include "models/scientist.h"
+#include "utilities/inputcheck.h"
 
 class InterFace
 {
 	public:
 		InterFace();
-		void runInterFace();
-		void invalidInput();
+		void runInterFace();  //Starts main interface
+		void invalidInput();	//Prints out error message
   private:
 		Service serviceVar;
 		Inputcheck inputCheckVar;
-
 
 		void displayMainMenu();	// Display main menu options
 		void actionSelect();		// Gets user input to what function user wants to use
 
 		void searchMenu();			//Displays interface for search function
 
-		//Prints out vector of persons/computers in list form
-		void printPerson(vector<Persons> persList);
-		void printComputers(vector<Computers> compList);
+		//Prints out vector of scientist/computers in list form
+		void printScientist(vector<Scientist> scienList);
+		void printComputers(vector<Computer> compList);
 
 
-		void printAddMenu();
-		void printAddPersonMenu();
-		void printAddCompMenu();
-		void printAddRelations();
+		void addMenu();
+		void addScientistMenu();
+		void addCompMenu();
+		void addRelations();
 
-		void printDisplayMenu();
-		void printDispPersMenu();
-		void printDispCompMenu();
+		void displayMenu();
+		void dispScientistMenu();
+		void dispCompMenu();
 
-		void printRemoveMenu();
-		void printRemovePersMenu();
-		void printRemoveCompMenu();
-		void printRemoveRelation();
+		void removeMenu();
+		void removeScienMenu();
+		void removeCompMenu();
+		void removeRelation();
 
-		void displayDetails(Computers compDetails);
-		void displayDetails(Persons persDetails);
+		//display details about selected entry in database
+		void displayDetails(Computer compDetails);
+		void displayDetails(Scientist scienDetails);
 
 };
 

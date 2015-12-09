@@ -1,5 +1,5 @@
 #include "ui/interface.h"
-#include "util/initdatabaseconnect.h"
+#include "repo/initdatabase.h"
 
 int main(){
 

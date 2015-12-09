@@ -2,7 +2,7 @@
 #include <string>
 #include <stdlib.h> //for atoi()
 
-#include "util/inputcheck.h"
+#include "utilities/inputcheck.h"
 #include "ui/interface.h"
 
 using namespace std;
@@ -92,7 +92,7 @@ bool Inputcheck::checkDyear(int year, int lowerNumber, int higerNumber){
     cinFailCheck();
     return false;
   }else if(year == 0){
-    return true;  
+    return true;
   }else if(year < lowerNumber || year > higerNumber){
     cinFailCheck();
     return false;

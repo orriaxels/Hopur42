@@ -6,8 +6,8 @@
 
 #include "ui/interface.h"
 #include "services/service.h"
-#include "models/computers.h"
-#include "models/persons.h"
+#include "models/computer.h"
+#include "models/scientist.h"
 
 using namespace std;
 
@@ -44,11 +44,11 @@ void InterFace::actionSelect(){
       switch(selection){
       case '1':
           cout << endl;
-          InterFace::printAddMenu();
+          InterFace::addMenu();
           break;
       case '2':
           cout << endl;
-          InterFace::printDisplayMenu();
+          InterFace::displayMenu();
           break;
       case '3':
           cout << endl;
@@ -56,7 +56,7 @@ void InterFace::actionSelect(){
           break;
       case '4':
           cout<<endl;
-          InterFace::printRemoveMenu();
+          InterFace::removeMenu();
           break;
       case '5':
           loop = 0;
@@ -69,7 +69,7 @@ void InterFace::actionSelect(){
   }while(loop);
 }
 
-void InterFace::printAddMenu(){
+void InterFace::addMenu(){
     string choice;
 
     cout  << "Choose what to add: " << endl
@@ -84,18 +84,18 @@ void InterFace::printAddMenu(){
     }while(! inputCheckVar.isInputGood(0, 3, choice));
 
     if(choice == "1"){
-        printAddPersonMenu();
+        addScientistMenu();
     }else if(choice == "0"){
         runInterFace();
     }else if(choice == "2"){
-        printAddCompMenu();
+        addCompMenu();
     }else{
-        printAddRelations();
+        addRelations();
     }
 
 }
 
-void InterFace::printAddPersonMenu(){
+void InterFace::addScientistMenu(){
 
     string name, illegal;
     string knownFor="";
@@ -145,7 +145,7 @@ void InterFace::printAddPersonMenu(){
 
 
 
-    if( serviceVar.createPerson(name, gender, bYear, dYear, knownFor) )
+    if( serviceVar.createScientist(name, gender, bYear, dYear, knownFor) )
       cout<<endl<<"Entry sucsessfully added to database"<<endl<<endl<<endl;
     else
       cout<<endl<<"Unable to write to database"<<endl<<endl<<endl;
@@ -153,7 +153,7 @@ void InterFace::printAddPersonMenu(){
     runInterFace();
 }
 
-void InterFace::printAddCompMenu(){
+void InterFace::addCompMenu(){
 
     string compName = "";
     string compType = "";
@@ -221,13 +221,13 @@ void InterFace::printAddCompMenu(){
     runInterFace();
 }
 
-void InterFace::printAddRelations(){
-  vector<Persons> allScientist=serviceVar.getSortedPersonsList(1, 0);;
-  vector<Computers> allComputers= serviceVar.getSortedComputersList(1, 0);
+void InterFace::addRelations(){
+  vector<Scientist> allScientist=serviceVar.getSortedScientistList(1, 0);;
+  vector<Computer> allComputers= serviceVar.getSortedComputerList(1, 0);
   string choice;
   int sizeVector=allScientist.size(), indexScie=0, indexComp=0;
 
-  printPerson(allScientist);
+  printScientist(allScientist);
   cout  <<endl<< "Select Scientist to add relation to(0 to main menu)" << endl
         << "Enter choice: ";
   do{
@@ -263,7 +263,7 @@ void InterFace::printAddRelations(){
   runInterFace();
 }
 
-void InterFace::printDisplayMenu(){
+void InterFace::displayMenu(){
     string choice;
     cout << "Choose what database to display: " << endl;
     cout << "1: Display scientists database" << endl;
@@ -276,18 +276,18 @@ void InterFace::printDisplayMenu(){
     }while(! inputCheckVar.isInputGood(0, 2, choice));
 
     if(choice == "1"){
-        printDispPersMenu();
+        dispScientistMenu();
     }else if(choice == "0"){
         runInterFace();
     }else{
-        printDispCompMenu();
+        dispCompMenu();
     }
 }
 
-void InterFace::printDispPersMenu(){
-    int sortWith, numberOfEnteries, personDetail=0;
+void InterFace::dispScientistMenu(){
+    int sortWith, numberOfEnteries, scientistDetail=0;
     string choice;
-    vector<Persons> sortedList;
+    vector<Scientist> sortedList;
 
     cout << "What would you like to sort by?" << endl
          << "1. First name" << "  ||  "
@@ -316,12 +316,12 @@ void InterFace::printDispPersMenu(){
 
 
     if (choice == "1"){
-      sortedList=serviceVar.getSortedPersonsList(sortWith, 0);
-      printPerson( sortedList );
+      sortedList=serviceVar.getSortedScientistList(sortWith, 0);
+      printScientist( sortedList );
     }
     else if (choice == "2"){
-      sortedList=serviceVar.getSortedPersonsList(sortWith, 0);
-      printPerson( sortedList );
+      sortedList=serviceVar.getSortedScientistList(sortWith, 0);
+      printScientist( sortedList );
     }
 
     numberOfEnteries=sortedList.size();
@@ -331,21 +331,21 @@ void InterFace::printDispPersMenu(){
     do{
         cin >> choice;
     } while(! inputCheckVar.isInputGood(0,numberOfEnteries, choice));
-    personDetail= (atoi(choice.c_str() ) ) -1;
+    scientistDetail= (atoi(choice.c_str() ) ) -1;
 
     if (choice == "0" ){
         cout << endl << endl;
         runInterFace();
     }
     else{
-        displayDetails( sortedList.at(personDetail) );
+        displayDetails( sortedList.at(scientistDetail) );
     }
 }
 
-void InterFace::printDispCompMenu(){
+void InterFace::dispCompMenu(){
   int sortWith, numberOfEnteries, computerDetail=0;
   string choice;
-  vector<Computers> sortedList;
+  vector<Computer> sortedList;
 
     cout << "What would you like to sort by?" << endl
          << "1. Name " << "  ||  "
@@ -373,11 +373,11 @@ void InterFace::printDispCompMenu(){
     }while(! inputCheckVar.isInputGood(1,2, choice) );
 
     if (choice == "1"){
-      sortedList=serviceVar.getSortedComputersList(sortWith, 0);
+      sortedList=serviceVar.getSortedComputerList(sortWith, 0);
       printComputers( sortedList );
     }
     else if (choice == "2"){
-      sortedList=serviceVar.getSortedComputersList(sortWith, 1);
+      sortedList=serviceVar.getSortedComputerList(sortWith, 1);
       printComputers( sortedList );
     }
     numberOfEnteries=sortedList.size();
@@ -418,7 +418,7 @@ void InterFace::searchMenu(){
     if(choice == "1"){
       cout  << endl
             << "Following scientists enteries contain "<<searchS<<endl;
-      printPerson( serviceVar.searchScient(searchS)  );
+      printScientist( serviceVar.searchScient(searchS)  );
       cout<<endl<<endl;
     }
     else if(choice == "2"){
@@ -430,7 +430,7 @@ void InterFace::searchMenu(){
     else if(choice == "3"){
       cout  << endl
             << "Following scientists enteries contain "<<searchS<<endl;
-      printPerson( serviceVar.searchScient(searchS)  );
+      printScientist( serviceVar.searchScient(searchS)  );
 
       cout  << endl
             << "Following computer enteries contain "<<searchS<<endl;
@@ -459,7 +459,7 @@ void InterFace::searchMenu(){
     }
 }
 
-void InterFace::printRemoveMenu(){
+void InterFace::removeMenu(){
     string choice;
 
 
@@ -474,26 +474,26 @@ void InterFace::printRemoveMenu(){
     }while(! inputCheckVar.isInputGood(0,3, choice) );
 
     if(choice == "1"){
-        printRemovePersMenu();
+        removeScienMenu();
     }
     else if(choice == "2"){
-        printRemoveCompMenu();
+        removeCompMenu();
     }
     else if(choice == "3"){
-        printRemoveRelation();
+        removeRelation();
     }
     else
         runInterFace();
 
 }
 
-void InterFace::printRemovePersMenu(){
+void InterFace::removeScienMenu(){
 
-    vector<Persons> sortedList = serviceVar.getSortedPersonsList(1,0);
+    vector<Scientist> sortedList = serviceVar.getSortedScientistList(1,0);
     int enteryRemove, numberOfEnteries = sortedList.size(), var;
     string input;
 
-    printPerson( sortedList );
+    printScientist( sortedList );
     cout<< endl << "Which one of these enteries do you want to remove(select # / 0 for cancel)? ";
 
     do{
@@ -502,7 +502,7 @@ void InterFace::printRemovePersMenu(){
     enteryRemove = (atoi( input.c_str() ) ) -1;
 
 
-    if( serviceVar.removePersEntery(enteryRemove, sortedList) )
+    if( serviceVar.removeScientEntery(enteryRemove, sortedList) )
       cout << endl << "Entry no longer visable in list" << endl << endl;
     else
       cout << endl << "Unable to delete" << endl << endl;
@@ -519,7 +519,7 @@ void InterFace::printRemovePersMenu(){
 
     if (var == 1){
         cout << endl << endl << endl;
-        printRemoveMenu();
+        removeMenu();
     } else if (var == 2){
         cout << endl << endl << endl;
         runInterFace();
@@ -527,9 +527,9 @@ void InterFace::printRemovePersMenu(){
     runInterFace();
 }
 
-void InterFace::printRemoveCompMenu(){
+void InterFace::removeCompMenu(){
 
-  vector<Computers> sortedList = serviceVar.getSortedComputersList(1,0);
+  vector<Computer> sortedList = serviceVar.getSortedComputerList(1,0);
   int enteryRemove, numberOfEnteries = sortedList.size() ,  var;
   string input="";
 
@@ -559,7 +559,7 @@ void InterFace::printRemoveCompMenu(){
 
   if (var == 1){
       cout << endl << endl << endl;
-      printRemoveMenu();
+      removeMenu();
   } else if (var == 2){
       cout << endl << endl << endl;
       runInterFace();
@@ -567,10 +567,10 @@ void InterFace::printRemoveCompMenu(){
 
 }
 
-void InterFace::printRemoveRelation(){
-  vector<Persons> scientSorted= serviceVar.getSortedPersonsList(1,0);
-  vector<Computers> compSorted= serviceVar.getSortedComputersList(1,0);
-  vector<Computers> bufferComp;
+void InterFace::removeRelation(){
+  vector<Scientist> scientSorted= serviceVar.getSortedScientistList(1,0);
+  vector<Computer> compSorted= serviceVar.getSortedComputerList(1,0);
+  vector<Computer> bufferComp;
   string choice;
   int indexTable=1, indexChoosen;
   vector<int> idContainer;
@@ -615,38 +615,38 @@ void InterFace::invalidInput(){
   cout << "This input is not valid. Please try again: ";
 }
 
-void InterFace::printPerson(vector<Persons> persList){
+void InterFace::printScientist(vector<Scientist> scientistList){
     string nameBuffer="";
-    if( persList.size() > 0){
+    if( scientistList.size() > 0){
       //Print heaader for table
       cout << '\n' << setw(3) << left << "#"
            << setw(36) << "Name:" << setw(10) << "Gender:" << setw(8) << "Born:"
            << setw(8) << "Died:"<< "Known for:" << endl;
 
 
-      for(unsigned int i=0; i<persList.size(); i++){
+      for(unsigned int i=0; i<scientistList.size(); i++){
         cout << setw(3)  << left << i+1;
 
-        nameBuffer=persList.at(i).getF() + " " + persList.at(i).getL(); //to work with setw needs to be 1 string
+        nameBuffer=scientistList.at(i).getF() + " " + scientistList.at(i).getL(); //to work with setw needs to be 1 string
         cout << setw(36) << nameBuffer;
 
-        if(persList.at(i).getGender()){
+        if(scientistList.at(i).getGender()){
             cout << setw(10)<< "Female";}
         else{
             cout << setw(10)<< "Male";}
 
-        cout << setw(8) << persList.at(i).getYearBorn();
+        cout << setw(8) << scientistList.at(i).getYearBorn();
 
-        if( 0 == (persList.at(i).getYearDied()) )
+        if( 0 == (scientistList.at(i).getYearDied()) )
             cout << setw(8) <<"Alive";
         else
-            cout << setw(8) << persList.at(i).getYearDied();
+            cout << setw(8) << scientistList.at(i).getYearDied();
 
 
-        if( "0" == (persList.at(i).getKnownFor()) )
+        if( "0" == (scientistList.at(i).getKnownFor()) )
             cout << " " <<endl;
         else
-            cout << persList.at(i).getKnownFor() << endl;
+            cout << scientistList.at(i).getKnownFor() << endl;
       }
     }
     else{ //if nothing to display
@@ -654,7 +654,7 @@ void InterFace::printPerson(vector<Persons> persList){
     }
 }
 
-void InterFace::printComputers(vector<Computers> compList){
+void InterFace::printComputers(vector<Computer> compList){
   string buffer;
 
   if( compList.size() > 0){
@@ -683,8 +683,8 @@ void InterFace::printComputers(vector<Computers> compList){
   }
 }
 
-void InterFace::displayDetails(Computers compDetails){
-  vector<Persons> assScientists= serviceVar.getAssociatedPers(compDetails);
+void InterFace::displayDetails(Computer compDetails){
+  vector<Scientist> assScientists= serviceVar.getAssociatedScient(compDetails);
 
   cout<<endl<<endl
       <<"Name: "<< compDetails.getName() <<endl
@@ -712,44 +712,44 @@ void InterFace::displayDetails(Computers compDetails){
   runInterFace();
 }
 
-void InterFace::displayDetails(Persons persDetails){
-  vector<Computers> assComputers = serviceVar.getAssociatedComp(persDetails);
+void InterFace::displayDetails(Scientist scientistDetails){
+  vector<Computer> assComputers = serviceVar.getAssociatedComp(scientistDetails);
   string buffer="";
 
   cout<<endl;
-  cout<<"Name: "<< persDetails.getF() + " " + persDetails.getL() <<endl
+  cout<<"Name: "<< scientistDetails.getF() + " " + scientistDetails.getL() <<endl
       <<"Gender: ";
-  if( persDetails.getGender() ){
+  if( scientistDetails.getGender() ){
       cout<< "Female"<<endl;
   }
   else{
       cout << "Male"<<endl;
   }
-  cout<< persDetails.getF() <<" was born in "<<persDetails.getYearBorn();
-  if( persDetails.getYearDied() == 0 )
+  cout<< scientistDetails.getF() <<" was born in "<<scientistDetails.getYearBorn();
+  if( scientistDetails.getYearDied() == 0 )
     cout<<" and is still alive today."<<endl;
   else{
-        cout<< " and died in "<<persDetails.getYearDied() <<" when ";
-    if( persDetails.getGender() )
+        cout<< " and died in "<<scientistDetails.getYearDied() <<" when ";
+    if( scientistDetails.getGender() )
         cout<< "she ";
     else
         cout << "he ";
 
     cout<<"was "
-        << (persDetails.getYearDied() - persDetails.getYearBorn() )
+        << (scientistDetails.getYearDied() - scientistDetails.getYearBorn() )
         << " years old."<<endl;
   }
-  cout<< persDetails.getF()<< " was best known for: "<< persDetails.getKnownFor()<<endl;
+  cout<< scientistDetails.getF()<< " was best known for: "<< scientistDetails.getKnownFor()<<endl;
 
 
   if(assComputers.size() > 0) {
-    cout<<persDetails.getF()<<" is associated with the following computers: "<<endl;
+    cout<<scientistDetails.getF()<<" is associated with the following computers: "<<endl;
     for(unsigned int i=0; i< assComputers.size(); i++){
       cout << i+1<<". "<< assComputers.at(i).getName() <<endl;
     }
   }
   else{
-    cout<<"There are no computers in current database associated with "<< persDetails.getF();
+    cout<<"There are no computers in current database associated with "<< scientistDetails.getF();
   }
   cout<<endl<<endl;
   runInterFace();

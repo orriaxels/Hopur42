@@ -3,8 +3,8 @@
 #include <vector>
 #include <string>
 
-#include "models/persons.h"
-#include "models/computers.h"
+#include "models/scientist.h"
+#include "models/computer.h"
 #include "repo/repository.h"
 
 
@@ -13,41 +13,46 @@ class Service
 {
 	public:
 		Service();
-		/*@brief Gets sorted list of computers/persons
+		/*@brief Gets sorted list of Computer/Scientist
 		* @param sortBy says what column to sort by
 		* @param orderOfSort sort Acsending or Descending
-		* @return returns sorted vector of computers/persons */
-		vector<Persons> getSortedPersonsList(int sortBy, bool orderOfSort);
-		vector<Computers> getSortedComputersList(int sortBy, bool orderOfSort);
+		* @return returns sorted vector of Computer/Scientist */
+		vector<Scientist> getSortedScientistList(int sortBy, bool orderOfSort);
+		vector<Computer> getSortedComputerList(int sortBy, bool orderOfSort);
 
 		/*@brief searches table for matching string
 		* @param searchString string to search for
 		* @return retuns vector of object where searchsrting was found */
-		vector<Persons> searchScient(string searchString);
-		vector<Computers> searchComp(string searchString);
+		vector<Scientist> searchScient(string searchString);
+		vector<Computer> searchComp(string searchString);
 
-		/*@brief Get list(vector) of person that have relation to param
+		/*@brief Get list(vector) of scientist that have relation to param
 		* @parameter finding relation to this object
-		* @return returns list of associated computers/scienteist */
-		vector<Persons> getAssociatedPers(Computers compDetails);
-		vector<Computers> getAssociatedComp(Persons persDetails);
+		* @return returns list of associated Computer/scienteist */
+		vector<Scientist> getAssociatedScient(Computer compDetails);
+		vector<Computer> getAssociatedComp(Scientist scienDetails);
 
-		/*@brief Sorts data and makes ready to insert to DB
+		/*@brief formats data to insert to DB
 		* @parameters self explanatory.
 		* @return True if sucsessfully added and false if writing to database failed */
-		bool createPerson(string name, string gender, int yborn, int ydied, string knownFor);
+		bool createScientist(string name, string gender, int yborn, int ydied, string knownFor);
 		bool createComputer(string compName, string compType, bool built, int yBuilt);
 
+		/*@brief Creates relation between scientist and computer
+		* @parameters Computer and scientist to add relation to
+		* @return True if sucsessfully added and false if writing to database failed */
+		bool createRelation(Computer relationComp, Scientist relationScientist);
 
-		bool createRelation(Computers relationComp, Persons relationScientist);
-
-		/*@brief finds TableId of person/computer to be "removed"
-		* @parameter number list is at which container person/comp to remove is
+		/*@brief finds TableId of scientist/computer to be "removed"
+		* @parameter number list is at which container scientist/comp to remove is
 		* @parameter listToRemoveFrom, contains the list the entery to remove was selected
 		* @return True if sucsessfully "removed" and false if writing to database failed */
-		bool removePersEntery(int numberList, const vector<Persons> listToRemoveFrom);
-		bool removeCompEntery(int numberList, const vector<Computers> listToRemoveFrom);
+		bool removeScientEntery(int numberList, const vector<Scientist> listToRemoveFrom);
+		bool removeCompEntery(int numberList, const vector<Computer> listToRemoveFrom);
 
+		/*@brief Removes relation between scientist and computer
+		* @parameters PK ID for computer and scientist to remove relation from
+		* @return True if sucsessfully added and false if writing to database failed */
 		bool removeRelation(int idScientist, int idComputer);
   private:
 			Repository repository;

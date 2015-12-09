@@ -2,27 +2,25 @@
 #include <string>
 #include <QtSql>
 #include <Qstring>
-#include <iostream>
 
 #include "repo/repository.h"
-#include "models/persons.h"
-#include "models/computers.h"
+#include "models/scientist.h"
+#include "models/computer.h"
 
 Repository::Repository(){
     //default construct
 }
 
-bool Repository::addToDatabase(Persons newPerson){
-
+bool Repository::addToDatabase(Scientist newScientist){
 	QSqlQuery query;
 
 	//Need to be variables to work with query.exec
-	QString fName = QString::fromStdString( (newPerson.getF()).c_str() ); //bindvalue needs QString
-	QString lName = QString::fromStdString( (newPerson.getL()).c_str() );
-	bool gender = newPerson.getGender();
-	int born = newPerson.getYearBorn();
-	int died = newPerson.getYearDied();
-	QString known = QString::fromStdString( (newPerson.getKnownFor()).c_str() );
+	QString fName = QString::fromStdString( (newScientist.getF()).c_str() ); //bindvalue needs QString
+	QString lName = QString::fromStdString( (newScientist.getL()).c_str() ); //bindvalue needs QString
+	bool gender = newScientist.getGender();
+	int born = newScientist.getYearBorn();
+	int died = newScientist.getYearDied();
+	QString known = QString::fromStdString( (newScientist.getKnownFor()).c_str() );
 
 	query.prepare("INSERT INTO Scientists (FirstName, LastName, Gender, Born, Died, KnownFor) VALUES (:FirstName, :LastName, :Gender, :Born, :Died, :KnownFor)" );
   query.bindValue(":FirstName", fName);
@@ -38,21 +36,22 @@ bool Repository::addToDatabase(Persons newPerson){
 		return false;
 	}
 }
-bool Repository::addToDatabase(Computers newComp){
+
+bool Repository::addToDatabase(Computer newComp){
 	QSqlQuery query;
 
 	//Need to be variables to work with query.exec
-	QString name = QString::fromStdString( ( newComp.getName() ).c_str() );
+	QString name = QString::fromStdString( ( newComp.getName() ).c_str() );//bindvalue needs QString
 	int builtY = newComp.getBuildYear();
-	QString type = QString::fromStdString( ( newComp.getType() ).c_str() );
+	QString type = QString::fromStdString( ( newComp.getType() ).c_str() );//bindvalue needs QString
 	bool builtOrNot  = newComp.getBuild();
 
 
-	query.prepare("INSERT INTO Computers (Name, Year_built, Type, Built_or_not) VALUES (:Name, :Year_built, :Type, :Built_or_not)" );
+	query.prepare("INSERT INTO Computers (Name, YearBuilt, Type, BuiltOrNot) VALUES (:Name, :YearBuilt, :Type, :BuiltOrNot)" );
   query.bindValue(":Name", name);
-	query.bindValue(":Year_built", builtY);
+	query.bindValue(":YearBuilt", builtY);
 	query.bindValue(":Type", type);
-	query.bindValue(":Built_or_not", builtOrNot);
+	query.bindValue(":BuiltOrNot", builtOrNot);
 	if( query.exec() ){
 		return true;
 	}
@@ -60,12 +59,13 @@ bool Repository::addToDatabase(Computers newComp){
 		return false;
 	}
 }
+
 bool Repository::addRelation(int idPkComputer, int idPkScientists){
 	QSqlQuery query;
 
-	query.prepare("INSERT INTO Associate (scientist_id, comp_id) VALUES (:scientist_id, :comp_id)" );
-	query.bindValue(":scientist_id", idPkScientists);
-	query.bindValue(":comp_id", idPkComputer);
+	query.prepare("INSERT INTO Associate (scientistID, compID) VALUES (:scientistID, :compID)" );
+	query.bindValue(":scientistID", idPkScientists);
+	query.bindValue(":compID", idPkComputer);
 	if( query.exec() ){
 		return true;
 	}
@@ -74,7 +74,9 @@ bool Repository::addRelation(int idPkComputer, int idPkScientists){
 	}
 }
 
-bool Repository::removePerson(int idToRemove){
+
+
+bool Repository::removeScientist(int idToRemove){
 	QSqlQuery query;
 	query.prepare("UPDATE Scientists SET Deleted=1 WHERE id=:id");
 	query.bindValue(":id", idToRemove);
@@ -86,6 +88,7 @@ bool Repository::removePerson(int idToRemove){
 		return false;
 	}
 }
+
 bool Repository::removeComputer(int idToRemove){
 	QSqlQuery query;
 	query.prepare("UPDATE Computers SET Deleted = 1 WHERE id = :id" );
@@ -98,11 +101,12 @@ bool Repository::removeComputer(int idToRemove){
 		return false;
 	}
 }
+
 bool Repository::removeRelation(int idScientist, int idComputer){
 	QSqlQuery query;
-	query.prepare("UPDATE Associate SET Deleted = 1 WHERE scientist_id=:scientist_id AND comp_id=:comp_id" );
-	query.bindValue(":scientist_id", idScientist);
-	query.bindValue(":comp_id", idComputer);
+	query.prepare("UPDATE Associate SET Deleted = 1 WHERE scientistID=:scientistID AND compID=:compID" );
+	query.bindValue(":scientistID", idScientist);
+	query.bindValue(":compID", idComputer);
 	if( query.exec() ){
 		return true;
 	}
@@ -110,7 +114,10 @@ bool Repository::removeRelation(int idScientist, int idComputer){
 		return false;
 	}
 }
-vector<Persons> Repository::searchScientist(string searchString){
+
+
+
+vector<Scientist> Repository::searchScientist(string searchString){
 	QSqlQuery query;
 	QString qSearch = QString::fromStdString( (searchString.c_str()) );
 	scientistsList.clear();
@@ -128,13 +135,13 @@ vector<Persons> Repository::searchScientist(string searchString){
 		int died = query.value("Died").toUInt();
 		string known = query.value("KnownFor").toString().toStdString();
 
-		Persons perFromList(id, fName, lName, gender, born, died, known);
-		scientistsList.push_back(perFromList);
+		Scientist scientFromList(id, fName, lName, gender, born, died, known);
+		scientistsList.push_back(scientFromList);
 	}
 	return scientistsList;
 }
 
-vector<Persons> Repository::searchScientist(string searchString1, string searchString2){
+vector<Scientist> Repository::searchScientist(string searchString1, string searchString2){
 	QSqlQuery query;
 	QString qSearch1 = QString::fromStdString( (searchString1.c_str()) );
 	QString qSearch2 = QString::fromStdString( (searchString2.c_str()) );
@@ -154,34 +161,36 @@ vector<Persons> Repository::searchScientist(string searchString1, string searchS
 		int died = query.value("Died").toUInt();
 		string known = query.value("KnownFor").toString().toStdString();
 
-		Persons perFromList(id, fName, lName, gender, born, died, known);
-		scientistsList.push_back(perFromList);
+		Scientist scientFromList(id, fName, lName, gender, born, died, known);
+		scientistsList.push_back(scientFromList);
 	}
 	return scientistsList;
 }
 
-vector<Computers> Repository::searchComputer(string searchString){
+vector<Computer> Repository::searchComputer(string searchString){
 	QSqlQuery query;
 	QString qSearch = QString::fromStdString( (searchString.c_str()) );
 	computerList.clear();
 
-	query.prepare("SELECT * FROM Computers WHERE Name LIKE :search OR Type LIKE :search OR Built_or_not LIKE :search OR Year_built LIKE :search");
+	query.prepare("SELECT * FROM Computers WHERE Name LIKE :search OR Type LIKE :search OR BuiltOrNot LIKE :search OR YearBuilt LIKE :search");
 	query.bindValue(":search", qSearch);
 	query.exec();
 	while(query.next()){
 		int id= query.value("id").toUInt();
 		string name = query.value("Name").toString().toStdString();
 		string type = query.value("Type").toString().toStdString();
-		bool builtOrNot  = query.value("Built_or_not").toUInt();
-		int builtY = query.value("Year_built").toUInt();
+		bool builtOrNot  = query.value("BuiltOrNot").toUInt();
+		int builtY = query.value("YearBuilt").toUInt();
 
-		Computers newComp(id, name, type, builtOrNot, builtY);
+		Computer newComp(id, name, type, builtOrNot, builtY);
 		computerList.push_back(newComp);
 	}
 	return computerList;
 }
 
-vector<Persons> Repository::getScientistList(int byColumn, bool aceDesc){
+
+
+vector<Scientist> Repository::getScientistList(int byColumn, bool aceDesc){
 
 	QSqlQuery query;
 	scientistsList.clear();
@@ -234,12 +243,13 @@ vector<Persons> Repository::getScientistList(int byColumn, bool aceDesc){
 		int died = query.value("Died").toUInt();
 		string known = query.value("KnownFor").toString().toStdString();
 
-		Persons perFromList(id, fName, lName, gender, born, died, known);
-		scientistsList.push_back(perFromList);
+		Scientist scientFromList(id, fName, lName, gender, born, died, known);
+		scientistsList.push_back(scientFromList);
 	}
 	return scientistsList;
 }
-vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
+
+vector<Computer> Repository::getComputerList(int byColumn, bool aceDesc){
 
 	QSqlQuery query;
 	computerList.clear();
@@ -259,15 +269,15 @@ vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
 			break;
 		case 3:
 			if(aceDesc)
-				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Built_or_not DESC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY BuiltOrNot DESC");
 			else
-				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Built_or_not ASC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY BuiltOrNot ASC");
 			break;
 		case 4:
 			if(aceDesc)
-				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Year_built DESC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY YearBuilt DESC");
 			else
-				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Year_built ASC");
+				query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY YearBuilt ASC");
 			break;
 		default:
 			if(aceDesc)
@@ -281,17 +291,18 @@ vector<Computers> Repository::getComputerList(int byColumn, bool aceDesc){
 		int id= query.value("id").toUInt();
 		string name = query.value("Name").toString().toStdString();
 		string type = query.value("Type").toString().toStdString();
-		bool builtOrNot  = query.value("Built_or_not").toUInt();
-		int builtY = query.value("Year_built").toUInt();
+		bool builtOrNot  = query.value("BuiltOrNot").toUInt();
+		int builtY = query.value("YearBuilt").toUInt();
 
-		Computers newComp(id, name, type, builtOrNot, builtY);
+		Computer newComp(id, name, type, builtOrNot, builtY);
 		computerList.push_back(newComp);
   }
 	return computerList;
 }
 
 
-vector<Persons> Repository::getAssociatedP(Computers findForComputer){
+
+vector<Scientist> Repository::getAssociatedP(Computer findForComputer){
 	QSqlQuery query;
 	scientistsList.clear();
 
@@ -299,12 +310,12 @@ vector<Persons> Repository::getAssociatedP(Computers findForComputer){
 	vector<int> idOfAssociatedScientists;
 
 
-	query.prepare("SELECT * FROM Associate WHERE Deleted=0 AND comp_id=:comp_id");
-	query.bindValue(":comp_id", idComputer);
+	query.prepare("SELECT * FROM Associate WHERE Deleted=0 AND compID=:compID");
+	query.bindValue(":compID", idComputer);
 	query.exec();
 
 	while(query.next()){
-		idOfAssociatedScientists.push_back( query.value("scientist_id").toUInt() );
+		idOfAssociatedScientists.push_back( query.value("scientistID").toUInt() );
 	}
 
 	//Gets computers with appropriate ID's from database
@@ -324,24 +335,24 @@ vector<Persons> Repository::getAssociatedP(Computers findForComputer){
 		int died = query.value("Died").toUInt();
 		string known = query.value("KnownFor").toString().toStdString();
 
-		Persons perFromList(id, fName, lName, gender, born, died, known);
-		scientistsList.push_back(perFromList);
+		Scientist scientFromList(id, fName, lName, gender, born, died, known);
+		scientistsList.push_back(scientFromList);
 	}
 	return scientistsList;
 }
 
-vector<Computers> Repository::getAssociatedC(Persons findForPerson){
+vector<Computer> Repository::getAssociatedC(Scientist findForScientist){
 	computerList.clear();
 	QSqlQuery query;
-	int idPerson= findForPerson.getId();
+	int idScientist= findForScientist.getId();
 	vector<int> idOfAssociatedComputers;
 
-	query.prepare("SELECT * FROM Associate WHERE Deleted=0 AND scientist_id=:scientist_id");
-	query.bindValue(":scientist_id", idPerson);
+	query.prepare("SELECT * FROM Associate WHERE Deleted=0 AND scientistID=:scientistID");
+	query.bindValue(":scientistID", idScientist);
 	query.exec();
 
 	while(query.next()){
-		idOfAssociatedComputers.push_back( query.value("comp_id").toUInt() );
+		idOfAssociatedComputers.push_back( query.value("compID").toUInt() );
 	}
 
 	//Gets computers with appropriate ID's from database
@@ -356,9 +367,9 @@ vector<Computers> Repository::getAssociatedC(Persons findForPerson){
 		int id= query.value("id").toUInt();
 		string name = query.value("Name").toString().toStdString() ;
 		string type = query.value("Type").toString().toStdString();
-		bool builtOrNot  = query.value("Built_or_not").toUInt();
-		int builtY = query.value("Year_built").toUInt();
-		Computers newComp(id, name, type, builtOrNot, builtY);
+		bool builtOrNot  = query.value("BuiltOrNot").toUInt();
+		int builtY = query.value("YearBuilt").toUInt();
+		Computer newComp(id, name, type, builtOrNot, builtY);
 		computerList.push_back(newComp);
 
 	}

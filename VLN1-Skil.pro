@@ -9,17 +9,17 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     ui/interface.cpp \
-    models/persons.cpp \
-    models/computers.cpp \
+    models/scientist.cpp \
+    models/computer.cpp \
     services/service.cpp \
     repo/repository.cpp \
-    util/inputcheck.cpp
+    utilities/inputcheck.cpp
 
 HEADERS +=  \
     ui/interface.h \
-    models/persons.h \
-    models/computers.h \
+    models/scientist.h \
+    models/computer.h \
     services/service.h \
     repo/repository.h \
-    util/inputcheck.h \
-    util/initdatabaseconnect.h
+    repo/initdatabase.h \
+    utilities/inputcheck.h
