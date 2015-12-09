@@ -26,6 +26,9 @@ class Service
 		vector<Persons> searchScient(string searchString);
 		vector<Computers> searchComp(string searchString);
 
+		/*@brief Get list(vector) of person that have relation to param
+		* @parameter finding relation to this object
+		* @return returns list of associated computers/scienteist */
 		vector<Persons> getAssociatedPers(Computers compDetails);
 		vector<Computers> getAssociatedComp(Persons persDetails);
 

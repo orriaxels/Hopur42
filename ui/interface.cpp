@@ -222,14 +222,45 @@ void InterFace::printAddCompMenu(){
 }
 
 void InterFace::printAddRelations(){
-  vector<Persons> objectsP;
-  vector<Computers> objectsC;
-  objectsP = serviceVar.getSortedPersonsList(1, 0);
-  objectsC = serviceVar.getSortedComputersList(1, 0);
-  printPerson(objectsP);
-  printComputers(objectsC);
+  vector<Persons> allScientist=serviceVar.getSortedPersonsList(1, 0);;
+  vector<Computers> allComputers= serviceVar.getSortedComputersList(1, 0);
+  string choice;
+  int sizeVector=allScientist.size(), indexScie=0, indexComp=0;
 
+  printPerson(allScientist);
+  cout  <<endl<< "Select Scientist to add relation to(0 to main menu)" << endl
+        << "Enter choice: ";
+  do{
+      cin >> choice;
+  }while(! inputCheckVar.isInputGood(0,sizeVector+1, choice));
+  indexScie=( atoi(choice.c_str() ) ) -1;
 
+  if (choice == "0" ){
+      cout << endl << endl;
+      runInterFace();
+  }
+
+  sizeVector=allComputers.size();
+  printComputers(allComputers);
+  cout  <<endl<< "Select computer to add relation to "<< (allScientist.at(indexScie)).getF()<<" (0 to main menu)" << endl
+        << "Enter choice: ";
+  do{
+      cin >> choice;
+  }while(! inputCheckVar.isInputGood(0,sizeVector+1, choice));
+  indexComp=atoi(choice.c_str() ) -1;
+
+  if (choice == "0" ){
+      cout << endl << endl;
+      runInterFace();
+  }
+  if( serviceVar.createRelation( allComputers.at(indexComp) , allScientist.at(indexScie) ) ){
+    cout<<endl<<"Relation between "<< (allScientist.at(indexScie)).getF()<< " and "
+        << (allComputers.at(indexComp)).getName() << " sucsessfully created."<<endl<<endl;
+  }
+  else
+    cout<<endl<<"Unable to create relation"<<endl;
+
+  runInterFace();
 }
 
 void InterFace::printDisplayMenu(){
