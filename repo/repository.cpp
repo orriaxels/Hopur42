@@ -62,7 +62,7 @@ bool Repository::addToDatabase(Computers newComp){
 }
 bool Repository::addRelation(int idPkComputer, int idPkScientists){
 	QSqlQuery query;
-	
+
 	query.prepare("INSERT INTO Associate (scientist_id, comp_id) VALUES (:scientist_id, :comp_id)" );
 	query.bindValue(":scientist_id", idPkScientists);
 	query.bindValue(":comp_id", idPkComputer);
@@ -74,10 +74,10 @@ bool Repository::addRelation(int idPkComputer, int idPkScientists){
 	}
 }
 
-bool Repository::removePerson(int enteryToRemoveId){
+bool Repository::removePerson(int idToRemove){
 	QSqlQuery query;
 	query.prepare("UPDATE Scientists SET Deleted=1 WHERE id=:id");
-	query.bindValue(":id", enteryToRemoveId);
+	query.bindValue(":id", idToRemove);
 
 	if( query.exec() ){
 		return true;
@@ -86,10 +86,10 @@ bool Repository::removePerson(int enteryToRemoveId){
 		return false;
 	}
 }
-bool Repository::removeComputer(int enteryToRemoveId){
+bool Repository::removeComputer(int idToRemove){
 	QSqlQuery query;
 	query.prepare("UPDATE Computers SET Deleted = 1 WHERE id = :id" );
-	query.bindValue(":id", enteryToRemoveId);
+	query.bindValue(":id", idToRemove);
 
 	if( query.exec() ){
 		return true;
@@ -98,7 +98,18 @@ bool Repository::removeComputer(int enteryToRemoveId){
 		return false;
 	}
 }
-
+bool Repository::removeRelation(int idScientist, int idComputer){
+	QSqlQuery query;
+	query.prepare("UPDATE Associate SET Deleted = 1 WHERE scientist_id=:scientist_id AND comp_id=:comp_id" );
+	query.bindValue(":scientist_id", idScientist);
+	query.bindValue(":comp_id", idComputer);
+	if( query.exec() ){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
 vector<Persons> Repository::searchScientist(string searchString){
 	QSqlQuery query;
 	QString qSearch = QString::fromStdString( (searchString.c_str()) );
@@ -288,7 +299,7 @@ vector<Persons> Repository::getAssociatedP(Computers findForComputer){
 	vector<int> idOfAssociatedScientists;
 
 
-	query.prepare("SELECT * FROM Associate WHERE comp_id=:comp_id");
+	query.prepare("SELECT * FROM Associate WHERE Deleted=0 AND comp_id=:comp_id");
 	query.bindValue(":comp_id", idComputer);
 	query.exec();
 
@@ -325,7 +336,7 @@ vector<Computers> Repository::getAssociatedC(Persons findForPerson){
 	int idPerson= findForPerson.getId();
 	vector<int> idOfAssociatedComputers;
 
-	query.prepare("SELECT * FROM Associate WHERE scientist_id=:scientist_id");
+	query.prepare("SELECT * FROM Associate WHERE Deleted=0 AND scientist_id=:scientist_id");
 	query.bindValue(":scientist_id", idPerson);
 	query.exec();
 

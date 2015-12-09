@@ -19,10 +19,11 @@ public:
   bool addRelation(int idPkComputer, int idPkScientists);
 
   /*@brief Sets deleted flag in database as 1. Does not remove completly from DB
-  * @param enteryToRemoveId of scientist/comp to flag as deleted
+  * @param idToRemove of scientist/comp to flag as deleted
   * @return returns true if database was sucsessfully updated, true if not */
-  bool removePerson(int enteryToRemoveId);
-  bool removeComputer(int enteryToRemoveId);
+  bool removePerson(int idToRemove);
+  bool removeComputer(int idToRemove);
+  bool removeRelation(int idScientist, int idComputer);
 
   /*@brief searches database for matching string column by column
   * @param searchString string to search for in database

@@ -44,6 +44,8 @@ class Service
 		* @return True if sucsessfully "removed" and false if writing to database failed */
 		bool removePersEntery(int numberList, const vector<Persons> listToRemoveFrom);
 		bool removeCompEntery(int numberList, const vector<Computers> listToRemoveFrom);
+
+		bool removeRelation(int idScientist, int idComputer);
   private:
 			Repository repository;
 

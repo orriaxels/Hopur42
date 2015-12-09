@@ -435,19 +435,25 @@ void InterFace::printRemoveMenu(){
     cout << "In what database would you like to remove data" << endl;
     cout << "1: Scientists" << endl;
     cout << "2: Computers" << endl;
+    cout << "3: Relations" << endl;
     cout << "0: Cancel" << endl;
     cout << "Enter choice: ";
     do{
         cin >> choice;
-    }while(! inputCheckVar.isInputGood(0,2, choice) );
+    }while(! inputCheckVar.isInputGood(0,3, choice) );
 
     if(choice == "1"){
         printRemovePersMenu();
-    }else if(choice == "0"){
-        runInterFace();
-    }else{
+    }
+    else if(choice == "2"){
         printRemoveCompMenu();
     }
+    else if(choice == "3"){
+        printRemoveRelation();
+    }
+    else
+        runInterFace();
+
 }
 
 void InterFace::printRemovePersMenu(){
@@ -530,6 +536,50 @@ void InterFace::printRemoveCompMenu(){
 
 }
 
+void InterFace::printRemoveRelation(){
+  vector<Persons> scientSorted= serviceVar.getSortedPersonsList(1,0);
+  vector<Computers> compSorted= serviceVar.getSortedComputersList(1,0);
+  vector<Computers> bufferComp;
+  string choice;
+  int indexTable=1, indexChoosen;
+  vector<int> idContainer;
+  cout<<endl<<"Here is a list of current relation in database:"<<endl;
+  for(unsigned int i=0; i< scientSorted.size(); i++){
+    bufferComp= serviceVar.getAssociatedComp(scientSorted.at(i));
+    if(bufferComp.size() >0 )
+      for(unsigned int j=0; j<bufferComp.size(); j++){
+        idContainer.push_back( (scientSorted.at(i)).getId() );
+        idContainer.push_back( (bufferComp.at(j)).getId() );
+
+        string bufferName=(scientSorted.at(i)).getF() + " " + (scientSorted.at(i)).getL(); //setw needs one variable to behave
+        cout<< setw(3)<<left<< indexTable++ <<bufferName;
+
+        cout<<"-=-"<<(bufferComp.at(j)).getName()<<endl;
+      }
+  }
+  cout<<endl<<"Which one of these relation do you want to remove(0 to Main menu): ";
+  do{
+      cin >> choice;
+  }while(! inputCheckVar.isInputGood(0,indexTable, choice) );
+  indexChoosen=atoi(choice.c_str() );
+
+  if(choice=="0"){
+    runInterFace();
+  }
+  else{
+    indexChoosen=(indexChoosen-1)*2;
+    cout<<endl<<"===ID SCIE"<< idContainer.at(indexChoosen)
+        <<endl<<"===ID COMP"<< idContainer.at(indexChoosen+1);
+
+    if( serviceVar.removeRelation( idContainer.at(indexChoosen), idContainer.at(indexChoosen+1) ) )
+      cout<<endl<<"Relation sucsessfully removed."<<endl;
+    else
+      cout<<endl<<"Unable to remove relation"<<endl;
+  }
+
+  runInterFace();
+}
+
 void InterFace::invalidInput(){
   cout << "This input is not valid. Please try again: ";
 }
@@ -601,7 +651,6 @@ void InterFace::printComputers(vector<Computers> compList){
   cout<<endl<<"Nothing to display"<<endl;
   }
 }
-
 
 void InterFace::displayDetails(Computers compDetails){
   vector<Persons> assScientists= serviceVar.getAssociatedPers(compDetails);

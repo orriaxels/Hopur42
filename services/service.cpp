@@ -140,3 +140,10 @@ bool Service::removeCompEntery(int numberList, const vector<Computers> listToRem
   else
     return false;
 }
+
+bool Service::removeRelation(int idScientist, int idComputer){
+  if( repository.removeRelation(idScientist, idComputer))
+    return true;
+  else
+    return false;
+}

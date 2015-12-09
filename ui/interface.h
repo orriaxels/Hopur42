@@ -43,6 +43,7 @@ class InterFace
 		void printRemoveMenu();
 		void printRemovePersMenu();
 		void printRemoveCompMenu();
+		void printRemoveRelation();
 
 		void displayDetails(Computers compDetails);
 		void displayDetails(Persons persDetails);
