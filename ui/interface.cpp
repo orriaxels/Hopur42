@@ -185,7 +185,7 @@ void InterFace::addCompMenu(){
         }
     }while((ifMade.empty() || ifMade.length() > 1) || (ifMade != "y" && ifMade != "Y" && ifMade != "n" && ifMade !="N"));
 
-    if(wasItMade){
+    if(!wasItMade){
         cout << "When was the computer built: ";
         do{
             cin >> yearBuilt;
@@ -599,8 +599,6 @@ void InterFace::removeRelation(){
   }
   else{
     indexChoosen=(indexChoosen-1)*2;
-    cout<<endl<<"===ID SCIE"<< idContainer.at(indexChoosen)
-        <<endl<<"===ID COMP"<< idContainer.at(indexChoosen+1);
 
     if( serviceVar.removeRelation( idContainer.at(indexChoosen), idContainer.at(indexChoosen+1) ) )
       cout<<endl<<"Relation sucsessfully removed."<<endl;
