@@ -25,16 +25,37 @@ void AddDialog::on_bornAddSpinBox_editingFinished()
     ui->diedAddSpinBox->setMinimum(ui->bornAddSpinBox->value()+10);
     ui->diedAddSpinBox->setMaximum(QDate::currentDate().year());
     ui->bornAddSpinBox->setReadOnly(false);
+    int bornValue = ui->bornAddSpinBox->value();
+
+    if(bornValue < 1900){
+        ui->AliveAddcheckBox->setEnabled(false);
+    }
+    else{
+        ui->AliveAddcheckBox->setEnabled(true);
+    }
 }
 
 
 
 void AddDialog::on_AliveAddcheckBox_clicked(bool checked)
 {
-    if(checked){
-        ui->diedAddSpinBox->setEnabled(false);
-    }
-    else{
+    if(checked && ui->bornAddSpinBox->value() < 1900){
+        ui->AliveAddcheckBox->setEnabled(false);
         ui->diedAddSpinBox->setEnabled(true);
+    }
+    else if(checked){
+        ui->diedAddSpinBox->setEnabled(false);
+
+    }else{
+        ui->diedAddSpinBox->setEnabled(true);
+    }
+}
+
+void AddDialog::on_bornAddSpinBox_valueChanged(int arg1)
+{
+    if(arg1 < 1900){
+        ui->AliveAddcheckBox->setEnabled(false);
+    }else{
+        ui->AliveAddcheckBox->setEnabled(true);
     }
 }

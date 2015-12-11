@@ -22,6 +22,8 @@ private slots:
 
     void on_AliveAddcheckBox_clicked(bool checked);
 
+    void on_bornAddSpinBox_valueChanged(int arg1);
+
 private:
     Ui::AddDialog *ui;
 };

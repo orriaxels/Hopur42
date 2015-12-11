@@ -92,7 +92,7 @@
   <widget class="QCheckBox" name="AliveAddcheckBox">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>170</x>
      <y>100</y>
      <width>55</width>
      <height>20</height>
@@ -121,7 +121,7 @@
   <widget class="QSpinBox" name="diedAddSpinBox">
    <property name="geometry">
     <rect>
-     <x>170</x>
+     <x>230</x>
      <y>100</y>
      <width>70</width>
      <height>24</height>
@@ -140,7 +140,7 @@
   <widget class="QSpinBox" name="bornAddSpinBox">
    <property name="geometry">
     <rect>
-     <x>170</x>
+     <x>230</x>
      <y>71</y>
      <width>70</width>
      <height>24</height>
@@ -191,7 +191,7 @@
   <widget class="QComboBox" name="gendrComboBox">
    <property name="geometry">
     <rect>
-     <x>170</x>
+     <x>230</x>
      <y>40</y>
      <width>70</width>
      <height>26</height>
