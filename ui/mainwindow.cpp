@@ -1,12 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "services/service.h"
+#include "models/computer.h"
+#include "models/scientist.h"
 #include "adddialog.h"
-#include <QtSql>
+
 #include <QString>
-#include <QSqlTableModel>
+#include <QStringList>
 #include <QMessageBox>
-#include <QDesktopServices>
-#include <QUrl>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->scientistRadioButton->setChecked(true);
+
 
 }
 
@@ -25,54 +27,110 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_scientistRadioButton_toggled(bool checked)
 {
-    model = new QSqlTableModel();
+    vector<Scientist> allScientists=services.getSortedScientistList(1,0);
+    intilizeScientistTable(allScientists.size());
+    displayScientistList(allScientists);
 
-    ui->mainTable->setModel(model);
+}
 
-    model->setTable("Scientists");
 
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("First name"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Last Name"));
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Gender"));
-    model->setHeaderData(4, Qt::Horizontal, QObject::tr("Born"));
-    model->setHeaderData(5, Qt::Horizontal, QObject::tr("Died"));
-    model->setHeaderData(6, Qt::Horizontal, QObject::tr("Known for"));
-    model->select();
+void MainWindow::intilizeScientistTable(int numberOfRows){
 
-    ui->mainTable->hideColumn(0);
-    ui->mainTable->hideColumn(7);
-    ui->mainTable->horizontalHeader()->setSectionResizeMode(6, QHeaderView::Stretch);
-    ui->mainTable->setColumnWidth(1,120);
-    ui->mainTable->setColumnWidth(3,50);
-    ui->mainTable->setColumnWidth(4,60);
-    ui->mainTable->setColumnWidth(5,60);
-    ui->mainTable->verticalHeader ()->hide();
+    ui->mainTable->verticalHeader()->setVisible(false);
+    ui->mainTable->setRowCount( numberOfRows );
+
+    ui->mainTable->setColumnCount(6);
+    ui->mainTable->setColumnWidth(0,200);
+    ui->mainTable->setColumnWidth(1,200);
+    ui->mainTable->setColumnWidth(2,80);
+    ui->mainTable->setColumnWidth(3,80);
+    ui->mainTable->setColumnWidth(4,80);
+    ui->mainTable->setColumnWidth(5,80);
+
+    QStringList columns;
+    columns<<"First name"<< "Last name"<< "Gender"<< "Born"<<"Died"<< "Known for";
+    ui->mainTable->setHorizontalHeaderLabels(columns);
+
+    ui->mainTable->sortByColumn(0,Qt::AscendingOrder);
+    ui->mainTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->mainTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->mainTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->mainTable->setShowGrid(false);
+}
+
+void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
+
+    ui->mainTable->clearContents();
+
+    for (unsigned int i = 0; i < listToDisplay.size(); i++)
+    {
+
+        QString fName = QString::fromStdString( ((listToDisplay.at(i)).getF()) ); //bindvalue needs QString
+        QString lName = QString::fromStdString( ((listToDisplay.at(i)).getL()) ); //bindvalue needs QString
+        QString gender = QString::number( (listToDisplay.at(i)).getGender());
+        QString born = QString::number((listToDisplay.at(i)).getYearBorn());
+        QString died = QString::number((listToDisplay.at(i)).getYearDied());
+        QString known = QString::fromStdString( ((listToDisplay.at(i)).getKnownFor()) );
+
+
+        ui->mainTable->setItem(i, 0, new QTableWidgetItem(fName));
+        ui->mainTable->setItem(i, 1, new QTableWidgetItem(lName));
+        ui->mainTable->setItem(i, 2, new QTableWidgetItem(gender));
+        ui->mainTable->setItem(i, 3, new QTableWidgetItem(born));
+        ui->mainTable->setItem(i, 4, new QTableWidgetItem(died));
+        ui->mainTable->setItem(i, 5, new QTableWidgetItem(known));
+    }
+
 
 }
 
 void MainWindow::on_computerRadioButton_toggled(bool checked)
 {
-    model = new QSqlTableModel();
-    ui->mainTable->setModel(model);
-    model->setTable("Computers");
+    vector<Computer> allComputers=services.getSortedComputerList(1,0);
+    intilizeComputerTable(allComputers.size());
+    displayComputerList(allComputers);
+}
 
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Name"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Year built"));
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Type"));
-    model->setHeaderData(4, Qt::Horizontal, QObject::tr("Was it built?"));
-    model->select();
+void MainWindow::displayComputerList(std::vector<Computer> listToDisplay){
+    ui->mainTable->clearContents();
 
-    ui->mainTable->hideColumn(0);
-    ui->mainTable->hideColumn(5);
-    ui->mainTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
-    ui->mainTable->setColumnWidth(2,80);
-    ui->mainTable->setColumnWidth(3,200);
-    ui->mainTable->verticalHeader ()->hide();
+    for (unsigned int i = 0; i < listToDisplay.size(); i++)
+    {
+        QString name = QString::fromStdString( ((listToDisplay.at(i)).getName()) ); //bindvalue needs QString
+        QString type = QString::fromStdString( ((listToDisplay.at(i)).getType() ) ); //bindvalue needs QString
+        QString built = QString::number ( (listToDisplay.at(i)).getBuild() );
+        QString builtYear = QString::number((listToDisplay.at(i)).getBuildYear());
 
-
+        ui->mainTable->setItem(i, 0, new QTableWidgetItem(name));
+        ui->mainTable->setItem(i, 1, new QTableWidgetItem(type));
+        ui->mainTable->setItem(i, 2, new QTableWidgetItem(built));
+        ui->mainTable->setItem(i, 3, new QTableWidgetItem(builtYear));
+    }
 
 }
 
+void MainWindow::intilizeComputerTable(int numberOfRows){
+
+    ui->mainTable->verticalHeader()->setVisible(false);
+    ui->mainTable->setRowCount( numberOfRows );
+
+    ui->mainTable->setColumnCount(4);
+    ui->mainTable->setColumnWidth(0,200);
+    ui->mainTable->setColumnWidth(1,200);
+    ui->mainTable->setColumnWidth(2,200);
+
+    QStringList columns;
+    columns<<"Name"<< "Type"<< "Built"<< "Built year";
+    ui->mainTable->setHorizontalHeaderLabels(columns);
+
+    ui->mainTable->sortByColumn(0,Qt::AscendingOrder);
+    ui->mainTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->mainTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->mainTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->mainTable->setShowGrid(false);
+
+
+}
 void MainWindow::on_relationRadioButton_toggled(bool checked)
 {
 

@@ -3,11 +3,8 @@
 #include <vector>
 #include <string>
 
-#include "models/scientist.h"
-#include "models/computer.h"
-#include "repo/repository.h"
-
-
+#include "repositories/computerrepository.h"
+#include "repositories/scientistrepository.h"
 
 class Service
 {
@@ -55,7 +52,8 @@ class Service
 		* @return True if sucsessfully added and false if writing to database failed */
 		bool removeRelation(int idScientist, int idComputer);
   private:
-			Repository repository;
+            Computerrepository computerRepository;
+            Scientistrepository scientistRepository;
 
 };
 

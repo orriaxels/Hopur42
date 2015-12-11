@@ -1,5 +1,5 @@
 #include "ui/mainwindow.h"
-#include "repo/initdatabase.h"
+#include "repositories//initdatabase.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

@@ -1,9 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include "models/computer.h"
+#include "models/scientist.h"
 #include "services/service.h"
 #include <QMainWindow>
-#include <QSqlTableModel>
+
+
 
 namespace Ui {
 class MainWindow;
@@ -33,7 +35,12 @@ private slots:
 private:
     Service services;
     Ui::MainWindow *ui;
-    QSqlTableModel *model;
+
+    void displayScientistList(std::vector<Scientist> listToDisplay);
+    void displayComputerList(std::vector<Computer> listToDisplay);
+
+    void intilizeScientistTable(int numberOfRows);
+    void intilizeComputerTable(int numberOfRows);
 };
 
 #endif // MAINWINDOW_H

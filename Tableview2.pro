@@ -13,23 +13,27 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    models/computer.cpp \
-    models/scientist.cpp \
-    repo/repository.cpp \
-    services/service.cpp \
     ui/adddialog.cpp \
-    ui/mainwindow.cpp
+    ui/mainwindow.cpp \
+    services/service.cpp \
+    repositories/scientistrepository.cpp \
+    repositories/computerrepository.cpp \
+    models/computer.cpp \
+    models/scientist.cpp
 
 FORMS    += ui/mainwindow.ui \
     ui/adddialog.ui
 
 HEADERS  += ui/adddialog.h \
-    models/computer.h \
-    models/scientist.h \
     repo/initdatabase.h \
-    repo/repository.h \
     ui/mainwindow.h \
-    services/service.h
+    repositories/initdatabase.h \
+    services/service.h \
+    repositories/computerrepository.h \
+    repositories/scientistrepository.h \
+    models/computer.h \
+    models/scientist.h
+
 
 
 

@@ -2,11 +2,11 @@
 #include <string>
 #include <sstream>
 
-#include "services/service.h"
-#include "models/scientist.h"
+#include "service.h"
+#include "repositories/computerrepository.h"
+#include "repositories/scientistrepository.h"
 #include "models/computer.h"
-#include "repo/repository.h"
-
+#include "models/scientist.h"
 
 Service::Service(){}//default constructor
 
@@ -15,57 +15,57 @@ vector<Scientist> Service::searchScient(string searchString){
   //To seperate string for diffrent querys
   string buffer="";
   vector<string> substringContainer;
-	stringstream searchStream;
-	searchStream.str(searchString);
-	while (searchStream >> buffer){
+    stringstream searchStream;
+    searchStream.str(searchString);
+    while (searchStream >> buffer){
       //To fit into like query prend/append % on both sides of searchstring
       buffer.insert (0, 1, '%');
       buffer+='%';
 
-			substringContainer.push_back(buffer);
-	}
+            substringContainer.push_back(buffer);
+    }
 
   if(substringContainer.size() == 1){
-    vector<Scientist> foundIn=repository.searchScientist( substringContainer.at(0) );
+    vector<Scientist> foundIn=scientistRepository.searchScientist( substringContainer.at(0) );
     return foundIn;
   }
   else{
-    vector<Scientist> foundIn=repository.searchScientist(substringContainer.at(0), substringContainer.at(1));
+    vector<Scientist> foundIn=scientistRepository.searchScientist(substringContainer.at(0), substringContainer.at(1));
     return foundIn;
   }
 
 }
 
-vector<Computer>Service::searchComp(string searchString){
-  //To fit into query prend/append % on both sides of searchstring
-  searchString.insert (0, 1, '%');
-  searchString+='%';
+//vector<Computer>Service::searchComp(string searchString){
+//  //To fit into query prend/append % on both sides of searchstring
+//  searchString.insert (0, 1, '%');
+//  searchString+='%';
 
-  vector<Computer> foundIn=repository.searchComputer(searchString);
-  return foundIn;
-}
+//  vector<Computer> foundIn=computertRepository.searchComputer(searchString);
+//  return foundIn;
+//}
 
 
 vector<Scientist> Service::getSortedScientistList(int sortBy, bool orderOfSort){
-    vector<Scientist> ScientistList=repository.getScientistList(sortBy, orderOfSort);
+    vector<Scientist> ScientistList=scientistRepository.getScientistList(sortBy, orderOfSort);
     return ScientistList;
 }
 
 vector<Computer> Service::getSortedComputerList(int sortBy, bool orderOfSort){
-    vector<Computer> compList=repository.getComputerList(sortBy, orderOfSort);
+    vector<Computer> compList=computerRepository.getComputerList(sortBy, orderOfSort);
     return compList;
 }
 
 
-vector<Scientist> Service::getAssociatedScient(Computer compDetails){
-  vector<Scientist> assScientists=repository.getAssociatedP(compDetails);
-  return assScientists;
-}
+//vector<Scientist> Service::getAssociatedScient(Computer compDetails){
+//  vector<Scientist> assScientists=scientistRepository.getAssociatedP(compDetails);
+//  return assScientists;
+//}
 
-vector<Computer> Service::getAssociatedComp(Scientist scienDetails){
-  vector<Computer> assComputer=repository.getAssociatedC(scienDetails);
-  return assComputer;
-}
+//vector<Computer> Service::getAssociatedComp(Scientist scienDetails){
+//  vector<Computer> assComputer=computerRepository.getAssociatedC(scienDetails);
+//  return assComputer;
+//}
 
 
 bool Service::createScientist(string name, string gender, int yborn, int ydied, string knownFor){
@@ -99,7 +99,7 @@ bool Service::createScientist(string name, string gender, int yborn, int ydied, 
 
     Scientist newScientist(bufferFirst, bufferLast, bufferGender, yborn, ydied, knownFor);
 
-    if( repository.addToDatabase(newScientist) )
+    if( scientistRepository.addToDatabase(newScientist) )
       return true;
     else
       return false;
@@ -108,16 +108,7 @@ bool Service::createScientist(string name, string gender, int yborn, int ydied, 
 
 bool Service::createComputer(string compName, string compType, bool built, int yBuilt){
   Computer newComputer(compName, compType, built, yBuilt);
-  if( repository.addToDatabase(newComputer) )
-    return true;
-  else
-    return false;
-}
-
-bool Service::createRelation(Computer relationComp, Scientist relationScientist){
-  int idComputer=relationComp.getId(),
-      idScientist=relationScientist.getId();
-  if( repository.addRelation(idComputer, idScientist) )
+  if( computerRepository.addToDatabase(newComputer) )
     return true;
   else
     return false;
@@ -127,7 +118,7 @@ bool Service::createRelation(Computer relationComp, Scientist relationScientist)
 
 bool Service::removeScientEntery(int numberList, const vector<Scientist> listToRemoveFrom){
   int idOfScientist = ( listToRemoveFrom.at(numberList) ).getId();
-  if( repository.removeScientist(idOfScientist) )
+  if( scientistRepository.removeScientist(idOfScientist) )
     return true;
   else
     return false;
@@ -135,15 +126,9 @@ bool Service::removeScientEntery(int numberList, const vector<Scientist> listToR
 
 bool Service::removeCompEntery(int numberList, const vector<Computer> listToRemoveFrom){
   int idOfComp = ( listToRemoveFrom.at(numberList) ).getId();
-  if( repository.removeComputer(idOfComp) )
+  if( computerRepository.removeComputer(idOfComp) )
     return true;
   else
     return false;
 }
 
-bool Service::removeRelation(int idScientist, int idComputer){
-  if( repository.removeRelation(idScientist, idComputer))
-    return true;
-  else
-    return false;
-}
