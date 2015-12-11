@@ -97,3 +97,24 @@ void MainWindow::on_addScientist_triggered()
     add.setModal(true);
     add.exec();
 }
+
+void MainWindow::on_buttonRemove_pressed()
+{
+    QMessageBox msgBox;
+
+    msgBox.setText("Information about the selected entry");
+    msgBox.setInformativeText("Do you want to remove your selection?");
+    msgBox.addButton(tr("Save"), QMessageBox::YesRole);
+    msgBox.addButton(tr("Cancel"), QMessageBox::NoRole);
+
+
+    msgBox.exec();
+}
+
+
+void MainWindow::on_buttonAdd_pressed()
+{
+    AddDialog add;
+    add.setModal(true);
+    add.exec();
+}

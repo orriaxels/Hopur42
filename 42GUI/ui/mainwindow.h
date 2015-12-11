@@ -30,6 +30,10 @@ private slots:
 
     void on_addScientist_triggered();
 
+    void on_buttonRemove_pressed();
+
+    void on_buttonAdd_pressed();
+
 private:
     Service services;
     Ui::MainWindow *ui;
