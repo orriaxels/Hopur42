@@ -93,7 +93,7 @@ void MainWindow::on_actionAbout_us_triggered()
 
 void MainWindow::on_addScientist_triggered()
 {
-    addDialog add;
+    AddDialog add;
     add.setModal(true);
     add.exec();
 }

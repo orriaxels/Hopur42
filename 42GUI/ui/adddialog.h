@@ -4,19 +4,26 @@
 #include <QDialog>
 
 namespace Ui {
-class addDialog;
+class AddDialog;
 }
 
-class addDialog : public QDialog
+class AddDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit addDialog(QWidget *parent = 0);
-    ~addDialog();
+    explicit AddDialog(QWidget *parent = 0);
+    ~AddDialog();
+
+private slots:
+    void on_bornAddSpinBox_editingFinished();
+
+
+
+    void on_AliveAddcheckBox_clicked(bool checked);
 
 private:
-    Ui::addDialog *ui;
+    Ui::AddDialog *ui;
 };
 
 #endif // ADDDIALOG_H
