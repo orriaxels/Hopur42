@@ -81,3 +81,5 @@ build*
 *.sublime-project
 *.sublime-workspace
 
+
+42GUI/repo/initdatabase.h
