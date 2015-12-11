@@ -3,7 +3,6 @@
 #include <sstream>
 
 #include "services/service.h"
-#include "ui/interface.h"
 #include "models/scientist.h"
 #include "models/computer.h"
 #include "repo/repository.h"

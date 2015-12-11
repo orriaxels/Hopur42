@@ -1,13 +1,15 @@
-#include "ui/interface.h"
+#include "ui/mainwindow.h"
 #include "repo/initdatabase.h"
+#include <QApplication>
 
-int main(){
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
 
-    if (!createStaticConnection())
-      return 1;
+    createStaticConnection();
 
-    InterFace ifDisp;
-    ifDisp.runInterFace(); //opens the main interface
+    MainWindow w;
+    w.show();
 
-    return 0;
+    return a.exec();
 }
