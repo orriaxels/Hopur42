@@ -43,7 +43,6 @@ private:
     Ui::AddDialog *ui;
     QString name;
     QString knownFor;
-
 };
 
 #endif // ADDDIALOG_H

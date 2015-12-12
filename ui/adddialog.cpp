@@ -6,11 +6,8 @@
 #include <string>
 #include <QPixmap>
 
-<<<<<<< HEAD
-=======
 using namespace std;
 
->>>>>>> origin/master
 AddDialog::AddDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddDialog)
