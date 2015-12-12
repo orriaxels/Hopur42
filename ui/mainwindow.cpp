@@ -32,7 +32,6 @@ void MainWindow::on_scientistRadioButton_toggled(bool checked)
 
 }
 
-
 void MainWindow::intilizeScientistTable(){
 
     ui->mainTable->verticalHeader()->setVisible(false);
@@ -61,6 +60,7 @@ void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
 
     ui->mainTable->clearContents();
     ui->mainTable->setRowCount(listToDisplay.size());
+    ui->mainTable->setSortingEnabled(false);
 
     for (unsigned int i = 0; i < listToDisplay.size(); i++) {
         QString fName = QString::fromStdString( ((listToDisplay.at(i)).getF()) );
@@ -77,6 +77,7 @@ void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
         ui->mainTable->setItem(i, 4, new QTableWidgetItem(died));
         ui->mainTable->setItem(i, 5, new QTableWidgetItem(known));
     }
+	ui->mainTable->setSortingEnabled(true);
 }
 
 void MainWindow::on_computerRadioButton_toggled(bool checked)
@@ -101,13 +102,11 @@ void MainWindow::intilizeComputerTable(){
     ui->mainTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->mainTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->mainTable->setSelectionMode(QAbstractItemView::SingleSelection);
-
-
-
 }
 
 void MainWindow::displayComputerList(std::vector<Computer> listToDisplay){
     ui->mainTable->clearContents();
+	ui->mainTable->setSortingEnabled(false);
     ui->mainTable->setRowCount( listToDisplay.size() );
 
     for (unsigned int i = 0; i < listToDisplay.size(); i++)
@@ -122,27 +121,69 @@ void MainWindow::displayComputerList(std::vector<Computer> listToDisplay){
         ui->mainTable->setItem(i, 2, new QTableWidgetItem(built));
         ui->mainTable->setItem(i, 3, new QTableWidgetItem(builtYear));
     }
-
+	ui->mainTable->setSortingEnabled(true);
 }
 
+void MainWindow::on_relationRadioButton_toggled(bool checked){
+	intilizeRelationTable();
+	displayRelationTable();
+	if(checked){
+        ui->lineEdit->clear();
+		ui->lineEdit->setEnabled(false);
+	}
+	else{
+		ui->lineEdit->setEnabled(true);
+	}
+}
 
+void MainWindow::intilizeRelationTable(){
 
-void MainWindow::on_relationRadioButton_toggled(bool checked)
-{
+    ui->mainTable->verticalHeader()->setVisible(false);
+    ui->mainTable->setColumnCount(2);
+    ui->mainTable->setColumnWidth(0,300);
 
+    QStringList columns;
+    columns<<"Scientists name"<< "Computer name";
+    ui->mainTable->setHorizontalHeaderLabels(columns);
+    ui->mainTable->sortByColumn(0,Qt::AscendingOrder);
+    ui->mainTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->mainTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->mainTable->setSelectionMode(QAbstractItemView::SingleSelection);
+}
+
+void MainWindow::displayRelationTable(){
+	  ui->mainTable->clearContents();
+	  ui->mainTable->setSortingEnabled(false);
+	  vector<Scientist> scientistsSorted= services.getSortedScientistList();
+	  vector<Computer> bufferComputerList;
+      int rowCount=0;
+      ui->mainTable->setRowCount( 14 );
+
+	  for(unsigned int i=0; i< scientistsSorted.size(); i++){
+	    bufferComputerList= services.getAssociatedComputers(scientistsSorted.at(i));
+	    if(bufferComputerList.size() >0 ){
+	      for(unsigned int j=0; j<bufferComputerList.size(); j++){
+
+			  QString nameScientist = QString::fromStdString( (scientistsSorted.at(i)).getF() );
+			  nameScientist+= " "+ QString::fromStdString( (scientistsSorted.at(i)).getL() );
+			  QString nameComputer = QString::fromStdString( (bufferComputerList.at(j)).getName() );
+
+	          ui->mainTable->setItem(rowCount, 0, new QTableWidgetItem(nameScientist));
+	          ui->mainTable->setItem(rowCount, 1, new QTableWidgetItem(nameComputer));
+              rowCount++;
+	      }
+		}
+	  }
+	  ui->mainTable->setSortingEnabled(true);
 }
 
 void MainWindow::on_lineEdit_textChanged(const QString &arg1){
 
     if( ui->scientistRadioButton->isChecked() ){
-        ui->mainTable->setSortingEnabled(false);
         displayScientistList( services.searchScientists( arg1 ) );
-        ui->mainTable->setSortingEnabled(true);
     }
     else if (ui->computerRadioButton->isChecked()){
-        ui->mainTable->setSortingEnabled(false);
         displayComputerList( services.searchComputers( arg1 ) );
-        ui->mainTable->setSortingEnabled(true);
     }
     else if (ui->relationRadioButton->isChecked()) {
 
@@ -168,9 +209,6 @@ void MainWindow::on_addScientist_triggered()
 void MainWindow::databaseFailedOpen(){
   QMessageBox::critical(this, tr("Database fail!"), tr("The program was not able to open the database. <p> Check if database exists or path of database.</p>"));
 }
-
-
-
 
 void MainWindow::on_buttunAdd_clicked()
 {

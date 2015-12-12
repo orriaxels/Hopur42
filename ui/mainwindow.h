@@ -43,9 +43,11 @@ private:
 
     void displayScientistList(std::vector<Scientist> listToDisplay);
     void displayComputerList(std::vector<Computer> listToDisplay);
+	void displayRelationTable();
 
     void intilizeScientistTable();
     void intilizeComputerTable();
+	void intilizeRelationTable();
 
     vector<Scientist> inTable();
 };
