@@ -18,7 +18,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+    void databaseFailedOpen();
 private slots:
     void on_scientistRadioButton_toggled(bool checked);
 

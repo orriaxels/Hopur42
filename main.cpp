@@ -5,11 +5,15 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
-    createStaticConnection();
-
     MainWindow w;
-    w.show();
+
+    if( createStaticConnection() ){
+      w.show();
+    }
+    else{
+      w.databaseFailedOpen();
+      return 0;
+    }
 
     return a.exec();
 }

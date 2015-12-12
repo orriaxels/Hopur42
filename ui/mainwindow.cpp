@@ -40,16 +40,21 @@ void MainWindow::intilizeScientistTable(int numberOfRows){
     ui->mainTable->setRowCount( numberOfRows );
 
     ui->mainTable->setColumnCount(6);
-    ui->mainTable->setColumnWidth(0,200);
-    ui->mainTable->setColumnWidth(1,200);
+    ui->mainTable->setColumnWidth(0,120);
+    ui->mainTable->setColumnWidth(1,100);
     ui->mainTable->setColumnWidth(2,80);
     ui->mainTable->setColumnWidth(3,80);
     ui->mainTable->setColumnWidth(4,80);
-    ui->mainTable->setColumnWidth(5,80);
 
     QStringList columns;
     columns<<"First name"<< "Last name"<< "Gender"<< "Born"<<"Died"<< "Known for";
     ui->mainTable->setHorizontalHeaderLabels(columns);
+    ui->mainTable->horizontalHeaderItem(0)->setTextAlignment(Qt::AlignLeft);
+    ui->mainTable->horizontalHeaderItem(1)->setTextAlignment(Qt::AlignLeft);
+    ui->mainTable->horizontalHeaderItem(2)->setTextAlignment(Qt::AlignHCenter);
+    ui->mainTable->horizontalHeaderItem(3)->setTextAlignment(Qt::AlignHCenter);
+    ui->mainTable->horizontalHeaderItem(4)->setTextAlignment(Qt::AlignHCenter);
+    ui->mainTable->horizontalHeaderItem(5)->setTextAlignment(Qt::AlignLeft);
 
     ui->mainTable->sortByColumn(0,Qt::AscendingOrder);
     ui->mainTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -62,11 +67,10 @@ void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
 
     ui->mainTable->clearContents();
 
-    for (unsigned int i = 0; i < listToDisplay.size(); i++)
-    {
+    for (unsigned int i = 0; i < listToDisplay.size(); i++) {
 
-        QString fName = QString::fromStdString( ((listToDisplay.at(i)).getF()) ); //bindvalue needs QString
-        QString lName = QString::fromStdString( ((listToDisplay.at(i)).getL()) ); //bindvalue needs QString
+        QString fName = QString::fromStdString( ((listToDisplay.at(i)).getF()) );
+        QString lName = QString::fromStdString( ((listToDisplay.at(i)).getL()) );
         QString gender = QString::number( (listToDisplay.at(i)).getGender());
         QString born = QString::number((listToDisplay.at(i)).getYearBorn());
         QString died = QString::number((listToDisplay.at(i)).getYearDied());
@@ -74,10 +78,14 @@ void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
 
 
         ui->mainTable->setItem(i, 0, new QTableWidgetItem(fName));
+
         ui->mainTable->setItem(i, 1, new QTableWidgetItem(lName));
         ui->mainTable->setItem(i, 2, new QTableWidgetItem(gender));
+        ui->mainTable->item(i,2)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 3, new QTableWidgetItem(born));
+        ui->mainTable->item(i,3)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 4, new QTableWidgetItem(died));
+        ui->mainTable->item(i,4)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 5, new QTableWidgetItem(known));
     }
 
@@ -89,24 +97,6 @@ void MainWindow::on_computerRadioButton_toggled(bool checked)
     vector<Computer> allComputers=services.getSortedComputerList(1,0);
     intilizeComputerTable(allComputers.size());
     displayComputerList(allComputers);
-}
-
-void MainWindow::displayComputerList(std::vector<Computer> listToDisplay){
-    ui->mainTable->clearContents();
-
-    for (unsigned int i = 0; i < listToDisplay.size(); i++)
-    {
-        QString name = QString::fromStdString( ((listToDisplay.at(i)).getName()) ); //bindvalue needs QString
-        QString type = QString::fromStdString( ((listToDisplay.at(i)).getType() ) ); //bindvalue needs QString
-        QString built = QString::number ( (listToDisplay.at(i)).getBuild() );
-        QString builtYear = QString::number((listToDisplay.at(i)).getBuildYear());
-
-        ui->mainTable->setItem(i, 0, new QTableWidgetItem(name));
-        ui->mainTable->setItem(i, 1, new QTableWidgetItem(type));
-        ui->mainTable->setItem(i, 2, new QTableWidgetItem(built));
-        ui->mainTable->setItem(i, 3, new QTableWidgetItem(builtYear));
-    }
-
 }
 
 void MainWindow::intilizeComputerTable(int numberOfRows){
@@ -131,14 +121,33 @@ void MainWindow::intilizeComputerTable(int numberOfRows){
 
 
 }
-void MainWindow::on_relationRadioButton_toggled(bool checked)
-{
 
+void MainWindow::displayComputerList(std::vector<Computer> listToDisplay){
+    ui->mainTable->clearContents();
+
+    for (unsigned int i = 0; i < listToDisplay.size(); i++)
+    {
+        QString name = QString::fromStdString( ((listToDisplay.at(i)).getName()) ); //bindvalue needs QString
+        QString type = QString::fromStdString( ((listToDisplay.at(i)).getType() ) ); //bindvalue needs QString
+        QString built = QString::number ( (listToDisplay.at(i)).getBuild() );
+        QString builtYear = QString::number((listToDisplay.at(i)).getBuildYear());
+
+        ui->mainTable->setItem(i, 0, new QTableWidgetItem(name));
+        ui->mainTable->setItem(i, 1, new QTableWidgetItem(type));
+        ui->mainTable->setItem(i, 2, new QTableWidgetItem(built));
+        ui->mainTable->setItem(i, 3, new QTableWidgetItem(builtYear));
+    }
 
 }
 
-void MainWindow::on_lineEdit_textChanged(const QString &arg1)
+
+
+void MainWindow::on_relationRadioButton_toggled(bool checked)
 {
+
+}
+
+void MainWindow::on_lineEdit_textChanged(const QString &arg1){
 
 }
 
@@ -154,4 +163,8 @@ void MainWindow::on_addScientist_triggered()
     addDialog add;
     add.setModal(true);
     add.exec();
+}
+
+void MainWindow::databaseFailedOpen(){
+  QMessageBox::critical(this, tr("Database fail!"), tr("The program was not able to open the program. <p> Check if database exists or path of database.</p>"));
 }
