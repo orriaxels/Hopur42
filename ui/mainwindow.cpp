@@ -27,7 +27,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_scientistRadioButton_toggled(bool checked)
 {
-    vector<Scientist> allScientists=services.getSortedScientistList(1,0);
+    vector<Scientist> allScientists=services.getSortedScientistList();
     intilizeScientistTable(allScientists.size());
     displayScientistList(allScientists);
 
@@ -84,7 +84,7 @@ ui->mainTable->setRowCount(listToDisplay.size());
 
 void MainWindow::on_computerRadioButton_toggled(bool checked)
 {
-    vector<Computer> allComputers=services.getSortedComputerList(1,0);
+    vector<Computer> allComputers=services.getSortedComputerList();
     intilizeComputerTable(allComputers.size());
     displayComputerList(allComputers);
 }

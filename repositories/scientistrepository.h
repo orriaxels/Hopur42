@@ -4,52 +4,45 @@
 #include <QString>
 
 #include "models/scientist.h"
-#include "models/computer.h"
-
 
 class Scientistrepository
 {
 public:
-    Scientistrepository();
+        Scientistrepository();
 
-    /*@brief Adds user created scientist/computer to database
-    * @param newScientist/newComp comp/scientist to add
-    * @return returns true if sucsessfully added to database, false if not */
-    bool addToDatabase(Scientist newScientist);
+        /* @brief Adds user created scientist to database
+         * @param newScientist is the object to add to database
+         * @return returns true if sucsessfully added to database, false if not */
+        bool addToDatabase(Scientist newScientist);
 
-    /*@brief Adds user created relation betwenn scientist/computer to database
-    * @param pk of both comp/scien to add relation
-    * @return returns true if sucsessfully added to database, false if not */
-    bool addRelation(int idPkComputer, int idPkScientists);
+        /* @brief Sets deleted flag for scientist as 1. Sets all relation as deleted as well
+         * @param idToRemove of scientist to flag as deleted
+         * @return returns true if database was sucsessfully updated, false if not */
+        bool removeScientist(int idToRemove);
 
-    /*@brief Sets deleted flag in database as 1. Does not remove completly from DB
-    * @param idToRemove of scientist/comp to flag as deleted
-    * @return returns true if database was sucsessfully updated, false if not */
-    bool removeScientist(int idToRemove);
-    bool removeRelation(int idScientist, int idComputer);
+        /* @brief Querys all dataabase for string
+         * @param searchString is ready to put after LIKE statement in query
+         * @return retuns vector of scientists where searchString was found */
+        vector<Scientist> searchScientist(QString searchString);
 
-    /*@brief searches database for matching string column by column
-    * @param searchString string to search for in database
-    * @param searchString2 assumes you are looking for first and last name
-    * @return retuns vector of scientists/Computer where searchString was found */
-    vector<Scientist> searchScientist(QString searchString);
+        /* @brief Gets scientists not flagged deleted from database
+         * @return retuns vector of Scientists*/
+        vector<Scientist> getScientistList();
 
-    /*@brief Fetches sorted vector of all Computer/scientists from database
-    * @param byColumn what column to sort by
-    * @param aceDesc  if sorted Ascending or Descending
-    * @return retuns sorted vector of Scientists/Computer*/
-    vector<Scientist> getScientistList(int byColumn, bool aceDesc);
+        /* @brief Finds all associated Scientists for id of computer
+         * @param findForComputer to find associated cunterpart
+         * @return retuns vector of scientists that are associated with parameter */
+        vector<Scientist> getAssociatedScientists(int idOfComputerToMatch);
 
-    /*@brief Gets Id of Associated Computer/Scientists from junctiontable
-    * @param findForComputer/findForScientist to find associated cunterpart
-    * @return retuns vector Computer/scientists that are associated with parameter */
-    vector<Computer> getAssociatedC(Scientist findForScientist);
-
-  private:
-    vector<Scientist> scientistsList;
-
-
-
+        /* @brief Adds/removes relation between scientist and computers in database
+         * @param idScientists is the PK of scientist to add relation findForComputer
+         * @param idPkComputer vector of id's of computers to add(vector if case more than one)
+         * @return returns true if sucsessfully added to database, false if not */
+        bool addRelation(int idScientist, int idComputer);
+        bool removeRelation(int idScientist, int idComputer);
+private:
+        vector<Scientist> scientistsList;
+        bool removeRelationScientist(int idScientistToRemove);
 };
 
 #endif // SCIENTISTREPOSITORY_H
