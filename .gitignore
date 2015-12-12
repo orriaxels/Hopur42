@@ -83,3 +83,5 @@ build*
 
 
 42GUI/repo/initdatabase.h
+
+repositories/initdatabase.h
