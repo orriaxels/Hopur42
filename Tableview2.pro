@@ -34,6 +34,9 @@ HEADERS  += ui/adddialog.h \
     models/computer.h \
     models/scientist.h
 
+RESOURCES += \
+    resources.qrc
+
 
 
 

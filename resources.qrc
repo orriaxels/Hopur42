@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>img/001science.png</file>
+        <file>img/no.png</file>
+        <file>img/Ok-icon.png</file>
+    </qresource>
+</RCC>

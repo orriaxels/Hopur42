@@ -67,10 +67,11 @@ vector<Scientist>Scientistrepository::searchScientist(QString searchString) {
   scientistsList.clear();
 
   query.exec("SELECT * FROM Scientists WHERE FirstName  LIKE '%" + searchString + "%'"
-             "OR LastName LIKE '%" + searchString + "%'"
-             "OR Born LIKE '%" + searchString + "%'"
-             "OR Died LIKE '%" + searchString + "%'"
-             "OR KnownFor LIKE '%" + searchString + "%'");
+                                         "OR LastName LIKE '%" + searchString + "%'"
+                                         "OR Born LIKE '%" + searchString + "%'"
+                                         "OR Died LIKE '%" + searchString + "%'"
+                                         "OR KnownFor LIKE '%" + searchString + "%'"
+                                        "AND Deleted=0");
 
   while (query.next()) {
     int    id     = query.value("id").toUInt();

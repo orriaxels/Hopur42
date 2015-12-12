@@ -61,7 +61,11 @@ vector<Computer> Computerrepository::searchComputer(QString searchString) {
 
   computerList.clear();
 
-  query.exec("SELECT * FROM Computers WHERE Name LIKE '%" + searchString + "%'");
+  query.exec("SELECT * FROM Computers WHERE Name LIKE '%" + searchString + "%'"
+                                        "OR Type LIKE '%" + searchString + "%'"
+                                        "OR BuiltOrNot LIKE '%" + searchString + "%'"
+                                        "OR YearBuilt LIKE '%" + searchString + "%'"
+                                       "AND Deleted=0");
 
   while (query.next()) {
     int id            = query.value("id").toUInt();

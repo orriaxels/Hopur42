@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->scientistRadioButton->setChecked(true);
 
-
 }
 
 MainWindow::~MainWindow()
@@ -28,16 +27,15 @@ MainWindow::~MainWindow()
 void MainWindow::on_scientistRadioButton_toggled(bool checked)
 {
     vector<Scientist> allScientists=services.getSortedScientistList();
-    intilizeScientistTable(allScientists.size());
+    intilizeScientistTable();
     displayScientistList(allScientists);
 
 }
 
 
-void MainWindow::intilizeScientistTable(int numberOfRows){
+void MainWindow::intilizeScientistTable(){
 
     ui->mainTable->verticalHeader()->setVisible(false);
-    ui->mainTable->setRowCount(numberOfRows);
 
     ui->mainTable->setColumnCount(6);
     ui->mainTable->setColumnWidth(0,120);
@@ -62,7 +60,8 @@ void MainWindow::intilizeScientistTable(int numberOfRows){
 void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
 
     ui->mainTable->clearContents();
-ui->mainTable->setRowCount(listToDisplay.size());
+    ui->mainTable->setRowCount(listToDisplay.size());
+
     for (unsigned int i = 0; i < listToDisplay.size(); i++) {
         QString fName = QString::fromStdString( ((listToDisplay.at(i)).getF()) );
         QString lName = QString::fromStdString( ((listToDisplay.at(i)).getL()) );
@@ -70,14 +69,12 @@ ui->mainTable->setRowCount(listToDisplay.size());
         QString born = QString::number((listToDisplay.at(i)).getYearBorn());
         QString died = QString::number((listToDisplay.at(i)).getYearDied());
         QString known = QString::fromStdString( ((listToDisplay.at(i)).getKnownFor()) );
+
         ui->mainTable->setItem(i, 0, new QTableWidgetItem(fName));
         ui->mainTable->setItem(i, 1, new QTableWidgetItem(lName));
         ui->mainTable->setItem(i, 2, new QTableWidgetItem(gender));
-      //  ui->mainTable->item(i,2)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 3, new QTableWidgetItem(born));
-     //   ui->mainTable->item(i,3)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 4, new QTableWidgetItem(died));
-      //  ui->mainTable->item(i,4)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 5, new QTableWidgetItem(known));
     }
 }
@@ -85,15 +82,13 @@ ui->mainTable->setRowCount(listToDisplay.size());
 void MainWindow::on_computerRadioButton_toggled(bool checked)
 {
     vector<Computer> allComputers=services.getSortedComputerList();
-    intilizeComputerTable(allComputers.size());
+    intilizeComputerTable();
     displayComputerList(allComputers);
 }
 
-void MainWindow::intilizeComputerTable(int numberOfRows){
+void MainWindow::intilizeComputerTable(){
 
     ui->mainTable->verticalHeader()->setVisible(false);
-    ui->mainTable->setRowCount( numberOfRows );
-
     ui->mainTable->setColumnCount(4);
     ui->mainTable->setColumnWidth(0,200);
     ui->mainTable->setColumnWidth(1,200);
@@ -102,18 +97,18 @@ void MainWindow::intilizeComputerTable(int numberOfRows){
     QStringList columns;
     columns<<"Name"<< "Type"<< "Built"<< "Built year";
     ui->mainTable->setHorizontalHeaderLabels(columns);
-
     ui->mainTable->sortByColumn(0,Qt::AscendingOrder);
     ui->mainTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->mainTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->mainTable->setSelectionMode(QAbstractItemView::SingleSelection);
-    ui->mainTable->setShowGrid(false);
+
 
 
 }
 
 void MainWindow::displayComputerList(std::vector<Computer> listToDisplay){
     ui->mainTable->clearContents();
+    ui->mainTable->setRowCount( listToDisplay.size() );
 
     for (unsigned int i = 0; i < listToDisplay.size(); i++)
     {
@@ -138,20 +133,18 @@ void MainWindow::on_relationRadioButton_toggled(bool checked)
 }
 
 void MainWindow::on_lineEdit_textChanged(const QString &arg1){
-    if( ui->scientistRadioButton->isChecked()){
-//        if(arg1.length()==0){
-//            displayScientistList (services.getSortedScientistList(1,0));
-//        }
-        vector<Scientist> found=services.searchScientists( ui->lineEdit->text() );
-        ui->mainTable->setSortingEnabled(false);
-        displayScientistList( found );
-        ui->mainTable->setSortingEnabled(true);
-        ui->mainTable->sortByColumn(0,Qt::AscendingOrder);
-    }
-    else if (ui->scientistRadioButton->isChecked()){
 
+    if( ui->scientistRadioButton->isChecked() ){
+        ui->mainTable->setSortingEnabled(false);
+        displayScientistList( services.searchScientists( arg1 ) );
+        ui->mainTable->setSortingEnabled(true);
     }
-    else if (ui->scientistRadioButton->isChecked()) {
+    else if (ui->computerRadioButton->isChecked()){
+        ui->mainTable->setSortingEnabled(false);
+        displayComputerList( services.searchComputers( arg1 ) );
+        ui->mainTable->setSortingEnabled(true);
+    }
+    else if (ui->relationRadioButton->isChecked()) {
 
     }
 }
@@ -160,7 +153,8 @@ void MainWindow::on_lineEdit_textChanged(const QString &arg1){
 void MainWindow::on_actionAbout_us_triggered()
 {
     QString linkGroup="https://en.wikipedia.org/wiki/42_(number)";
-    QMessageBox::information(this, tr("We rock!"), tr("<p>This project is work in porgess More information is on  <a href=\"https://github.com/orriaxels/Hopur42\" style=\"color:blue\">Github</a> </p> "
+    QMessageBox::information(this, tr("About us"), tr("<p>This project is work in progess </p>"
+                                                      "<p>More information is on  <a href=\"https://github.com/orriaxels/Hopur42\" style=\"color:blue\">Github</a> </p> "
                                                       "<p>Group <a href=\"https://en.wikipedia.org/wiki/42_(number)\" style=\"color:blue\">Web page</a> </p>"));
 }
 
