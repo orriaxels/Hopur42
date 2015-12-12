@@ -35,6 +35,10 @@ private slots:
 
     void on_knownForText_textChanged();
 
+    void on_exitAddWindow_clicked();
+
+    void on_clearEdit_clicked();
+
 private:
     Ui::AddDialog *ui;
     QString name;

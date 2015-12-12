@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Add Scientist</string>
   </property>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
@@ -213,12 +213,12 @@
     <rect>
      <x>21</x>
      <y>130</y>
-     <width>29</width>
+     <width>71</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Died</string>
+    <string>Known for</string>
    </property>
    <property name="buddy">
     <cstring>nameLineEdit</cstring>
@@ -234,6 +234,32 @@
     </rect>
    </property>
   </widget>
+  <widget class="QLabel" name="pictureLabel">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>10</y>
+     <width>31</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="pictureLabel_No">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>10</y>
+     <width>31</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
   <zorder>layoutWidget</zorder>
   <zorder>aliveAddcheckBox</zorder>
   <zorder>diedAddLabel</zorder>
@@ -245,6 +271,8 @@
   <zorder>layoutWidget</zorder>
   <zorder>knownForLabel</zorder>
   <zorder>knownForText</zorder>
+  <zorder>pictureLabel</zorder>
+  <zorder>pictureLabel_No</zorder>
  </widget>
  <resources/>
  <connections/>
