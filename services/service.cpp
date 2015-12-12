@@ -10,29 +10,29 @@
 
 Service::Service(){}//default constructor
 
-vector<Scientist> Service::searchScient(string searchString){
+vector<Scientist> Service::searchScientists(QString searchString){
 
-  //To seperate string for diffrent querys
-  string buffer="";
-  vector<string> substringContainer;
-    stringstream searchStream;
-    searchStream.str(searchString);
-    while (searchStream >> buffer){
-      //To fit into like query prend/append % on both sides of searchstring
-      buffer.insert (0, 1, '%');
-      buffer+='%';
+//  //To seperate string for diffrent querys
+//  string buffer="";
+//  vector<string> substringContainer;
+//    stringstream searchStream;
+//    searchStream.str(searchString);
+//    while (searchStream >> buffer){
+//      //To fit into like query prend/append % on both sides of searchstring
+//      buffer.insert (0, 1, '%');
+//      buffer+='%';
 
-            substringContainer.push_back(buffer);
-    }
+//            substringContainer.push_back(buffer);
+//    }
 
-  if(substringContainer.size() == 1){
-    vector<Scientist> foundIn=scientistRepository.searchScientist( substringContainer.at(0) );
-    return foundIn;
-  }
-  else{
-    vector<Scientist> foundIn=scientistRepository.searchScientist(substringContainer.at(0), substringContainer.at(1));
-    return foundIn;
-  }
+ // if(substringContainer.size() == 1){
+ //   vector<Scientist> foundIn=scientistRepository.searchScientist( substringContainer.at(0) );
+    return scientistRepository.searchScientist( searchString );
+//  }
+//  else{
+//    vector<Scientist> foundIn=scientistRepository.searchScientist(substringContainer.at(0), substringContainer.at(1));
+//    return foundIn;
+//  }
 
 }
 
@@ -131,4 +131,3 @@ bool Service::removeCompEntery(int numberList, const vector<Computer> listToRemo
   else
     return false;
 }
-

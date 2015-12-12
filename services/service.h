@@ -2,6 +2,7 @@
 #define SERVICE_H
 #include <vector>
 #include <string>
+#include <QString>
 
 #include "repositories/computerrepository.h"
 #include "repositories/scientistrepository.h"
@@ -20,7 +21,7 @@ class Service
 		/*@brief searches table for matching string
 		* @param searchString string to search for
 		* @return retuns vector of object where searchsrting was found */
-		vector<Scientist> searchScient(string searchString);
+        vector<Scientist> searchScientists(QString searchString);
 		vector<Computer> searchComp(string searchString);
 
 		/*@brief Get list(vector) of scientist that have relation to param

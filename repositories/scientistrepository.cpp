@@ -3,6 +3,7 @@
 #include "models/scientist.h"
 #include <vector>
 #include <string>
+#include <sstream>
 #include <QtSql>
 #include <Qstring>
 
@@ -82,14 +83,16 @@ bool Scientistrepository::removeRelation(int idScientist, int idComputer){
 
 
 
-vector<Scientist> Scientistrepository::searchScientist(string searchString){
+vector<Scientist> Scientistrepository::searchScientist(QString searchString){
 	QSqlQuery query;
-	QString qSearch = QString::fromStdString( (searchString.c_str()) );
 	scientistsList.clear();
 
-	query.prepare("SELECT * FROM Scientists WHERE FirstName LIKE :search OR LastName  LIKE :search OR Born  LIKE :search OR Died  LIKE :search OR KnownFor LIKE :search ");
-	query.bindValue(":search", qSearch);
-	query.exec();
+
+
+	//	query.prepare("SELECT * FROM Scientists WHERE FirstName LIKE '%" << searchString << "%' ");
+	//    query.bindValue(":search", searchString);
+
+        query.exec( "SELECT * FROM Scientists WHERE FirstName  LIKE '%" + searchString+ "%'" );
 
 	while(query.next()){
 		int id = query.value("id").toUInt();
@@ -105,33 +108,6 @@ vector<Scientist> Scientistrepository::searchScientist(string searchString){
 	}
 	return scientistsList;
 }
-
-vector<Scientist> Scientistrepository::searchScientist(string searchString1, string searchString2){
-	QSqlQuery query;
-	QString qSearch1 = QString::fromStdString( (searchString1.c_str()) );
-	QString qSearch2 = QString::fromStdString( (searchString2.c_str()) );
-	scientistsList.clear();
-
-	query.prepare("SELECT * FROM Scientists WHERE FirstName LIKE :search1 AND LastName LIKE :search2 ");
-	query.bindValue(":search1", qSearch1);
-	query.bindValue(":search2", qSearch2);
-	query.exec();
-
-	while(query.next()){
-		int id = query.value("id").toUInt();
-		string fName = query.value("FirstName").toString().toStdString();
-		string lName = query.value("LastName").toString().toStdString();
-		bool gender = query.value("Gender").toBool();
-		int born = query.value("Born").toUInt();
-		int died = query.value("Died").toUInt();
-		string known = query.value("KnownFor").toString().toStdString();
-
-		Scientist scientFromList(id, fName, lName, gender, born, died, known);
-		scientistsList.push_back(scientFromList);
-	}
-	return scientistsList;
-}
-
 
 
 vector<Scientist> Scientistrepository::getScientistList(int byColumn, bool aceDesc){

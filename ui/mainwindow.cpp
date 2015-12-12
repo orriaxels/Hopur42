@@ -37,7 +37,7 @@ void MainWindow::on_scientistRadioButton_toggled(bool checked)
 void MainWindow::intilizeScientistTable(int numberOfRows){
 
     ui->mainTable->verticalHeader()->setVisible(false);
-    ui->mainTable->setRowCount( numberOfRows );
+    ui->mainTable->setRowCount(numberOfRows);
 
     ui->mainTable->setColumnCount(6);
     ui->mainTable->setColumnWidth(0,120);
@@ -57,39 +57,29 @@ void MainWindow::intilizeScientistTable(int numberOfRows){
     ui->mainTable->horizontalHeaderItem(5)->setTextAlignment(Qt::AlignLeft);
 
     ui->mainTable->sortByColumn(0,Qt::AscendingOrder);
-    ui->mainTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->mainTable->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->mainTable->setSelectionMode(QAbstractItemView::SingleSelection);
-    ui->mainTable->setShowGrid(false);
 }
 
 void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
 
     ui->mainTable->clearContents();
-
+ui->mainTable->setRowCount(listToDisplay.size());
     for (unsigned int i = 0; i < listToDisplay.size(); i++) {
-
         QString fName = QString::fromStdString( ((listToDisplay.at(i)).getF()) );
         QString lName = QString::fromStdString( ((listToDisplay.at(i)).getL()) );
         QString gender = QString::number( (listToDisplay.at(i)).getGender());
         QString born = QString::number((listToDisplay.at(i)).getYearBorn());
         QString died = QString::number((listToDisplay.at(i)).getYearDied());
         QString known = QString::fromStdString( ((listToDisplay.at(i)).getKnownFor()) );
-
-
         ui->mainTable->setItem(i, 0, new QTableWidgetItem(fName));
-
         ui->mainTable->setItem(i, 1, new QTableWidgetItem(lName));
         ui->mainTable->setItem(i, 2, new QTableWidgetItem(gender));
-        ui->mainTable->item(i,2)->setTextAlignment(Qt::AlignCenter);
+      //  ui->mainTable->item(i,2)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 3, new QTableWidgetItem(born));
-        ui->mainTable->item(i,3)->setTextAlignment(Qt::AlignCenter);
+     //   ui->mainTable->item(i,3)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 4, new QTableWidgetItem(died));
-        ui->mainTable->item(i,4)->setTextAlignment(Qt::AlignCenter);
+      //  ui->mainTable->item(i,4)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 5, new QTableWidgetItem(known));
     }
-
-
 }
 
 void MainWindow::on_computerRadioButton_toggled(bool checked)
@@ -148,8 +138,24 @@ void MainWindow::on_relationRadioButton_toggled(bool checked)
 }
 
 void MainWindow::on_lineEdit_textChanged(const QString &arg1){
+    if( ui->scientistRadioButton->isChecked()){
+//        if(arg1.length()==0){
+//            displayScientistList (services.getSortedScientistList(1,0));
+//        }
+        vector<Scientist> found=services.searchScientists( ui->lineEdit->text() );
+        ui->mainTable->setSortingEnabled(false);
+        displayScientistList( found );
+        ui->mainTable->setSortingEnabled(true);
+        ui->mainTable->sortByColumn(0,Qt::AscendingOrder);
+    }
+    else if (ui->scientistRadioButton->isChecked()){
 
+    }
+    else if (ui->scientistRadioButton->isChecked()) {
+
+    }
 }
+
 
 void MainWindow::on_actionAbout_us_triggered()
 {
@@ -160,11 +166,34 @@ void MainWindow::on_actionAbout_us_triggered()
 
 void MainWindow::on_addScientist_triggered()
 {
-    addDialog add;
+    AddDialog add;
     add.setModal(true);
     add.exec();
 }
 
 void MainWindow::databaseFailedOpen(){
-  QMessageBox::critical(this, tr("Database fail!"), tr("The program was not able to open the program. <p> Check if database exists or path of database.</p>"));
+  QMessageBox::critical(this, tr("Database fail!"), tr("The program was not able to open the database. <p> Check if database exists or path of database.</p>"));
+}
+
+
+
+
+void MainWindow::on_buttunAdd_clicked()
+{
+    AddDialog add;
+    add.setModal(true);
+    add.exec();
+}
+
+void MainWindow::on_buttunRemove_clicked()
+{
+    QMessageBox msgBox;
+
+    msgBox.setText("Information about the selected entry");
+    msgBox.setInformativeText("Do you want to remove your selection?");
+    msgBox.addButton(tr("Save"), QMessageBox::YesRole);
+    msgBox.addButton(tr("Cancel"), QMessageBox::NoRole);
+
+
+    msgBox.exec();
 }

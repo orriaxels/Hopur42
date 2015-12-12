@@ -4,6 +4,7 @@
 #include "models/scientist.h"
 #include "services/service.h"
 #include <QMainWindow>
+#include <vector>
 
 
 
@@ -32,6 +33,10 @@ private slots:
 
     void on_addScientist_triggered();
 
+    void on_buttunAdd_clicked();
+
+    void on_buttunRemove_clicked();
+
 private:
     Service services;
     Ui::MainWindow *ui;
@@ -41,6 +46,8 @@ private:
 
     void intilizeScientistTable(int numberOfRows);
     void intilizeComputerTable(int numberOfRows);
+
+    vector<Scientist> inTable();
 };
 
 #endif // MAINWINDOW_H

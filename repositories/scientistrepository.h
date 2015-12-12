@@ -1,6 +1,7 @@
 #ifndef SCIENTISTREPOSITORY_H
 #define SCIENTISTREPOSITORY_H
 #include <vector>
+#include <QString>
 
 #include "models/scientist.h"
 #include "models/computer.h"
@@ -31,8 +32,7 @@ public:
     * @param searchString string to search for in database
     * @param searchString2 assumes you are looking for first and last name
     * @return retuns vector of scientists/Computer where searchString was found */
-    vector<Scientist> searchScientist(string searchString);
-    vector<Scientist> searchScientist(string searchString1, string searchString2);
+    vector<Scientist> searchScientist(QString searchString);
 
     /*@brief Fetches sorted vector of all Computer/scientists from database
     * @param byColumn what column to sort by
