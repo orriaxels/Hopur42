@@ -37,6 +37,8 @@ private slots:
 
     void on_buttunRemove_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Service services;
     Ui::MainWindow *ui;

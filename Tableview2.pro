@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     repositories/scientistrepository.cpp \
     repositories/computerrepository.cpp \
     models/computer.cpp \
-    models/scientist.cpp
+    models/scientist.cpp \
+    repositories/relationrepository.cpp
 
 FORMS    += ui/mainwindow.ui \
     ui/adddialog.ui
@@ -32,7 +33,8 @@ HEADERS  += ui/adddialog.h \
     repositories/computerrepository.h \
     repositories/scientistrepository.h \
     models/computer.h \
-    models/scientist.h
+    models/scientist.h \
+    repositories/relationrepository.h
 
 RESOURCES += \
     resources.qrc

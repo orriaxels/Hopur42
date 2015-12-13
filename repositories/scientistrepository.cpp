@@ -56,7 +56,8 @@ bool Scientistrepository::removeScientist(int idToRemove) {
 bool Scientistrepository::removeRelationScientist(int idScientistToRemove) {
   QSqlQuery query;
 
-  query.prepare("UPDATE Relations SET Deleted = 1 WHERE idScientists=:idScientists");
+  query.prepare(
+    "UPDATE Relations SET Deleted = 1 WHERE idScientists=:idScientists");
   query.bindValue(":idScientists", idScientistToRemove);
 
   return query.exec();
@@ -64,62 +65,51 @@ bool Scientistrepository::removeRelationScientist(int idScientistToRemove) {
 
 vector<Scientist>Scientistrepository::searchScientist(QString searchString) {
   QSqlQuery query;
-  scientistsList.clear();
 
   query.exec("SELECT * FROM Scientists WHERE FirstName  LIKE '%" + searchString + "%'"
-                                         "OR LastName LIKE '%" + searchString + "%'"
-                                         "OR Born LIKE '%" + searchString + "%'"
-                                         "OR Died LIKE '%" + searchString + "%'"
-                                         "OR KnownFor LIKE '%" + searchString + "%'"
-                                        "AND Deleted=0");
+								         "OR LastName LIKE '%" + searchString + "%'"
+								    	 "OR Born LIKE '%" + searchString + "%'"
+								         "OR Died LIKE '%" + searchString + "%'"
+								         "OR KnownFor LIKE '%" + searchString + "%'"
+								        "AND Deleted=0");
 
-  while (query.next()) {
-    int    id     = query.value("id").toUInt();
-    string fName  = query.value("FirstName").toString().toStdString();
-    string lName  = query.value("LastName").toString().toStdString();
-    bool   gender = query.value("Gender").toBool();
-    int    born   = query.value("Born").toUInt();
-    int    died   = query.value("Died").toUInt();
-    string known  = query.value("KnownFor").toString().toStdString();
+  return queryScientistTable(query);
+}
 
-    Scientist scientFromList(id, fName, lName, gender, born, died, known);
-    scientistsList.push_back(scientFromList);
-  }
-  return scientistsList;
+vector<Scientist>Scientistrepository::advancedSearchScientist(QString searchString)
+{
+  QSqlQuery query;
+
+  query.exec("SELECT * FROM Scientists WHERE " + searchString +
+         								"AND Deleted=0");
+
+  return queryScientistTable(query);
 }
 
 vector<Scientist>Scientistrepository::getScientistList() {
   QSqlQuery query;
 
-  scientistsList.clear();
-
   query.exec(
-    "SELECT * FROM Scientists WHERE Deleted IN (0) ORDER BY FirstName ASC");
+    "SELECT * FROM Scientists WHERE Deleted=0 ORDER BY FirstName ASC");
 
-  while (query.next()) {
-    int    id     = query.value("id").toUInt();
-    string fName  = query.value("FirstName").toString().toStdString();
-    string lName  = query.value("LastName").toString().toStdString();
-    bool   gender = query.value("Gender").toBool();
-    int    born   = query.value("Born").toUInt();
-    int    died   = query.value("Died").toUInt();
-    string known  = query.value("KnownFor").toString().toStdString();
-
-    Scientist scientFromList(id, fName, lName, gender, born, died, known);
-    scientistsList.push_back(scientFromList);
-  }
-  return scientistsList;
+  return queryScientistTable(query);
 }
 
-vector<Scientist>Scientistrepository::getAssociatedScientists(int idOfComputerToMatch) {
+vector<Scientist>Scientistrepository::getAssociatedScientists(
+  int idOfComputerToMatch) {
   QSqlQuery query;
 
-  scientistsList.clear();
 
-  query.prepare( "SELECT s.* FROM Relations r JOIN Scientists s "
+  query.prepare("SELECT s.* FROM Relations r JOIN Scientists s "
                 "ON s.id = r.idScientists WHERE r.idComputers = :idComputers");
   query.bindValue(":idComputers", idOfComputerToMatch);
   query.exec();
+
+  return queryScientistTable(query);
+}
+
+vector<Scientist>Scientistrepository::queryScientistTable(QSqlQuery query) {
+  scientistsList.clear();
 
   while (query.next()) {
     int id        = query.value("id").toUInt();
@@ -134,25 +124,4 @@ vector<Scientist>Scientistrepository::getAssociatedScientists(int idOfComputerTo
     scientistsList.push_back(scientFromList);
   }
   return scientistsList;
-}
-
-bool Scientistrepository::addRelation(int idScientist, int idComputer) {
-  QSqlQuery query;
-
-  query.prepare( "INSERT INTO Relations (idComputers, idScientists) VALUES (:idComputers, :idScientists)");
-  query.bindValue(":idComputers",  idComputer);
-  query.bindValue(":idScientists", idScientist);
-
-
-  return query.exec();
-}
-
-bool removeRelation(int idScientist, int idComputer){
-    QSqlQuery query;
-
-    query.prepare("UPDATE Relations SET Deleted = 1 WHERE idScientists=:idScientists AND idComputers=:idComputers");;
-    query.bindValue(":idComputers",  idComputer);
-    query.bindValue(":idScientists", idScientist);
-
-    return query.exec();
 }

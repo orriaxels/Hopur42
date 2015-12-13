@@ -1,6 +1,9 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <QStringList>
+#include <QString>
+#include <algorithm>
 
 #include "service.h"
 #include "repositories/computerrepository.h"
@@ -19,13 +22,48 @@ vector<Computer>Service::getSortedComputerList() {
 }
 
 vector<Scientist>Service::searchScientists(QString searchString) {
-  	searchString.replace(" " , "%' OR '%");
-	return scientistRepository.searchScientist(searchString);
+
+	QStringList list = searchString.split(" ");
+	vector<Scientist> bufferFound;
+
+	if(searchString.size() == 0){
+		return scientistRepository.getScientistList();
+	}
+	else if( list.at(0) == "??" ){
+		searchString.remove(QChar('?'));
+		searchString.replace(QString("First name"), QString("FirstName"), Qt::CaseInsensitive);
+		searchString.replace(QString("Last name"), QString("LastName"), Qt::CaseInsensitive);
+		searchString.replace(QString("Known for"), QString("KnownFor"), Qt::CaseInsensitive);
+		return scientistRepository.advancedSearchScientist(searchString);
+	}
+	else{
+        for(int i=0; i<list.size(); i++){
+            vector<Scientist> buffer=scientistRepository.searchScientist( list.at(i) );
+            bufferFound.insert(bufferFound.end(), buffer.begin(), buffer.end());
+		}
+		return bufferFound;
+	}
 }
 
 vector<Computer>Service::searchComputers(QString searchString) {
-  	searchString.replace(" " , "%' OR '%");
-	return computerRepository.searchComputer(searchString);
+	QStringList list = searchString.split(" ");
+    vector<Computer> bufferFound;
+
+	if(searchString== ""){
+		return computerRepository.getComputerList();
+	}
+	else if( list.at(0) == "??" ){
+		searchString.remove(QChar('?'));
+		searchString.replace(QString("Built year"), QString("YearBuilt"), Qt::CaseInsensitive);
+		return computerRepository.advancedSearchComputer(searchString);
+	}
+	else{
+        for(int i=0; i<list.size(); i++){
+            vector<Computer> buffer=computerRepository.searchComputer( list.at(i) );
+            bufferFound.insert(bufferFound.end(), buffer.begin(), buffer.end());
+        }
+        return bufferFound;
+	}
 }
 
 vector<Scientist>Service::getAssociatedScientist(Computer computerDetails) {

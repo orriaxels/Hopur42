@@ -67,58 +67,49 @@ vector<Computer> Computerrepository::searchComputer(QString searchString) {
                                         "OR YearBuilt LIKE '%" + searchString + "%'"
                                        "AND Deleted=0");
 
-  while (query.next()) {
-    int id            = query.value("id").toUInt();
-    string name       = query.value("Name").toString().toStdString();
-    string type       = query.value("Type").toString().toStdString();
-    bool   builtOrNot = query.value("BuiltOrNot").toUInt();
-    int    builtY     = query.value("YearBuilt").toUInt();
-
-    Computer newComp(id, name, type, builtOrNot, builtY);
-    computerList.push_back(newComp);
-  }
-  return computerList;
+  return queryComputerTable(query);
 }
+
+vector<Computer> Computerrepository::advancedSearchComputer(QString searchString){
+	QSqlQuery query;
+
+	query.exec("SELECT * FROM Computers WHERE " + searchString +
+										 "AND Deleted=0");
+
+	return queryComputerTable(query);
+}
+
 
 vector<Computer> Computerrepository::getComputerList() {
   QSqlQuery query;
 
-  computerList.clear();
-
   query.exec("SELECT * FROM Computers WHERE Deleted IN (0) ORDER BY Name ASC");
 
-  while (query.next()) {
-    int id            = query.value("id").toUInt();
-    string name       = query.value("Name").toString().toStdString();
-    string type       = query.value("Type").toString().toStdString();
-    bool   builtOrNot = query.value("BuiltOrNot").toUInt();
-    int    builtY     = query.value("YearBuilt").toUInt();
-
-    Computer newComp(id, name, type, builtOrNot, builtY);
-    computerList.push_back(newComp);
-  }
-  return computerList;
+  return queryComputerTable(query);
 }
 
 vector<Computer> Computerrepository::getAssociatedComputers(int idOfScientistToMatch) {
   QSqlQuery query;
-
-  computerList.clear();
 
   query.prepare("SELECT c.* FROM Relations r JOIN Computers c "
                 "ON c.id = r.idComputers WHERE r.idScientists = :idScientist");
   query.bindValue(":idScientist", idOfScientistToMatch);
   query.exec();
 
-  while (query.next()) {
-    int id            = query.value("id").toUInt();
-    string name       = query.value("Name").toString().toStdString();
-    string type       = query.value("Type").toString().toStdString();
-    bool   builtOrNot = query.value("BuiltOrNot").toUInt();
-    int    builtY     = query.value("YearBuilt").toUInt();
+  return queryComputerTable(query);
+}
 
-    Computer newComp(id, name, type, builtOrNot, builtY);
-    computerList.push_back(newComp);
-  }
-  return computerList;
+vector<Computer> Computerrepository::queryComputerTable(QSqlQuery query){
+	computerList.clear();
+	while (query.next()) {
+	  int id            = query.value("id").toUInt();
+	  string name       = query.value("Name").toString().toStdString();
+	  string type       = query.value("Type").toString().toStdString();
+	  bool   builtOrNot = query.value("BuiltOrNot").toUInt();
+	  int    builtY     = query.value("YearBuilt").toUInt();
+
+	  Computer newComp(id, name, type, builtOrNot, builtY);
+	  computerList.push_back(newComp);
+	}
+	return computerList;
 }

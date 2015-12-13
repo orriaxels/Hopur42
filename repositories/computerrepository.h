@@ -2,6 +2,7 @@
 #define COMPUTERREPOSITORY_H
 #include <vector>
 #include <QString>
+#include <QtSql>
 
 #include "models/computer.h"
 
@@ -22,9 +23,9 @@ public:
 
         /*@brief searches database for matching string column by column
          * @param searchString string to search for in database
-         * @param searchString2 assumes you are looking for first and last name
          * @return retuns vector of scientists/Computer where searchString was found */
         vector<Computer> searchComputer(QString searchString);
+		vector<Computer> advancedSearchComputer(QString searchString);
 
         /* @brief Gets computers not flagged deleted from database
          * @return retuns vector of computers*/
@@ -43,6 +44,7 @@ public:
         bool removeRelation(int idScientist, int idComputer);
 private:
         vector<Computer> computerList;
+		vector<Computer> queryComputerTable(QSqlQuery query);
         bool removeRelationComputers(int idComputerToRemove);
 };
 

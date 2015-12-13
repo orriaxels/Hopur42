@@ -2,6 +2,7 @@
 #define SCIENTISTREPOSITORY_H
 #include <vector>
 #include <QString>
+#include <QtSql>
 
 #include "models/scientist.h"
 
@@ -24,6 +25,7 @@ public:
          * @param searchString is ready to put after LIKE statement in query
          * @return retuns vector of scientists where searchString was found */
         vector<Scientist> searchScientist(QString searchString);
+		vector<Scientist> advancedSearchScientist(QString searchString);
 
         /* @brief Gets scientists not flagged deleted from database
          * @return retuns vector of Scientists*/
@@ -33,15 +35,9 @@ public:
          * @param findForComputer to find associated cunterpart
          * @return retuns vector of scientists that are associated with parameter */
         vector<Scientist> getAssociatedScientists(int idOfComputerToMatch);
-
-        /* @brief Adds/removes relation between scientist and computers in database
-         * @param idScientists is the PK of scientist to add relation findForComputer
-         * @param idPkComputer vector of id's of computers to add(vector if case more than one)
-         * @return returns true if sucsessfully added to database, false if not */
-        bool addRelation(int idScientist, int idComputer);
-        bool removeRelation(int idScientist, int idComputer);
 private:
         vector<Scientist> scientistsList;
+		vector<Scientist> queryScientistTable(QSqlQuery query);
         bool removeRelationScientist(int idScientistToRemove);
 };
 

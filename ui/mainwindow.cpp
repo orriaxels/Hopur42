@@ -58,6 +58,8 @@ void MainWindow::intilizeScientistTable(){
 
 void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
 
+
+
     ui->mainTable->clearContents();
     ui->mainTable->setRowCount(listToDisplay.size());
     ui->mainTable->setSortingEnabled(false);
@@ -185,18 +187,16 @@ void MainWindow::on_lineEdit_textChanged(const QString &arg1){
     else if (ui->computerRadioButton->isChecked()){
         displayComputerList( services.searchComputers( arg1 ) );
     }
-    else if (ui->relationRadioButton->isChecked()) {
-
-    }
 }
 
 
 void MainWindow::on_actionAbout_us_triggered()
 {
-    QString linkGroup="https://en.wikipedia.org/wiki/42_(number)";
-    QMessageBox::information(this, tr("About us"), tr("<p>This project is work in progess </p>"
+    QMessageBox::information(this, tr("About us"), tr("<p>This program lets you view and edit</p>"
+                                                      "<p>small databases of computers and computer</p>"
+                                                      "<p>scientists.</p>"
                                                       "<p>More information is on  <a href=\"https://github.com/orriaxels/Hopur42\" style=\"color:blue\">Github</a> </p> "
-                                                      "<p>Group <a href=\"https://en.wikipedia.org/wiki/42_(number)\" style=\"color:blue\">Web page</a> </p>"));
+                                                      "<p>Group <a href=\"https://www.youtube.com/watch?v=dQw4w9WgXcQ\" style=\"color:blue\">Web page</a> </p>"));
 }
 
 void MainWindow::on_addScientist_triggered()
@@ -228,4 +228,18 @@ void MainWindow::on_buttunRemove_clicked()
 
 
     msgBox.exec();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    QMessageBox::information(this, tr("How to filter"),
+                             tr("<p>Type in text box to filter results."
+                           "ie. \"ada enigma\" will return: Ada Lovelace and Alan Turing.</p>"
+                           "<p>Type \"??\" at start of query for advances queries."
+                           " These queries append after \"WHERE\" statement for current table.<br>"
+                           "ie. \"Born > '1900' OR First name =\"bill\" will return all those "
+                           "born after 1900 and all with first name Bill.</p>"
+                           "<p>See <a href=\"https://www.sqlite.org/syntax/expr.html\" "
+                           "style=\"color:blue\">SQLite documentation</a> for more info.</p> "));
+
 }
