@@ -101,7 +101,7 @@ vector<Scientist>Scientistrepository::getAssociatedScientists(
 
 
   query.prepare("SELECT s.* FROM Relations r JOIN Scientists s "
-                "ON s.id = r.idScientists WHERE r.idComputers = :idComputers");
+                "ON s.id = r.idScientists WHERE r.idComputers = :idComputers AND r.Deleted='0'");
   query.bindValue(":idComputers", idOfComputerToMatch);
   query.exec();
 
