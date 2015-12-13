@@ -131,3 +131,18 @@ bool Service::removeComputer(int idComputerToRemove) {
 
   return computerRepository.removeComputer(idComputerToRemove);
 }
+
+bool Service::createRelation(int idScientist, int idComputer){
+
+	return relationRepository.addRelation(idScientist, idComputer);
+}
+
+bool Service::removeRelation(int idScientist, int idComputer){
+
+	return relationRepository.removeRelation(idScientist, idComputer);
+}
+
+int Service::numberOfRelations(){
+
+	return relationRepository.sizeOfTable();
+}

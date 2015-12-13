@@ -15,6 +15,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->scientistRadioButton->setChecked(true);
+    ui->mainTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->mainTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->mainTable->setSelectionMode(QAbstractItemView::SingleSelection);
+
 
 }
 
@@ -23,13 +27,15 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
 void MainWindow::on_scientistRadioButton_toggled(bool checked)
 {
-    vector<Scientist> allScientists=services.getSortedScientistList();
     intilizeScientistTable();
-    displayScientistList(allScientists);
-
+    if(ui->lineEdit->text() == ""){
+        displayScientistList(services.getSortedScientistList());
+    }
+    else{
+        displayScientistList( services.searchScientists( ui->lineEdit->text() ) );
+    }
 }
 
 void MainWindow::intilizeScientistTable(){
@@ -69,17 +75,29 @@ void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
         QString id = QString::number( ((listToDisplay.at(i)).getId()) );
         QString fName = QString::fromStdString( ((listToDisplay.at(i)).getF()) );
         QString lName = QString::fromStdString( ((listToDisplay.at(i)).getL()) );
-        QString gender = QString::number( (listToDisplay.at(i)).getGender());
+        QString gender;
+		if( (listToDisplay.at(i)).getGender() ){
+            gender="Female";
+		}
+		else{
+            gender="Male";
+		}
         QString born = QString::number((listToDisplay.at(i)).getYearBorn());
         QString died = QString::number((listToDisplay.at(i)).getYearDied());
+		if(died=="0"){
+            died="Alive";
+		}
         QString known = QString::fromStdString( ((listToDisplay.at(i)).getKnownFor()) );
 
         ui->mainTable->setItem(i, 0, new QTableWidgetItem(id));
         ui->mainTable->setItem(i, 1, new QTableWidgetItem(fName));
         ui->mainTable->setItem(i, 2, new QTableWidgetItem(lName));
         ui->mainTable->setItem(i, 3, new QTableWidgetItem(gender));
+        ui->mainTable->item(i,3)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 4, new QTableWidgetItem(born));
+        ui->mainTable->item(i,4)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 5, new QTableWidgetItem(died));
+        ui->mainTable->item(i,5)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 6, new QTableWidgetItem(known));
 
     }
@@ -88,9 +106,13 @@ void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
 
 void MainWindow::on_computerRadioButton_toggled(bool checked)
 {
-    vector<Computer> allComputers=services.getSortedComputerList();
     intilizeComputerTable();
-    displayComputerList(allComputers);
+    if(ui->lineEdit->text() == ""){
+        displayComputerList(services.getSortedComputerList());
+    }
+    else{
+        displayComputerList( services.searchComputers( ui->lineEdit->text() ) );
+    }
 }
 
 void MainWindow::intilizeComputerTable(){
@@ -100,15 +122,14 @@ void MainWindow::intilizeComputerTable(){
     ui->mainTable->setColumnWidth(0,0);
     ui->mainTable->setColumnWidth(1,200);
     ui->mainTable->setColumnWidth(2,200);
-    ui->mainTable->setColumnWidth(3,200);
+    ui->mainTable->setColumnWidth(3,100);
 
     QStringList columns;
     columns<<"id"<<"Name"<< "Type"<< "Built"<< "Built year";
     ui->mainTable->setHorizontalHeaderLabels(columns);
     ui->mainTable->sortByColumn(1,Qt::AscendingOrder);
-    ui->mainTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->mainTable->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->mainTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->mainTable->horizontalHeaderItem(3)->setTextAlignment(Qt::AlignHCenter);
+    ui->mainTable->horizontalHeaderItem(4)->setTextAlignment(Qt::AlignLeft);
 }
 
 void MainWindow::displayComputerList(std::vector<Computer> listToDisplay){
@@ -121,13 +142,21 @@ void MainWindow::displayComputerList(std::vector<Computer> listToDisplay){
         QString id = QString::number( ((listToDisplay.at(i)).getId()) );
         QString name = QString::fromStdString( ((listToDisplay.at(i)).getName()) );
         QString type = QString::fromStdString( ((listToDisplay.at(i)).getType() ) );
-        QString built = QString::number ( (listToDisplay.at(i)).getBuild() );
-        QString builtYear = QString::number((listToDisplay.at(i)).getBuildYear());
+        QString built, builtYear;
+        if( (listToDisplay.at(i)).getBuild() ){
+            built="Yes";
+            builtYear = QString::number((listToDisplay.at(i)).getBuildYear());
+        }
+        else{
+            built="No";
+            builtYear = "";
+        }
 
         ui->mainTable->setItem(i, 0, new QTableWidgetItem(id));
         ui->mainTable->setItem(i, 1, new QTableWidgetItem(name));
         ui->mainTable->setItem(i, 2, new QTableWidgetItem(type));
         ui->mainTable->setItem(i, 3, new QTableWidgetItem(built));
+        ui->mainTable->item(i,3)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 4, new QTableWidgetItem(builtYear));
     }
 	ui->mainTable->setSortingEnabled(true);
@@ -137,27 +166,26 @@ void MainWindow::on_relationRadioButton_toggled(bool checked){
 	intilizeRelationTable();
 	displayRelationTable();
 	if(checked){
-        ui->lineEdit->clear();
-		ui->lineEdit->setEnabled(false);
+        ui->lineEdit->setEnabled(false);
 	}
-	else{
-		ui->lineEdit->setEnabled(true);
+    else{
+        ui->lineEdit->setEnabled(true);
 	}
 }
 
 void MainWindow::intilizeRelationTable(){
 
     ui->mainTable->verticalHeader()->setVisible(false);
-    ui->mainTable->setColumnCount(2);
-    ui->mainTable->setColumnWidth(0,300);
+    ui->mainTable->setColumnCount(4);
+	ui->mainTable->setColumnWidth(0,0);
+    ui->mainTable->setColumnWidth(1,300);
+    ui->mainTable->setColumnWidth(2,0);
 
     QStringList columns;
-    columns<<"Scientists name"<< "Computer name";
+    columns<<"idScientist"<<"Scientists name"<< "Computer name"<<"idComputers";
     ui->mainTable->setHorizontalHeaderLabels(columns);
-    ui->mainTable->sortByColumn(0,Qt::AscendingOrder);
-    ui->mainTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->mainTable->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->mainTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->mainTable->sortByColumn(1,Qt::AscendingOrder);
+
 }
 
 void MainWindow::displayRelationTable(){
@@ -165,21 +193,26 @@ void MainWindow::displayRelationTable(){
 	  ui->mainTable->setSortingEnabled(false);
 	  vector<Scientist> scientistsSorted= services.getSortedScientistList();
 	  vector<Computer> bufferComputerList;
-      int rowCount=0;
-      ui->mainTable->setRowCount( 14 );
+      int rowCount=services.numberOfRelations();
+	  int indexRow=0;
+      ui->mainTable->setRowCount( rowCount );
 
 	  for(unsigned int i=0; i< scientistsSorted.size(); i++){
 	    bufferComputerList= services.getAssociatedComputers(scientistsSorted.at(i));
 	    if(bufferComputerList.size() >0 ){
 	      for(unsigned int j=0; j<bufferComputerList.size(); j++){
-
+			  QString idScientist = QString::number( (scientistsSorted.at(i)).getId() );
 			  QString nameScientist = QString::fromStdString( (scientistsSorted.at(i)).getF() );
 			  nameScientist+= " "+ QString::fromStdString( (scientistsSorted.at(i)).getL() );
+
+			  QString idComputer = QString::number( (bufferComputerList.at(j)).getId() );
 			  QString nameComputer = QString::fromStdString( (bufferComputerList.at(j)).getName() );
 
-	          ui->mainTable->setItem(rowCount, 0, new QTableWidgetItem(nameScientist));
-	          ui->mainTable->setItem(rowCount, 1, new QTableWidgetItem(nameComputer));
-              rowCount++;
+			  ui->mainTable->setItem(indexRow, 0, new QTableWidgetItem(idScientist));
+	          ui->mainTable->setItem(indexRow, 1, new QTableWidgetItem(nameScientist));
+			  ui->mainTable->setItem(indexRow, 2, new QTableWidgetItem(idComputer));
+	          ui->mainTable->setItem(indexRow, 3, new QTableWidgetItem(nameComputer));
+              indexRow++;
 	      }
 		}
 	  }
@@ -227,9 +260,6 @@ void MainWindow::on_buttunAdd_clicked()
 void MainWindow::on_buttunRemove_clicked()
 {
     int indexRow=ui->mainTable->currentRow();
-    QString name=ui->mainTable->item(indexRow, 1)->text();
-    QString lastName=ui->mainTable->item(indexRow, 2)->text();
-    int id=ui->mainTable->item(indexRow, 0)->text().toUInt();
 
     QMessageBox confirmRemove;
     confirmRemove.setStandardButtons(QMessageBox::Yes);
@@ -238,17 +268,24 @@ void MainWindow::on_buttunRemove_clicked()
     confirmRemove.setWindowTitle(tr("Are you sure?"));
 
     if( ui->scientistRadioButton->isChecked() ){
+		QString firstName=ui->mainTable->item(indexRow, 1)->text();
+		QString lastName=ui->mainTable->item(indexRow, 2)->text();
+		int id=ui->mainTable->item(indexRow, 0)->text().toUInt();
+
         confirmRemove.setText(("<p>You are about remove "
-                                "<b>"+name+" "+lastName+ "</b> from the database.</p>"
+                                "<b>"+firstName+" "+lastName+ "</b> from the database.</p>"
                                 "Are you sure you want to proceed?"));
 
         if(confirmRemove.exec() == QMessageBox::Yes){
             if(services.removeScientist(id)){
-                ui->statusBar->showMessage("Succsessfully removed "+name+" "+lastName+" from the database.", 3000);
+                ui->statusBar->showMessage("Succsessfully removed "+firstName+" "+lastName+" from the database.", 3000);
             }
         }
     }
     else if (ui->computerRadioButton->isChecked()){
+		QString name=ui->mainTable->item(indexRow, 1)->text();
+		int id=ui->mainTable->item(indexRow, 0)->text().toUInt();
+
         confirmRemove.setText(("<p>You are about remove "
                                 "<b>"+name+" </b> from the database.</p>"
                                 "Are you sure you want to proceed?"));
@@ -256,6 +293,22 @@ void MainWindow::on_buttunRemove_clicked()
         if(confirmRemove.exec() == QMessageBox::Yes){
             if(services.removeComputer(id)){
                 ui->statusBar->showMessage("Succsessfully removed "+name+" from the database.", 3000);
+            }
+        }
+    }
+	else if (ui->relationRadioButton->isChecked()){
+		int idScientist=ui->mainTable->item(indexRow, 0)->text().toUInt();
+		QString scientistName=ui->mainTable->item(indexRow, 1)->text();
+		int idComputer=ui->mainTable->item(indexRow, 2)->text().toUInt();
+		QString computerName=ui->mainTable->item(indexRow, 3)->text();
+
+        confirmRemove.setText(("<p>You are about remove relation between "
+                                "<b>"+scientistName+" and "+computerName+"</b> from the database.</p>"
+                                "Are you sure you want to proceed?"));
+
+        if(confirmRemove.exec() == QMessageBox::Yes){
+            if(services.removeRelation(idScientist,idComputer)){
+                ui->statusBar->showMessage("Succsessfully removed relation from the database.", 3000);
             }
         }
     }

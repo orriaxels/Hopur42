@@ -13,6 +13,8 @@ public:
 		 * @return returns true if sucsessfully added to database, false if not */
 		bool addRelation(int idScientist, int idComputer);
 		bool removeRelation(int idScientist, int idComputer);
+
+		int sizeOfTable();
 };
 
 #endif // RELATIONREPOSITORY_H

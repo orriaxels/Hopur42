@@ -92,7 +92,7 @@ vector<Computer> Computerrepository::getAssociatedComputers(int idOfScientistToM
   QSqlQuery query;
 
   query.prepare("SELECT c.* FROM Relations r JOIN Computers c "
-                "ON c.id = r.idComputers WHERE r.idScientists = :idScientist");
+                "ON c.id = r.idComputers WHERE r.idScientists = :idScientist ");
   query.bindValue(":idScientist", idOfScientistToMatch);
   query.exec();
 

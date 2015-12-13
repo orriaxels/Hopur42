@@ -6,6 +6,7 @@
 
 #include "repositories/computerrepository.h"
 #include "repositories/scientistrepository.h"
+#include "repositories/relationrepository.h"
 #include "models/computer.h"
 #include "models/scientist.h"
 
@@ -45,14 +46,18 @@ public:
         /* @brief Creates relation between scientist and computer
          * @parameters Computer and scientist to add relation to
          * @return True if sucsessfully added and false if writing to database failed */
-        bool createRelation(Computer relationComp, Scientist relationScientist);
+        bool createRelation(int idScientist, int idComputer);
+
         /* @brief Removes relation between scientist and computer
          * @parameters PK ID for computer and scientist to remove relation from
          * @return True if sucsessfully added and false if writing to database failed */
         bool removeRelation(int idScientist, int idComputer);
+
+		int numberOfRelations();
 private:
         Computerrepository computerRepository;
         Scientistrepository scientistRepository;
+		Relationrepository relationRepository;
 
 };
 
