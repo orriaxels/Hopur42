@@ -274,6 +274,17 @@
   <zorder>pictureLabel</zorder>
   <zorder>pictureLabel_No</zorder>
  </widget>
+ <tabstops>
+  <tabstop>nameLineEdit</tabstop>
+  <tabstop>gendrComboBox</tabstop>
+  <tabstop>bornAddSpinBox</tabstop>
+  <tabstop>aliveAddcheckBox</tabstop>
+  <tabstop>diedAddSpinBox</tabstop>
+  <tabstop>knownForText</tabstop>
+  <tabstop>addToDB</tabstop>
+  <tabstop>exitAddWindow</tabstop>
+  <tabstop>clearEdit</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

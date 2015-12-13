@@ -150,4 +150,6 @@ void AddDialog::on_clearEdit_clicked()
     ui->bornAddSpinBox->setValue(1900);
     ui->diedAddSpinBox->setValue(ui->bornAddSpinBox->value()+10);
     ui->aliveAddcheckBox->setChecked(false);
+    ui->pictureLabel->hide();
+    ui->pictureLabel_No->hide();
 }
