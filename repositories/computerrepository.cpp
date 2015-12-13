@@ -12,9 +12,9 @@ Computerrepository::Computerrepository() {}
 bool Computerrepository::addToDatabase(Computer newComp) {
   QSqlQuery query;
 
-  QString name       = QString::fromStdString((newComp.getName()).c_str());
+  QString name       = QString::fromStdString((newComp.getName()));
   int     builtY     = newComp.getBuildYear();
-  QString type       = QString::fromStdString((newComp.getType()).c_str());
+  QString type       = QString::fromStdString((newComp.getType()));
   bool    builtOrNot = newComp.getBuild();
 
   query.prepare("INSERT INTO Computers (Name, YearBuilt, Type, BuiltOrNot) "
@@ -61,11 +61,11 @@ vector<Computer> Computerrepository::searchComputer(QString searchString) {
 
   computerList.clear();
 
-  query.exec("SELECT * FROM Computers WHERE Name LIKE '%" + searchString + "%'"
+  query.exec("SELECT * FROM Computers WHERE (Name LIKE '%" + searchString + "%'"
                                         "OR Type LIKE '%" + searchString + "%'"
                                         "OR BuiltOrNot LIKE '%" + searchString + "%'"
-                                        "OR YearBuilt LIKE '%" + searchString + "%'"
-                                       "AND Deleted=0");
+                                        "OR YearBuilt LIKE '%" + searchString + "%')"
+                                       "AND Deleted='0'");
 
   return queryComputerTable(query);
 }
@@ -74,7 +74,7 @@ vector<Computer> Computerrepository::advancedSearchComputer(QString searchString
 	QSqlQuery query;
 
 	query.exec("SELECT * FROM Computers WHERE " + searchString +
-										 "AND Deleted=0");
+										 "AND Deleted='0'");
 
 	return queryComputerTable(query);
 }

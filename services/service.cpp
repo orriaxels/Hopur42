@@ -3,7 +3,6 @@
 #include <sstream>
 #include <QStringList>
 #include <QString>
-#include <algorithm>
 
 #include "service.h"
 #include "repositories/computerrepository.h"
@@ -123,14 +122,12 @@ bool Service::createComputerToAdd(string name, string type, bool built, int year
   return computerRepository.addToDatabase(newComputer);
 }
 
-bool Service::removeScientist(Scientist removeScientist) {
-  int idOfScientist = removeScientist.getId();
+bool Service::removeScientist(int idScientistToRemove) {
 
-  return scientistRepository.removeScientist(idOfScientist);
+  return scientistRepository.removeScientist(idScientistToRemove);
 }
 
-bool Service::removeComputer(Computer removeComputer) {
-  int idOfComp =  removeComputer.getId();
+bool Service::removeComputer(int idComputerToRemove) {
 
-  return computerRepository.removeComputer(idOfComp);
+  return computerRepository.removeComputer(idComputerToRemove);
 }

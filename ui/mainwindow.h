@@ -51,7 +51,7 @@ private:
     void intilizeComputerTable();
 	void intilizeRelationTable();
 
-    vector<Scientist> inTable();
+    vector<Scientist> scientistsInTable;
 };
 
 #endif // MAINWINDOW_H

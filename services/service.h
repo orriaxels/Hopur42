@@ -39,8 +39,8 @@ public:
         /* @brief finds TableId of scientist/computer to be removed
          * @parameter number list is at which container scientist/comp to remove is
          * @return True if sucsessfully "removed" and false if writing to database failed */
-        bool removeScientist(Scientist removeScientist);
-        bool removeComputer(Computer removeComputer);
+        bool removeScientist(int idScientistToRemove);
+        bool removeComputer(int idComputerToRemove);
 
         /* @brief Creates relation between scientist and computer
          * @parameters Computer and scientist to add relation to

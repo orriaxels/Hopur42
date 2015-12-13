@@ -66,12 +66,12 @@ bool Scientistrepository::removeRelationScientist(int idScientistToRemove) {
 vector<Scientist>Scientistrepository::searchScientist(QString searchString) {
   QSqlQuery query;
 
-  query.exec("SELECT * FROM Scientists WHERE FirstName  LIKE '%" + searchString + "%'"
+  query.exec("SELECT * FROM Scientists WHERE (FirstName  LIKE '%" + searchString + "%'"
 								         "OR LastName LIKE '%" + searchString + "%'"
 								    	 "OR Born LIKE '%" + searchString + "%'"
 								         "OR Died LIKE '%" + searchString + "%'"
-								         "OR KnownFor LIKE '%" + searchString + "%'"
-								        "AND Deleted=0");
+								         "OR KnownFor LIKE '%" + searchString + "%')"
+								        "AND Deleted='0'");
 
   return queryScientistTable(query);
 }
@@ -80,8 +80,8 @@ vector<Scientist>Scientistrepository::advancedSearchScientist(QString searchStri
 {
   QSqlQuery query;
 
-  query.exec("SELECT * FROM Scientists WHERE " + searchString +
-         								"AND Deleted=0");
+  query.exec("SELECT * FROM Scientists WHERE (" + searchString +
+         								") AND Deleted='0'");
 
   return queryScientistTable(query);
 }
