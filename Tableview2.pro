@@ -21,11 +21,13 @@ SOURCES += main.cpp\
     models/computer.cpp \
     models/scientist.cpp \
     repositories/relationrepository.cpp \
-    ui/addcompdialog.cpp
+    ui/addcompdialog.cpp \
+    ui/addrelationdialog.cpp
 
 FORMS    += ui/mainwindow.ui \
     ui/adddialog.ui \
-    ui/addcompdialog.ui
+    ui/addcompdialog.ui \
+    ui/addrelationdialog.ui
 
 HEADERS  += ui/adddialog.h \
     repo/initdatabase.h \
@@ -37,7 +39,8 @@ HEADERS  += ui/adddialog.h \
     models/computer.h \
     models/scientist.h \
     repositories/relationrepository.h \
-    ui/addcompdialog.h
+    ui/addcompdialog.h \
+    ui/addrelationdialog.h
 
 RESOURCES += \
     resources.qrc

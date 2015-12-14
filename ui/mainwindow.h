@@ -5,6 +5,7 @@
 #include "services/service.h"
 #include <QMainWindow>
 #include <vector>
+#include <QString>
 
 
 

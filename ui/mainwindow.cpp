@@ -5,6 +5,7 @@
 #include "models/scientist.h"
 #include "adddialog.h"
 #include "addcompdialog.h"
+#include "addrelationdialog.h"
 
 #include <QString>
 #include <QStringList>
@@ -28,6 +29,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_scientistRadioButton_toggled(bool checked)
 {
+    ui->lineEdit->setEnabled(true);
+    ui->lineEdit->setText(lastSearch);
+
     intilizeScientistTable();
     displayScientistList( services.searchScientists( ui->lineEdit->text() ) );
 
@@ -101,6 +105,8 @@ void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
 
 void MainWindow::on_computerRadioButton_toggled(bool checked)
 {
+    ui->lineEdit->setEnabled(true);
+    ui->lineEdit->setText(lastSearch);
     intilizeComputerTable();
     if(ui->lineEdit->text() == ""){
         displayComputerList(services.getSortedComputerList());
@@ -160,12 +166,11 @@ void MainWindow::displayComputerList(std::vector<Computer> listToDisplay){
 void MainWindow::on_relationRadioButton_toggled(bool checked){
 	intilizeRelationTable();
 	displayRelationTable();
-	if(checked){
-        ui->lineEdit->setEnabled(false);
-	}
-    else{
-        ui->lineEdit->setEnabled(true);
-	}
+
+
+    lastSearch= ui->lineEdit->text();
+    ui->lineEdit->setText("Filter is not available for this table...."+lastSearch);
+    ui->lineEdit->setEnabled(false);
 }
 
 void MainWindow::intilizeRelationTable(){
@@ -252,12 +257,18 @@ void MainWindow::on_buttunAdd_clicked()
        AddDialog add;
        add.setModal(true);
        add.exec();
-   }else if(ui->computerRadioButton->isChecked())
+   }
+   else if(ui->computerRadioButton->isChecked())
    {
        AddCompDialog addComp;
        addComp.setModal(true);
        addComp.exec();
 
+   }
+   else if(ui->relationRadioButton->isChecked()){
+       AddRelationDialog addRelations;
+       addRelations.setModal(true);
+       addRelations.exec();
    }
 }
 
