@@ -26,6 +26,10 @@ AddCompDialog::~AddCompDialog()
     delete ui;
 }
 
+void AddCompDialog::setIdComputer(int idToSet){
+    idOfComputer=idToSet;
+}
+
 void AddCompDialog::on_addCompToDB_clicked()
 {
 

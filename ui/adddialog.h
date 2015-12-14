@@ -15,6 +15,8 @@ public:
     explicit AddDialog(QWidget *parent = 0);
     ~AddDialog();
 
+    void setIdScientist(int idToSet);
+
 private slots:
     void on_bornAddSpinBox_editingFinished();
 
@@ -41,6 +43,7 @@ private:
     Ui::AddDialog *ui;
     QString name;
     QString knownFor;
+    int idScientist;
 };
 
 #endif // ADDDIALOG_H

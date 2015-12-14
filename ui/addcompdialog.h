@@ -15,6 +15,8 @@ public:
     explicit AddCompDialog(QWidget *parent = 0);
     ~AddCompDialog();
 
+    void setIdComputer(int idToSet);
+
 private slots:
     void on_addCompToDB_clicked();
 
@@ -28,6 +30,7 @@ private slots:
 
 private:
     Ui::AddCompDialog *ui;
+    int idOfComputer;
 };
 
 #endif // ADDCOMPDIALOG_H

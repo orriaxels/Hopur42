@@ -14,6 +14,8 @@ AddDialog::AddDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    idScientist=0;
+
     QImage checkOk, checkNo;
     checkOk.load(":/icon/img/Ok-icon.png");
     checkNo.load(":/icon/img/no.png");
@@ -38,6 +40,9 @@ AddDialog::AddDialog(QWidget *parent) :
 AddDialog::~AddDialog()
 {
     delete ui;
+}
+void AddDialog::setIdScientist(int idToSet){
+    idScientist=idToSet;
 }
 
 void AddDialog::on_bornAddSpinBox_editingFinished()

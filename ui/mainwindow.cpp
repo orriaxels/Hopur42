@@ -31,12 +31,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_scientistRadioButton_toggled(bool checked)
 {
     intilizeScientistTable();
-    if(ui->lineEdit->text() == ""){
-        displayScientistList(services.getSortedScientistList());
-    }
-    else{
-        displayScientistList( services.searchScientists( ui->lineEdit->text() ) );
-    }
+    displayScientistList( services.searchScientists( ui->lineEdit->text() ) );
+
 }
 
 void MainWindow::intilizeScientistTable(){
@@ -269,66 +265,70 @@ void MainWindow::on_buttunAdd_clicked()
 
 void MainWindow::on_buttunRemove_clicked()
 {
-    int indexRow=ui->mainTable->currentRow();
+    if( ui->mainTable->selectedItems().size() != 0){
+        int indexRow=ui->mainTable->currentRow();
 
-    QMessageBox confirmRemove;
-    confirmRemove.setStandardButtons(QMessageBox::Yes);
-    confirmRemove.addButton(QMessageBox::No);
-    confirmRemove.setDefaultButton(QMessageBox::No);
-    confirmRemove.setWindowTitle(tr("Are you sure?"));
+        QMessageBox confirmRemove;
+        confirmRemove.setStandardButtons(QMessageBox::Yes);
+        confirmRemove.addButton(QMessageBox::No);
+        confirmRemove.setDefaultButton(QMessageBox::No);
+        confirmRemove.setWindowTitle(tr("Are you sure?"));
 
-    if( ui->scientistRadioButton->isChecked() ){
-		QString firstName=ui->mainTable->item(indexRow, 1)->text();
-		QString lastName=ui->mainTable->item(indexRow, 2)->text();
-		int id=ui->mainTable->item(indexRow, 0)->text().toUInt();
+        if( ui->scientistRadioButton->isChecked() ){
+            QString firstName=ui->mainTable->item(indexRow, 1)->text();
+            QString lastName=ui->mainTable->item(indexRow, 2)->text();
+            int id=ui->mainTable->item(indexRow, 0)->text().toUInt();
 
-        confirmRemove.setText(("<p>You are about remove "
-                                "<b>"+firstName+" "+lastName+ "</b> from the database.</p>"
-                                "Are you sure you want to proceed?"));
+            confirmRemove.setText(("<p>You are about remove "
+                                    "<b>"+firstName+" "+lastName+ "</b> from the database.</p>"
+                                    "Are you sure you want to proceed?"));
 
-        if(confirmRemove.exec() == QMessageBox::Yes){
-            if(services.removeScientist(id)){
-                ui->statusBar->showMessage("Succsessfully removed "+firstName+" "+lastName+" from the database.", 3000);
+            if(confirmRemove.exec() == QMessageBox::Yes){
+                if(services.removeScientist(id)){
+                    ui->statusBar->showMessage("Succsessfully removed "+firstName+" "+lastName+" from the database.", 3000);
+                }
+            }
+        }
+        else if (ui->computerRadioButton->isChecked()){
+            QString name=ui->mainTable->item(indexRow, 1)->text();
+            int id=ui->mainTable->item(indexRow, 0)->text().toUInt();
+
+            confirmRemove.setText(("<p>You are about remove "
+                                    "<b>"+name+" </b> from the database.</p>"
+                                    "Are you sure you want to proceed?"));
+
+            if(confirmRemove.exec() == QMessageBox::Yes){
+                if(services.removeComputer(id)){
+                    ui->statusBar->showMessage("Succsessfully removed "+name+" from the database.", 3000);
+                }
+            }
+        }
+        else if (ui->relationRadioButton->isChecked()){
+            int idScientist=ui->mainTable->item(indexRow, 0)->text().toUInt();
+            QString scientistName=ui->mainTable->item(indexRow, 1)->text();
+            int idComputer=ui->mainTable->item(indexRow, 2)->text().toUInt();
+            QString computerName=ui->mainTable->item(indexRow, 3)->text();
+
+            confirmRemove.setText(("<p>You are about remove relation between "
+                                    "<b>"+scientistName+" and "+computerName+"</b> from the database.</p>"
+                                    "Are you sure you want to proceed?"));
+
+            if(confirmRemove.exec() == QMessageBox::Yes){
+                if(services.removeRelation(idScientist,idComputer)){
+                    ui->statusBar->showMessage("Succsessfully removed relation from the database.", 3000);
+                }
             }
         }
     }
-    else if (ui->computerRadioButton->isChecked()){
-		QString name=ui->mainTable->item(indexRow, 1)->text();
-		int id=ui->mainTable->item(indexRow, 0)->text().toUInt();
-
-        confirmRemove.setText(("<p>You are about remove "
-                                "<b>"+name+" </b> from the database.</p>"
-                                "Are you sure you want to proceed?"));
-
-        if(confirmRemove.exec() == QMessageBox::Yes){
-            if(services.removeComputer(id)){
-                ui->statusBar->showMessage("Succsessfully removed "+name+" from the database.", 3000);
-            }
-        }
+    else{
+        ui->statusBar->showMessage("Please select a row before you do that.", 3000);
     }
-	else if (ui->relationRadioButton->isChecked()){
-		int idScientist=ui->mainTable->item(indexRow, 0)->text().toUInt();
-		QString scientistName=ui->mainTable->item(indexRow, 1)->text();
-		int idComputer=ui->mainTable->item(indexRow, 2)->text().toUInt();
-		QString computerName=ui->mainTable->item(indexRow, 3)->text();
-
-        confirmRemove.setText(("<p>You are about remove relation between "
-                                "<b>"+scientistName+" and "+computerName+"</b> from the database.</p>"
-                                "Are you sure you want to proceed?"));
-
-        if(confirmRemove.exec() == QMessageBox::Yes){
-            if(services.removeRelation(idScientist,idComputer)){
-                ui->statusBar->showMessage("Succsessfully removed relation from the database.", 3000);
-            }
-        }
-    }
-
 }
 
 void MainWindow::on_pushButton_clicked()
 {
     QMessageBox::information(this, tr("How to filter"),
-                             tr("<p>Type in text box to filter results."
+                        tr("<p>Type in text box to filter results."
                            "ie. \"ada enigma\" will return: Ada Lovelace and Alan Turing.</p>"
                            "<p>Type \"??\" at start of query for advances queries."
                            " These queries append after \"WHERE\" statement for current table.<br>"
@@ -336,5 +336,30 @@ void MainWindow::on_pushButton_clicked()
                            "born after 1900 and all with first name Bill.</p>"
                            "<p>See <a href=\"https://www.sqlite.org/syntax/expr.html\" "
                            "style=\"color:blue\">SQLite documentation</a> for more info.</p> "));
+
+}
+
+void MainWindow::on_buttonEdit_clicked()
+{
+    if( ui->mainTable->selectedItems().size() != 0){
+        int indexRow=ui->mainTable->currentRow();
+        if( ui->scientistRadioButton->isChecked() ){
+            int idScientist=ui->mainTable->item(indexRow, 0)->text().toUInt();
+            AddDialog modify;
+            modify.setModal(true);
+            modify.setIdScientist(idScientist);
+            modify.exec();
+        }
+        else if (ui->computerRadioButton->isChecked()){
+            int idComputer=ui->mainTable->item(indexRow, 0)->text().toUInt();
+            AddCompDialog modify;
+            modify.setModal(true);
+            modify.setIdComputer(idComputer);
+            modify.exec();
+        }
+    }
+    else{
+        ui->statusBar->showMessage("Please select a row before you do that.", 3000);
+    }
 
 }

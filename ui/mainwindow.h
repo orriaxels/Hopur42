@@ -39,6 +39,8 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_buttonEdit_clicked();
+
 private:
     Service services;
     Ui::MainWindow *ui;
