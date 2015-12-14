@@ -24,6 +24,8 @@ private slots:
 
     void on_exitCompAddWindow_clicked();
 
+    void on_clearAddComp_clicked();
+
 private:
     Ui::AddCompDialog *ui;
 };

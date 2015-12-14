@@ -26,8 +26,6 @@ private slots:
 
     void on_addToDB_pressed();
 
-    void on_nameLineEdit_editingFinished();
-
     void on_nameLineEdit_textEdited(const QString &arg1);
 
     bool isNameGood();

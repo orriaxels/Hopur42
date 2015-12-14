@@ -180,7 +180,7 @@
    <property name="geometry">
     <rect>
      <x>310</x>
-     <y>10</y>
+     <y>18</y>
      <width>31</width>
      <height>21</height>
     </rect>
@@ -193,7 +193,7 @@
    <property name="geometry">
     <rect>
      <x>310</x>
-     <y>10</y>
+     <y>18</y>
      <width>31</width>
      <height>21</height>
     </rect>
@@ -267,7 +267,11 @@
     <string>Clear</string>
    </property>
   </widget>
-  <zorder>layoutWidget</zorder>
+  <zorder>nameLineEdit</zorder>
+  <zorder>nameAddLabel</zorder>
+  <zorder>addToDB</zorder>
+  <zorder>exitAddWindow</zorder>
+  <zorder>clearEdit</zorder>
   <zorder>aliveAddcheckBox</zorder>
   <zorder>diedAddLabel</zorder>
   <zorder>diedAddSpinBox</zorder>
@@ -275,7 +279,6 @@
   <zorder>bornAddLabel</zorder>
   <zorder>genderAddLabel</zorder>
   <zorder>gendrComboBox</zorder>
-  <zorder>layoutWidget</zorder>
   <zorder>knownForLabel</zorder>
   <zorder>knownForText</zorder>
   <zorder>pictureLabel</zorder>

@@ -15,8 +15,8 @@ AddDialog::AddDialog(QWidget *parent) :
     ui->setupUi(this);
 
     QImage checkOk, checkNo;
-    checkOk.load("/Users/Shoshan/Documents/school/hopur42/Hopur42/img/Ok-icon.png");
-    checkNo.load("/Users/Shoshan/Documents/school/hopur42/Hopur42/img/no.png");
+    checkOk.load(":/icon/img/Ok-icon.png");
+    checkNo.load(":/icon/img/no.png");
 
     ui->pictureLabel->setPixmap(QPixmap::fromImage(checkOk));
     ui->pictureLabel->hide();
@@ -74,7 +74,6 @@ void AddDialog::on_addToDB_pressed()
     isNameGood();
     QString str;
     QString alive;
-    int dead;
     if(ui->aliveAddcheckBox->isChecked()){
         alive = "Still alive";
     }else{
@@ -84,24 +83,40 @@ void AddDialog::on_addToDB_pressed()
         QMessageBox::warning(0, "Error","Name field is empty");
     }
     else{
-        str = QString("Name: %1\nGender: %2\nBorn: %3\nDied: %4\nKnown for: %5 \n\nAre you sure you want to add this to the database ?").arg(name).arg(ui->gendrComboBox->currentText()).arg(ui->bornAddSpinBox->value()).arg(alive).arg(knownFor);
-        QMessageBox::information(0, "Confirm?", str, QMessageBox::No|QMessageBox::Yes);
+        str = QString("Confirm \n\nName: %1\nGender: %2\nBorn: %3\nDied: %4\nKnown for: %5 \n\nAre you sure you want to add this to the database ?").arg(name).arg(ui->gendrComboBox->currentText()).arg(ui->bornAddSpinBox->value()).arg(alive).arg(knownFor);
+        QMessageBox addMsgBox;
+        addMsgBox.setText(str);
+        QAbstractButton* pButtonYes = addMsgBox.addButton(tr("Yes"), QMessageBox::YesRole);
+        addMsgBox.addButton(tr("No"), QMessageBox::NoRole);
+
+        addMsgBox.exec();
+        if(addMsgBox.clickedButton() == pButtonYes){
+
+        }
+        else
+        {
+
+        }
+
     }
-}
-
-void AddDialog::on_nameLineEdit_editingFinished()
-{
-
 }
 
 void AddDialog::on_nameLineEdit_textEdited(const QString &arg1)
 {
     name = ui->nameLineEdit->text();
-    if(isNameGood()){
+    if(arg1.size() < 1)
+    {
+        ui->pictureLabel->hide();
+        ui->pictureLabel_No->hide();
+        ui->addToDB->setEnabled(false);
+    }
+    else if(isNameGood()){
         ui->pictureLabel->show();
         ui->pictureLabel_No->hide();
         ui->addToDB->setEnabled(true);
-    }else{
+    }
+    else
+    {
         ui->pictureLabel->hide();
         ui->pictureLabel_No->show();
         ui->addToDB->setEnabled(false);
@@ -131,7 +146,9 @@ bool AddDialog::isNameGood(){
 
                   }else if( (i != 0) && (isupper(nameIs[i]) && nameIs[i-1] != ' ')){
                       nameIs[i] = tolower(nameIs[i]);
-                  }
+                  }else if(nameIs == ""){
+                    return false;
+                }
      }
     name = QString::fromStdString(nameIs);
     return true;
