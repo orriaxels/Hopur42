@@ -13,71 +13,102 @@
 Service::Service() {} // default constructor
 
 vector<Scientist>Service::getSortedScientistList() {
-    return scientistRepository.getScientistList();
+  return scientistRepository.getScientistList();
 }
 
 vector<Computer>Service::getSortedComputerList() {
-    return computerRepository.getComputerList();
+  return computerRepository.getComputerList();
 }
 
 vector<Scientist>Service::searchScientists(QString searchString) {
+  searchString = searchString.simplified();
+  QStringList list = searchString.split(" ");
+  vector<Scientist> bufferFound;
+  bool isUnique = true;
 
-	QStringList list = searchString.split(" ");
-	vector<Scientist> bufferFound;
+  if (searchString.size() == 0) {
+    return scientistRepository.getScientistList();
+  }
+  else if (list.at(0) == "??") {
+    searchString.remove(QChar('?'));
+    searchString.replace(QString("First name"), QString("FirstName"), Qt::CaseInsensitive);
+    searchString.replace(QString("Last name"),  QString("LastName"),  Qt::CaseInsensitive);
+    searchString.replace(QString("Known for"),  QString("KnownFor"),  Qt::CaseInsensitive);
+    return scientistRepository.advancedSearchScientist(searchString);
+  }
+  else {
+    // To search for each word indivudally and only return unique objects
+    for (int i = 0; i < list.size(); i++) {
+      vector<Scientist> buffer = scientistRepository.searchScientist(list.at(i));
 
-	if(searchString.size() == 0){
-		return scientistRepository.getScientistList();
-	}
-	else if( list.at(0) == "??" ){
-		searchString.remove(QChar('?'));
-		searchString.replace(QString("First name"), QString("FirstName"), Qt::CaseInsensitive);
-		searchString.replace(QString("Last name"), QString("LastName"), Qt::CaseInsensitive);
-		searchString.replace(QString("Known for"), QString("KnownFor"), Qt::CaseInsensitive);
-		return scientistRepository.advancedSearchScientist(searchString);
-	}
-	else{
-        for(int i=0; i<list.size(); i++){
-            vector<Scientist> buffer=scientistRepository.searchScientist( list.at(i) );
-            bufferFound.insert(bufferFound.end(), buffer.begin(), buffer.end());
-		}
-		return bufferFound;
-	}
+      for (int j = 0; j < buffer.size(); j++) {
+        for (int k = 0; k < bufferFound.size(); k++) {
+          if ((buffer.at(j)).getId() == (bufferFound.at(k)).getId()) {
+            isUnique = false;
+          }
+        }
+
+        if (isUnique) {
+          bufferFound.push_back(buffer.at(j));
+        }
+        isUnique = true;
+      }
+    }
+    return bufferFound;
+  }
 }
 
 vector<Computer>Service::searchComputers(QString searchString) {
-	QStringList list = searchString.split(" ");
-    vector<Computer> bufferFound;
+  searchString = searchString.simplified();
+  QStringList list = searchString.split(" ");
+  vector<Computer> bufferFound;
+  bool isUnique = true;
 
-	if(searchString== ""){
-		return computerRepository.getComputerList();
-	}
-	else if( list.at(0) == "??" ){
-		searchString.remove(QChar('?'));
-		searchString.replace(QString("Built year"), QString("YearBuilt"), Qt::CaseInsensitive);
-		return computerRepository.advancedSearchComputer(searchString);
-	}
-	else{
-        for(int i=0; i<list.size(); i++){
-            vector<Computer> buffer=computerRepository.searchComputer( list.at(i) );
-            bufferFound.insert(bufferFound.end(), buffer.begin(), buffer.end());
+  if (searchString == "") {
+    return computerRepository.getComputerList();
+  }
+  else if (list.at(0) == "??") {
+    searchString.remove(QChar('?'));
+    searchString.replace(QString("Built year"), QString(
+                           "YearBuilt"), Qt::CaseInsensitive);
+    return computerRepository.advancedSearchComputer(searchString);
+  }
+  else {
+    // To search for each word indivudally and only return unique objects
+    for (int i = 0; i < list.size(); i++) {
+      vector<Computer> buffer = computerRepository.searchComputer(list.at(i));
+
+      for (int j = 0; j < buffer.size(); j++) {
+        for (int k = 0; k < bufferFound.size(); k++) {
+          if ((buffer.at(j)).getId() == (bufferFound.at(k)).getId()) {
+            isUnique = false;
+          }
         }
-        return bufferFound;
-	}
+
+        if (isUnique) {
+          bufferFound.push_back(buffer.at(j));
+        }
+        isUnique = true;
+      }
+    }
+    return bufferFound;
+  }
 }
 
 vector<Scientist>Service::getAssociatedScientist(Computer computerDetails) {
-	int idComputerToMatch = computerDetails.getId();
+  int idComputerToMatch = computerDetails.getId();
 
-	return scientistRepository.getAssociatedScientists(idComputerToMatch);
+  return scientistRepository.getAssociatedScientists(idComputerToMatch);
 }
 
 vector<Computer>Service::getAssociatedComputers(Scientist scientistDetails) {
-	int idScientistToMatch = scientistDetails.getId();
+  int idScientistToMatch = scientistDetails.getId();
 
-	return computerRepository.getAssociatedComputers(idScientistToMatch);
+  return computerRepository.getAssociatedComputers(idScientistToMatch);
 }
 
 bool Service::createScientistToAdd(string name, string gender, int yearborn, int yeardied, string knownFor) {
+
   string buffer = "", bufferFirst = "", bufferLast = "";
   bool   bufferGender;
 
@@ -86,6 +117,7 @@ bool Service::createScientistToAdd(string name, string gender, int yearborn, int
   // To be able to seperate first and last name a sstream is created
   stringstream nameStream;
   nameStream.str(name);
+
   while (nameStream >> buffer) {
     nameContainer.push_back(buffer);
   }
@@ -101,7 +133,6 @@ bool Service::createScientistToAdd(string name, string gender, int yearborn, int
     }
     bufferLast = nameContainer.back();
   }
-
 
   if ((gender == "f") || (gender == "F")) {
     bufferGender = true;
@@ -123,26 +154,21 @@ bool Service::createComputerToAdd(string name, string type, bool built, int year
 }
 
 bool Service::removeScientist(int idScientistToRemove) {
-
   return scientistRepository.removeScientist(idScientistToRemove);
 }
 
 bool Service::removeComputer(int idComputerToRemove) {
-
   return computerRepository.removeComputer(idComputerToRemove);
 }
 
-bool Service::createRelation(int idScientist, int idComputer){
-
-	return relationRepository.addRelation(idScientist, idComputer);
+bool Service::createRelation(int idScientist, int idComputer) {
+  return relationRepository.addRelation(idScientist, idComputer);
 }
 
-bool Service::removeRelation(int idScientist, int idComputer){
-
-	return relationRepository.removeRelation(idScientist, idComputer);
+bool Service::removeRelation(int idScientist, int idComputer) {
+  return relationRepository.removeRelation(idScientist, idComputer);
 }
 
-int Service::numberOfRelations(){
-
-	return relationRepository.sizeOfTable();
+int Service::numberOfRelations() {
+  return relationRepository.sizeOfTable();
 }
