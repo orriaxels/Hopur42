@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     intilizeScientistTable();
-    displayScientistList( services.searchScientists( ui->lineEdit->text() ) );
+    displayScientistList( services.getSortedScientistList());
 
 }
 
@@ -29,8 +29,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_scientistRadioButton_toggled(bool checked)
 {
-    ui->lineEdit->setEnabled(true);
-    ui->lineEdit->setText(lastSearch);
 
     intilizeScientistTable();
     displayScientistList( services.searchScientists( ui->lineEdit->text() ) );
@@ -105,8 +103,6 @@ void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
 
 void MainWindow::on_computerRadioButton_toggled(bool checked)
 {
-    ui->lineEdit->setEnabled(true);
-    ui->lineEdit->setText(lastSearch);
     intilizeComputerTable();
     if(ui->lineEdit->text() == ""){
         displayComputerList(services.getSortedComputerList());
@@ -166,11 +162,6 @@ void MainWindow::displayComputerList(std::vector<Computer> listToDisplay){
 void MainWindow::on_relationRadioButton_toggled(bool checked){
 	intilizeRelationTable();
 	displayRelationTable();
-
-
-    lastSearch= ui->lineEdit->text();
-    ui->lineEdit->setText("Filter is not available for this table...."+lastSearch);
-    ui->lineEdit->setEnabled(false);
 }
 
 void MainWindow::intilizeRelationTable(){
@@ -295,6 +286,7 @@ void MainWindow::on_buttunRemove_clicked()
             if(confirmRemove.exec() == QMessageBox::Yes){
                 if(services.removeScientist(id)){
                     ui->statusBar->showMessage("Succsessfully removed "+firstName+" "+lastName+" from the database.", 5000);
+                    displayScientistList( services.searchScientists( ui->lineEdit->text() ) );
                 }
 				else{
                     ui->statusBar->showMessage("Unable to remove "+firstName+" "+lastName+" from the database.", 5000);
@@ -312,6 +304,10 @@ void MainWindow::on_buttunRemove_clicked()
             if(confirmRemove.exec() == QMessageBox::Yes){
                 if(services.removeComputer(id)){
                     ui->statusBar->showMessage("Succsessfully removed "+name+" from the database.", 3000);
+                    displayComputerList( services.searchComputers( ui->lineEdit->text() ) );
+                }
+                else{
+                    ui->statusBar->showMessage("Unable to remove "+name+" from the database.", 5000);
                 }
             }
         }
@@ -328,6 +324,10 @@ void MainWindow::on_buttunRemove_clicked()
             if(confirmRemove.exec() == QMessageBox::Yes){
                 if(services.removeRelation(idScientist,idComputer)){
                     ui->statusBar->showMessage("Succsessfully removed relation from the database.", 3000);
+                    displayRelationTable();
+                }
+                else{
+                    ui->statusBar->showMessage("Unable to remove relation from the database.", 5000);
                 }
             }
         }
