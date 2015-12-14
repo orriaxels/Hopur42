@@ -90,6 +90,7 @@ void AddDialog::on_addToDB_pressed()
     else{
         str = QString("Confirm \n\nName: %1\nGender: %2\nBorn: %3\nDied: %4\nKnown for: %5 \n\nAre you sure you want to add this to the database ?").arg(name).arg(ui->gendrComboBox->currentText()).arg(ui->bornAddSpinBox->value()).arg(alive).arg(knownFor);
         QMessageBox addMsgBox;
+        addMsgBox.setWindowTitle("Confirm");
         addMsgBox.setText(str);
         QAbstractButton* pButtonYes = addMsgBox.addButton(tr("Yes"), QMessageBox::YesRole);
         addMsgBox.addButton(tr("No"), QMessageBox::NoRole);
