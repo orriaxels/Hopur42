@@ -363,3 +363,86 @@ void MainWindow::on_buttonEdit_clicked()
     }
 
 }
+
+void MainWindow::on_mainTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
+{
+     if( ui->mainTable->selectedItems().size() != 0){
+         if( ui->scientistRadioButton->isChecked() ){
+              QString details = "Name: " + ui->mainTable->item(currentRow, 1)->text() + " " +
+                      ui->mainTable->item(currentRow, 2)->text() + "\n";
+              details += "Gender: " + ui->mainTable->item(currentRow, 3)->text() + "\n";
+              details += "was born in " + ui->mainTable->item(currentRow, 4)->text() + "\n";
+
+              if(ui->mainTable->item(currentRow, 5)->text() == "Alive"){
+                details += "and is still alive today. \n";
+
+              }
+             else{
+                    details+= "and died in " + ui->mainTable->item(currentRow, 5)->text() + ".\n";
+                    if(ui->mainTable->item(currentRow, 3)->text() == "Female"){
+                        details += "She ";
+                    }
+                    else{
+                        details += "He ";
+                    }
+
+                    details += "was ";
+                    int year = ui->mainTable->item(currentRow,5)->text().toUInt()
+                             - ui->mainTable->item(currentRow,4)->text().toUInt();
+                    details += QString::number(year) + " old when ";
+                    if(ui->mainTable->item(currentRow, 3)->text() == "Female"){
+                        details += "she ";
+                    }
+                    else{
+                        details += "he ";
+                    }
+                    details += " died. \n";
+                  }
+
+
+          details +=  ui->mainTable->item(currentRow, 1)->text() + " " +
+                  ui->mainTable->item(currentRow, 2)->text() + " was best known for \n"
+                  + ui->mainTable->item(currentRow, 6)->text();
+
+           ui->detailsLabel->setText(details);
+        }
+}
+
+
+     //      vector<Computer> relatedComputers = services.getAssociatedCompputers(scientistDetails);
+     //      cout<<"Name: "<< scientistDetails.getF() + " " + scientistDetails.getL() <<endl
+     //          <<"Gender: ";
+     //      if( scientistDetails.getGender() ){
+     //          cout<< "Female"<<endl;
+     //      }
+     //      else{
+     //          cout << "Male"<<endl;
+     //      }
+     //      cout<< scientistDetails.getF() <<" was born in "<<scientistDetails.getYearBorn();
+     //      if( scientistDetails.getYearDied() == 0 )
+     //        cout<<" and is still alive today."<<endl;
+     //      else{
+     //            cout<< " and died in "<<scientistDetails.getYearDied() <<" when ";
+     //        if( scientistDetails.getGender() )
+     //            cout<< "she ";
+     //        else
+     //            cout << "he ";
+
+     //        cout<<"was "
+     //            << (scientistDetails.getYearDied() - scientistDetails.getYearBorn() )
+     //            << " years old."<<endl;
+     //      }
+     //      cout<< scientistDetails.getF()<< " was best known for: "<< scientistDetails.getKnownFor()<<endl;
+
+
+     //      if(assComputers.size() > 0) {
+     //        cout<<scientistDetails.getF()<<" is associated with the following computers: "<<endl;
+     //        for(unsigned int i=0; i< assComputers.size(); i++){
+     //          cout << i+1<<". "<< assComputers.at(i).getName() <<endl;
+     //        }
+     //      }
+     //      else{
+     //        cout<<"There are no computers in current database associated with "<< scientistDetails.getF();
+     //      }
+     //    }
+}

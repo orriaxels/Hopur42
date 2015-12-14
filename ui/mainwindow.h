@@ -41,6 +41,8 @@ private slots:
 
     void on_buttonEdit_clicked();
 
+    void on_mainTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
+
 private:
     Service services;
     Ui::MainWindow *ui;
