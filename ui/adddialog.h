@@ -2,6 +2,7 @@
 #define ADDDIALOG_H
 
 #include <QDialog>
+#include "services/service.h"
 
 namespace Ui {
 class AddDialog;
@@ -41,6 +42,8 @@ private slots:
 
 private:
     Ui::AddDialog *ui;
+    Service serviceVar;
+
     QString name;
     QString knownFor;
     int idScientist;

@@ -1,5 +1,6 @@
 #include "adddialog.h"
 #include "ui_adddialog.h"
+#include "services/service.h"
 #include <QMessageBox>
 #include <QLayout>
 #include <QTime>
@@ -25,7 +26,6 @@ AddDialog::AddDialog(QWidget *parent) :
 
     ui->pictureLabel_No->setPixmap(QPixmap::fromImage(checkNo));
     ui->pictureLabel_No->hide();
-
 
     ui->bornAddSpinBox->setMinimum(1000);
     ui->bornAddSpinBox->setMaximum(QDate::currentDate().year());
@@ -77,12 +77,14 @@ void AddDialog::on_addToDB_pressed()
 {
     on_bornAddSpinBox_editingFinished();
     isNameGood();
-    QString str;
-    QString alive;
+    QString str, alive;
+    int dYear;
     if(ui->aliveAddcheckBox->isChecked()){
         alive = "Still alive";
+        dYear = 0;
     }else{
         alive = QString::number(ui->diedAddSpinBox->value());
+        dYear = ui->diedAddSpinBox->value();
     }
     if(name.size() < 1){
         QMessageBox::warning(0, "Error","Name field is empty");
@@ -97,11 +99,34 @@ void AddDialog::on_addToDB_pressed()
 
         addMsgBox.exec();
         if(addMsgBox.clickedButton() == pButtonYes){
+            string nameIs = name.toStdString();
+            string knownForIs = knownFor.toStdString();
+            string gender;
+            int bYear = ui->bornAddSpinBox->value();
 
+            if(ui->gendrComboBox->currentText() == "Female")
+            {
+                gender = "f";
+            }
+            else
+            {
+                gender = "m";
+            }
+
+
+            if(serviceVar.createScientistToAdd(nameIs, gender, bYear, dYear, knownForIs))
+            {
+               QMessageBox::information(0, "Added to database","Entry sucsessfully added to database");
+               on_clearEdit_clicked();
+            }
+            else
+            {
+               QMessageBox::warning(0, "Error","Error! \n\nEntry not added to database");
+            }
         }
         else
         {
-
+            this->close();
         }
 
     }
