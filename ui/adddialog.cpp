@@ -1,11 +1,14 @@
 #include "adddialog.h"
 #include "ui_adddialog.h"
 #include "services/service.h"
+#include "models/scientist.h"
+
 #include <QMessageBox>
 #include <QLayout>
 #include <QTime>
 #include <string>
 #include <QPixmap>
+#include <vector>
 
 using namespace std;
 
@@ -14,8 +17,6 @@ AddDialog::AddDialog(QWidget *parent) :
     ui(new Ui::AddDialog)
 {
     ui->setupUi(this);
-
-    idScientist=0;
 
     QImage checkOk, checkNo;
     checkOk.load(":/icon/img/Ok-icon.png");
@@ -26,15 +27,49 @@ AddDialog::AddDialog(QWidget *parent) :
 
     ui->pictureLabel_No->setPixmap(QPixmap::fromImage(checkNo));
     ui->pictureLabel_No->hide();
+    
+    if(idScientist == 0){
+        ui->bornAddSpinBox->setMinimum(1000);
+        ui->bornAddSpinBox->setMaximum(QDate::currentDate().year());
+        ui->bornAddSpinBox->setValue(1900);
+        ui->bornAddSpinBox->setReadOnly(false);
 
-    ui->bornAddSpinBox->setMinimum(1000);
-    ui->bornAddSpinBox->setMaximum(QDate::currentDate().year());
-    ui->bornAddSpinBox->setValue(1900);
-    ui->bornAddSpinBox->setReadOnly(false);
+        ui->diedAddSpinBox->setMinimum(ui->bornAddSpinBox->value()+10);
+        ui->diedAddSpinBox->setMaximum(QDate::currentDate().year());
+        ui->diedAddSpinBox->setReadOnly(false);
+    }
+    else
+    {
+        ui->addToDB->setText("Edit");
+//        QString idStuff = QString::number(idScientist);
+//        ui->knownForText->setPlainText(idStuff);
+//        QString getScientistQuery = QString::number(idScientist);
+//        QString getScientistQFromId = "?? id = " + idScientist;
+//        ui->addToDB->setText(getScientistQFromId);
+        vector<Scientist> scientists = services.searchScientists("?? id= 1");
 
-    ui->diedAddSpinBox->setMinimum(ui->bornAddSpinBox->value()+10);
-    ui->diedAddSpinBox->setMaximum(QDate::currentDate().year());
-    ui->diedAddSpinBox->setReadOnly(false);
+        QString fName = QString::fromStdString( ((scientists.at(0)).getF()) );
+        QString lName = QString::fromStdString( ((scientists.at(0)).getL()) );
+        int bornYear = ( (scientists.at(0).getYearBorn()) );
+        int deathYear= ( (scientists.at(0).getYearDied()) );
+        QString knownForIt = QString::fromStdString( ((scientists.at(0).getKnownFor())) );
+
+
+
+        QString fullName = fName + " " + lName;
+        ui->nameLineEdit->setText(fullName);
+        ui->bornAddSpinBox->setValue(bornYear);
+        if(deathYear == 0){
+            ui->aliveAddcheckBox->setChecked(true);
+            ui->diedAddSpinBox->setEnabled(false);
+        }
+        else
+        {
+            ui->diedAddSpinBox->setValue(deathYear);
+        }
+        ui->knownForText->setPlainText(knownForIt);
+
+    }
 }
 
 AddDialog::~AddDialog()
@@ -114,7 +149,7 @@ void AddDialog::on_addToDB_pressed()
             }
 
 
-            if(serviceVar.createScientistToAdd(nameIs, gender, bYear, dYear, knownForIs))
+            if(services.createScientistToAdd(nameIs, gender, bYear, dYear, knownForIs))
             {
                QMessageBox::information(0, "Added to database","Entry sucsessfully added to database");
                on_clearEdit_clicked();
@@ -201,3 +236,5 @@ void AddDialog::on_clearEdit_clicked()
     ui->pictureLabel->hide();
     ui->pictureLabel_No->hide();
 }
+
+

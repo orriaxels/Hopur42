@@ -42,7 +42,7 @@ private slots:
 
 private:
     Ui::AddDialog *ui;
-    Service serviceVar;
+    Service services;
 
     QString name;
     QString knownFor;
