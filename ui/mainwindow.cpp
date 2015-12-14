@@ -4,6 +4,7 @@
 #include "models/computer.h"
 #include "models/scientist.h"
 #include "adddialog.h"
+#include "addcompdialog.h"
 
 #include <QString>
 #include <QStringList>
@@ -252,9 +253,18 @@ void MainWindow::databaseFailedOpen(){
 
 void MainWindow::on_buttunAdd_clicked()
 {
-    AddDialog add;
-    add.setModal(true);
-    add.exec();
+   if(ui->scientistRadioButton->isChecked())
+   {
+       AddDialog add;
+       add.setModal(true);
+       add.exec();
+   }else if(ui->computerRadioButton->isChecked())
+   {
+       AddCompDialog addComp;
+       addComp.setModal(true);
+       addComp.exec();
+
+   }
 }
 
 void MainWindow::on_buttunRemove_clicked()
