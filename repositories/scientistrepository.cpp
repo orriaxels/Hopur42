@@ -40,16 +40,9 @@ bool Scientistrepository::removeScientist(int idToRemove) {
   query.bindValue(":id", idToRemove);
 
   if (query.exec()) {
-    if (removeRelationScientist(idToRemove)) {
-      return true;
-    }
-    else {
-      query.prepare("UPDATE Scientists SET Deleted=0 WHERE id=:id");
-      query.bindValue(":id", idToRemove);
-      query.exec();
-    }
+    removeRelationScientist(idToRemove);
+	return true;
   }
-
   return false;
 }
 

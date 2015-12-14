@@ -4,17 +4,20 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
+  QApplication a(argc, argv);
+  bool newDatabase=false;
 
-    if( createStaticConnection() ){
-      w.setWindowTitle("Hopur 42");
-      w.show();
-    }
-    else{
-      w.databaseFailedOpen();
-      return 0;
-    }
+  if (!createStaticConnection()) {
+    newDatabase = true;
+  }
 
-    return a.exec();
+  MainWindow window;
+  window.setWindowTitle("Hopur 42");
+  if(newDatabase){
+	  window.databaseFailedOpen();
+	  return 0;
+  }
+  window.show();
+
+  return a.exec();
 }

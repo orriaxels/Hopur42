@@ -15,11 +15,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->scientistRadioButton->setChecked(true);
-    ui->mainTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->mainTable->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->mainTable->setSelectionMode(QAbstractItemView::SingleSelection);
 
+    intilizeScientistTable();
+    displayScientistList( services.searchScientists( ui->lineEdit->text() ) );
 
 }
 
@@ -285,7 +283,10 @@ void MainWindow::on_buttunRemove_clicked()
 
             if(confirmRemove.exec() == QMessageBox::Yes){
                 if(services.removeScientist(id)){
-                    ui->statusBar->showMessage("Succsessfully removed "+firstName+" "+lastName+" from the database.", 3000);
+                    ui->statusBar->showMessage("Succsessfully removed "+firstName+" "+lastName+" from the database.", 5000);
+                }
+				else{
+                    ui->statusBar->showMessage("Unable to remove "+firstName+" "+lastName+" from the database.", 5000);
                 }
             }
         }

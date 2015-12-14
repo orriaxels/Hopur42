@@ -9,24 +9,19 @@
  * @return false if file does not exists or opening database fails  */
 static bool createStaticConnection(){
 
-    QFileInfo checkFile("/Users/Shoshan/Documents/school/hopur42/build-Tableview2-Desktop_Qt_5_5_1_clang_64bit-Debug/ComputerHardware.sqlite");
+    QFileInfo checkFile("ComputerHardware.sqlite");
+	bool wasFileAlreadyThere=true;
 
     if (checkFile.exists() && checkFile.isFile()) {
-        QSqlDatabase dataB = QSqlDatabase::addDatabase("QSQLITE");
-        dataB.setDatabaseName("/Users/Shoshan/Documents/school/hopur42/build-Tableview2-Desktop_Qt_5_5_1_clang_64bit-Debug/ComputerHardware.sqlite");
-        dataB.open();
-
-        if ( !dataB.open() ) {
-            return false;
-        }
-        else{
-            return true;
-        }
-
-
+		wasFileAlreadyThere=true;
     }
     else {
-        return false;
+        wasFileAlreadyThere=false;
     }
+	QSqlDatabase dataB = QSqlDatabase::addDatabase("QSQLITE");
+	dataB.setDatabaseName("ComputerHardware.sqlite");
+	dataB.open();
+
+	return wasFileAlreadyThere;
 }
 #endif // INITDATABASECONNECT
