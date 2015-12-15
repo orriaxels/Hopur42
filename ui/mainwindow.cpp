@@ -479,7 +479,7 @@ void MainWindow::on_removeComputer_triggered()
 
             if(confirmRemove.exec() == QMessageBox::Yes){
                 if(services.removeComputer(id)){
-                    ui->statusBar->showMessage("Succsessfully removed "+name+" from the database.", 3000);
+                    ui->statusBar->showMessage("Succsessfully removed "+name+" from the database.", 5000);
                     displayComputerList( services.searchComputers( ui->lineEdit->text() ) );
                 }
                 else{
@@ -488,11 +488,11 @@ void MainWindow::on_removeComputer_triggered()
             }
         }
         else {
-            ui->statusBar->showMessage("Please select a row before you try do to that", 3000);
+            ui->statusBar->showMessage("Please select a row before you try do to that", 5000);
         }
     }
     else {
-        ui->statusBar->showMessage("Please open the computer database before you try do to that", 3000);
+        ui->statusBar->showMessage("Please open the computer database before you try do to that", 500000);
     }
 }
 
