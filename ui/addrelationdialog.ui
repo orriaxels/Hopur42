@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>635</width>
-    <height>537</height>
+    <width>641</width>
+    <height>399</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,23 @@
   <property name="modal">
    <bool>false</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout_4">
+  <layout class="QGridLayout" name="gridLayout_4" rowstretch="1,20,1">
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string> &lt;b&gt;Double click on enteries to add. &lt;/b&gt; &lt;br&gt;
+ You can see what relation you are about to make in the preview window. </string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="0">
     <widget class="QGroupBox" name="scientistBox">
      <property name="title">
@@ -179,12 +195,6 @@
        </layout>
       </item>
      </layout>
-     <zorder>lineEditComputerFilter</zorder>
-     <zorder>lableFilterComputers</zorder>
-     <zorder>tableComputers</zorder>
-     <zorder>lineEditComputerFilter</zorder>
-     <zorder>lableFilterComputers</zorder>
-     <zorder>tableComputers</zorder>
      <zorder></zorder>
     </widget>
    </item>
@@ -197,34 +207,9 @@
       </font>
      </property>
      <property name="title">
-      <string>Doubleclick on computer or scientist to start:</string>
+      <string>Preview</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout" rowstretch="0" columnstretch="7,2">
-      <item row="0" column="1">
-       <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0">
-        <item>
-         <widget class="QPushButton" name="buttonAdd">
-          <property name="text">
-           <string>Add</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="buttonClear">
-          <property name="text">
-           <string>Clear</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="buttonCancel">
-          <property name="text">
-           <string>Cancel</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
+     <layout class="QGridLayout" name="gridLayout" columnstretch="3,1">
       <item row="0" column="0">
        <widget class="QLabel" name="lableTobeGrouped">
         <property name="font">
@@ -236,32 +221,70 @@
          <string/>
         </property>
         <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         <set>Qt::AlignCenter</set>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
         </property>
        </widget>
       </item>
+      <item row="0" column="1">
+       <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0">
+        <item>
+         <widget class="QPushButton" name="buttonAdd">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Add</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="buttonClear">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Clear</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="buttonCancel">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Cancel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
      </layout>
     </widget>
    </item>
   </layout>
   <zorder>computerBox</zorder>
-  <zorder>lableFilterScientist</zorder>
   <zorder>scientistBox</zorder>
-  <zorder>lineEditComputerFilter</zorder>
-  <zorder>lableFilterComputers</zorder>
-  <zorder>tableComputers</zorder>
   <zorder>infoBox</zorder>
+  <zorder>label</zorder>
  </widget>
  <tabstops>
   <tabstop>lineEditScientistFilter</tabstop>
   <tabstop>lineEditComputerFilter</tabstop>
   <tabstop>tableScientists</tabstop>
   <tabstop>tableComputers</tabstop>
-  <tabstop>tableComputers_2</tabstop>
-  <tabstop>lineEditComputerFilter_2</tabstop>
  </tabstops>
  <resources/>
  <connections>

@@ -8,7 +8,7 @@
 
 using namespace std;
 
-AddCompDialog::AddCompDialog(QWidget *parent) :
+AddCompDialog::AddCompDialog(int id, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddCompDialog)
 {
@@ -24,10 +24,6 @@ AddCompDialog::AddCompDialog(QWidget *parent) :
 AddCompDialog::~AddCompDialog()
 {
     delete ui;
-}
-
-void AddCompDialog::setIdComputer(int idToSet){
-    idOfComputer=idToSet;
 }
 
 void AddCompDialog::on_addCompToDB_clicked()

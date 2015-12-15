@@ -8,44 +8,38 @@
 #include "models/scientist.h"
 
 namespace Ui {
-class AddRelationDialog;
+        class AddRelationDialog;
 }
 
 class AddRelationDialog : public QDialog
 {
-    Q_OBJECT
+        Q_OBJECT
 
 public:
-    explicit AddRelationDialog(QWidget *parent = 0);
-    ~AddRelationDialog();
+        explicit AddRelationDialog(QWidget *parent = 0);
+        ~AddRelationDialog();
 
 private slots:
-    void on_lineEditScientistFilter_textChanged(const QString &arg1);
-
-    void on_lineEditComputerFilter_textChanged(const QString &arg1);
-
-    void on_tableScientists_doubleClicked(const QModelIndex &index);
-
-    void on_tableComputers_doubleClicked(const QModelIndex &index);
-
-    void on_buttonAdd_clicked();
-
-    void on_buttonClear_clicked();
+        void on_lineEditScientistFilter_textChanged(const QString &arg1);
+        void on_lineEditComputerFilter_textChanged(const QString &arg1);
+        void on_tableScientists_doubleClicked(const QModelIndex &index);
+        void on_tableComputers_doubleClicked(const QModelIndex &index);
+        void on_buttonAdd_clicked();
+        void on_buttonClear_clicked();
 
 private:
-    Ui::AddRelationDialog *ui;
+        Ui::AddRelationDialog *ui;
 
-    Service services;
+        Service services;
+        int idScientist;
+        int idComputer;
+        QString nameScientist;
+        QString nameComputer;
 
-    int idScientist;
-    QString nameScientist;
-    int idComputer;
-    QString nameComputer;
-
-    void intilizeTables();
-    void previewRelationDisplay();
-    void displayScientistList(vector<Scientist> listToDisplay);
-    void displayCompterList(vector<Computer> listToDisplay);
+        void intilizeTables();
+        void previewRelationDisplay();
+        void displayScientistList(vector<Scientist> listToDisplay);
+        void displayCompterList(vector<Computer> listToDisplay);
 };
 
 #endif // ADDRELATIONDIALOG_H

@@ -257,7 +257,7 @@ void MainWindow::on_buttunAdd_clicked()
    }
    else if(ui->computerRadioButton->isChecked())
    {
-       AddCompDialog addComp;
+       AddCompDialog addComp(0);
        addComp.setModal(true);
        addComp.exec();
 
@@ -345,7 +345,7 @@ void MainWindow::on_buttunRemove_clicked()
 
 void MainWindow::on_addComputer_triggered()
 {
-    AddCompDialog addComp;
+    AddCompDialog addComp(0);
     addComp.setModal(true);
     addComp.exec();
 }
@@ -384,9 +384,8 @@ void MainWindow::on_buttonEdit_clicked()
         }
         else if (ui->computerRadioButton->isChecked()){
             int idComputer=ui->mainTable->item(indexRow, 0)->text().toUInt();
-            AddCompDialog modify;
+            AddCompDialog modify(idComputer);
             modify.setModal(true);
-            modify.setIdComputer(idComputer);
             modify.exec();
         }
     }
@@ -599,9 +598,8 @@ void MainWindow::on_editComputer_triggered()
         if ( ui->mainTable->selectedItems().size() > 0){
             int indexRow=ui->mainTable->currentRow();
             int idComputer=ui->mainTable->item(indexRow, 0)->text().toUInt();
-            AddCompDialog modify;
+            AddCompDialog modify(idComputer);
             modify.setModal(true);
-            modify.setIdComputer(idComputer);
             modify.exec();
         }
         else{

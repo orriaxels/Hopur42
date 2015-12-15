@@ -4,6 +4,7 @@
 #include <QString>
 #include <QTableWidget>
 #include <QStringList>
+#include <QMessageBox>
 
 AddRelationDialog::AddRelationDialog(QWidget *parent) :
     QDialog(parent),
@@ -17,9 +18,11 @@ AddRelationDialog::AddRelationDialog(QWidget *parent) :
 
     idComputer=0;
     idScientist=0;
+    nameScientist="*Scientist*";
+    nameComputer="*Computer*";
+    ui->lableTobeGrouped->setText( "Create relation between " +nameScientist +
+                                                      " and " +nameComputer);
     ui->buttonAdd->setEnabled(false);
-
-
 }
 
 AddRelationDialog::~AddRelationDialog()
@@ -95,17 +98,8 @@ void AddRelationDialog::on_tableComputers_doubleClicked(const QModelIndex &index
 
 void AddRelationDialog::previewRelationDisplay(){
 
-    if(idScientist==0){
-        ui->lableTobeGrouped->setText("Create relation between "+nameComputer +" and ");
-    }
-    else if(idComputer==0){
-        ui->lableTobeGrouped->setText("Create relation between "+nameScientist + " and ");
-    }
-    else{
-        ui->lableTobeGrouped->setText( "Create relation between " +nameScientist +
-                                       " and "+nameComputer);
-    }
-
+    ui->lableTobeGrouped->setText( "Create relation between " +nameScientist +
+                                                      " and " +nameComputer);
 
     if(idScientist !=0 && idComputer != 0){
         ui->buttonAdd->setEnabled(true);
@@ -114,29 +108,24 @@ void AddRelationDialog::previewRelationDisplay(){
 
 void AddRelationDialog::on_buttonAdd_clicked(){
     if( services.createRelation(idScientist, idComputer) ){
-        ui->lableTobeGrouped->setText( "Relation between " +nameScientist +
-                                       " and "+nameComputer + "has been added to the database.");
-        idComputer=0;
-        idScientist=0;
+      QMessageBox::information(0, "Added to database", "Relation between " +nameScientist +
+                                " and "+nameComputer + "has been added to the database.");
+      on_buttonClear_clicked();
     }
-
+    else{
+      QMessageBox::warning(0, "Error",
+                           "Error! \n\nUnable to add to database");
+    }
 }
 
 void AddRelationDialog::on_buttonClear_clicked(){
     idComputer=0;
     idScientist=0;
-    ui->lableTobeGrouped->setText("");
+    nameScientist="*Scientist*";
+    nameComputer="*Computer*";
+    ui->lableTobeGrouped->setText( "Create relation between " +nameScientist +
+                                                      " and " +nameComputer);
     ui->lineEditComputerFilter->clear();
     ui->lineEditScientistFilter->clear();
     ui->buttonAdd->setEnabled(false);
 }
-
-
-
-
-
-
-
-
-
-
