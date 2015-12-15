@@ -178,9 +178,10 @@ void MainWindow::intilizeRelationTable(){
     ui->mainTable->setColumnWidth(2,0);
 
     QStringList columns;
-    columns<<"idScientist"<<"Scientists name"<< "Computer name"<<"idComputers";
+    columns<<"idScientist"<<"Scientists name"<< "idComputers"<<"Computer name";
     ui->mainTable->setHorizontalHeaderLabels(columns);
     ui->mainTable->sortByColumn(1,Qt::AscendingOrder);
+    ui->mainTable->horizontalHeaderItem(3)->setTextAlignment(Qt::AlignLeft);
 
 }
 

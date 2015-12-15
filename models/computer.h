@@ -9,8 +9,8 @@ class Computer
 public:
         //Available constructors
         Computer();
-        Computer(string cName, string cType, bool build, int bldYear);
-        Computer(int tableId, string cName, string cType, bool build, int bldYear);
+        Computer(string computerName, string computerType, bool built, int builtYear);
+        Computer(int tableId, string computerName, string computerType, bool built, int builtYear);
 
         //Returns value of the private variables.
         int getId() const;

@@ -26,7 +26,7 @@ public:
          * @return returns true if database was sucsessfully updated, false if not */
         bool removeScientist(int idToRemove);
 
-        /* @brief Querys all dataabase for string
+        /* @brief Querys scientists table for string
          * @param searchString is ready to put after LIKE statement in query
          * @return retuns vector of scientists where searchString was found */
         vector<Scientist> searchScientist(QString searchString);
@@ -42,7 +42,16 @@ public:
         vector<Scientist> getAssociatedScientists(int idOfComputerToMatch);
 private:
         vector<Scientist> scientistsList;
+
+		/* @brief used by member funcitons to get results after query is made
+		 * @param resautls from query
+		 * @return retuns resault of the query */
 		vector<Scientist> queryScientistTable(QSqlQuery query);
+
+		/* @brief used after deleting a record from database.
+         *  Deletes any relation from junciton table
+		 * @param idScientistToRemove id of scientist to remove from junciton table
+		 * @return retuns vector of scientists that are associated with parameter */
         bool removeRelationScientist(int idScientistToRemove);
 };
 

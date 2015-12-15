@@ -19,7 +19,7 @@ public:
         /* @brief updates computer that is already in databse
          * @param computer to be changed
          * @return returns true if sucsessfully added to database, false if not */
-		    bool updateComputer(Computer computerUpdate);
+		bool updateComputer(Computer computerUpdate);
 
         /* @brief Sets deleted flag for scientist as 1. Sets all relation as deleted as well
          * @param idToRemove of scientist to flag as deleted
@@ -28,7 +28,7 @@ public:
 
         /*@brief searches database for matching string column by column
          * @param searchString string to search for in database
-         * @return retuns vector of scientists/Computer where searchString was found */
+         * @return retuns vector of computer where searchString was found */
         vector<Computer> searchComputer(QString searchString);
 		vector<Computer> advancedSearchComputer(QString searchString);
 
@@ -41,15 +41,18 @@ public:
          * @return retuns vector Computer/scientists that are associated with parameter */
         vector<Computer> getAssociatedComputers(int idOfScientistToMatch);
 
-        /* @brief Adds/removes relation between scientist and computers in database
-         * @param idScientists is the PK of scientist to add relation findForComputer
-         * @param idPkComputer vector of id's of computers to add(vector if case more than one)
-         * @return returns true if sucsessfully added to database, false if not */
-        bool addRelation(int idScientist, int idComputer);
-        bool removeRelation(int idScientist, int idComputer);
 private:
         vector<Computer> computerList;
+
+        /* @brief used by member funcitons to get results after query is made
+         * @param resautls from query
+         * @return retuns resault of the query */
 		vector<Computer> queryComputerTable(QSqlQuery query);
+
+        /* @brief used after deleting a record from database.
+         *  Deletes any relation from junciton table
+		 * @param idScientistToRemove id of scientist to remove from junciton table
+		 * @return retuns vector of scientists that are associated with parameter */
         bool removeRelationComputers(int idComputerToRemove);
 };
 
