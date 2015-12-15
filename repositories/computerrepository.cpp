@@ -36,8 +36,8 @@ bool Computerrepository::updateComputer(Computer computerUpdate){
   QString type       = QString::fromStdString((computerUpdate.getType()));
   bool    builtOrNot = computerUpdate.getBuild();
 
-  query.prepare("UPDATE Scientists SET Name=:Name, YearBuilt=:YearBuilt,
-                                      Type=Type:, BuiltOrNot=:BuiltOrNot WHERE id=:id");
+  query.prepare("UPDATE Scientists SET Name=:Name, YearBuilt=:YearBuilt,"
+                                      "Type=Type:, BuiltOrNot=:BuiltOrNot WHERE id=:id");
 	query.bindValue(":id",		     id);
   query.bindValue(":Name",       name);
   query.bindValue(":YearBuilt",  builtY);
