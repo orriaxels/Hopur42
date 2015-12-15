@@ -44,6 +44,8 @@ private slots:
 
     void on_mainTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
 
+    void on_addComputer_triggered();
+
 private:
     Service services;
     Ui::MainWindow *ui;

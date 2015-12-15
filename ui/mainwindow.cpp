@@ -98,7 +98,7 @@ void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
         ui->mainTable->setItem(i, 6, new QTableWidgetItem(known));
 
     }
-	ui->mainTable->setSortingEnabled(true);
+    ui->mainTable->setSortingEnabled(true);
 }
 
 void MainWindow::on_computerRadioButton_toggled(bool checked)
@@ -156,7 +156,7 @@ void MainWindow::displayComputerList(std::vector<Computer> listToDisplay){
         ui->mainTable->item(i,3)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 4, new QTableWidgetItem(builtYear));
     }
-	ui->mainTable->setSortingEnabled(true);
+    ui->mainTable->setSortingEnabled(true);
 }
 
 void MainWindow::on_relationRadioButton_toggled(bool checked){
@@ -207,7 +207,7 @@ void MainWindow::displayRelationTable(){
 	      }
 		}
 	  }
-	  ui->mainTable->setSortingEnabled(true);
+      ui->mainTable->setSortingEnabled(true);
 }
 
 void MainWindow::on_lineEdit_textChanged(const QString &arg1){
@@ -231,7 +231,7 @@ void MainWindow::on_actionAbout_us_triggered()
 
 void MainWindow::on_addScientist_triggered()
 {
-    AddDialog add;
+    AddDialog add(0);
     add.setModal(true);
     add.exec();
 }
@@ -245,7 +245,7 @@ void MainWindow::on_buttunAdd_clicked()
 {
    if(ui->scientistRadioButton->isChecked())
    {
-       AddDialog add;
+       AddDialog add(0);
        add.setModal(true);
        add.exec();
    }
@@ -353,13 +353,12 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_buttonEdit_clicked()
 {
-    if( ui->mainTable->selectedItems().size() != 0){
+    if( ui->mainTable->selectedItems().size() > 0){
         int indexRow=ui->mainTable->currentRow();
         if( ui->scientistRadioButton->isChecked() ){
             int idScientist=ui->mainTable->item(indexRow, 0)->text().toUInt();
-            AddDialog modify;
+            AddDialog modify(idScientist);
             modify.setModal(true);
-            modify.setIdScientist(idScientist);
             modify.exec();
         }
         else if (ui->computerRadioButton->isChecked()){
@@ -437,5 +436,10 @@ void MainWindow::on_mainTable_currentCellChanged(int currentRow, int currentColu
          }
 
      }
+
+}
+
+void MainWindow::on_addComputer_triggered()
+{
 
 }

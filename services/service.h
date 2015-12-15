@@ -37,6 +37,12 @@ public:
         bool createScientistToAdd(string name, string gender, int yearborn, int yeardied, string knownFor);
         bool createComputerToAdd(string name, string type, bool built, int yearBuilt);
 
+		/* @brief Sends modified entery to database to update
+		 * @parameter contains the modified scientist or computer to uptdate
+         * @return True if sucsessfully added and false if writing to database failed */
+        bool updateScientist(Scientist scientistUpdate);
+        bool updateComputer(Computer computerUpdate);
+
         /* @brief finds TableId of scientist/computer to be removed
          * @parameter number list is at which container scientist/comp to remove is
          * @return True if sucsessfully "removed" and false if writing to database failed */
@@ -55,6 +61,7 @@ public:
 
 		int numberOfRelations();
 private:
+		void seperateFirstLast(string &firstName, string &lastName);
         Computerrepository computerRepository;
         Scientistrepository scientistRepository;
 		Relationrepository relationRepository;

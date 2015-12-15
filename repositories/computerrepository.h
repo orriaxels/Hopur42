@@ -16,6 +16,8 @@ public:
          * @return returns true if sucsessfully added to database, false if not */
         bool addToDatabase(Computer newComputer);
 
+		bool updateComputer(Computer computerUpdate);
+
         /* @brief Sets deleted flag for scientist as 1. Sets all relation as deleted as well
          * @param idToRemove of scientist to flag as deleted
          * @return returns true if database was sucsessfully updated, false if not */

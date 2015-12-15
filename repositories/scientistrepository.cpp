@@ -33,6 +33,30 @@ bool Scientistrepository::addToDatabase(Scientist newScientist) {
   return query.exec();
 }
 
+bool Scientistrepository::updateScientist(Scientist scientistUpdate){
+	QSqlQuery query;
+
+    int		id	   = scientistUpdate.getId();
+	QString fName  = QString::fromStdString((scientistUpdate.getF()));
+	QString lName  = QString::fromStdString((scientistUpdate.getL()));
+	bool    gender = scientistUpdate.getGender();
+	int     born   = scientistUpdate.getYearBorn();
+	int     died   = scientistUpdate.getYearDied();
+	QString known  = QString::fromStdString((scientistUpdate.getKnownFor()));
+
+	query.prepare("UPDATE Scientists SET FirstName=:FirstName, LastName=:LastName, "
+										"Gender=:Gender, Born=:Born, Died=:Died, KnownFor=:KnownFor WHERE id=:id");
+	query.bindValue(":id",		  id);
+	query.bindValue(":FirstName", fName);
+	query.bindValue(":LastName",  lName);
+	query.bindValue(":Gender",    gender);
+	query.bindValue(":Born",      born);
+	query.bindValue(":Died",      died);
+	query.bindValue(":KnownFor",  known);
+
+	return query.exec();
+}
+
 bool Scientistrepository::removeScientist(int idToRemove) {
   QSqlQuery query;
 

@@ -109,40 +109,19 @@ vector<Computer>Service::getAssociatedComputers(Scientist scientistDetails) {
 
 bool Service::createScientistToAdd(string name, string gender, int yearborn, int yeardied, string knownFor) {
 
-  string buffer = "", bufferFirst = "", bufferLast = "";
-  bool   bufferGender;
+  string firstName = name, lastName = "";
+  bool   boolGender;
 
-  vector<string> nameContainer;
-
-  // To be able to seperate first and last name a sstream is created
-  stringstream nameStream;
-  nameStream.str(name);
-
-  while (nameStream >> buffer) {
-    nameContainer.push_back(buffer);
-  }
-
-  if (nameContainer.size() == 1) {
-    bufferFirst = nameContainer.back();
-  }
-  else {
-    for (unsigned int i = 0; i < nameContainer.size() - 1; i++) {
-      bufferFirst += nameContainer.at(i);
-
-      if (i < (nameContainer.size() - 2)) bufferFirst += " ";
-    }
-    bufferLast = nameContainer.back();
-  }
+  seperateFirstLast(firstName,lastName);
 
   if ((gender == "f") || (gender == "F")) {
-    bufferGender = true;
+    boolGender = true;
   }
   else {
-    bufferGender = false;
+    boolGender = false;
   }
 
-
-  Scientist newScientist(bufferFirst, bufferLast, bufferGender, yearborn, yeardied, knownFor);
+  Scientist newScientist(firstName, lastName, boolGender, yearborn, yeardied, knownFor);
 
   return scientistRepository.addToDatabase(newScientist);
 }
@@ -151,6 +130,22 @@ bool Service::createComputerToAdd(string name, string type, bool built, int year
   Computer newComputer(name, type, built, yearBuilt);
 
   return computerRepository.addToDatabase(newComputer);
+}
+
+bool Service::updateScientist(Scientist scientistUpdate){
+	string bufferFirstName=scientistUpdate.getF(),
+		   bufferLastName="";
+	seperateFirstLast(bufferFirstName,bufferLastName);
+
+	Scientist nameUpdated(scientistUpdate.getId(), bufferFirstName, bufferLastName, scientistUpdate.getGender(),
+                            scientistUpdate.getYearBorn(),scientistUpdate.getYearDied(),
+							scientistUpdate.getKnownFor());
+
+	return scientistRepository.updateScientist(nameUpdated);
+}
+
+bool Service::updateComputer(Computer computerUpdate){
+	return computerRepository.updateComputer(computerUpdate);
 }
 
 bool Service::removeScientist(int idScientistToRemove) {
@@ -171,4 +166,30 @@ bool Service::removeRelation(int idScientist, int idComputer) {
 
 int Service::numberOfRelations() {
   return relationRepository.sizeOfTable();
+}
+
+void Service::seperateFirstLast(string &firstName, string &lastName) {
+  string buffer = "";
+
+  vector<string> nameContainer;
+
+  // To be able to seperate first and last name a sstream is created
+  stringstream nameStream;
+  nameStream.str(firstName);
+
+  while (nameStream >> buffer) {
+    nameContainer.push_back(buffer);
+  }
+
+  if (nameContainer.size() == 1) {
+    firstName = nameContainer.back();
+  }
+  else {
+    for (unsigned int i = 0; i < nameContainer.size() - 1; i++) {
+      firstName += nameContainer.at(i);
+
+      if (i < (nameContainer.size() - 2)) firstName += " ";
+    }
+    lastName = nameContainer.back();
+  }
 }

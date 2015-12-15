@@ -27,6 +27,10 @@ bool Computerrepository::addToDatabase(Computer newComp) {
   return query.exec();
 }
 
+bool Computerrepository::updateComputer(Computer computerUpdate){
+	return true;
+}
+
 bool Computerrepository::removeComputer(int idToRemove) {
   QSqlQuery query;
 
