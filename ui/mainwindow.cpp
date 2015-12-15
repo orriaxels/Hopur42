@@ -418,43 +418,24 @@ void MainWindow::on_mainTable_currentCellChanged(int currentRow, int currentColu
 
            ui->detailsLabel->setText(details);
         }
-}
+         if( ui->computerRadioButton->isChecked() ){
+             QString compDetails = "Name: " + ui->mainTable->item(currentRow, 1)->text() + "\n";
+             compDetails += "Type: " + ui->mainTable->item(currentRow, 2)->text() + "\n";
+             if(ui->mainTable->item(currentRow, 3)->text() == "Yes"){
+                 compDetails += ui->mainTable->item(currentRow,1)->text() + " was built " +
+                                ui->mainTable->item(currentRow, 4)->text() + ".\n";
+             }
+             else{
+                 compDetails += "It was not built.\n";
+             }
 
 
-     //      vector<Computer> relatedComputers = services.getAssociatedCompputers(scientistDetails);
-     //      cout<<"Name: "<< scientistDetails.getF() + " " + scientistDetails.getL() <<endl
-     //          <<"Gender: ";
-     //      if( scientistDetails.getGender() ){
-     //          cout<< "Female"<<endl;
-     //      }
-     //      else{
-     //          cout << "Male"<<endl;
-     //      }
-     //      cout<< scientistDetails.getF() <<" was born in "<<scientistDetails.getYearBorn();
-     //      if( scientistDetails.getYearDied() == 0 )
-     //        cout<<" and is still alive today."<<endl;
-     //      else{
-     //            cout<< " and died in "<<scientistDetails.getYearDied() <<" when ";
-     //        if( scientistDetails.getGender() )
-     //            cout<< "she ";
-     //        else
-     //            cout << "he ";
+             ui->detailsLabel->setText(compDetails);
+         }
+         if( ui->relationRadioButton->isChecked() ){
 
-     //        cout<<"was "
-     //            << (scientistDetails.getYearDied() - scientistDetails.getYearBorn() )
-     //            << " years old."<<endl;
-     //      }
-     //      cout<< scientistDetails.getF()<< " was best known for: "<< scientistDetails.getKnownFor()<<endl;
+         }
 
+     }
 
-     //      if(assComputers.size() > 0) {
-     //        cout<<scientistDetails.getF()<<" is associated with the following computers: "<<endl;
-     //        for(unsigned int i=0; i< assComputers.size(); i++){
-     //          cout << i+1<<". "<< assComputers.at(i).getName() <<endl;
-     //        }
-     //      }
-     //      else{
-     //        cout<<"There are no computers in current database associated with "<< scientistDetails.getF();
-     //      }
-     //    }
 }
