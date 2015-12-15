@@ -34,6 +34,20 @@ private slots:
 
     void on_addScientist_triggered();
 
+    void on_addComputer_triggered();
+
+    void on_addRelation_triggered();
+
+    void on_editScientist_triggered();
+
+    void on_editComputer_triggered();
+
+    void on_removeScientist_triggered();
+
+    void on_removeComputer_triggered();
+
+    void on_removeRelation_triggered();
+
     void on_buttunAdd_clicked();
 
     void on_buttunRemove_clicked();
@@ -44,7 +58,6 @@ private slots:
 
     void on_mainTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
 
-    void on_addComputer_triggered();
 
     void on_linkLabel_linkActivated(const QString &link);
 

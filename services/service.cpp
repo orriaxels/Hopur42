@@ -176,6 +176,7 @@ void Service::seperateFirstLast(string &firstName, string &lastName) {
   // To be able to seperate first and last name a sstream is created
   stringstream nameStream;
   nameStream.str(firstName);
+  firstName="";
 
   while (nameStream >> buffer) {
     nameContainer.push_back(buffer);
