@@ -58,7 +58,6 @@ private slots:
 
     void on_mainTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
 
-
     void on_linkLabel_linkActivated(const QString &link);
 
 private:

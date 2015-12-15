@@ -342,6 +342,21 @@ void MainWindow::on_buttunRemove_clicked()
     }
 }
 
+void MainWindow::on_addComputer_triggered()
+{
+    AddCompDialog addComp;
+    addComp.setModal(true);
+    addComp.exec();
+}
+
+void MainWindow::on_addRelation_triggered()
+{
+    AddRelationDialog addRelations;
+    addRelations.setModal(true);
+    addRelations.exec();
+
+}
+
 void MainWindow::on_pushButton_clicked()
 {
     QMessageBox::information(this, tr("How to filter"),
@@ -445,8 +460,157 @@ void MainWindow::on_mainTable_currentCellChanged(int currentRow, int currentColu
     }
 }
 
-void MainWindow::on_addComputer_triggered()
+void MainWindow::on_removeComputer_triggered()
 {
+    if (ui->computerRadioButton->isChecked()){
+        if( ui->mainTable->selectedItems().size() != 0){
+            int indexRow=ui->mainTable->currentRow();
+            QMessageBox confirmRemove;
+            confirmRemove.setStandardButtons(QMessageBox::Yes);
+            confirmRemove.addButton(QMessageBox::No);
+            confirmRemove.setDefaultButton(QMessageBox::No);
+            confirmRemove.setWindowTitle(tr("Are you sure?"));
+            QString name=ui->mainTable->item(indexRow, 1)->text();
+            int id=ui->mainTable->item(indexRow, 0)->text().toUInt();
+
+            confirmRemove.setText(("<p>You are about remove "
+                                   "<b>"+name+" </b> from the database.</p>"
+                                   "Are you sure you want to proceed?"));
+
+            if(confirmRemove.exec() == QMessageBox::Yes){
+                if(services.removeComputer(id)){
+                    ui->statusBar->showMessage("Succsessfully removed "+name+" from the database.", 3000);
+                    displayComputerList( services.searchComputers( ui->lineEdit->text() ) );
+                }
+                else{
+                    ui->statusBar->showMessage("Unable to remove "+name+" from the database.", 5000);
+                }
+            }
+        }
+        else {
+            ui->statusBar->showMessage("Please select a row before you try do to that", 3000);
+        }
+    }
+    else {
+        ui->statusBar->showMessage("Please open the computer database before you try do to that", 3000);
+    }
+}
+
+void MainWindow::on_removeScientist_triggered()
+{
+    if (ui->scientistRadioButton->isChecked()){
+        if( ui->mainTable->selectedItems().size() != 0){
+            int indexRow=ui->mainTable->currentRow();
+            QMessageBox confirmRemove;
+            confirmRemove.setStandardButtons(QMessageBox::Yes);
+            confirmRemove.addButton(QMessageBox::No);
+            confirmRemove.setDefaultButton(QMessageBox::No);
+            confirmRemove.setWindowTitle(tr("Are you sure?"));
+
+            QString firstName=ui->mainTable->item(indexRow, 1)->text();
+            QString lastName=ui->mainTable->item(indexRow, 2)->text();
+            int id=ui->mainTable->item(indexRow, 0)->text().toUInt();
+
+            confirmRemove.setText(("<p>You are about remove "
+                                    "<b>"+firstName+" "+lastName+ "</b> from the database.</p>"
+                                    "Are you sure you want to proceed?"));
+
+            if(confirmRemove.exec() == QMessageBox::Yes){
+                if(services.removeScientist(id)){
+                    ui->statusBar->showMessage("Succsessfully removed "+firstName+" "+lastName+" from the database.", 5000);
+                    displayScientistList( services.searchScientists( ui->lineEdit->text() ) );
+                }
+                else{
+                    ui->statusBar->showMessage("Unable to remove "+firstName+" "+lastName+" from the database.", 5000);
+                }
+            }
+        }
+        else{
+            ui->statusBar->showMessage("Please select a row before you try do to that", 3000);
+        }
+    }
+    else {
+        ui->statusBar->showMessage("Please open the scientist database before you try to do that", 3000);
+    }
+}
+
+void MainWindow::on_removeRelation_triggered()
+{
+    if (ui->relationRadioButton->isChecked()){
+        if( ui->mainTable->selectedItems().size() != 0){
+            QMessageBox confirmRemove;
+            confirmRemove.setStandardButtons(QMessageBox::Yes);
+            confirmRemove.addButton(QMessageBox::No);
+            confirmRemove.setDefaultButton(QMessageBox::No);
+            confirmRemove.setWindowTitle(tr("Are you sure?"));
+
+            int indexRow=ui->mainTable->currentRow();
+            int idScientist=ui->mainTable->item(indexRow, 0)->text().toUInt();
+            QString scientistName=ui->mainTable->item(indexRow, 1)->text();
+            int idComputer=ui->mainTable->item(indexRow, 2)->text().toUInt();
+            QString computerName=ui->mainTable->item(indexRow, 3)->text();
+
+            confirmRemove.setText(("<p>You are about remove relation between "
+                                    "<b>"+scientistName+" and "+computerName+"</b> from the database.</p>"
+                                    "Are you sure you want to proceed?"));
+
+            if(confirmRemove.exec() == QMessageBox::Yes){
+                if(services.removeRelation(idScientist,idComputer)){
+                    ui->statusBar->showMessage("Succsessfully removed relation from the database.", 3000);
+                    displayRelationTable();
+                }
+                else{
+                    ui->statusBar->showMessage("Unable to remove relation from the database.", 5000);
+                }
+            }
+        }
+        else{
+            ui->statusBar->showMessage("Please select a row before you do that.", 3000);
+        }
+    }
+    else{
+        ui->statusBar->showMessage("Please select the relation database before you try to do that", 3000);
+    }
+}
+void MainWindow::on_editScientist_triggered()
+{
+    if(ui->scientistRadioButton->isChecked()){
+        if( ui->mainTable->selectedItems().size() > 0){
+            int indexRow=ui->mainTable->currentRow();
+                int idScientist=ui->mainTable->item(indexRow, 0)->text().toUInt();
+                AddDialog modify(idScientist);
+                modify.setModal(true);
+                modify.exec();
+        }
+        else{
+            ui->statusBar->showMessage("Please select a row before you do that.", 3000);
+        }
+    }
+    else{
+        ui->statusBar->showMessage("Please open the scientist database before you try to edit a scientist", 3000);
+    }
+
+}
+
+void MainWindow::on_editComputer_triggered()
+{
+    if (ui->computerRadioButton->isChecked()){
+        if ( ui->mainTable->selectedItems().size() > 0){
+            int indexRow=ui->mainTable->currentRow();
+            int idComputer=ui->mainTable->item(indexRow, 0)->text().toUInt();
+            AddCompDialog modify;
+            modify.setModal(true);
+            modify.setIdComputer(idComputer);
+            modify.exec();
+        }
+        else{
+            ui->statusBar->showMessage("Please select a row before you do that.", 3000);
+        }
+
+    }
+    else {
+        ui->statusBar->showMessage("Please open the computer database before you try to edit a computer", 3000);
+    }
 
 }
 
