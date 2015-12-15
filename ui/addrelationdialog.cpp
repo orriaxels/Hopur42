@@ -8,8 +8,7 @@
 
 AddRelationDialog::AddRelationDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AddRelationDialog)
-{
+    ui(new Ui::AddRelationDialog){
     ui->setupUi(this);
 
     intilizeTables();
@@ -25,8 +24,7 @@ AddRelationDialog::AddRelationDialog(QWidget *parent) :
     ui->buttonAdd->setEnabled(false);
 }
 
-AddRelationDialog::~AddRelationDialog()
-{
+AddRelationDialog::~AddRelationDialog(){
     delete ui;
 }
 
@@ -69,18 +67,15 @@ void AddRelationDialog::displayCompterList(vector<Computer> listToDisplay){
     ui->tableComputers->selectRow(0);
 }
 
-void AddRelationDialog::on_lineEditScientistFilter_textChanged(const QString &arg1)
-{
+void AddRelationDialog::on_lineEditScientistFilter_textChanged(const QString &arg1){
     displayScientistList( services.searchScientists(arg1 ) );
 }
 
-void AddRelationDialog::on_lineEditComputerFilter_textChanged(const QString &arg1)
-{
+void AddRelationDialog::on_lineEditComputerFilter_textChanged(const QString &arg1){
     displayCompterList(services.searchComputers(arg1));
 }
 
-void AddRelationDialog::on_tableScientists_doubleClicked(const QModelIndex &index)
-{
+void AddRelationDialog::on_tableScientists_doubleClicked(const QModelIndex &index){
     int indexRow=ui->tableScientists->currentRow();
     idScientist =ui->tableScientists->item(indexRow, 0)->text().toUInt();
     nameScientist =ui->tableScientists->item(indexRow, 1)->text();
@@ -88,8 +83,7 @@ void AddRelationDialog::on_tableScientists_doubleClicked(const QModelIndex &inde
 
 }
 
-void AddRelationDialog::on_tableComputers_doubleClicked(const QModelIndex &index)
-{
+void AddRelationDialog::on_tableComputers_doubleClicked(const QModelIndex &index){
     int indexRow=ui->tableComputers->currentRow();
     idComputer =ui->tableComputers->item(indexRow, 0)->text().toUInt();
     nameComputer =ui->tableComputers->item(indexRow, 1)->text();
