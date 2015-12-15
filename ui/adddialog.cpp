@@ -64,13 +64,24 @@ void AddDialog::setUpForEdit(){
 
     QString fName      = QString::fromStdString(scientistEdit.getF());
     QString lName      = QString::fromStdString(scientistEdit.getL());
+    QString qGender  = QString::number(scientistEdit.getGender());
     int     bornYear   = (scientistEdit.getYearBorn());
     int     deathYear  = (scientistEdit.getYearDied());
     QString knownForIt = QString::fromStdString(scientistEdit.getKnownFor());
 
 
     QString fullName = fName + " " + lName;
-    ui->nameLineEdit->setText(fullName);
+    name = fullName;
+    ui->nameLineEdit->setText(name);
+    on_nameLineEdit_textEdited(name);
+
+    if(qGender == "1"){
+        ui->gendrComboBox->setCurrentIndex(1);
+    }
+    else{
+        ui->gendrComboBox->setCurrentIndex(0);
+    }
+
     ui->bornAddSpinBox->setValue(bornYear);
 
     if (deathYear == 0) {
@@ -192,13 +203,27 @@ void AddDialog::updateDatabaseConfirm(){
         }
         QString qGender= QString::number(scientistEdit.getGender());
 
+        QString oldScientistFName = QString::fromStdString(scientistEdit.getF());
+        QString oldScientistLName = QString::fromStdString(scientistEdit.getL());
+        QString oldFullName = oldScientistFName + " " + oldScientistLName;
+        QString oldGender;
+        if(qGender == "1"){
+           oldGender = "Female";
+        }else{
+           oldGender = "Male";
+        }
+
+        QString oldYearBorn = QString::number(scientistEdit.getYearBorn());
+        QString oldYearDied = QString::number(scientistEdit.getYearDied());
+        if(oldYearDied == "0"){
+            oldYearDied ="Still Alive";
+        }
+
+        QString oldKnownFor = QString::fromStdString(scientistEdit.getKnownFor());
 
         oldScientistInfo=QString::number(scientistEdit.getId());
-    //    oldScientistInfo= QString(	"Name: "+scientistEdit.getF()+" "+scientistEdit.getL()+"\n");
-    //                                "Gender: "+scientistEdit.getGender()+"\n"
-    //                                "Born: "+scientistEdit.getBorn()+"\n"
-    //                                "Died: "+scientistEdit.getDied()+"\n"
-    //								"Known for: "+scientistEdit.getKnownFor());
+        oldScientistInfo = QString("Name: %1\nGender: %2\nBorn: %3\nDied: %4\nKnown for: %5 \n\n")
+                                    .arg(oldFullName).arg(oldGender).arg(oldYearBorn).arg(oldYearDied).arg(oldKnownFor);
 
         newScientistInfo = QString("Name: %1\nGender: %2\nBorn: %3\nDied: %4\nKnown for: %5 \n\n")
                                     .arg(name).arg(ui->gendrComboBox->currentText()).arg(
@@ -207,6 +232,7 @@ void AddDialog::updateDatabaseConfirm(){
         confirmationText= QString("Confirm change from:\n"+oldScientistInfo+"\n\nTo:\n"+newScientistInfo+"\n\nAre you sure you want to update?");
 
         QMessageBox addMsgBox;
+        addMsgBox.setFixedSize(200,300);
         addMsgBox.setWindowTitle("Confirm");
         addMsgBox.setText(confirmationText);
         QAbstractButton *pButtonYes = addMsgBox.addButton(tr("Yes"), QMessageBox::YesRole);
