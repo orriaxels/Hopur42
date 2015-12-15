@@ -248,18 +248,20 @@ void MainWindow::on_buttunAdd_clicked()
        AddDialog add(0);
        add.setModal(true);
        add.exec();
+       displayScientistList( services.searchScientists( ui->lineEdit->text() ) );
    }
    else if(ui->computerRadioButton->isChecked())
    {
        AddCompDialog addComp;
        addComp.setModal(true);
        addComp.exec();
-
+       displayComputerList( services.searchComputers( ui->lineEdit->text() ) );
    }
    else if(ui->relationRadioButton->isChecked()){
        AddRelationDialog addRelations;
        addRelations.setModal(true);
        addRelations.exec();
+       displayRelationTable();
    }
 }
 
@@ -360,6 +362,7 @@ void MainWindow::on_buttonEdit_clicked()
             AddDialog modify(idScientist);
             modify.setModal(true);
             modify.exec();
+            displayScientistList( services.searchScientists( ui->lineEdit->text() ) );
         }
         else if (ui->computerRadioButton->isChecked()){
             int idComputer=ui->mainTable->item(indexRow, 0)->text().toUInt();
@@ -367,6 +370,7 @@ void MainWindow::on_buttonEdit_clicked()
             modify.setModal(true);
             modify.setIdComputer(idComputer);
             modify.exec();
+            displayComputerList( services.searchComputers( ui->lineEdit->text() ) );
         }
     }
     else{
