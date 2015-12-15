@@ -148,6 +148,8 @@ void AddDialog::addToDatabaseConfirm(){
       dYear = ui->diedAddSpinBox->value();
     }
 
+
+
     confirmationText = QString("Confirm \n\nName: %1\nGender: %2\nBorn: %3\nDied: %4\nKnown for: %5 \n\n"
                   "Are you sure you want to add this entry?")
           .arg(name).arg(ui->gendrComboBox->currentText()).arg(
@@ -155,6 +157,7 @@ void AddDialog::addToDatabaseConfirm(){
 
     QMessageBox addMsgBox;
     addMsgBox.setWindowTitle("Confirm");
+    //addMsgBox.setTextFormat(Qt::TextWordWrap);
     addMsgBox.setText(confirmationText);
     QAbstractButton *pButtonYes = addMsgBox.addButton(tr("Yes"), QMessageBox::YesRole);
     addMsgBox.addButton(tr("No"), QMessageBox::NoRole);
@@ -300,7 +303,9 @@ void AddDialog::on_knownForText_textChanged()
 
 bool AddDialog::isNameGood() {
   string nameIs = name.toStdString();
-
+    if(nameIs.empty() || nameIs[0] == ' '){
+        return false;
+    }
   for (unsigned int i = 0; i < nameIs.length(); i++) {
     if ((islower(nameIs[0])) || (islower(nameIs[i]) && (nameIs[i - 1] == ' '))) {
       nameIs[i] = toupper(nameIs[i]);
