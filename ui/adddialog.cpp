@@ -189,6 +189,7 @@ void AddDialog::addToDatabaseConfirm(){
                              "Error! \n\nUnable to add to database");
       }
     }
+
 }
 
 void AddDialog::updateDatabaseConfirm(){
@@ -271,6 +272,7 @@ void AddDialog::updateDatabaseConfirm(){
                                  "Error! \n\nUnable to update database");
           }
         }
+        this->close();
 }
 
 void AddDialog::on_nameLineEdit_textEdited(const QString& arg1){
