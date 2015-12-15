@@ -228,7 +228,7 @@
      <x>0</x>
      <y>0</y>
      <width>1047</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -255,7 +255,8 @@
       <string>Remove...</string>
      </property>
      <addaction name="removeScientist"/>
-     <addaction name="actionComputer_3"/>
+     <addaction name="removeComputer"/>
+     <addaction name="removeRelation"/>
     </widget>
     <addaction name="menuAdd"/>
     <addaction name="menuModify"/>
@@ -318,9 +319,14 @@
     <string>Scientist</string>
    </property>
   </action>
-  <action name="actionComputer_3">
+  <action name="removeComputer">
    <property name="text">
     <string>Computer</string>
+   </property>
+  </action>
+  <action name="removeRelation">
+   <property name="text">
+    <string>Relation</string>
    </property>
   </action>
  </widget>
