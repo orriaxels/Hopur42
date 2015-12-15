@@ -22,44 +22,33 @@ public:
     ~MainWindow();
     void databaseFailedOpen();
 private slots:
+    //radiobuttons control what table to display
     void on_scientistRadioButton_toggled(bool checked);
-
     void on_computerRadioButton_toggled(bool checked);
-
+    void on_relationRadioButton_toggled(bool checked);
+    //searchfilter for tables
     void on_lineEdit_textChanged(const QString &arg1);
 
-    void on_relationRadioButton_toggled(bool checked);
-
+    //Menu bar actions
+    void on_addScientist_triggered();
+    void on_addComputer_triggered();
+    void on_addRelation_triggered();
+    void on_editScientist_triggered();
+    void on_editComputer_triggered();
+    void on_removeScientist_triggered();
+    void on_removeComputer_triggered();
+    void on_removeRelation_triggered();
     void on_actionAbout_us_triggered();
 
-    void on_addScientist_triggered();
-
-    void on_addComputer_triggered();
-
-    void on_addRelation_triggered();
-
-    void on_editScientist_triggered();
-
-    void on_editComputer_triggered();
-
-    void on_removeScientist_triggered();
-
-    void on_removeComputer_triggered();
-
-    void on_removeRelation_triggered();
-
+    //Push buttons
     void on_buttunAdd_clicked();
-
     void on_buttunRemove_clicked();
-
     void on_pushButton_clicked();
-
     void on_buttonEdit_clicked();
 
+
     void on_mainTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
-
-    void on_linkLabel_linkActivated(const QString &link);
-
+    void on_detailsLabel_linkActivated(const QString &link);
 private:
     Service services;
     Ui::MainWindow *ui;

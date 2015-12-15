@@ -13,7 +13,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 
-const QString GOOGLE_SEARCH = "https://www.google.is/search?q=";
+const QString GOOGLE_SEARCH = "http://www.google.com/search?q=";
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -395,9 +395,10 @@ void MainWindow::on_buttonEdit_clicked()
 
 }
 
-void MainWindow::on_mainTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
-{
+void MainWindow::on_mainTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn){
+    QString link="<html><head/><body><p>For more information click <a href=\"https\"><span style=\" text-decoration: underline; color:#0066ff;\">here.</span></a></p></body></html> ";
     if( ui->mainTable->selectedItems().size() != 0){
+
         if( ui->scientistRadioButton->isChecked() ){
              QString details = "Name: " + ui->mainTable->item(currentRow, 1)->text() + " " +
                      ui->mainTable->item(currentRow, 2)->text() + "\n";
@@ -434,7 +435,7 @@ void MainWindow::on_mainTable_currentCellChanged(int currentRow, int currentColu
          details +=  ui->mainTable->item(currentRow, 1)->text() + " " +
                  ui->mainTable->item(currentRow, 2)->text() + " was best known for "
                  + ui->mainTable->item(currentRow, 6)->text();
-
+        details+=link;
          ui->detailsLabel->setText(details);
        }
         if( ui->computerRadioButton->isChecked() ){
@@ -452,7 +453,7 @@ void MainWindow::on_mainTable_currentCellChanged(int currentRow, int currentColu
             ui->detailsLabel->setText(compDetails);
         }
         if( ui->relationRadioButton->isChecked() ){
-           QString reDetails = ui->mainTable->item(currentRow, 1)->text() + " worked on " +
+           QString reDetails = ui->mainTable->item(currentRow, 1)->text() + " can be associated with " +
                                ui->mainTable->item(currentRow, 3)->text();
 
            ui->detailsLabel->setText(reDetails);
@@ -614,17 +615,15 @@ void MainWindow::on_editComputer_triggered()
 }
 
 
-void MainWindow::on_linkLabel_linkActivated(const QString &link)
-{
-    int indexRow=ui->mainTable->currentRow();
-    QString bufferName = ui->mainTable->item(indexRow, 1)->text() + "+" +
-                         ui->mainTable->item(indexRow, 2)->text();
+void MainWindow::on_detailsLabel_linkActivated(const QString &link){
 
-    bufferName.replace(" ","+");
-    bufferName = GOOGLE_SEARCH + bufferName;
-    QDesktopServices::openUrl(QUrl("http://google.com"));
+    if( ui->mainTable->selectedItems().size() != 0){
+        int indexRow=ui->mainTable->currentRow();
+        QString buffer = ui->mainTable->item(indexRow, 1)->text() + "+" +
+                             ui->mainTable->item(indexRow, 2)->text();
 
-    //ui->linkLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-    //ui->linkLabel->setOpenExternalLinks(true);
-
+        buffer.replace(" ","+");
+        buffer = GOOGLE_SEARCH + buffer+"&btnI";
+        QDesktopServices::openUrl(QUrl(buffer));
+    }
 }
