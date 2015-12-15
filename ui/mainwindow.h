@@ -46,6 +46,8 @@ private slots:
 
     void on_addComputer_triggered();
 
+    void on_linkLabel_linkActivated(const QString &link);
+
 private:
     Service services;
     Ui::MainWindow *ui;

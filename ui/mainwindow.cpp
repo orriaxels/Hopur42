@@ -10,6 +10,10 @@
 #include <QString>
 #include <QStringList>
 #include <QMessageBox>
+#include <QDesktopServices>
+#include <QUrl>
+
+const QString GOOGLE_SEARCH = "https://www.google.is/search?q=";
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -99,6 +103,7 @@ void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
 
     }
     ui->mainTable->setSortingEnabled(true);
+    //láta forritið velja fyrstu línuna í öllum töflunum
 }
 
 void MainWindow::on_computerRadioButton_toggled(bool checked)
@@ -377,69 +382,86 @@ void MainWindow::on_buttonEdit_clicked()
 
 void MainWindow::on_mainTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
 {
-     if( ui->mainTable->selectedItems().size() != 0){
-         if( ui->scientistRadioButton->isChecked() ){
-              QString details = "Name: " + ui->mainTable->item(currentRow, 1)->text() + " " +
-                      ui->mainTable->item(currentRow, 2)->text() + "\n";
-              details += "Gender: " + ui->mainTable->item(currentRow, 3)->text() + "\n";
-              details += "was born in " + ui->mainTable->item(currentRow, 4)->text() + "\n";
+    if( ui->mainTable->selectedItems().size() != 0){
+        if( ui->scientistRadioButton->isChecked() ){
+             QString details = "Name: " + ui->mainTable->item(currentRow, 1)->text() + " " +
+                     ui->mainTable->item(currentRow, 2)->text() + "\n";
+             details += "Gender: " + ui->mainTable->item(currentRow, 3)->text() + ".\n";
+             details += ui->mainTable->item(currentRow, 2)->text() + " was born in "
+                        + ui->mainTable->item(currentRow, 4)->text();
 
-              if(ui->mainTable->item(currentRow, 5)->text() == "Alive"){
-                details += "and is still alive today. \n";
+             if(ui->mainTable->item(currentRow, 5)->text() == "Alive"){
+               details += " and is still alive today. ";
+             }
+            else{
+                   details+= " and died in " + ui->mainTable->item(currentRow, 5)->text() + ".\n";
+                   if(ui->mainTable->item(currentRow, 3)->text() == "Female"){
+                       details += "She ";
+                   }
+                   else{
+                       details += "He ";
+                   }
 
-              }
-             else{
-                    details+= "and died in " + ui->mainTable->item(currentRow, 5)->text() + ".\n";
-                    if(ui->mainTable->item(currentRow, 3)->text() == "Female"){
-                        details += "She ";
-                    }
-                    else{
-                        details += "He ";
-                    }
-
-                    details += "was ";
-                    int year = ui->mainTable->item(currentRow,5)->text().toUInt()
-                             - ui->mainTable->item(currentRow,4)->text().toUInt();
-                    details += QString::number(year) + " old when ";
-                    if(ui->mainTable->item(currentRow, 3)->text() == "Female"){
-                        details += "she ";
-                    }
-                    else{
-                        details += "he ";
-                    }
-                    details += " died. \n";
-                  }
+                   details += " was ";
+                   int year = ui->mainTable->item(currentRow,5)->text().toUInt()
+                            - ui->mainTable->item(currentRow,4)->text().toUInt();
+                   details += QString::number(year) + " years old when ";
+                   if(ui->mainTable->item(currentRow, 3)->text() == "Female"){
+                       details += " she ";
+                   }
+                   else{
+                       details += " he ";
+                   }
+                   details += " died. ";
+                 }
 
 
-          details +=  ui->mainTable->item(currentRow, 1)->text() + " " +
-                  ui->mainTable->item(currentRow, 2)->text() + " was best known for \n"
-                  + ui->mainTable->item(currentRow, 6)->text();
+         details +=  ui->mainTable->item(currentRow, 1)->text() + " " +
+                 ui->mainTable->item(currentRow, 2)->text() + " was best known for "
+                 + ui->mainTable->item(currentRow, 6)->text();
 
-           ui->detailsLabel->setText(details);
+         ui->detailsLabel->setText(details);
+       }
+        if( ui->computerRadioButton->isChecked() ){
+            QString compDetails = "Name: " + ui->mainTable->item(currentRow, 1)->text() + "\n";
+            compDetails += "Type: " + ui->mainTable->item(currentRow, 2)->text() + "\n";
+            if(ui->mainTable->item(currentRow, 3)->text() == "Yes"){
+                compDetails += ui->mainTable->item(currentRow,1)->text() + " was built " +
+                               ui->mainTable->item(currentRow, 4)->text() + ".";
+            }
+            else{
+                compDetails += "It was not built.";
+            }
+
+
+            ui->detailsLabel->setText(compDetails);
         }
-         if( ui->computerRadioButton->isChecked() ){
-             QString compDetails = "Name: " + ui->mainTable->item(currentRow, 1)->text() + "\n";
-             compDetails += "Type: " + ui->mainTable->item(currentRow, 2)->text() + "\n";
-             if(ui->mainTable->item(currentRow, 3)->text() == "Yes"){
-                 compDetails += ui->mainTable->item(currentRow,1)->text() + " was built " +
-                                ui->mainTable->item(currentRow, 4)->text() + ".\n";
-             }
-             else{
-                 compDetails += "It was not built.\n";
-             }
+        if( ui->relationRadioButton->isChecked() ){
+           QString reDetails = ui->mainTable->item(currentRow, 1)->text() + " worked on " +
+                               ui->mainTable->item(currentRow, 3)->text();
 
-
-             ui->detailsLabel->setText(compDetails);
-         }
-         if( ui->relationRadioButton->isChecked() ){
-
-         }
-
-     }
-
+           ui->detailsLabel->setText(reDetails);
+        }
+    }
 }
 
 void MainWindow::on_addComputer_triggered()
 {
+
+}
+
+
+void MainWindow::on_linkLabel_linkActivated(const QString &link)
+{
+    int indexRow=ui->mainTable->currentRow();
+    QString bufferName = ui->mainTable->item(indexRow, 1)->text() + "+" +
+                         ui->mainTable->item(indexRow, 2)->text();
+
+    bufferName.replace(" ","+");
+    bufferName = GOOGLE_SEARCH + bufferName;
+    QDesktopServices::openUrl(QUrl("http://google.com"));
+
+    //ui->linkLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    //ui->linkLabel->setOpenExternalLinks(true);
 
 }
