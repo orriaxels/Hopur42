@@ -156,22 +156,40 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="toolTip">
+             <string>Ctrl + D / Delete</string>
+            </property>
             <property name="text">
              <string>Remove</string>
+            </property>
+            <property name="shortcut">
+             <string>Ctrl+D, Del</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="buttonEdit">
+            <property name="toolTip">
+             <string>Ctrl + E</string>
+            </property>
             <property name="text">
              <string>Edit</string>
+            </property>
+            <property name="shortcut">
+             <string>Ctrl+E</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="buttunAdd">
+            <property name="toolTip">
+             <string>Ctrl + N</string>
+            </property>
             <property name="text">
              <string>Add</string>
+            </property>
+            <property name="shortcut">
+             <string>Ctrl+N</string>
             </property>
            </widget>
           </item>
@@ -293,10 +311,22 @@
    <property name="text">
     <string>Scientist</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WidgetShortcut</enum>
+   </property>
   </action>
   <action name="addComputer">
    <property name="text">
     <string>Computer</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WidgetWithChildrenShortcut</enum>
    </property>
   </action>
   <action name="addRelation">

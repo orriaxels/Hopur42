@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Add Computer</string>
   </property>
   <widget class="QLabel" name="compCreatedAddLabel">
    <property name="geometry">
@@ -218,8 +218,10 @@
     <string>Close</string>
    </property>
   </widget>
-  <zorder>layoutWidget</zorder>
-  <zorder>layoutWidget_2</zorder>
+  <zorder>nameCompLineEdit</zorder>
+  <zorder>addCompToDB</zorder>
+  <zorder>clearAddComp</zorder>
+  <zorder>exitCompAddWindow</zorder>
   <zorder>nameAddCompLabel</zorder>
   <zorder>compCreatedAddLabel</zorder>
   <zorder>builtYearAddSpinBox</zorder>
