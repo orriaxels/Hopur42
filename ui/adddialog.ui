@@ -74,7 +74,7 @@
     </layout>
    </item>
    <item row="1" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="5,5,20">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="5,8,17">
      <property name="topMargin">
       <number>5</number>
      </property>
