@@ -17,8 +17,8 @@ const QString GOOGLE_SEARCH = "http://www.google.com/search?q=";
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
+    ui(new Ui::MainWindow){
+
     ui->setupUi(this);
 
     intilizeScientistTable();
@@ -26,22 +26,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
     delete ui;
 }
 
-void MainWindow::on_scientistRadioButton_toggled(bool checked)
-{
-
+void MainWindow::on_scientistRadioButton_toggled(bool checked){
     intilizeScientistTable();
     displayScientistList( services.searchScientists( ui->lineEdit->text() ) );
-
 }
 
 void MainWindow::intilizeScientistTable(){
-
-    ui->mainTable->verticalHeader()->setVisible(false);
 
     ui->mainTable->setColumnCount(7);
     ui->mainTable->setColumnWidth(0,0);
@@ -106,20 +100,13 @@ void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
     //láta forritið velja fyrstu línuna í öllum töflunum
 }
 
-void MainWindow::on_computerRadioButton_toggled(bool checked)
-{
+void MainWindow::on_computerRadioButton_toggled(bool checked){
     intilizeComputerTable();
-    if(ui->lineEdit->text() == ""){
-        displayComputerList(services.getSortedComputerList());
-    }
-    else{
-        displayComputerList( services.searchComputers( ui->lineEdit->text() ) );
-    }
+    displayComputerList( services.searchComputers( ui->lineEdit->text() ) );
 }
 
 void MainWindow::intilizeComputerTable(){
 
-    ui->mainTable->verticalHeader()->setVisible(false);
     ui->mainTable->setColumnCount(5);
     ui->mainTable->setColumnWidth(0,0);
     ui->mainTable->setColumnWidth(1,200);
@@ -171,7 +158,6 @@ void MainWindow::on_relationRadioButton_toggled(bool checked){
 
 void MainWindow::intilizeRelationTable(){
 
-    ui->mainTable->verticalHeader()->setVisible(false);
     ui->mainTable->setColumnCount(4);
 	ui->mainTable->setColumnWidth(0,0);
     ui->mainTable->setColumnWidth(1,300);
