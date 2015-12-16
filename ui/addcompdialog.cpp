@@ -188,7 +188,6 @@ void AddCompDialog::confirmEdit() {
     if (addComputerConfirm.clickedButton() == pButtonYes) {
     	Computer updatedComputer(idOfComputer, computerName.toStdString(),
     	                         type.toStdString(), built, yearBuilt);
-
     	if (services.updateComputer(updatedComputer)) {
     	    QMessageBox::information(0, "Added to database",
     	                             "Entry sucsessfully updated");

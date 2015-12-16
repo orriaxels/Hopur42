@@ -33,6 +33,9 @@ void MainWindow::on_scientistRadioButton_toggled(bool checked) {
 }
 
 void MainWindow::intilizeScientistTable() {
+    ui->buttunAdd->setText("Add scientist...");
+    ui->buttonEdit->setText("Edit scientist...");
+    ui->buttunRemove->setText("Remove scientist...");
     ui->detailsLabel->setText("Select entery for more information.");
     ui->buttonEdit->setEnabled(true);
     ui->lineEdit->setEnabled(true);
@@ -106,6 +109,9 @@ void MainWindow::on_computerRadioButton_toggled(bool checked) {
 }
 
 void MainWindow::intilizeComputerTable() {
+    ui->buttunAdd->setText("Add computer...");
+    ui->buttonEdit->setText("Edit computer...");
+    ui->buttunRemove->setText("Remove computer...");
     ui->detailsLabel->setText("Select entery for more information.");
     ui->buttonEdit->setEnabled(true);
     ui->lineEdit->setEnabled(true);
@@ -161,6 +167,9 @@ void MainWindow::on_relationRadioButton_toggled(bool checked) {
 }
 
 void MainWindow::intilizeRelationTable() {
+    ui->buttunAdd->setText("Add relation...");
+    ui->buttonEdit->setText("Edit relation...");
+    ui->buttunRemove->setText("Remove relation...");
     ui->detailsLabel->setText("Select entery for more information.");
     ui->buttonEdit->setEnabled(false);
     ui->lineEdit->setEnabled(false);
@@ -280,8 +289,7 @@ void MainWindow::on_buttunRemove_clicked() {
         		if (services.removeScientist(id)) {
         		    ui->statusBar->showMessage("Succsessfully removed " + firstName
                                     + " " + lastName + " from the database.",5000);
-        		    displayScientistList(services.searchScientists(ui->lineEdit->
-        		                                                   text()));
+        		    displayScientistList(services.searchScientists(ui->lineEdit->text()));
         		}
         		else {
         		    ui->statusBar->showMessage( "Unable to remove " + firstName
@@ -372,12 +380,14 @@ void MainWindow::on_buttonEdit_clicked() {
     	    AddDialog modify(idScientist);
     	    modify.setModal(true);
     	    modify.exec();
+            displayScientistList(services.searchScientists(ui->lineEdit->text()));
     	}
     	else if (ui->computerRadioButton->isChecked()) {
     	    int idComputer = ui->mainTable->item(indexRow, 0)->text().toUInt();
     	    AddCompDialog modify(idComputer);
     	    modify.setModal(true);
     	    modify.exec();
+            displayComputerList(services.searchComputers(ui->lineEdit->text()));
     	}
     }
     else {

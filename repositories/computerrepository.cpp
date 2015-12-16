@@ -30,14 +30,14 @@ bool Computerrepository::addToDatabase(Computer newComp) {
 bool Computerrepository::updateComputer(Computer computerUpdate) {
     QSqlQuery query;
 
-    int id             = computerUpdate.getId();
+    int     id         = computerUpdate.getId();
     QString name       = QString::fromStdString((computerUpdate.getName()));
     int     builtY     = computerUpdate.getBuildYear();
     QString type       = QString::fromStdString((computerUpdate.getType()));
     bool    builtOrNot = computerUpdate.getBuild();
 
-    query.prepare("UPDATE Scientists SET Name=:Name, YearBuilt=:YearBuilt,"
-                  "Type=Type:, BuiltOrNot=:BuiltOrNot WHERE id=:id");
+    query.prepare("UPDATE Computers SET Name=:Name, YearBuilt=:YearBuilt,"
+                        " Type=:Type, BuiltOrNot=:BuiltOrNot WHERE id=:id");
     query.bindValue(":id",         id);
     query.bindValue(":Name",       name);
     query.bindValue(":YearBuilt",  builtY);
@@ -54,14 +54,8 @@ bool Computerrepository::removeComputer(int idToRemove) {
     query.bindValue(":id", idToRemove);
 
     if (query.exec()) {
-    	if (removeRelationComputers(idToRemove)) {
-    	    return true;
-    	}
-    	else {
-    	    query.prepare("UPDATE Scientists SET Deleted=0 WHERE id=:id");
-    	    query.bindValue(":id", idToRemove);
-    	    query.exec();
-    	}
+    	removeRelationComputers(idToRemove);
+    	return true;
     }
 
     return false;
