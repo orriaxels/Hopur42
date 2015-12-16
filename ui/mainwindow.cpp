@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QModelIndex>
 
 const QString GOOGLE_SEARCH = "http://www.google.com/search?q=";
 
@@ -96,8 +97,10 @@ void MainWindow::displayScientistList(std::vector<Scientist> listToDisplay){
         ui->mainTable->setItem(i, 6, new QTableWidgetItem(known));
 
     }
+
+    QModelIndex selection = ui->mainTable->model()->index(0,0);
+    ui->mainTable->selectionModel()->select(selection, QItemSelectionModel::Select);
     ui->mainTable->setSortingEnabled(true);
-    //láta forritið velja fyrstu línuna í öllum töflunum
 }
 
 void MainWindow::on_computerRadioButton_toggled(bool checked){
@@ -148,6 +151,9 @@ void MainWindow::displayComputerList(std::vector<Computer> listToDisplay){
         ui->mainTable->item(i,3)->setTextAlignment(Qt::AlignCenter);
         ui->mainTable->setItem(i, 4, new QTableWidgetItem(builtYear));
     }
+
+    QModelIndex selection = ui->mainTable->model()->index(0,0);
+    ui->mainTable->selectionModel()->select(selection, QItemSelectionModel::Select);
     ui->mainTable->setSortingEnabled(true);
 }
 
@@ -199,6 +205,9 @@ void MainWindow::displayRelationTable(){
 	      }
 		}
 	  }
+
+      QModelIndex selection = ui->mainTable->model()->index(0,0);
+      ui->mainTable->selectionModel()->select(selection, QItemSelectionModel::Select);
       ui->mainTable->setSortingEnabled(true);
 }
 
