@@ -27,6 +27,9 @@
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QRadioButton" name="scientistRadioButton">
+            <property name="toolTip">
+             <string>1</string>
+            </property>
             <property name="text">
              <string>Scientists</string>
             </property>
@@ -40,6 +43,9 @@
           </item>
           <item>
            <widget class="QRadioButton" name="computerRadioButton">
+            <property name="toolTip">
+             <string>2</string>
+            </property>
             <property name="text">
              <string>Computers</string>
             </property>
@@ -50,6 +56,9 @@
           </item>
           <item>
            <widget class="QRadioButton" name="relationRadioButton">
+            <property name="toolTip">
+             <string>3</string>
+            </property>
             <property name="text">
              <string>Relation</string>
             </property>
@@ -94,6 +103,9 @@
       </item>
       <item>
        <widget class="QTableWidget" name="mainTable">
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
@@ -215,7 +227,7 @@
             <string>Add</string>
            </property>
            <property name="shortcut">
-            <string>Ctrl+A</string>
+            <string>Ctrl+N</string>
            </property>
            <property name="checkable">
             <bool>false</bool>
@@ -262,13 +274,13 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>Ctrl + D / Delete</string>
+            <string>Delete</string>
            </property>
            <property name="text">
             <string>Remove</string>
            </property>
            <property name="shortcut">
-            <string>Ctrl+D, Del</string>
+            <string>Del</string>
            </property>
           </widget>
          </item>
@@ -330,7 +342,16 @@
    <addaction name="menuFile"/>
    <addaction name="menuAbout"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <italic>false</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+  </widget>
   <action name="actionAbout_us">
    <property name="text">
     <string>About us</string>

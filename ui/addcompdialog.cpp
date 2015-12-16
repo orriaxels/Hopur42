@@ -10,36 +10,36 @@
 
 using namespace std;
 
-AddCompDialog::AddCompDialog(int id, QWidget *parent) :
-     QDialog(parent),
-     ui(new Ui::AddCompDialog){
-     ui->setupUi(this);
-     idOfComputer=id;
+AddCompDialog::AddCompDialog(int id, QWidget *parent) :QDialog(parent),
+    ui(new Ui::AddCompDialog) {
+
+    ui->setupUi(this);
+    idOfComputer = id;
 
     ui->radioYes->setChecked(true);
     ui->builtYearSpinBox->setMinimum(1000);
     ui->builtYearSpinBox->setMaximum(QDate::currentDate().year());
 
     if (idOfComputer == 0) {
-  	  setUpForAdd();
+       setUpForAdd();
     }
-    else{
-  	  setUpForEdit();
+    else {
+       setUpForEdit();
     }
 }
 
-AddCompDialog::~AddCompDialog(){
+AddCompDialog::~AddCompDialog() {
     delete ui;
 }
 
-void AddCompDialog::setUpForAdd(){
+void AddCompDialog::setUpForAdd() {
     ui->buttonAdd->setText("Add");
     ui->builtYearSpinBox->setValue(1900);
 }
 
-void AddCompDialog::setUpForEdit(){
+void AddCompDialog::setUpForEdit() {
     ui->buttonAdd->setText("Edit");
-    QString  computerQuery = QString::number(idOfComputer);
+    QString computerQuery = QString::number(idOfComputer);
     editComputer = (services.searchComputers("?? id=" + computerQuery)).at(0);
 
     QString name       = QString::fromStdString((editComputer.getName()));
@@ -50,166 +50,166 @@ void AddCompDialog::setUpForEdit(){
     ui->lineEditName->setText(name);
     ui->builtYearSpinBox->setValue(builtY);
 
-    if(builtOrNot){
+    if (builtOrNot) {
         ui->radioYes->setChecked(true);
     }
-    else{
+    else {
         ui->radioNo->setChecked(true);
         ui->builtYearSpinBox->setEnabled(false);
     }
 
-    if(type=="Mechanical"){
+    if (type == "Mechanical") {
         ui->comboType->setCurrentIndex(1);
     }
-    else if(type=="Electronic"){
+    else if (type == "Electronic") {
         ui->comboType->setCurrentIndex(2);
     }
-    else if(type=="Electro-Mechanical"){
+    else if (type == "Electro-Mechanical") {
         ui->comboType->setCurrentIndex(3);
     }
-    else if(type=="Transistorized"){
+    else if (type == "Transistorized") {
         ui->comboType->setCurrentIndex(4);
     }
-    else{
+    else {
         ui->comboType->setCurrentIndex(0);
     }
 }
 
+void AddCompDialog::on_buttonAdd_clicked() {
+    QString computerName = ui->lineEditName->text().simplified();
 
- void AddCompDialog::on_buttonAdd_clicked(){
-    QString computerName = ui->lineEditName->text();
-    computerName.simplified();
-
-     if(computerName.size() < 1){
-         QMessageBox::warning(0, "Error","Name field is empty");
-     }
-     else if(ui->comboType->currentIndex()  ==0){
-         QMessageBox::warning(0,"Error", "Choose computer type");
-     }
-     else{
-         if(idOfComputer==0){
-             confirmNew();
-         }
-         else{
-             confirmEdit();
-         }
-     }
+    if (computerName== "") {
+        QMessageBox::warning(0, "Error", "Name field is empty");
+    }
+    else if (ui->comboType->currentIndex()  == 0) {
+        QMessageBox::warning(0, "Error", "Choose computer type");
+    }
+    else {
+    	if (idOfComputer == 0) {
+    	    confirmNew();
+    	}
+    	else {
+    	    confirmEdit();
+    	}
+    }
 }
 
-
-void AddCompDialog::confirmNew(){
+void AddCompDialog::confirmNew() {
     QString type         = ui->comboType->currentText(),
-            computerName = ui->lineEditName->text();
-   computerName.simplified();
+            computerName = ui->lineEditName->text().simplified(),
+            builtString, confirmationText, newComputer;
     bool built = ui->radioYes->isChecked();
-    int yearBuilt;
+    int  yearBuilt;
 
-    if(built){
-        yearBuilt= ui->builtYearSpinBox->value();
+    if (built) {
+        yearBuilt   = ui->builtYearSpinBox->value();
+        builtString = "Yes.";
     }
-    else{
-       yearBuilt=0;
+    else {
+        yearBuilt   = 0;
+        builtString = "Nope.";
     }
-    QString confirmationText;
-    confirmationText = QString("Confirm \n\nName: %1\nWhen was it built:"
-                       " %2\n""Type: %3\ \n\nAre you sure you want to add"
-                       " this to the database ?").arg(computerName).
-                       arg(built).arg(type);
+    newComputer = "Name: " + computerName + "\nType: " + type +
+                      "\nWas it built: " + builtString + "\n";
+
+    if (built) {
+        newComputer += "When: " + QString::number(yearBuilt) + "\n\n";
+    }
+    confirmationText=newComputer+" Are you sure you want to add"
+                                     " this to the database ?";
 
     QMessageBox addComputerConfirm;
     addComputerConfirm.setText(confirmationText);
     addComputerConfirm.setWindowTitle("Confirm");
-    QAbstractButton* pButtonYes = addComputerConfirm.addButton(tr("Yes"), QMessageBox::YesRole);
+    QAbstractButton *pButtonYes = addComputerConfirm.addButton(tr("Yes"), QMessageBox::YesRole);
     addComputerConfirm.addButton(tr("No"), QMessageBox::NoRole);
     addComputerConfirm.exec();
 
 
-    if(addComputerConfirm.clickedButton() == pButtonYes){
+    if (addComputerConfirm.clickedButton() == pButtonYes) {
+    	if (services.createComputerToAdd(computerName.toStdString(),
+    	                                 type.toStdString(), built, yearBuilt)) {
 
-        if(services.createComputerToAdd(computerName.toStdString(), type.toStdString(), built, yearBuilt)){
-           QMessageBox::information(0, "Added to database",
-                                 "Entry sucsessfully added into database");
-        on_buttonReset_clicked();
-      }
-      else{
-        QMessageBox::warning(0, "Error",
-                             "Error! \n\nUnable to add to database");
-      }
-
+    	    QMessageBox::information(0, "Added to database", "Entry sucsessfully added into database");
+    	    on_buttonReset_clicked();
+    	}
+    	else {
+    	    QMessageBox::warning(0, "Error", "Error! \n\nUnable to add to database");
+    	}
     }
 }
 
-void AddCompDialog::confirmEdit(){
+void AddCompDialog::confirmEdit() {
     QString type         = ui->comboType->currentText().simplified(),
             computerName = ui->lineEditName->text().simplified(),
             builtString, confirmationText, oldComputer, updatedComptuer;
     bool built = ui->radioYes->isChecked();
-    int yearBuilt;
-    if(built){
-        yearBuilt= ui->builtYearSpinBox->value();
-        builtString="Yes.";
+    int  yearBuilt;
+
+    if (built) {
+        yearBuilt   = ui->builtYearSpinBox->value();
+        builtString = "Yes.";
     }
-    else{
-       yearBuilt=0;
-       builtString="Nope.";
+    else {
+        yearBuilt   = 0;
+        builtString = "Nope.";
     }
-    updatedComptuer = "Name: "+computerName+"\nType: "+type+
-                      "\nWas it built: "+builtString+"\n";
-    if(built){
-        updatedComptuer+="When: "+ QString::number(yearBuilt)+ "\n";
+    updatedComptuer = "Name: " + computerName + "\nType: " + type +
+                      "\nWas it built: " + builtString + "\n";
+
+    if (built) {
+        updatedComptuer += "When: " + QString::number(yearBuilt) + "\n";
     }
 
 
-    oldComputer = "Name: "+QString::fromStdString( editComputer.getName())
-               +"\nType: "+QString::fromStdString( editComputer.getType())
-               +"\nWas it built: ";
+    oldComputer = "Name: " + QString::fromStdString(editComputer.getName())
+                  + "\nType: " + QString::fromStdString(editComputer.getType())
+                  + "\nWas it built: ";
 
-    if(editComputer.getBuild()){
-        oldComputer+="Yes.\nWhen: " + QString::number(editComputer.getBuildYear()) +"\n\n";
+    if (editComputer.getBuild()) {
+        oldComputer += "Yes.\nWhen: " + QString::number(editComputer.getBuildYear()) + "\n\n";
     }
-    else{
-        oldComputer+="Nope.\n\n";
+    else {
+	       oldComputer += "Nope.\n\n";
     }
 
-    confirmationText= QString("Confirm change from:\n\n"+oldComputer+"To:\n"+updatedComptuer+"\nAre you sure you want to update?");
+    confirmationText = QString(
+        "Confirm change from:\n\n" + oldComputer + "To:\n" + updatedComptuer +
+        "\nAre you sure you want to update?");
 
 
     QMessageBox addComputerConfirm;
     addComputerConfirm.setText(confirmationText);
     addComputerConfirm.setWindowTitle("Confirm");
-    QAbstractButton* pButtonYes = addComputerConfirm.addButton(tr("Yes"), QMessageBox::YesRole);
+    QAbstractButton *pButtonYes = addComputerConfirm.addButton(tr("Yes"), QMessageBox::YesRole);
     addComputerConfirm.addButton(tr("No"), QMessageBox::NoRole);
     addComputerConfirm.exec();
 
-    if(addComputerConfirm.clickedButton() == pButtonYes){
-       Computer updatedComputer( idOfComputer,
-                                 computerName.toStdString(),
-                                 type.toStdString(),
-                                 built,
-                                 yearBuilt);
-        if(services.updateComputer(updatedComputer)){
-           QMessageBox::information(0, "Added to database",
-                                 "Entry sucsessfully added into database");
-           on_buttonReset_clicked();
-      }
-      else{
-        QMessageBox::warning(0, "Error",
-                             "Error! \n\nUnable to add to database");
-      }
+    if (addComputerConfirm.clickedButton() == pButtonYes) {
+    	Computer updatedComputer(idOfComputer, computerName.toStdString(),
+    	                         type.toStdString(), built, yearBuilt);
+
+    	if (services.updateComputer(updatedComputer)) {
+    	    QMessageBox::information(0, "Added to database",
+    	                             "Entry sucsessfully updated");
+    	    on_buttonReset_clicked();
+    	}
+    	else {
+    	    QMessageBox::warning(0, "Error", "Error! \n\nUnable to add to database");
+    	}
     }
+    this->close();
 }
 
-
-
-void AddCompDialog::on_radioYes_clicked(){
+void AddCompDialog::on_radioYes_clicked() {
     ui->builtYearSpinBox->setEnabled(true);
 }
 
-void AddCompDialog::on_radioNo_clicked(){
+void AddCompDialog::on_radioNo_clicked() {
     ui->builtYearSpinBox->setEnabled(false);
 }
 
-void AddCompDialog::on_buttonReset_clicked(){
+void AddCompDialog::on_buttonReset_clicked() {
     ui->lineEditName->clear();
     ui->radioYes->setChecked(true);
     ui->radioNo->setChecked(false);

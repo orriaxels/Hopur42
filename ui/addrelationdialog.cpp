@@ -6,9 +6,9 @@
 #include <QStringList>
 #include <QMessageBox>
 
-AddRelationDialog::AddRelationDialog(QWidget *parent) :
-    QDialog(parent),
+AddRelationDialog::AddRelationDialog(QWidget *parent) :QDialog(parent),
     ui(new Ui::AddRelationDialog){
+
     ui->setupUi(this);
 
     intilizeTables();

@@ -354,5 +354,22 @@
   <tabstop>exitAddWindow</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>exitAddWindow</sender>
+   <signal>clicked()</signal>
+   <receiver>AddDialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>328</x>
+     <y>324</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>174</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -11,8 +11,7 @@ namespace Ui {
         class AddRelationDialog;
 }
 
-class AddRelationDialog : public QDialog
-{
+class AddRelationDialog : public QDialog{
         Q_OBJECT
 
 public:
